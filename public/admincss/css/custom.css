@@ -1,0 +1,288 @@
+/* Estilos Globais */
+body {
+    font-family: 'Muli', sans-serif;
+    color: #fff;
+}
+
+/* Exceção para páginas específicas */
+body:not(.home-page):not(.order-page) .page-content {
+    background-color: #2d3035;
+}
+
+.page-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #3d4148;
+    padding-bottom: 15px;
+}
+
+.page-header h2 {
+    color: #9935dc;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Cards e Containers */
+.card {
+    background-color: #343a40;
+    border: 1px solid #3d4148;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #2d3035;
+    border-bottom: 1px solid #3d4148;
+    padding: 15px 20px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Tabelas */
+.table-responsive {
+    background-color: #343a40;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #2d3035;
+    color: #fff;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-bottom: 2px solid #3d4148;
+}
+
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #3d4148;
+    vertical-align: middle;
+}
+
+.table tr:hover {
+    background-color: #2d3035;
+}
+
+/* Botões */
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #9935dc;
+    border-color: #9935dc;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #8024c0;
+    border-color: #8024c0;
+    color: #fff;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Formulários */
+.form-control {
+    background-color: #2d3035;
+    border: 1px solid #3d4148;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    background-color: #2d3035;
+    border-color: #9935dc;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-in-progress {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.status-on-the-way {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.status-delivered {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Modais */
+.modal-content {
+    background-color: #343a40;
+    border: 1px solid #3d4148;
+}
+
+.modal-header {
+    border-bottom: 1px solid #3d4148;
+    padding: 15px 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #3d4148;
+    padding: 15px 20px;
+}
+
+.close {
+    color: #fff;
+    text-shadow: none;
+    opacity: 0.8;
+}
+
+.close:hover {
+    color: #fff;
+    opacity: 1;
+}
+
+/* Imagens */
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #3d4148;
+}
+
+/* Pesquisa e Filtros */
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-input {
+    background-color: #2d3035;
+    border: 1px solid #3d4148;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #9935dc;
+}
+
+/* Paginação */
+.pagination {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.pagination .page-item .page-link {
+    background-color: #2d3035;
+    border-color: #3d4148;
+    color: #fff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #9935dc;
+    border-color: #9935dc;
+}
+
+/* Alertas e Notificações */
+.alert {
+    border-radius: 4px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Melhorias para outras páginas admin */
+.admin-content:not(.home-page):not(.order-page) {
+    background-color: #2d3035;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.admin-card {
+    background-color: #343a40;
+    border: 1px solid #3d4148;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.admin-title {
+    color: #9935dc;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .table-responsive {
+        padding: 10px;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+}
