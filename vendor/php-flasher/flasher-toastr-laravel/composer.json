@@ -1,0 +1,54 @@
+{
+    "name": "php-flasher/flasher-toastr-laravel",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://php-flasher.io",
+    "description": "Leverage Toastr for stylish toast notifications in Laravel with PHPFlasher. Add Toastr's sleek notifications to your Laravel projects effortlessly.",
+    "keywords": [
+        "laravel",
+        "toastr",
+        "flash-notifications",
+        "dynamic-notifications",
+        "phpflasher",
+        "user-feedback",
+        "open-source"
+    ],
+    "support": {
+        "issues": "https://github.com/php-flasher/php-flasher/issues",
+        "source": "https://github.com/php-flasher/php-flasher"
+    },
+    "authors": [
+        {
+            "name": "Younes ENNAJI",
+            "email": "younes.ennaji.pro@gmail.com",
+            "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "php-flasher/flasher-laravel": "^2.1.1",
+        "php-flasher/flasher-toastr": "^2.1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flasher\\Toastr\\Laravel\\": ""
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flasher\\Toastr\\Laravel\\FlasherToastrServiceProvider"
+            ],
+            "aliases": {
+                "Toastr": "Flasher\\Toastr\\Laravel\\Facade\\Toastr"
+            }
+        }
+    }
+}

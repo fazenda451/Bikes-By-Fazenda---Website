@@ -1,0 +1,51 @@
+{
+    "name": "php-flasher/flasher-toastr",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://php-flasher.io",
+    "description": "PHPFlasher Toastr - An extension for PHPFlasher to integrate Toastr notifications seamlessly in Laravel or Symfony. Enhances UX with elegant, responsive toast messages.",
+    "keywords": [
+        "flash-messages",
+        "php-notification-system",
+        "laravel-notification",
+        "symfony-notification",
+        "user-feedback-tools",
+        "web-application-notifications",
+        "php-user-interface",
+        "customizable-alerts-php",
+        "interactive-web-notifications",
+        "php-messaging-library",
+        "user-engagement-php"
+    ],
+    "support": {
+        "issues": "https://github.com/php-flasher/php-flasher/issues",
+        "source": "https://github.com/php-flasher/php-flasher"
+    },
+    "authors": [
+        {
+            "name": "Younes ENNAJI",
+            "email": "younes.ennaji.pro@gmail.com",
+            "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "php-flasher/flasher": "^2.1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flasher\\Toastr\\Prime\\": ""
+        },
+        "files": [
+            "functions.php",
+            "helpers.php"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
