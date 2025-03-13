@@ -7,7 +7,7 @@
       </a>
 
       <!-- Botão de toggle para menu mobile -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -36,10 +36,12 @@
           @if (Route::has('login'))
             @auth
               <div class="dropdown">
-                <a class="btn btn-link dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-expanded="false">
+                <a class="btn btn-link dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-user"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <a class="dropdown-item" href="{{url('profile')}}">Meu Perfil</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{url('orders')}}">Meus Pedidos</a>
                   <div class="dropdown-divider"></div>
                   <form method="POST" action="{{ route('logout') }}">

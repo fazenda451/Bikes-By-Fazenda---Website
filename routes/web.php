@@ -28,7 +28,8 @@ Route::get('/dashboard', [HomeController::class, 'login_home'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/orders', [HomeController::class, 'myorders'])
-    ->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified'])
+    ->name('orders');
 
 Route::post('/update_quantity', [HomeController::class, 'update_quantity'])
     ->middleware(['auth', 'verified']);
@@ -37,9 +38,9 @@ Route::post('/update_quantity', [HomeController::class, 'update_quantity'])
      // Rotas de Perfil //
     /////////////////////
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
