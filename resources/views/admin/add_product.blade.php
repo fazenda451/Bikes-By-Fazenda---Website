@@ -1,133 +1,294 @@
 <!DOCTYPE html>
-<html>
-  <head> 
-   
-  @include('admin.css')
+<html lang="pt">
+<head> 
+    @include('admin.css')
+    <style type="text/css">
 
-  <style type="text/css">
+        body{
+            background-color: #2d3035;
+        }
 
-    .div_deg
-    {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 60px;
-    }
+        .page-content {
+            background-color: #000000;
+        }
 
+        .page-header {
+            background-color: #2d3035;
+        }
 
-    h1
-    {
-        color: white;
-    }
+        .container-fluid {
+            background-color: #2d3035;
+        }
 
-    label
-    {
-        display: inline-block;
-        width: 200px;
-        font-size: 18px !important;
-        color: white!important;
-    }
+        section {
+            background-color: #2d3035;
+        }
 
-    input[type='text']
-    {
-        width: 350px;
-        height: 50px;
-    }
+        h2.h5 {
+            color: #9935dc;
+        }
 
-    textarea
-    {
-        width: 450px;
-        height: 80px;
-    }
+        .no-margin-bottom {
+            margin-bottom: 0;
+        }
 
-
-    .input_deg
-    {
-        padding: 15px;
-    }
-
-  </style>
-  
+        .form-container {
+            margin: 20px;
+            background-color: #2d3035;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .page-title {
+            color: #9935dc;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .form-section {
+            background-color: #343a40;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #3d4148;
+        }
+        
+        .section-title {
+            color: #9935dc;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #3d4148;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        
+        .form-group {
+            flex: 0 0 calc(50% - 20px);
+            margin: 0 10px 20px;
+        }
+        
+        @media (max-width: 992px) {
+            .form-group {
+                flex: 0 0 calc(50% - 20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-group {
+                flex: 0 0 calc(100% - 20px);
+            }
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #adb5bd;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            height: 40px;
+            background-color: #2d3035;
+            border: 1px solid #3d4148;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #9935dc;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .form-hint {
+            display: block;
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .btn-primary {
+            background-color: #9935dc;
+            border-color: #9935dc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #8429c5;
+            border-color: #8429c5;
+        }
+        
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-upload-input {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 40px;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-upload-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1;
+            height: 40px;
+            padding: 8px 12px;
+            background-color: #2d3035;
+            border: 1px solid #3d4148;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-upload-text {
+            margin-left: 5px;
+        }
+    </style>
 </head>
-  <body>
-
+<body>
     @include('admin.header')
+    @include('admin.sidebar')
     
-   @include('admin.sidebar')
-      <!-- Sidebar Navigation end-->
-      <div class="page-content">
+    <div class="page-content">
         <div class="page-header">
+            <div class="container-fluid">
+                <h2 class="h5 no-margin-bottom">Adicionar Novo Produto</h2>
+              </div>
+            </div>
+        <section class="no-padding-top no-padding-bottom">
           <div class="container-fluid">
-
-          <h1>Add Product</h1>
-           
-        <div class="div_deg">
-
-            <form action="{{url('upload_product')}}" method="Post" enctype="multipart/form-data">
-
-                @csrf
-
-                <div class="input_deg">
-                    <label>Product Title</label>
-                    <input type="text" name="title" required>
+                <div class="form-container">
+                    
+                    <form action="{{url('upload_product')}}" method="Post" enctype="multipart/form-data">
+                        @csrf
+                        
+                        <div class="form-section">
+                            <h3 class="section-title">Informações do Produto</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Título do Produto</label>
+                                    <input type="text" name="title" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Preço</label>
+                                    <input type="text" name="price" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Quantidade</label>
+                                    <input type="number" name="qty" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Tamanhos</label>
+                                    <input type="text" name="size" class="form-control" placeholder="Ex: S,M,L,XL ou 38,39,40,41,42">
+                                    <span class="form-hint">Separe os tamanhos por vírgula</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Categoria</label>
+                                    <select name="category_id" class="form-control" required>
+                                        <option value="">Selecione uma categoria</option>
+                                        @foreach($category as $category)
+                                        <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Imagem do Produto</label>
+                                    <div class="file-upload">
+                                        <input type="file" name="image" class="file-upload-input" required>
+                                        <div class="file-upload-btn">
+                                            <i class="fa fa-upload"></i>
+                                            <span class="file-upload-text">Escolher arquivo</span>
+                                        </div>
+                                    </div>
+                                    <span class="form-hint">Formatos suportados: JPG, PNG, GIF</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" style="flex: 0 0 calc(100% - 20px); margin: 0 10px 20px;">
+                                <label class="form-label">Descrição</label>
+                                <textarea name="description" class="form-control" required></textarea>
+                                <span class="form-hint">Descreva o produto detalhadamente</span>
+                            </div>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-plus-circle"></i> Adicionar Produto
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="input_deg">
-                    <label>Description</label>
-                    <textarea name="description" required></textarea>
-                </div>
-
-                <div class="input_deg">
-                    <label>Price</label>
-                    <input type="text" name="price">
-                </div>
-
-                <div class="input_deg">
-                    <label>quantity</label>
-                    <input type="number" name="qty">
-                </div>
-
-                <div class="input_deg">
-                    <label>Tamanhos (S,M,L,XL ou 38-46)</label>
-                    <input type="text" name="size" placeholder="Ex: S,M,L,XL ou 38,39,40,41,42">
-                </div>
-
-                <div class="input_deg">
-                    <label>Product category</label>
-
-                        <select name="category_id" required>
-                        <option value="">Selecione uma categoria</option>
-                        @foreach($category as $category)
-                        <option value="{{$category->id}}">{{$category->category_name}}</option>
-                        @endforeach
-                        </select>
-                </div>
-
-                <div class="input_deg">
-                    <label>Product image</label>
-                    <input type="file" name="image">
-                </div>
-
-                <div class="input_deg">
-                    <input class="btn btn-success" type="submit" value="Add Product">
-                </div>
-
-            </form>
-
-
+            </div>
         </div>
-
-
-      </div>
     </div>
+
+</section>
+    
     <!-- JavaScript files-->
-    <script src=" {{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
-    <script src=" {{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/jquery.cookie/jquery.cookie.js')}}"> </script>
-    <script src=" {{asset('admincss/vendor/chart.js/Chart.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/jquery-validation/jquery.validate.min.js')}}"></script>
-    <script src=" {{asset('admincss/js/charts-home.js')}}"></script>
-    <script src=" {{asset('admincss/js/front.js')}}"></script>
-  </body>
+    <script src="{{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"></script>
+    <script src="{{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('admincss/vendor/jquery.cookie/jquery.cookie.js')}}"></script>
+    <script src="{{asset('admincss/vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('admincss/vendor/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('admincss/js/front.js')}}"></script>
+    
+    <script>
+        // Script para mostrar o nome do arquivo selecionado
+        $(document).ready(function() {
+            $('.file-upload-input').change(function() {
+                var fileName = $(this).val().split('\\').pop();
+                if (fileName) {
+                    $('.file-upload-text').text(fileName);
+                } else {
+                    $('.file-upload-text').text('Escolher arquivo');
+                }
+            });
+        });
+    </script>
+</body>
 </html> 
