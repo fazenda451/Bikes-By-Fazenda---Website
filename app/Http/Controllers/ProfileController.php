@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $user = Auth::user();
+        $user = $request->user();
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -41,13 +42,15 @@ class ProfileController extends Controller
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->phone = $validated['phone'] ?? $user->phone;
-        $user->birth_date = $validated['birth_date'] ?? $user->birth_date;
-        $user->address = $validated['address'] ?? $user->address;
-        $user->city = $validated['city'] ?? $user->city;
-        $user->zip_code = $validated['zip_code'] ?? $user->zip_code;
+        $user->fill([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? $user->phone,
+            'birth_date' => $validated['birth_date'] ?? $user->birth_date,
+            'address' => $validated['address'] ?? $user->address,
+            'city' => $validated['city'] ?? $user->city,
+            'zip_code' => $validated['zip_code'] ?? $user->zip_code,
+        ]);
 
         if (!empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);
@@ -81,6 +84,8 @@ class ProfileController extends Controller
 
     public function show()
     {
-        return view('home.profile');
+        return view('home.profile', [
+            'user' => Auth::user()
+        ]);
     }
 }
