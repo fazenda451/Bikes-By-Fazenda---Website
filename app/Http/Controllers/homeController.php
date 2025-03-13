@@ -627,6 +627,15 @@ class homeController extends Controller
             return redirect()->back();
         }
         
+        // Obtém a quantidade solicitada (padrão: 1)
+        $requestedQuantity = $request->quantity ?? 1;
+        
+        // Verifica se a quantidade solicitada é válida
+        if ($requestedQuantity > $product->Quantity) {
+            toastr()->timeOut(10000)->closebutton()->addWarning('Quantidade solicitada excede o estoque disponível');
+            $requestedQuantity = $product->Quantity;
+        }
+        
         // Verifica se o produto já está no carrinho com o mesmo tamanho
         $existingCart = Cart::where('user_id', $user_id)
                           ->where('product_id', $id)
@@ -635,11 +644,15 @@ class homeController extends Controller
         
         if ($existingCart) {
             // Se já existe, verifica se pode incrementar a quantidade
-            if ($existingCart->quantity < $product->Quantity) {
-                $existingCart->quantity += 1;
+            $newQuantity = $existingCart->quantity + $requestedQuantity;
+            
+            if ($newQuantity <= $product->Quantity) {
+                $existingCart->quantity = $newQuantity;
                 $existingCart->save();
                 toastr()->timeOut(10000)->closebutton()->addSuccess('Produto adicionado ao carrinho com sucesso');
             } else {
+                $existingCart->quantity = $product->Quantity;
+                $existingCart->save();
                 toastr()->timeOut(10000)->closebutton()->addWarning('Quantidade máxima disponível em estoque atingida');
             }
         } else {
@@ -647,7 +660,7 @@ class homeController extends Controller
             $cart = new Cart;
             $cart->user_id = $user_id;
             $cart->product_id = $id;
-            $cart->quantity = 1;
+            $cart->quantity = $requestedQuantity;
             $cart->size = $request->size;
             $cart->save();
             toastr()->timeOut(10000)->closebutton()->addSuccess('Produto adicionado ao carrinho com sucesso');

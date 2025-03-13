@@ -317,12 +317,12 @@
             <h2 class="reset-title animate__animated animate__fadeInDown">Nova Senha</h2>
             
             <form method="POST" action="{{ route('password.store') }}" class="animate__animated animate__fadeIn animate__delay-1s">
-              @csrf
-              
-              <!-- Password Reset Token -->
-              <input type="hidden" name="token" value="{{ $request->route('token') }}">
-              
-              <!-- Email Address -->
+        @csrf
+
+        <!-- Password Reset Token -->
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+        <!-- Email Address -->
               <div class="form-group">
                 <label for="email" class="form-label">Email</label>
                 <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" readonly />
@@ -330,9 +330,9 @@
                 @error('email')
                   <div class="error-message">{{ $message }}</div>
                 @enderror
-              </div>
-              
-              <!-- Password -->
+        </div>
+
+        <!-- Password -->
               <div class="form-group">
                 <label for="password" class="form-label">Nova Senha</label>
                 <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" placeholder="Digite sua nova senha" />
@@ -345,9 +345,9 @@
                   <div class="password-strength-meter medium"></div>
                 </div>
                 <div class="password-strength-text">Força da senha: Média</div>
-              </div>
-              
-              <!-- Confirm Password -->
+        </div>
+
+        <!-- Confirm Password -->
               <div class="form-group">
                 <label for="password_confirmation" class="form-label">Confirmar Senha</label>
                 <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirme sua nova senha" />
@@ -355,8 +355,8 @@
                 @error('password_confirmation')
                   <div class="error-message">{{ $message }}</div>
                 @enderror
-              </div>
-              
+        </div>
+
               <button type="submit" class="reset-btn">
                 <i class="fas fa-key mr-2"></i> Redefinir Senha
               </button>

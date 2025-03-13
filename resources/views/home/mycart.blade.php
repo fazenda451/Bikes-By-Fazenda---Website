@@ -264,9 +264,13 @@
                         <input type="hidden" name="cart_id" value="{{$item->id}}">
                         <div class="d-flex">
                           <select name="size" class="form-control form-control-sm" style="width: auto;">
-                            @foreach(['P', 'M', 'G', 'GG', 'XG'] as $size)
-                              <option value="{{ $size }}" {{ $item->size == $size ? 'selected' : '' }}>{{ $size }}</option>
-                            @endforeach
+                            @if($item->product->size)
+                              @foreach(explode(',', $item->product->size) as $size)
+                                <option value="{{ trim($size) }}" {{ $item->size == trim($size) ? 'selected' : '' }}>{{ trim($size) }}</option>
+                              @endforeach
+                            @else
+                              <option value="{{ $item->size }}" selected>{{ $item->size }}</option>
+                            @endif
                           </select>
                           <button type="submit" class="btn btn-sm btn-secondary ms-1">Alterar</button>
                         </div>

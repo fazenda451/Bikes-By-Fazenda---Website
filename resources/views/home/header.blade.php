@@ -18,10 +18,10 @@
             <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('motorcycle.catalog') }}">Motos</a>
+            <a class="nav-link" href="{{url('/motorcycle-catalog')}}">Motos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('product.catalog') }}">Equipamentos</a>
+            <a class="nav-link" href="{{url('/product-catalog')}}">Equipamentos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Acessórios</a>
@@ -36,10 +36,11 @@
           @if (Route::has('login'))
             @auth
               <div class="dropdown">
-                <a class="btn btn-link dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-user"></i>
+                <a class="btn btn-link" href="#" role="button" onclick="toggleDropdown(event)">
+                  <i class="fa-solid fa-user"></i>
+                  <i class="fa-solid fa-caret-down" style="font-size: 0.8em; margin-left: 2px;"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-end" id="userDropdownMenu">
                   <a class="dropdown-item" href="{{url('profile')}}">Meu Perfil</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{url('orders')}}">Meus Pedidos</a>
@@ -51,7 +52,7 @@
                 </div>
               </div>
               <a href="{{url('mycart')}}" class="btn btn-link position-relative">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
                 @if(isset($count) && $count > 0)
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{$count}}
@@ -60,10 +61,10 @@
               </a>
             @else
               <a href="{{url('/login')}}" class="btn btn-link">
-                <i class="fas fa-sign-in-alt"></i>
+                <i class="fa-solid fa-right-to-bracket"></i>
               </a>
               <a href="{{url('/register')}}" class="btn btn-link">
-                <i class="fas fa-user-plus"></i>
+                <i class="fa-solid fa-user-plus"></i>
               </a>
             @endauth
           @endif
@@ -126,6 +127,16 @@
       color: #9935dc;
     }
 
+    /* Estilo para a seta do dropdown */
+    .dropdown .fa-caret-down {
+      transition: transform 0.3s ease;
+    }
+
+    /* Rotação da seta quando o dropdown está aberto */
+    .dropdown.show .fa-caret-down {
+      transform: rotate(180deg);
+    }
+
     @media (max-width: 991.98px) {
       .navbar-collapse {
         background-color: #fff;
@@ -139,4 +150,32 @@
       }
     }
   </style>
+  
+  <script>
+    function toggleDropdown(event) {
+      event.preventDefault();
+      var dropdownMenu = document.getElementById('userDropdownMenu');
+      var dropdown = event.target.closest('.dropdown');
+      
+      if (dropdownMenu.style.display === 'block') {
+        dropdownMenu.style.display = 'none';
+        dropdown.classList.remove('show');
+      } else {
+        dropdownMenu.style.display = 'block';
+        dropdown.classList.add('show');
+      }
+      
+      // Fechar o dropdown quando clicar fora dele
+      document.addEventListener('click', function closeDropdown(e) {
+        if (!e.target.closest('.dropdown')) {
+          dropdownMenu.style.display = 'none';
+          dropdown.classList.remove('show');
+          document.removeEventListener('click', closeDropdown);
+        }
+      });
+      
+      // Impedir que o clique no dropdown feche ele mesmo
+      event.stopPropagation();
+    }
+  </script>
 </header>
