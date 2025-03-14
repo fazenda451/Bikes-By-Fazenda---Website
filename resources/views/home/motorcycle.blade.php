@@ -12,6 +12,9 @@
                 @else
                   <img src="{{ asset('images/no-image.jpg') }}" alt="No image available" class="img-fluid">
                 @endif
+                @if($motorcycle->licenseType)
+                  <div class="license-badge">{{ $motorcycle->licenseType->name }}</div>
+                @endif
               </div>
               <div class="motorcycle-overlay">
                 <div class="view-details">
@@ -197,6 +200,21 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       box-shadow: 0 3px 10px rgba(153, 53, 220, 0.3);
+      z-index: 1;
+    }
+
+    .license-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(153, 53, 220, 0.85);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       z-index: 1;
     }
 

@@ -34,6 +34,20 @@
       opacity: 0.85;
     }
 
+    .license-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(230, 0, 18, 0.85);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-weight: bold;
+      z-index: 10;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
     .banner-content {
       position: absolute;
       bottom: 50px;
@@ -331,6 +345,7 @@
     .carousel-slide {
       min-width: 100%;
       height: 500px;
+      position: relative;
     }
 
     .carousel-slide img {
@@ -511,6 +526,9 @@
     @else
       <img src="{{ asset('default-image.jpg') }}" alt="Default Image">
     @endif
+    @if($data->licenseType)
+      <div class="license-badge">{{ $data->licenseType->name }}</div>
+    @endif
     <div class="banner-content">
       <h1>{{ $data->name }}</h1>
       <p>{{ Str::limit($data->description, 150) }}</p>
@@ -527,11 +545,17 @@
             @foreach($data->photos as $photo)
               <div class="carousel-slide">
                 <img src="{{ asset('motorcycles/' . $photo->image) }}" alt="{{ $data->name }}">
+                @if($data->licenseType && $loop->first)
+                  <div class="license-badge">{{ $data->licenseType->name }}</div>
+                @endif
               </div>
             @endforeach
           @else
             <div class="carousel-slide">
               <img src="{{ asset('default-image.jpg') }}" alt="Default Image">
+              @if($data->licenseType)
+                <div class="license-badge">{{ $data->licenseType->name }}</div>
+              @endif
             </div>
           @endif
         </div>

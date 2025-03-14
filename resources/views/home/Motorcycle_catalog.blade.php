@@ -170,6 +170,19 @@
       transition: transform 0.5s ease;
     }
 
+    .license-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(153, 53, 220, 0.85);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      z-index: 10;
+      font-size: 0.9rem;
+    }
+
     .motorcycle-card:hover .motorcycle-image img {
       transform: scale(1.05);
     }
@@ -452,6 +465,9 @@
                 <img src="{{ asset('motorcycles/' . $motorcycle->photos->first()->image) }}" alt="{{ $motorcycle->name }}">
               @else
                 <img src="{{ asset('images/no-image.jpg') }}" alt="No image available">
+              @endif
+              @if($motorcycle->licenseType)
+                <div class="license-badge">{{ $motorcycle->licenseType->name }}</div>
               @endif
             </div>
             <div class="motorcycle-info">
