@@ -50,4 +50,12 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the wishlist items for the user.
+     */
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

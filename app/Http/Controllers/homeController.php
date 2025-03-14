@@ -16,6 +16,8 @@ use App\Models\Order;
 
 use App\Models\Session;
 
+use App\Models\Wishlist;
+
 use Stripe;
 
 use Illuminate\Support\Facades\Auth;
@@ -678,6 +680,157 @@ class homeController extends Controller
             toastr()->timeOut(10000)->closebutton()->addSuccess('Tamanho atualizado com sucesso');
         }
         return redirect()->back();
+    }
+
+    // Método para adicionar produto à lista de desejos
+    public function add_to_wishlist($id)
+    {
+        if (Auth::id()) {
+            $user = Auth::user();
+            
+            // Verificar se o produto já está na lista de desejos
+            $wishlist = Wishlist::where('user_id', $user->id)
+                ->where('product_id', $id)
+                ->where('is_motorcycle', 0)
+                ->first();
+                
+            if (!$wishlist) {
+                Wishlist::create([
+                    'user_id' => $user->id,
+                    'product_id' => $id,
+                    'is_motorcycle' => 0
+                ]);
+                
+                return redirect()->back()->with('message', 'Produto adicionado à lista de desejos!');
+            } else {
+                return redirect()->back()->with('message', 'Este produto já está na sua lista de desejos!');
+            }
+        } else {
+            return redirect('login');
+        }
+    }
+    
+    // Método para adicionar moto à lista de desejos
+    public function add_motorcycle_to_wishlist($id)
+    {
+        if (Auth::id()) {
+            $user = Auth::user();
+            
+            // Verificar se a moto já está na lista de desejos
+            $wishlist = Wishlist::where('user_id', $user->id)
+                ->where('motorcycle_id', $id)
+                ->where('is_motorcycle', 1)
+                ->first();
+                
+            if (!$wishlist) {
+                Wishlist::create([
+                    'user_id' => $user->id,
+                    'motorcycle_id' => $id,
+                    'is_motorcycle' => 1
+                ]);
+                
+                return redirect()->back()->with('message', 'Moto adicionada à lista de desejos!');
+            } else {
+                return redirect()->back()->with('message', 'Esta moto já está na sua lista de desejos!');
+            }
+        } else {
+            return redirect('login');
+        }
+    }
+    
+    // Método para exibir a lista de desejos
+    public function mywishlist()
+    {
+        if (Auth::id()) {
+            $user = Auth::user();
+            
+            // Buscar produtos na lista de desejos
+            $wishlist_products = Wishlist::where('user_id', $user->id)
+                ->where('is_motorcycle', 0)
+                ->with('product')
+                ->get();
+                
+            // Buscar motos na lista de desejos
+            $wishlist_motorcycles = Wishlist::where('user_id', $user->id)
+                ->where('is_motorcycle', 1)
+                ->with('motorcycle')
+                ->get();
+                
+            // Contar itens no carrinho para o header
+            $count = Cart::where('user_id', $user->id)->count();
+                
+            return view('home.wishlist', compact('wishlist_products', 'wishlist_motorcycles', 'count'));
+        } else {
+            return redirect('login');
+        }
+    }
+    
+    // Método para remover item da lista de desejos
+    public function delete_wishlist_item($id)
+    {
+        if (Auth::id()) {
+            Wishlist::where('id', $id)->delete();
+            return redirect()->back()->with('message', 'Item removido da lista de desejos!');
+        } else {
+            return redirect('login');
+        }
+    }
+    
+    // Método para mover item da lista de desejos para o carrinho
+    public function move_to_cart($id)
+    {
+        if (Auth::id()) {
+            $user = Auth::user();
+            $wishlist_item = Wishlist::findOrFail($id);
+            
+            if ($wishlist_item->is_motorcycle) {
+                // Adicionar moto ao carrinho
+                $motorcycle_id = $wishlist_item->motorcycle_id;
+                
+                // Verificar se a moto já está no carrinho
+                $cart = Cart::where('user_id', $user->id)
+                    ->where('motorcycle_id', $motorcycle_id)
+                    ->where('is_motorcycle', 1)
+                    ->first();
+                    
+                if (!$cart) {
+                    Cart::create([
+                        'user_id' => $user->id,
+                        'motorcycle_id' => $motorcycle_id,
+                        'is_motorcycle' => 1,
+                        'quantity' => 1
+                    ]);
+                }
+            } else {
+                // Adicionar produto ao carrinho
+                $product_id = $wishlist_item->product_id;
+                
+                // Verificar se o produto já está no carrinho
+                $cart = Cart::where('user_id', $user->id)
+                    ->where('product_id', $product_id)
+                    ->where('is_motorcycle', 0)
+                    ->first();
+                    
+                if (!$cart) {
+                    Cart::create([
+                        'user_id' => $user->id,
+                        'product_id' => $product_id,
+                        'is_motorcycle' => 0,
+                        'quantity' => 1
+                    ]);
+                } else {
+                    $cart->quantity += 1;
+                    $cart->save();
+                }
+            }
+            
+            // Remover item da lista de desejos
+            $wishlist_item->delete();
+            
+            return redirect()->back()->with('message', 'Item movido para o carrinho!');
+        } else {
+            return redirect('login');
+        }
     }
 
 }

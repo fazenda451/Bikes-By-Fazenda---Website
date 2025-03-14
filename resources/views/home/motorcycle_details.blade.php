@@ -429,6 +429,38 @@
       margin-right: 8px;
     }
 
+    .wishlist-btn {
+      display: inline-block;
+      background-color: #fff;
+      color: #333;
+      padding: 12px 25px;
+      border-radius: 4px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: all 0.25s ease;
+      border: 1px solid #ddd;
+      width: 100%;
+      text-align: center;
+    }
+
+    .wishlist-btn:hover {
+      background-color: #f8f9fa;
+      transform: translateY(-2px);
+      color: #e60012;
+      border-color: #e60012;
+    }
+
+    .wishlist-btn i {
+      margin-right: 8px;
+      color: #e60012;
+      transition: transform 0.3s ease;
+    }
+    
+    .wishlist-btn:hover i {
+      transform: scale(1.2);
+    }
+
     .color-options {
       margin-bottom: 20px;
     }
@@ -575,6 +607,10 @@
         
         <a href="{{url('add_cart', $data->id)}}" class="add-to-cart-btn">
           <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+        </a>
+        
+        <a href="{{ route('add.motorcycle.to.wishlist', $data->id) }}" class="wishlist-btn">
+          <i class="fas fa-heart"></i> Adicionar à Lista de Desejos
         </a>
         
         @if($data->color)

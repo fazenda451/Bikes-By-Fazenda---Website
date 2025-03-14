@@ -214,6 +214,42 @@
       text-decoration: none;
     }
 
+    .btn-wishlist {
+      display: block;
+      width: 100%;
+      padding: 12px 20px;
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    .btn-wishlist:hover {
+      background-color: #f8f9fa;
+      color: #9935dc;
+      border-color: #9935dc;
+      text-decoration: none;
+    }
+
+    .btn-wishlist i {
+      color: #9935dc;
+      transition: transform 0.3s ease;
+    }
+    
+    .btn-wishlist:hover i {
+      transform: scale(1.2);
+    }
+
     .product-features {
       margin-top: 30px;
       display: flex;
@@ -393,6 +429,11 @@
                 Adicionar ao Carrinho
               </button>
             </form>
+            
+            <a href="{{ route('add.to.wishlist', $data->id) }}" class="btn-wishlist mt-3">
+              <i class="fas fa-heart"></i>
+              Adicionar à Lista de Desejos
+            </a>
             
             <div class="product-features">
               <div class="feature-item">

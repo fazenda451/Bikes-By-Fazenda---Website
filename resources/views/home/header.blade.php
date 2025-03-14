@@ -59,6 +59,10 @@
                   </span>
                 @endif
               </a>
+              <a href="{{url('wishlist')}}" class="btn btn-link position-relative">
+                <i class="fa-solid fa-heart"></i>
+                <span class="wishlist-indicator"></span>
+              </a>
             @else
               <a href="{{url('/login')}}" class="btn btn-link">
                 <i class="fa-solid fa-right-to-bracket"></i>
@@ -125,6 +129,26 @@
 
     .user-area .btn-link:hover {
       color: #9935dc;
+    }
+
+    .position-relative {
+      position: relative;
+    }
+    
+    .wishlist-indicator {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #9935dc;
+      border-radius: 50%;
+      top: 0;
+      right: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .btn-link:hover .wishlist-indicator {
+      opacity: 1;
     }
 
     /* Estilo para a seta do dropdown */

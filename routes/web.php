@@ -31,6 +31,26 @@ Route::get('/orders', [HomeController::class, 'myorders'])
     ->middleware(['auth', 'verified'])
     ->name('orders');
 
+Route::get('/wishlist', [HomeController::class, 'mywishlist'])
+    ->middleware(['auth', 'verified'])
+    ->name('wishlist');
+
+Route::get('/add-to-wishlist/{id}', [HomeController::class, 'add_to_wishlist'])
+    ->middleware(['auth', 'verified'])
+    ->name('add.to.wishlist');
+
+Route::get('/add-motorcycle-to-wishlist/{id}', [HomeController::class, 'add_motorcycle_to_wishlist'])
+    ->middleware(['auth', 'verified'])
+    ->name('add.motorcycle.to.wishlist');
+
+Route::get('/delete-wishlist-item/{id}', [HomeController::class, 'delete_wishlist_item'])
+    ->middleware(['auth', 'verified'])
+    ->name('delete.wishlist.item');
+
+Route::get('/move-to-cart/{id}', [HomeController::class, 'move_to_cart'])
+    ->middleware(['auth', 'verified'])
+    ->name('move.to.cart');
+
 Route::post('/update_quantity', [HomeController::class, 'update_quantity'])
     ->middleware(['auth', 'verified']);
 
