@@ -31,6 +31,10 @@ Route::get('/orders', [HomeController::class, 'myorders'])
     ->middleware(['auth', 'verified'])
     ->name('orders');
 
+Route::get('/loyalty-points', [HomeController::class, 'loyalty_points'])
+    ->middleware(['auth', 'verified'])
+    ->name('loyalty.points');
+
 Route::get('/wishlist', [HomeController::class, 'mywishlist'])
     ->middleware(['auth', 'verified'])
     ->name('wishlist');

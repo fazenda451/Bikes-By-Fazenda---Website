@@ -354,6 +354,64 @@
       flex: 1;
     }
 
+    /* Estilos para o sistema de pontos de fidelidade */
+    .loyalty-points {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .badge.bg-primary {
+      background-color: #9935dc !important;
+      font-size: 0.9rem;
+      padding: 5px 10px;
+    }
+
+    .possible-discount {
+      color: #28a745;
+      font-weight: 500;
+    }
+
+    .total-with-discount {
+      font-weight: 600;
+      color: #9935dc;
+    }
+
+    .use-points-check {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #9935dc;
+    }
+
+    .form-check-input:checked {
+      background-color: #9935dc;
+      border-color: #9935dc;
+    }
+
+    .loyalty-info {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      color: #555;
+      border-left: 3px solid #9935dc;
+    }
+
+    .points-preview .alert {
+      padding: 10px;
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      border-left: 3px solid #17a2b8;
+    }
+
+    .points-preview .alert-info {
+      background-color: rgba(23, 162, 184, 0.1);
+      border-color: #17a2b8;
+      color: #0c5460;
+    }
+
     @media (max-width: 768px) {
       .cart-table {
         display: block;
@@ -529,6 +587,54 @@
                 <span>Grátis</span>
               </div>
 
+              <!-- Sistema de Pontos de Fidelidade -->
+              <div class="summary-item loyalty-points">
+                <span>Seus Pontos de Fidelidade</span>
+                <span class="badge bg-primary">{{ $userPoints ?? 0 }}</span>
+              </div>
+
+              @if(isset($userPoints) && $userPoints > 0)
+                <?php 
+                  // Calcula o desconto máximo (1% por cada 1000 pontos)
+                  $maxPointsDiscount = floor($userPoints / 1000);
+                  $maxDiscount = $total * ($maxPointsDiscount / 100);
+                  // Limita o desconto ao valor total
+                  $maxDiscount = min($maxDiscount, $total);
+                ?>
+                <div class="summary-item possible-discount">
+                  <span>Desconto com Pontos (1% por cada 1000 pontos)</span>
+                  <span>-{{ number_format($maxDiscount, 2) }}€</span>
+                </div>
+
+                <div class="summary-item total-with-discount">
+                  <span>Total com Desconto</span>
+                  <span>{{ number_format($total - $maxDiscount, 2) }}€</span>
+                </div>
+
+                <div class="form-check use-points-check mt-3 mb-3">
+                  <input class="form-check-input" type="checkbox" id="use-points" name="use_points" form="checkout-form">
+                  <label class="form-check-label" for="use-points">
+                    Usar pontos para desconto
+                  </label>
+                </div>
+
+                <div class="points-selector mt-2" id="points-selector" style="display: none;">
+                  <label class="form-label">Quantidade de pontos a usar:</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="points-input" name="points_to_use" min="1000" max="{{ $userPoints }}" step="1000" value="{{ $userPoints >= 1000 ? $userPoints : 1000 }}">
+                    <span class="input-group-text">pontos</span>
+                    <button type="button" class="btn btn-outline-primary" id="max-points-btn">Máximo</button>
+                  </div>
+                  <small class="text-muted">Você pode usar múltiplos de 1000 pontos (1% de desconto por cada 1000 pontos)</small>
+                  
+                  <div class="points-preview mt-2">
+                    <div class="alert alert-info">
+                      <span id="points-preview-text">Usando {{ $userPoints >= 1000 ? $userPoints : 1000 }} pontos, você receberá {{ floor(($userPoints >= 1000 ? $userPoints : 1000) / 1000) }}% de desconto ({{ number_format($total * (floor(($userPoints >= 1000 ? $userPoints : 1000) / 1000) / 100), 2) }}€)</span>
+                    </div>
+                  </div>
+                </div>
+              @endif
+
               <div class="summary-item total">
                 <span>TOTAL</span>
                 <span>{{ $total }}€</span>
@@ -540,11 +646,17 @@
                 <span>{{ $originalTotal }}€</span>
               </div>
               @endif
+              
+              <!-- Informação sobre ganho de pontos -->
+              <div class="loyalty-info mt-3">
+                <i class="fas fa-award text-primary me-2"></i>
+                <span>Você ganhará aproximadamente {{ floor(($total / 10) * 5) }} pontos com esta compra!</span>
+              </div>
             </div>
 
             <!-- Dados do destinatário -->
             <div class="checkout-form">
-              <form action="{{url('comfirm_order')}}" method="POST">
+              <form action="{{url('comfirm_order')}}" method="POST" id="checkout-form">
                 @csrf
                 <div class="form-group">
                   <label class="form-label">Nome do Destinatário</label>
@@ -577,7 +689,7 @@
                     <i class="fas fa-money-bill-wave"></i>
                     Pagar na Entrega
                   </button>
-                  <a href="{{url('stripe', $total)}}" class="btn-payment btn-card">
+                  <a href="{{url('stripe', $total)}}" class="btn-payment btn-card" id="stripe-link">
                     <i class="fas fa-credit-card"></i>
                     Finalizar Compra
                   </a>
@@ -618,6 +730,69 @@
         form.submit();
       } else {
         toastr.warning('Quantidade máxima disponível em estoque atingida');
+      }
+    }
+
+    // Sistema de pontos de fidelidade
+    document.addEventListener('DOMContentLoaded', function() {
+      const usePointsCheckbox = document.getElementById('use-points');
+      const pointsSelector = document.getElementById('points-selector');
+      const pointsInput = document.getElementById('points-input');
+      const maxPointsBtn = document.getElementById('max-points-btn');
+      
+      if (usePointsCheckbox) {
+        usePointsCheckbox.addEventListener('change', function() {
+          pointsSelector.style.display = this.checked ? 'block' : 'none';
+          updateTotal();
+        });
+
+        if (pointsInput) {
+          pointsInput.addEventListener('change', updateTotal);
+          pointsInput.addEventListener('input', updateTotal);
+        }
+        
+        if (maxPointsBtn) {
+          maxPointsBtn.addEventListener('click', function() {
+            pointsInput.value = {{ $userPoints }};
+            updateTotal();
+          });
+        }
+      }
+    });
+
+    function updateTotal() {
+      const usePointsCheckbox = document.getElementById('use-points');
+      const pointsInput = document.getElementById('points-input');
+      const totalElement = document.querySelector('.summary-item.total span:last-child');
+      const totalWithDiscountElement = document.querySelector('.summary-item.total-with-discount span:last-child');
+      const pointsPreviewText = document.getElementById('points-preview-text');
+      const stripeLink = document.getElementById('stripe-link');
+      
+      if (usePointsCheckbox.checked && pointsInput && totalWithDiscountElement) {
+        const points = parseInt(pointsInput.value) || 0;
+        const discountPercentage = Math.floor(points / 1000);
+        const originalTotal = parseFloat('{{ $total }}');
+        const discount = originalTotal * (discountPercentage / 100);
+        const finalTotal = originalTotal - discount;
+        
+        totalElement.textContent = finalTotal.toFixed(2) + '€';
+        
+        // Atualiza o texto de preview
+        if (pointsPreviewText) {
+          pointsPreviewText.textContent = `Usando ${points} pontos, você receberá ${discountPercentage}% de desconto (${discount.toFixed(2)}€)`;
+        }
+        
+        // Atualiza o link do Stripe
+        if (stripeLink) {
+          stripeLink.href = "{{url('stripe', '')}}" + "/" + finalTotal.toFixed(2);
+        }
+      } else {
+        totalElement.textContent = '{{ $total }}€';
+        
+        // Restaura o link do Stripe
+        if (stripeLink) {
+          stripeLink.href = "{{url('stripe', $total)}}";
+        }
       }
     }
   </script>

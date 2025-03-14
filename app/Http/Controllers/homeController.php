@@ -305,6 +305,8 @@ class homeController extends Controller
         $phone = $request->phone;
         $userid = Auth::user()->id;
         $cart = Cart::where('user_id', $userid)->get();
+        $usePoints = $request->has('use_points');
+        $user = Auth::user();
 
         // Verifica se há estoque suficiente para todos os produtos (não motos)
         foreach ($cart as $item) {
@@ -319,6 +321,58 @@ class homeController extends Controller
 
         // Gera um número de pedido único
         $orderNumber = 'ORD-' . time() . '-' . $userid;
+        
+        // Calcula o valor total do pedido para pontos e desconto
+        $totalAmount = 0;
+        foreach ($cart as $item) {
+            if ($item->is_motorcycle) {
+                $totalAmount += $item->motorcycle->price;
+            } else {
+                $totalAmount += $item->product->price * $item->quantity;
+            }
+        }
+        
+        // Aplica desconto de pontos se solicitado
+        $discount = 0;
+        $pointsUsed = 0;
+        if ($usePoints && $user->Points > 0) {
+            // Obtém a quantidade de pontos a serem usados (sem valor padrão)
+            $pointsToUse = (int)$request->input('points_to_use');
+            
+            // Se não foi enviado um valor, usa o máximo disponível
+            if (!$pointsToUse) {
+                $pointsToUse = $user->Points;
+            }
+            
+            // Limita ao total de pontos disponíveis
+            $pointsToUse = min($pointsToUse, $user->Points);
+            
+            // Garante que os pontos sejam múltiplos de 1000
+            $pointsToUse = floor($pointsToUse / 1000) * 1000;
+            
+            // Se ainda não tiver pontos suficientes, usa pelo menos 1000
+            $pointsToUse = max($pointsToUse, 1000);
+            
+            // Calcula o desconto (1% por cada 1000 pontos)
+            $discountPercentage = floor($pointsToUse / 1000);
+            $discount = $totalAmount * ($discountPercentage / 100);
+            
+            // Limita o desconto ao valor total
+            $discount = min($discount, $totalAmount);
+            
+            // Atualiza os pontos do usuário diretamente no banco de dados
+            $pointsUsed = $pointsToUse;
+            
+            // Imprime os valores para debug
+            Log::info('Pontos a usar: ' . $pointsToUse);
+            Log::info('Pontos disponíveis: ' . $user->Points);
+            Log::info('Desconto: ' . $discount);
+            
+            User::where('id', $user->id)->update(['Points' => $user->Points - $pointsToUse]);
+        }
+        
+        // Valor final após desconto
+        $finalAmount = $totalAmount - $discount;
 
         foreach ($cart as $item)
         {
@@ -345,7 +399,7 @@ class homeController extends Controller
             
             $order->save();
         }
-
+        
         // Busca os pedidos criados para enviar por email
         $orderItems = Order::where('order_number', $orderNumber)
             ->with(['product', 'motorcycle', 'motorcycle.photos'])
@@ -362,7 +416,13 @@ class homeController extends Controller
 
         Cart::where('user_id', $userid)->delete();
 
-        toastr()->timeOut(10000)->closebutton()->addSuccess('Pedido realizado com sucesso! Enviamos a fatura para seu email.');
+        $successMessage = 'Pedido realizado com sucesso!';
+        if ($pointsUsed > 0) {
+            $successMessage .= ' Você usou ' . $pointsUsed . ' pontos para obter ' . number_format($discount, 2) . '€ de desconto.';
+        }
+        $successMessage .= ' Enviamos a fatura para seu email.';
+        
+        toastr()->timeOut(10000)->closebutton()->addSuccess($successMessage);
         return redirect()->back();
     }
 
@@ -370,20 +430,16 @@ class homeController extends Controller
     {
         if(auth::id())
         {
-        $user = Auth::user();
-
-        $userid = $user->id;
-
-        $count = Cart::where('user_id',$userid)->count();
-
-        $cart = Cart::where('user_id',$userid)->get();
-        
-
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id',$userid)->count();
+            $cart = Cart::where('user_id',$userid)->get();
+            $userPoints = $user->Points;
+            
+            return view('home.mycart', compact('count','cart', 'userPoints'));
         }
-
-
-        return view('home.mycart', compact('count','cart'));
-
+        
+        return redirect('login');
     }
 
     public function delete_cart($id)
@@ -831,6 +887,52 @@ class homeController extends Controller
         } else {
             return redirect('login');
         }
+    }
+
+    // Método para exibir a página de pontos de fidelidade
+    public function loyalty_points()
+    {
+        if (Auth::id()) {
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            
+            // Busca os pedidos do usuário para mostrar o histórico de pontos
+            $orders = Order::where('user_id', $userid)
+                ->select('order_number', 'created_at')
+                ->distinct('order_number')
+                ->orderBy('created_at', 'desc')
+                ->get();
+                
+            // Calcula os pontos ganhos em cada pedido
+            $pointsHistory = [];
+            foreach ($orders as $order) {
+                $orderItems = Order::where('order_number', $order->order_number)->get();
+                $orderTotal = 0;
+                
+                foreach ($orderItems as $item) {
+                    if ($item->is_motorcycle && $item->motorcycle) {
+                        $orderTotal += $item->motorcycle->price;
+                    } elseif ($item->product) {
+                        $orderTotal += $item->product->price * $item->quantity;
+                    }
+                }
+                
+                // Calcula os pontos ganhos (10€ = 5 pontos)
+                $pointsEarned = floor(($orderTotal / 10) * 5);
+                
+                $pointsHistory[] = [
+                    'order_number' => $order->order_number,
+                    'date' => $order->created_at,
+                    'total' => $orderTotal,
+                    'points_earned' => $pointsEarned
+                ];
+            }
+            
+            return view('home.loyalty_points', compact('count', 'user', 'pointsHistory'));
+        }
+        
+        return redirect('login');
     }
 
 }

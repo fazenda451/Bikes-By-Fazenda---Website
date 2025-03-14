@@ -45,6 +45,8 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{url('orders')}}">Meus Pedidos</a>
                   <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{url('loyalty-points')}}">Pontos de Fidelidade</a>
+                  <div class="dropdown-divider"></div>
                   <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item">Sair</button>
