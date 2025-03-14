@@ -35,6 +35,8 @@
       min-height: 100vh;
       box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
       transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
   
     #sidebar.hidden {
@@ -157,6 +159,41 @@
       margin-top: 5px;
       border-left: 1px dashed rgba(155, 89, 182, 0.3);
     }
+    
+    /* Espaçador para empurrar o botão para o final da sidebar */
+    .sidebar-spacer {
+      flex-grow: 1;
+    }
+    
+    /* Estilo para o botão de voltar à loja */
+    .back-to-shop {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(236, 240, 241, 0.1);
+    }
+    
+    .back-to-shop a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 15px;
+      background-color: #9b59b6;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    
+    .back-to-shop a:hover {
+      background-color: #8e44ad;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .back-to-shop i {
+      margin-right: 10px;
+    }
 
   @media (max-width: 991.98px) {
     .sidebar {
@@ -263,6 +300,17 @@
                   <a href="{{url('view_orders')}}"> <i class="fa-solid fa-cart-shopping"></i>Orders</a>
                 </li>
         </ul>
+        
+        <!-- Espaçador para empurrar o botão para o final -->
+        <div class="sidebar-spacer"></div>
+        
+        <!-- Botão para voltar à loja -->
+        <div class="back-to-shop">
+          <a href="{{url('/')}}" target="_blank">
+            <i class="fa-solid fa-store"></i>
+            Voltar à Loja
+          </a>
+        </div>
       </nav>
 
 <!-- Font Awesome -->
