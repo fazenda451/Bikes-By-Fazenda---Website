@@ -76,6 +76,7 @@
                     <li><i class="fas fa-check-circle"></i> A cada 10€ em compras, você ganha 5 pontos</li>
                     <li><i class="fas fa-check-circle"></i> Seus pontos podem ser usados como desconto em compras futuras</li>
                     <li><i class="fas fa-check-circle"></i> A cada 1000 pontos, você recebe 1% de desconto no valor total da compra</li>
+                    <li><i class="fas fa-check-circle"></i> O desconto máximo é de 10% (10.000 pontos)</li>
                     <li><i class="fas fa-check-circle"></i> Você pode escolher quantos pontos deseja usar (múltiplos de 1000)</li>
                     <li><i class="fas fa-check-circle"></i> Os pontos não expiram e podem ser acumulados</li>
                   </ul>
@@ -87,6 +88,15 @@
           <h6 class="history-title">Histórico de Pontos</h6>
           
           @if(count($pointsHistory) > 0)
+            <div class="points-legend mb-3">
+              <span class="legend-item">
+                <span class="badge bg-success">+</span> Pontos ganhos em compras
+              </span>
+              <span class="legend-item">
+                <span class="badge bg-danger">-</span> Pontos usados como desconto
+              </span>
+            </div>
+            
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead>
@@ -94,7 +104,7 @@
                     <th>Pedido</th>
                     <th>Data</th>
                     <th>Valor</th>
-                    <th>Pontos Ganhos</th>
+                    <th>Pontos</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -104,7 +114,11 @@
                       <td>{{ date('d/m/Y H:i', strtotime($history['date'])) }}</td>
                       <td>{{ number_format($history['total'], 2, ',', '.') }}€</td>
                       <td>
-                        <span class="badge bg-success">+{{ $history['points_earned'] }}</span>
+                        @if($history['type'] == 'earned')
+                          <span class="badge bg-success">+{{ $history['points'] }}</span>
+                        @else
+                          <span class="badge bg-danger">-{{ $history['points'] }}</span>
+                        @endif
                       </td>
                     </tr>
                   @endforeach
@@ -248,6 +262,22 @@
     border-bottom: 1px solid #e9ecef;
   }
 
+  .points-legend {
+    display: flex;
+    gap: 20px;
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 8px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
   .table {
     border-collapse: separate;
     border-spacing: 0 5px;
@@ -280,6 +310,13 @@
 
   .badge.bg-success {
     background-color: #28a745 !important;
+    font-weight: 500;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+
+  .badge.bg-danger {
+    background-color: #dc3545 !important;
     font-weight: 500;
     padding: 5px 10px;
     font-size: 0.9rem;
@@ -330,5 +367,9 @@
       margin-bottom: 20px;
     }
   }
+
+  .text-danger {
+    color: #9935dc !important;
+}
 </style>
 @endsection 

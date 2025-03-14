@@ -20,20 +20,23 @@ class OrderInvoice extends Mailable
     public $orderItems;
     public $customerName;
     public $pdfInvoice;
+    public $discountInfo;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($orderNumber, $orderItems, $customerName)
+    public function __construct($orderNumber, $orderItems, $customerName, $discountInfo = null)
     {
         $this->orderNumber = $orderNumber;
         $this->orderItems = $orderItems;
         $this->customerName = $customerName;
+        $this->discountInfo = $discountInfo;
         
         // Gerar o PDF da fatura
         $this->pdfInvoice = Pdf::loadView('admin.invoice', [
             'orderItems' => $this->orderItems,
-            'orderNumber' => $this->orderNumber
+            'orderNumber' => $this->orderNumber,
+            'discountInfo' => $this->discountInfo
         ])->output();
     }
 

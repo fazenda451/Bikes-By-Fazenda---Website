@@ -595,14 +595,16 @@
 
               @if(isset($userPoints) && $userPoints > 0)
                 <?php 
-                  // Calcula o desconto máximo (1% por cada 1000 pontos)
-                  $maxPointsDiscount = floor($userPoints / 1000);
+                  // Calcula o desconto máximo (1% por cada 1000 pontos, limitado a 10%)
+                  $maxPointsDiscount = min(floor($userPoints / 1000), 10);
                   $maxDiscount = $total * ($maxPointsDiscount / 100);
                   // Limita o desconto ao valor total
                   $maxDiscount = min($maxDiscount, $total);
+                  // Calcula quantos pontos seriam necessários para o desconto máximo
+                  $pointsNeededForMaxDiscount = min($maxPointsDiscount * 1000, $userPoints);
                 ?>
                 <div class="summary-item possible-discount">
-                  <span>Desconto com Pontos (1% por cada 1000 pontos)</span>
+                  <span>Desconto com Pontos (1% por cada 1000 pontos, máx. 10%)</span>
                   <span>-{{ number_format($maxDiscount, 2) }}€</span>
                 </div>
 
@@ -621,16 +623,21 @@
                 <div class="points-selector mt-2" id="points-selector" style="display: none;">
                   <label class="form-label">Quantidade de pontos a usar:</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="points-input" name="points_to_use" min="1000" max="{{ $userPoints }}" step="1000" value="{{ $userPoints >= 1000 ? $userPoints : 1000 }}">
+                    <input type="number" class="form-control" id="points-input" min="1000" max="{{ $userPoints }}" step="1000" value="1000">
                     <span class="input-group-text">pontos</span>
                     <button type="button" class="btn btn-outline-primary" id="max-points-btn">Máximo</button>
                   </div>
-                  <small class="text-muted">Você pode usar múltiplos de 1000 pontos (1% de desconto por cada 1000 pontos)</small>
+                  <small class="text-muted">Você pode usar múltiplos de 1000 pontos (1% de desconto por cada 1000 pontos, limitado a 10%)</small>
                   
                   <div class="points-preview mt-2">
                     <div class="alert alert-info">
-                      <span id="points-preview-text">Usando {{ $userPoints >= 1000 ? $userPoints : 1000 }} pontos, você receberá {{ floor(($userPoints >= 1000 ? $userPoints : 1000) / 1000) }}% de desconto ({{ number_format($total * (floor(($userPoints >= 1000 ? $userPoints : 1000) / 1000) / 100), 2) }}€)</span>
+                      <span id="points-preview-text">Usando 1000 pontos, você receberá 1% de desconto ({{ number_format($total * 0.01, 2) }}€)</span>
                     </div>
+                  </div>
+                  
+                  <div class="alert alert-warning mt-2">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span>Atenção: Ao usar pontos para desconto, você não receberá pontos por esta compra.</span>
                   </div>
                 </div>
               @endif
@@ -648,7 +655,7 @@
               @endif
               
               <!-- Informação sobre ganho de pontos -->
-              <div class="loyalty-info mt-3">
+              <div class="loyalty-info mt-3" id="loyalty-info">
                 <i class="fas fa-award text-primary me-2"></i>
                 <span>Você ganhará aproximadamente {{ floor(($total / 10) * 5) }} pontos com esta compra!</span>
               </div>
@@ -658,6 +665,9 @@
             <div class="checkout-form">
               <form action="{{url('comfirm_order')}}" method="POST" id="checkout-form">
                 @csrf
+                <!-- Campo oculto para os pontos -->
+                <input type="hidden" id="points_to_use_hidden" name="points_to_use" value="">
+                
                 <div class="form-group">
                   <label class="form-label">Nome do Destinatário</label>
                   <input type="text" name="name" value="{{Auth::user()->name}}" class="form-control" required>
@@ -738,42 +748,138 @@
       const usePointsCheckbox = document.getElementById('use-points');
       const pointsSelector = document.getElementById('points-selector');
       const pointsInput = document.getElementById('points-input');
+      const pointsHidden = document.getElementById('points_to_use_hidden');
       const maxPointsBtn = document.getElementById('max-points-btn');
+      const loyaltyInfo = document.getElementById('loyalty-info');
+      const totalValue = parseFloat('{{ $total }}');
+      
+      // Calcula o máximo de pontos que podem ser usados (10% do valor total)
+      const maxPercentage = 10; // 10%
+      const maxDiscountValue = totalValue * (maxPercentage / 100); // Valor máximo de desconto (10% do total)
+      const pointsNeededForOnePercent = 1000; // 1000 pontos = 1%
+      const maxDiscountPoints = Math.min(Math.floor(maxPercentage) * pointsNeededForOnePercent, {{ $userPoints }});
+      
+      console.log('Total do carrinho:', totalValue);
+      console.log('Valor máximo de desconto (10%):', maxDiscountValue);
+      console.log('Pontos máximos permitidos:', maxDiscountPoints);
+      console.log('Pontos do usuário:', {{ $userPoints }});
       
       if (usePointsCheckbox) {
         usePointsCheckbox.addEventListener('change', function() {
           pointsSelector.style.display = this.checked ? 'block' : 'none';
+          // Esconde ou mostra a informação de ganho de pontos
+          loyaltyInfo.style.display = this.checked ? 'none' : 'block';
+          
+          // Garante que o input de pontos tenha um valor válido
+          if (this.checked) {
+            if (!pointsInput.value || pointsInput.value < 1000) {
+              pointsInput.value = 1000;
+            }
+            // Atualiza o campo oculto
+            pointsHidden.value = pointsInput.value;
+          } else {
+            // Se desmarcar, limpa o valor para não enviar
+            pointsInput.value = '';
+            pointsHidden.value = '';
+          }
+          
           updateTotal();
+          
+          // Log para debug
+          console.log('Checkbox marcado:', this.checked);
+          console.log('Valor atual dos pontos:', pointsInput.value);
+          console.log('Valor do campo oculto:', pointsHidden.value);
         });
 
         if (pointsInput) {
-          pointsInput.addEventListener('change', updateTotal);
-          pointsInput.addEventListener('input', updateTotal);
+          // Define o valor máximo baseado no menor entre os pontos do usuário e o máximo permitido
+          pointsInput.max = maxDiscountPoints;
+          pointsInput.value = Math.min(1000, maxDiscountPoints);
+          
+          pointsInput.addEventListener('change', function() {
+            // Garante que o valor seja múltiplo de 1000
+            const value = parseInt(this.value) || 0;
+            this.value = Math.floor(value / 1000) * 1000;
+            
+            // Garante o valor mínimo de 1000 e máximo permitido
+            if (this.value < 1000 && this.value > 0) this.value = 1000;
+            if (this.value > maxDiscountPoints) this.value = maxDiscountPoints;
+            
+            // Atualiza o campo oculto
+            pointsHidden.value = this.value;
+            
+            updateTotal();
+            
+            // Log para debug
+            console.log('Valor dos pontos alterado para:', this.value);
+            console.log('Valor do campo oculto:', pointsHidden.value);
+          });
+          
+          pointsInput.addEventListener('input', function() {
+            // Atualiza o campo oculto
+            pointsHidden.value = this.value;
+            updateTotal();
+          });
         }
         
         if (maxPointsBtn) {
           maxPointsBtn.addEventListener('click', function() {
-            pointsInput.value = {{ $userPoints }};
+            // Define o valor máximo permitido
+            pointsInput.value = maxDiscountPoints;
+            // Atualiza o campo oculto
+            pointsHidden.value = maxDiscountPoints;
+            
             updateTotal();
+            
+            // Log para debug
+            console.log('Botão máximo clicado, valor definido para:', maxDiscountPoints);
+            console.log('Valor do campo oculto:', pointsHidden.value);
           });
         }
       }
+      
+      // Inicializa o estado
+      if (usePointsCheckbox && !usePointsCheckbox.checked) {
+        pointsSelector.style.display = 'none';
+        loyaltyInfo.style.display = 'block';
+        pointsHidden.value = '';
+      }
+      
+      // Adiciona um evento ao formulário para garantir que os pontos sejam enviados corretamente
+      document.getElementById('checkout-form').addEventListener('submit', function(e) {
+        if (usePointsCheckbox.checked) {
+          // Garante que o campo oculto tenha o valor correto
+          pointsHidden.value = pointsInput.value;
+          console.log('Formulário enviado com pontos:', pointsHidden.value);
+        } else {
+          // Limpa o campo oculto
+          pointsHidden.value = '';
+          console.log('Formulário enviado sem pontos');
+        }
+      });
     });
 
     function updateTotal() {
       const usePointsCheckbox = document.getElementById('use-points');
       const pointsInput = document.getElementById('points-input');
       const totalElement = document.querySelector('.summary-item.total span:last-child');
-      const totalWithDiscountElement = document.querySelector('.summary-item.total-with-discount span:last-child');
       const pointsPreviewText = document.getElementById('points-preview-text');
       const stripeLink = document.getElementById('stripe-link');
       
-      if (usePointsCheckbox.checked && pointsInput && totalWithDiscountElement) {
+      if (usePointsCheckbox.checked && pointsInput) {
         const points = parseInt(pointsInput.value) || 0;
-        const discountPercentage = Math.floor(points / 1000);
+        console.log('Pontos selecionados:', points);
+        
+        // Limita o desconto a 10%
+        const discountPercentage = Math.min(Math.floor(points / 1000), 10);
+        console.log('Percentual de desconto:', discountPercentage + '%');
+        
         const originalTotal = parseFloat('{{ $total }}');
         const discount = originalTotal * (discountPercentage / 100);
+        console.log('Valor do desconto:', discount.toFixed(2) + '€');
+        
         const finalTotal = originalTotal - discount;
+        console.log('Total final:', finalTotal.toFixed(2) + '€');
         
         totalElement.textContent = finalTotal.toFixed(2) + '€';
         

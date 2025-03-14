@@ -25,6 +25,9 @@
                         <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
                             <i class="fas fa-shopping-bag me-2"></i> Meus Pedidos
                         </a>
+                        <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <i class="fas fa-award me-2"></i> Pontos de Fidelidade
+                          </a>
                         <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                             <i class="fas fa-heart me-2"></i> Lista de Desejos
                         </a>

@@ -308,6 +308,10 @@ class homeController extends Controller
         $usePoints = $request->has('use_points');
         $user = Auth::user();
 
+        // Log para debug
+        Log::info('Dados do formulário:', $request->all());
+        Log::info('Checkbox use_points: ' . ($usePoints ? 'marcado' : 'não marcado'));
+        
         // Verifica se há estoque suficiente para todos os produtos (não motos)
         foreach ($cart as $item) {
             if (!$item->is_motorcycle && $item->product_id) {
@@ -336,12 +340,17 @@ class homeController extends Controller
         $discount = 0;
         $pointsUsed = 0;
         if ($usePoints && $user->Points > 0) {
-            // Obtém a quantidade de pontos a serem usados (sem valor padrão)
+            // Obtém a quantidade de pontos a serem usados
             $pointsToUse = (int)$request->input('points_to_use');
             
-            // Se não foi enviado um valor, usa o máximo disponível
-            if (!$pointsToUse) {
-                $pointsToUse = $user->Points;
+            // Registra os valores para debug
+            Log::info('Pontos solicitados pelo usuário: ' . $pointsToUse);
+            Log::info('Pontos disponíveis: ' . $user->Points);
+            Log::info('Valor total do pedido: ' . $totalAmount);
+            
+            // Verifica se o valor é válido
+            if ($pointsToUse <= 0) {
+                $pointsToUse = 1000; // Valor mínimo
             }
             
             // Limita ao total de pontos disponíveis
@@ -350,24 +359,29 @@ class homeController extends Controller
             // Garante que os pontos sejam múltiplos de 1000
             $pointsToUse = floor($pointsToUse / 1000) * 1000;
             
-            // Se ainda não tiver pontos suficientes, usa pelo menos 1000
-            $pointsToUse = max($pointsToUse, 1000);
-            
             // Calcula o desconto (1% por cada 1000 pontos)
             $discountPercentage = floor($pointsToUse / 1000);
+            
+            // Limita o desconto a 10% do valor total
+            $maxDiscountPercentage = 10;
+            if ($discountPercentage > $maxDiscountPercentage) {
+                $discountPercentage = $maxDiscountPercentage;
+                $pointsToUse = $discountPercentage * 1000;
+            }
+            
+            // Calcula o valor do desconto
             $discount = $totalAmount * ($discountPercentage / 100);
             
             // Limita o desconto ao valor total
             $discount = min($discount, $totalAmount);
             
-            // Atualiza os pontos do usuário diretamente no banco de dados
+            // Registra os valores calculados
             $pointsUsed = $pointsToUse;
+            Log::info('Pontos a usar após ajustes: ' . $pointsToUse);
+            Log::info('Percentual de desconto: ' . $discountPercentage . '%');
+            Log::info('Valor do desconto: ' . $discount);
             
-            // Imprime os valores para debug
-            Log::info('Pontos a usar: ' . $pointsToUse);
-            Log::info('Pontos disponíveis: ' . $user->Points);
-            Log::info('Desconto: ' . $discount);
-            
+            // Atualiza os pontos do usuário
             User::where('id', $user->id)->update(['Points' => $user->Points - $pointsToUse]);
         }
         
@@ -382,6 +396,13 @@ class homeController extends Controller
             $order->rec_address = $address;
             $order->phone = $phone;
             $order->user_id = $userid;
+            
+            // Salva a informação de pontos usados apenas no primeiro item do pedido
+            if ($pointsUsed > 0 && $cart->first()->id == $item->id) {
+                $order->points_used = $pointsUsed;
+            } else {
+                $order->points_used = 0; // Garante que os outros itens tenham 0 pontos usados
+            }
             
             if ($item->is_motorcycle) {
                 $order->motorcycle_id = $item->motorcycle_id;
@@ -400,6 +421,17 @@ class homeController extends Controller
             $order->save();
         }
         
+        // Adiciona pontos ao usuário (10€ = 5 pontos) apenas se não usou pontos para desconto
+        if ($pointsUsed == 0) {
+            $pointsEarned = floor(($totalAmount / 10) * 5);
+            if ($pointsEarned > 0) {
+                User::where('id', $user->id)->increment('Points', $pointsEarned);
+                Log::info('Pontos adicionados: ' . $pointsEarned);
+            }
+        } else {
+            Log::info('Pontos não adicionados porque o usuário usou pontos para desconto');
+        }
+        
         // Busca os pedidos criados para enviar por email
         $orderItems = Order::where('order_number', $orderNumber)
             ->with(['product', 'motorcycle', 'motorcycle.photos'])
@@ -408,7 +440,17 @@ class homeController extends Controller
         // Envia o email com a fatura
         try {
             $user = Auth::user();
-            Mail::to($user->email)->send(new OrderInvoice($orderNumber, $orderItems, $name));
+            Mail::to($user->email)->send(new OrderInvoice(
+                $orderNumber, 
+                $orderItems, 
+                $name, 
+                [
+                    'discount' => $discount,
+                    'points_used' => $pointsUsed,
+                    'total_before_discount' => $totalAmount,
+                    'total_after_discount' => $finalAmount
+                ]
+            ));
         } catch (\Exception $e) {
             // Log do erro, mas não interrompe o fluxo
             Log::error('Erro ao enviar email: ' . $e->getMessage());
@@ -904,12 +946,24 @@ class homeController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
                 
-            // Calcula os pontos ganhos em cada pedido
+            // Inicializa o histórico de pontos
             $pointsHistory = [];
+            
+            // Para cada pedido, adiciona uma entrada para pontos ganhos e outra para pontos usados (se houver)
             foreach ($orders as $order) {
-                $orderItems = Order::where('order_number', $order->order_number)->get();
-                $orderTotal = 0;
+                // Busca apenas o primeiro item de cada pedido para evitar duplicação
+                $firstItem = Order::where('order_number', $order->order_number)
+                    ->where('user_id', $userid)
+                    ->first();
                 
+                if (!$firstItem) continue;
+                
+                // Calcula o valor total do pedido
+                $orderItems = Order::where('order_number', $order->order_number)
+                    ->where('user_id', $userid)
+                    ->get();
+                
+                $orderTotal = 0;
                 foreach ($orderItems as $item) {
                     if ($item->is_motorcycle && $item->motorcycle) {
                         $orderTotal += $item->motorcycle->price;
@@ -918,16 +972,36 @@ class homeController extends Controller
                     }
                 }
                 
+                // Se pontos foram usados, adiciona uma entrada para pontos usados
+                if ($firstItem->points_used > 0) {
+                    $pointsHistory[] = [
+                        'order_number' => $order->order_number,
+                        'date' => $order->created_at,
+                        'total' => $orderTotal,
+                        'points' => $firstItem->points_used,
+                        'type' => 'used'
+                    ];
+                }
+                
                 // Calcula os pontos ganhos (10€ = 5 pontos)
                 $pointsEarned = floor(($orderTotal / 10) * 5);
                 
-                $pointsHistory[] = [
-                    'order_number' => $order->order_number,
-                    'date' => $order->created_at,
-                    'total' => $orderTotal,
-                    'points_earned' => $pointsEarned
-                ];
+                // Adiciona entrada para pontos ganhos
+                if ($pointsEarned > 0) {
+                    $pointsHistory[] = [
+                        'order_number' => $order->order_number,
+                        'date' => $order->created_at,
+                        'total' => $orderTotal,
+                        'points' => $pointsEarned,
+                        'type' => 'earned'
+                    ];
+                }
             }
+            
+            // Ordena o histórico por data (mais recente primeiro)
+            usort($pointsHistory, function($a, $b) {
+                return $b['date']->timestamp - $a['date']->timestamp;
+            });
             
             return view('home.loyalty_points', compact('count', 'user', 'pointsHistory'));
         }

@@ -291,18 +291,52 @@
                         <td>{{ number_format($itemTotal, 2, ',', '.') }}€</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td colspan="3" style="text-align: right; font-weight: bold;">Subtotal:</td>
+                    <td style="text-align: right; font-weight: bold;">{{ number_format($totalPedido, 2, ',', '.') }}€</td>
+                </tr>
+                @if(isset($discountInfo) && $discountInfo['discount'] > 0)
+                <tr>
+                    <td colspan="3" style="text-align: right; color: #9935dc;">
+                        <strong>Desconto (Pontos de Fidelidade):</strong>
+                        <br>
+                        <small>{{ number_format($discountInfo['points_used'], 0, ',', '.') }} pontos utilizados</small>
+                    </td>
+                    <td style="text-align: right; color: #9935dc; font-weight: bold;">
+                        -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: right; font-weight: bold; background-color: #f4f4f4;">Total com Desconto:</td>
+                    <td style="text-align: right; font-weight: bold; background-color: #f4f4f4;">{{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</td>
+                </tr>
+                @endif
             </tbody>
         </table>
 
         <div class="total">
-            <h3>Total: {{ number_format($totalPedido, 2, ',', '.') }}€</h3>
+            @if(isset($discountInfo) && $discountInfo['discount'] > 0)
+            <p>Subtotal: {{ number_format($totalPedido, 2, ',', '.') }}€</p>
+            <p style="color: #9935dc;">Desconto (Pontos de Fidelidade): -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€</p>
+            <p style="font-size: 20px;">Total a Pagar: {{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</p>
+            @else
+            <p>Total a Pagar: {{ number_format($totalPedido, 2, ',', '.') }}€</p>
+            @endif
         </div>
         
         <div class="payment-info">
             <h4>Informações de Pagamento</h4>
-            <p><strong>Método de Pagamento:</strong> <span class="payment-method">{{ $orderItems->first()->payment_status }}</span></p>
-            <p><strong>Data de Pagamento:</strong> {{ now()->format('d/m/Y') }}</p>
+            <p><strong>Método de Pagamento:</strong> <span class="payment-method">{{ $orderItems->first()->payment_method ?? 'Pagamento na Entrega' }}</span></p>
         </div>
+        
+        @if(isset($discountInfo) && $discountInfo['discount'] > 0)
+        <div class="payment-info" style="border-left: 3px solid #9935dc;">
+            <h4>Programa de Fidelidade</h4>
+            <p><strong>Pontos Utilizados:</strong> {{ number_format($discountInfo['points_used'], 0, ',', '.') }} pontos</p>
+            <p><strong>Desconto Aplicado:</strong> {{ number_format($discountInfo['discount'], 2, ',', '.') }}€</p>
+            <p><small>A cada 1000 pontos, você recebe 1% de desconto no valor total da compra (máximo de 10%).</small></p>
+        </div>
+        @endif
 
         <div class="terms">
             <h4>Termos e Condições</h4>

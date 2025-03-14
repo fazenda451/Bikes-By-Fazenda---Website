@@ -152,6 +152,22 @@
                     <td colspan="3" style="padding: 10px; text-align: right; font-weight: bold;">Total:</td>
                     <td style="padding: 10px; text-align: right; font-weight: bold;">{{ number_format($totalPedido, 2, ',', '.') }}€</td>
                 </tr>
+                @if(isset($discountInfo) && $discountInfo['discount'] > 0)
+                <tr>
+                    <td colspan="3" style="padding: 10px; text-align: right; color: #9935dc;">
+                        <strong>Desconto (Pontos de Fidelidade):</strong>
+                        <br>
+                        <small>{{ number_format($discountInfo['points_used'], 0, ',', '.') }} pontos utilizados (1% por cada 1000 pontos, máx. 10%)</small>
+                    </td>
+                    <td style="padding: 10px; text-align: right; color: #9935dc; font-weight: bold;">
+                        -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding: 10px; text-align: right; font-weight: bold; background-color: #f4f4f4;">Total com Desconto:</td>
+                    <td style="padding: 10px; text-align: right; font-weight: bold; background-color: #f4f4f4;">{{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</td>
+                </tr>
+                @endif
             </tbody>
         </table>
         
