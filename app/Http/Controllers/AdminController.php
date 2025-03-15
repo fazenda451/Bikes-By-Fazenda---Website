@@ -100,7 +100,7 @@ class AdminController extends Controller
 
         $data->price = $request->price;
 
-        $data->quantity = $request->qty;
+        $data->Quantity = $request->qty;
 
         $data->category_id = $request->category_id;
 
@@ -126,11 +126,80 @@ class AdminController extends Controller
 
     }
 
-    public function view_product()
+    public function view_product(Request $request)
     {
-        $product = Product::with('category')->paginate(4);
-
-        return view('Admin.view_product', compact('product'));
+        $query = Product::with('category');
+        
+        Log::info('Iniciando filtros de produtos');
+        Log::info('Parâmetros da requisição: ' . json_encode($request->all()));
+        
+        // Aplicar filtro de categoria
+        if ($request->has('category') && $request->category != 'all') {
+            $query->where('category_id', $request->category);
+            Log::info('Filtro de categoria aplicado: ' . $request->category);
+        }
+        
+        // Aplicar filtro de estoque
+        if ($request->has('stock') && $request->stock != 'all') {
+            Log::info('Aplicando filtro de estoque: ' . $request->stock);
+            switch ($request->stock) {
+                case 'in-stock':
+                    $query->whereRaw('Quantity > 0');
+                    Log::info('Filtro: Em estoque (Quantity > 0)');
+                    break;
+                case 'low-stock':
+                    $query->whereRaw('Quantity > 0 AND Quantity < 10');
+                    Log::info('Filtro: Estoque baixo (0 < Quantity < 10)');
+                    break;
+                case 'out-of-stock':
+                    $query->whereRaw('Quantity <= 0');
+                    Log::info('Filtro: Sem estoque (Quantity <= 0)');
+                    break;
+            }
+        }
+        
+        // Aplicar ordenação
+        if ($request->has('sort')) {
+            Log::info('Aplicando ordenação: ' . $request->sort);
+            switch ($request->sort) {
+                case 'name-asc':
+                    $query->orderBy('title', 'asc');
+                    Log::info('Ordenação: Nome (A-Z)');
+                    break;
+                case 'name-desc':
+                    $query->orderBy('title', 'desc');
+                    Log::info('Ordenação: Nome (Z-A)');
+                    break;
+                case 'price-asc':
+                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) asc');
+                    Log::info('Ordenação: Preço (Menor-Maior)');
+                    break;
+                case 'price-desc':
+                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) desc');
+                    Log::info('Ordenação: Preço (Maior-Menor)');
+                    break;
+                case 'stock-asc':
+                    $query->orderByRaw('Quantity asc');
+                    Log::info('Ordenação: Estoque (Menor-Maior)');
+                    break;
+                case 'stock-desc':
+                    $query->orderByRaw('Quantity desc');
+                    Log::info('Ordenação: Estoque (Maior-Menor)');
+                    break;
+                default:
+                    $query->orderBy('id', 'desc');
+                    Log::info('Ordenação padrão: ID (desc)');
+            }
+        } else {
+            // Ordenação padrão
+            $query->orderBy('id', 'desc');
+            Log::info('Ordenação padrão aplicada: ID (desc)');
+        }
+        
+        // Executar a consulta e obter os resultados
+        $product = $query->paginate(4);
+        
+        return view('admin.view_product', compact('product'));
     }
 
     public function delete_product($id)
@@ -171,7 +240,7 @@ class AdminController extends Controller
 
          $data->price = $request->price;
 
-         $data->quantity = $request->quantity;
+         $data->Quantity = $request->quantity;
 
          $data->category_id = $request->category_id;
 
@@ -199,15 +268,88 @@ class AdminController extends Controller
     public function product_search(Request $request)
     {
         $search = $request->search;
-
-        $product = Product::with('category')
-            ->where('title', 'LIKE', '%'.$search.'%')
-            ->orWhereHas('category', function($query) use ($search) {
-                $query->where('category_name', 'LIKE', '%'.$search.'%');
-            })
-            ->paginate(3);
-
-        return view('admin.view_product', compact('product')); 
+        $query = Product::with('category');
+        
+        Log::info('Iniciando busca de produtos');
+        Log::info('Parâmetros da requisição: ' . json_encode($request->all()));
+        
+        // Aplicar busca
+        $query->where(function($q) use ($search) {
+            $q->where('title', 'LIKE', '%'.$search.'%')
+              ->orWhere('description', 'LIKE', '%'.$search.'%')
+              ->orWhereHas('category', function($subq) use ($search) {
+                  $subq->where('category_name', 'LIKE', '%'.$search.'%');
+              });
+        });
+        Log::info('Busca aplicada: ' . $search);
+        
+        // Aplicar filtro de categoria
+        if ($request->has('category') && $request->category != 'all') {
+            $query->where('category_id', $request->category);
+            Log::info('Filtro de categoria aplicado: ' . $request->category);
+        }
+        
+        // Aplicar filtro de estoque
+        if ($request->has('stock') && $request->stock != 'all') {
+            Log::info('Aplicando filtro de estoque na busca: ' . $request->stock);
+            switch ($request->stock) {
+                case 'in-stock':
+                    $query->whereRaw('Quantity > 0');
+                    Log::info('Filtro de busca: Em estoque (Quantity > 0)');
+                    break;
+                case 'low-stock':
+                    $query->whereRaw('Quantity > 0 AND Quantity < 10');
+                    Log::info('Filtro de busca: Estoque baixo (0 < Quantity < 10)');
+                    break;
+                case 'out-of-stock':
+                    $query->whereRaw('Quantity <= 0');
+                    Log::info('Filtro de busca: Sem estoque (Quantity <= 0)');
+                    break;
+            }
+        }
+        
+        // Aplicar ordenação
+        if ($request->has('sort')) {
+            Log::info('Aplicando ordenação na busca: ' . $request->sort);
+            switch ($request->sort) {
+                case 'name-asc':
+                    $query->orderBy('title', 'asc');
+                    Log::info('Ordenação de busca: Nome (A-Z)');
+                    break;
+                case 'name-desc':
+                    $query->orderBy('title', 'desc');
+                    Log::info('Ordenação de busca: Nome (Z-A)');
+                    break;
+                case 'price-asc':
+                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) asc');
+                    Log::info('Ordenação de busca: Preço (Menor-Maior)');
+                    break;
+                case 'price-desc':
+                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) desc');
+                    Log::info('Ordenação de busca: Preço (Maior-Menor)');
+                    break;
+                case 'stock-asc':
+                    $query->orderByRaw('Quantity asc');
+                    Log::info('Ordenação de busca: Estoque (Menor-Maior)');
+                    break;
+                case 'stock-desc':
+                    $query->orderByRaw('Quantity desc');
+                    Log::info('Ordenação de busca: Estoque (Maior-Menor)');
+                    break;
+                default:
+                    $query->orderBy('id', 'desc');
+                    Log::info('Ordenação padrão de busca: ID (desc)');
+            }
+        } else {
+            // Ordenação padrão
+            $query->orderBy('id', 'desc');
+            Log::info('Ordenação padrão de busca aplicada: ID (desc)');
+        }
+        
+        // Executar a consulta e obter os resultados
+        $product = $query->paginate(4);
+        
+        return view('admin.view_product', compact('product'));
     }
 
 
