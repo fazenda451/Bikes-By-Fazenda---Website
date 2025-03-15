@@ -217,22 +217,30 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Marca</label>
-                                <select name="brand_id" class="form-control" required>
+                                <select name="brand_id" class="form-control" id="brand_select" required>
                                     <option value="">Selecione uma marca</option>
                                     @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar nova marca</option>
                                 </select>
+                                <div id="new_brand_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_brand" class="form-control" placeholder="Digite o nome da nova marca">
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Categoria</label>
-                                <select name="category_id" class="form-control" required>
+                                <select name="category_id" class="form-control" id="category_select" required>
                                     <option value="">Selecione uma categoria</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar nova categoria</option>
                                 </select>
+                                <div id="new_category_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_category" class="form-control" placeholder="Digite o nome da nova categoria">
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -247,12 +255,16 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Tipo de Licença</label>
-                                <select name="license_type_id" class="form-control" required>
+                                <select name="license_type_id" class="form-control" id="license_type_select" required>
                                     <option value="">Selecione o tipo de licença</option>
                                     @foreach($license_types as $type)
                                         <option value="{{ $type->id }}">{{ $type->type }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo tipo de licença</option>
                                 </select>
+                                <div id="new_license_type_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_license_type" class="form-control" placeholder="Digite o novo tipo de licença">
+                                </div>
                             </div>
                         </div>
                         
@@ -271,12 +283,16 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label required-field">Tipo de Motor</label>
-                                <select name="engine_type_id" class="form-control" required>
+                                <select name="engine_type_id" class="form-control" id="engine_type_select" required>
                                     <option value="">Selecione o tipo de motor</option>
                                     @foreach($engine_types as $type)
                                         <option value="{{ $type->id }}">{{ $type->type }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo tipo de motor</option>
                                 </select>
+                                <div id="new_engine_type_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_engine_type" class="form-control" placeholder="Digite o novo tipo de motor">
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -309,32 +325,44 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Sistema de Lubrificação</label>
-                                <select name="lubrication_system_id" class="form-control" required>
+                                <select name="lubrication_system_id" class="form-control" id="lubrication_system_select" required>
                                     <option value="">Selecione o sistema</option>
                                     @foreach($lubrication_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->system }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo sistema de lubrificação</option>
                                 </select>
+                                <div id="new_lubrication_system_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_lubrication_system" class="form-control" placeholder="Digite o novo sistema de lubrificação">
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Tipo de Embreagem</label>
-                                <select name="clutch_type_id" class="form-control" required>
+                                <select name="clutch_type_id" class="form-control" id="clutch_type_select" required>
                                     <option value="">Selecione o tipo</option>
                                     @foreach($clutch_types as $type)
                                         <option value="{{ $type->id }}">{{ $type->type }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo tipo de embreagem</option>
                                 </select>
+                                <div id="new_clutch_type_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_clutch_type" class="form-control" placeholder="Digite o novo tipo de embreagem">
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Sistema de Ignição</label>
-                                <select name="ignition_system_id" class="form-control" required>
+                                <select name="ignition_system_id" class="form-control" id="ignition_system_select" required>
                                     <option value="">Selecione o sistema</option>
                                     @foreach($ignition_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->system }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo sistema de ignição</option>
                                 </select>
+                                <div id="new_ignition_system_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_ignition_system" class="form-control" placeholder="Digite o novo sistema de ignição">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -345,22 +373,30 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label required-field">Sistema de Partida</label>
-                                <select name="starting_system_id" class="form-control" required>
+                                <select name="starting_system_id" class="form-control" id="starting_system_select" required>
                                     <option value="">Selecione o sistema</option>
                                     @foreach($starting_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->system }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo sistema de partida</option>
                                 </select>
+                                <div id="new_starting_system_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_starting_system" class="form-control" placeholder="Digite o novo sistema de partida">
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Sistema de Transmissão</label>
-                                <select name="transmission_system_id" class="form-control" required>
+                                <select name="transmission_system_id" class="form-control" id="transmission_system_select" required>
                                     <option value="">Selecione o sistema</option>
                                     @foreach($transmission_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->type }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo sistema de transmissão</option>
                                 </select>
+                                <div id="new_transmission_system_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_transmission_system" class="form-control" placeholder="Digite o novo sistema de transmissão">
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -408,22 +444,30 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Suspensão Dianteira</label>
-                                <select name="front_suspension_id" class="form-control" required>
+                                <select name="front_suspension_id" class="form-control" id="front_suspension_select" required>
                                     <option value="">Selecione o tipo</option>
                                     @foreach($suspensions as $suspension)
                                         <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo tipo de suspensão</option>
                                 </select>
+                                <div id="new_front_suspension_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_front_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão">
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Suspensão Traseira</label>
-                                <select name="rear_suspension_id" class="form-control" required>
+                                <select name="rear_suspension_id" class="form-control" id="rear_suspension_select" required>
                                     <option value="">Selecione o tipo</option>
                                     @foreach($suspensions as $suspension)
                                         <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
                                     @endforeach
+                                    <option value="new">Adicionar novo tipo de suspensão</option>
                                 </select>
+                                <div id="new_rear_suspension_container" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="new_rear_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão">
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -546,7 +590,6 @@
     </div>
     
     <!-- JavaScript para preview de imagens e validação -->
-
     <script src="{{ asset('admincss/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admincss/vendor/popper.js/umd/popper.min.js') }}"> </script>
     <script src="{{ asset('admincss/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -561,26 +604,28 @@
             const imageInput = document.getElementById('motorcycle-images');
             const previewContainer = document.getElementById('image-preview-container');
             
-            imageInput.addEventListener('change', function() {
-                previewContainer.innerHTML = '';
-                
-                if (this.files) {
-                    const filesAmount = this.files.length;
+            if (imageInput) {
+                imageInput.addEventListener('change', function() {
+                    previewContainer.innerHTML = '';
                     
-                    for (let i = 0; i < filesAmount; i++) {
-                        const reader = new FileReader();
+                    if (this.files) {
+                        const filesAmount = this.files.length;
                         
-                        reader.onload = function(event) {
-                            const img = document.createElement('img');
-                            img.src = event.target.result;
-                            img.classList.add('image-preview');
-                            previewContainer.appendChild(img);
+                        for (let i = 0; i < filesAmount; i++) {
+                            const reader = new FileReader();
+                            
+                            reader.onload = function(event) {
+                                const img = document.createElement('img');
+                                img.src = event.target.result;
+                                img.classList.add('image-preview');
+                                previewContainer.appendChild(img);
+                            }
+                            
+                            reader.readAsDataURL(this.files[i]);
                         }
-                        
-                        reader.readAsDataURL(this.files[i]);
                     }
-                }
-            });
+                });
+            }
             
             // Função para limitar o comprimento dos inputs numéricos
             function limitLength(input, maxLength) {
@@ -595,6 +640,36 @@
                 input.addEventListener('input', function() {
                     limitLength(this, 10);
                 });
+            });
+            
+            // Mostrar/esconder campos de novos valores
+            const selects = [
+                { select: 'brand_select', container: 'new_brand_container' },
+                { select: 'category_select', container: 'new_category_container' },
+                { select: 'license_type_select', container: 'new_license_type_container' },
+                { select: 'engine_type_select', container: 'new_engine_type_container' },
+                { select: 'lubrication_system_select', container: 'new_lubrication_system_container' },
+                { select: 'clutch_type_select', container: 'new_clutch_type_container' },
+                { select: 'ignition_system_select', container: 'new_ignition_system_container' },
+                { select: 'starting_system_select', container: 'new_starting_system_container' },
+                { select: 'transmission_system_select', container: 'new_transmission_system_container' },
+                { select: 'front_suspension_select', container: 'new_front_suspension_container' },
+                { select: 'rear_suspension_select', container: 'new_rear_suspension_container' }
+            ];
+            
+            selects.forEach(item => {
+                const selectElement = document.getElementById(item.select);
+                const containerElement = document.getElementById(item.container);
+                
+                if (selectElement && containerElement) {
+                    selectElement.addEventListener('change', function() {
+                        if (this.value === 'new') {
+                            containerElement.style.display = 'block';
+                        } else {
+                            containerElement.style.display = 'none';
+                        }
+                    });
+                }
             });
         });
     </script>

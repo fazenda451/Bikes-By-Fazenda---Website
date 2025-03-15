@@ -2,45 +2,27 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-
 use App\Models\Category;
-
-use App\Models\Order;
-
 use App\Models\Product;
-
+use App\Models\Order;
 use App\Models\Brand;
-
 use App\Models\EngineType;
-
 use App\Models\LubricationSystem;
-
 use App\Models\ClutchType;
-
 use App\Models\IgnitionSystem;
-
 use App\Models\StartingSystem;
-
 use App\Models\TransmissionSystem;
-
 use App\Models\Suspension;
-
-use App\Models\Photo;
-
 use App\Models\LicenseType;
-
 use App\Models\Motorcycle;
-
-use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Models\Photo;
 use Illuminate\Support\Facades\File;
-
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
-
 
 class AdminController extends Controller
 {
@@ -747,214 +729,270 @@ public function update_suspensions(Request $request, $id)
      * Processa e armazena uma nova moto e suas fotos.
      */
     public function upload_motorcycle(Request $request)
-{
-    // Validação dos campos
-    $validator = Validator::make($request->all(), [
-        
-        'name' => 'required|string|max:50',
-        
-        'description' => 'required|string|max:255',
-        
-        'quantity' => 'required|integer',
-        
-        'category_id' => 'nullable|exists:categories,id',
-        
-        'brand_id' => 'required|exists:brands,id',
-        
-        'price' => 'required|numeric',
-        
-        'license_type_id' => 'required|exists:license_types,id',
-        
-        'engine_type_id' => 'required|exists:engine_types,id',
-        
-        'displacement' => 'required|string|max:50',
-        
-        'bore_stroke' => 'required|string|max:50',
-        
-        'compression_ratio' => 'required|numeric',
-        
-        'max_power' => 'required|numeric',
-        
-        'max_torque' => 'required|numeric',
-        
-        'lubrication_system_id' => 'required|exists:lubrication_systems,id',
-        
-        'clutch_type_id' => 'required|exists:clutch_types,id',
-        
-        'ignition_system_id' => 'required|exists:ignition_systems,id',
-        
-        'starting_system_id' => 'required|exists:starting_systems,id',
-        
-        'transmission_system_id' => 'required|exists:transmission_systems,id',
-        
-        'final_drive' => 'required|string|max:50',
-        
-        'fuel_consumption' => 'required|numeric',
-        
-        'cos2_emissions' => 'required|numeric',
-        
-        'fuel_system' => 'required|string|max:50',
-        
-        'frame' => 'required|string|max:50',
-        
-        'rake_angle' => 'required|numeric',
-        
-        'trail' => 'required|string|max:50',
-        
-        'front_suspension_id' => 'required|exists:suspensions,id',
-        
-        'rear_suspension_id' => 'required|exists:suspensions,id',
-        
-        'front_travel' => 'required|numeric',
-        
-        'rear_travel' => 'required|numeric',
-        
-        'front_brake' => 'required|string|max:50',
-        
-        'rear_brake' => 'required|string|max:50',
-        
-        'front_tire' => 'required|string|max:50',
-        
-        'rear_tire' => 'required|string|max:50',
-        
-        'total_length' => 'required|numeric',
-        
-        'total_width' => 'required|numeric',
-        
-        'total_height' => 'required|numeric',
-        
-        'seat_height' => 'required|numeric',
-        
-        'wheelbase' => 'required|numeric',
-        
-        'ground_clearance' => 'required|numeric',
-        
-        'weight' => 'required|numeric',
-        
-        'fuel_tank_capacity' => 'required|numeric',
-        
-        'oil_tank_capacity' => 'required|numeric',
-        
-        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120'
-    ]);
+    {
+        // Validação dos campos
+        $validator = Validator::make($request->all(), [
+            
+            'name' => 'required|string|max:50',
+            
+            'description' => 'required|string|max:255',
+            
+            'quantity' => 'required|integer',
+            
+            'category_id' => 'required',
+            
+            'brand_id' => 'required',
+            
+            'price' => 'required|numeric',
+            
+            'license_type_id' => 'required',
+            
+            'engine_type_id' => 'required',
+            
+            'displacement' => 'required|string|max:50',
+            
+            'bore_stroke' => 'required|string|max:50',
+            
+            'compression_ratio' => 'required|numeric',
+            
+            'max_power' => 'required|numeric',
+            
+            'max_torque' => 'required|numeric',
+            
+            'lubrication_system_id' => 'required',
+            
+            'clutch_type_id' => 'required',
+            
+            'ignition_system_id' => 'required',
+            
+            'starting_system_id' => 'required',
+            
+            'transmission_system_id' => 'required',
+            
+            'final_drive' => 'required|string|max:50',
+            
+            'fuel_consumption' => 'required|numeric',
+            
+            'cos2_emissions' => 'required|numeric',
+            
+            'fuel_system' => 'required|string|max:50',
+            
+            'frame' => 'required|string|max:50',
+            
+            'rake_angle' => 'required|numeric',
+            
+            'trail' => 'required|string|max:50',
+            
+            'front_suspension_id' => 'required',
+            
+            'rear_suspension_id' => 'required',
+            
+            'front_travel' => 'required|numeric',
+            
+            'rear_travel' => 'required|numeric',
+            
+            'front_brake' => 'required|string|max:50',
+            
+            'rear_brake' => 'required|string|max:50',
+            
+            'front_tire' => 'required|string|max:50',
+            
+            'rear_tire' => 'required|string|max:50',
+            
+            'total_length' => 'required|numeric',
+            
+            'total_width' => 'required|numeric',
+            
+            'total_height' => 'required|numeric',
+            
+            'seat_height' => 'required|numeric',
+            
+            'wheelbase' => 'required|numeric',
+            
+            'ground_clearance' => 'required|numeric',
+            
+            'weight' => 'required|numeric',
+            
+            'fuel_tank_capacity' => 'required|numeric',
+            
+            'oil_tank_capacity' => 'required|numeric',
+            
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
 
-    
-    if ($validator->fails()) {
-    
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
+            // Validação para novos campos quando selecionado 'new'
+            'new_brand' => 'required_if:brand_id,new|string|max:50',
+            'new_category' => 'required_if:category_id,new|string|max:50',
+            'new_license_type' => 'required_if:license_type_id,new|string|max:50',
+            'new_engine_type' => 'required_if:engine_type_id,new|string|max:50',
+            'new_lubrication_system' => 'required_if:lubrication_system_id,new|string|max:50',
+            'new_clutch_type' => 'required_if:clutch_type_id,new|string|max:50',
+            'new_ignition_system' => 'required_if:ignition_system_id,new|string|max:50',
+            'new_starting_system' => 'required_if:starting_system_id,new|string|max:50',
+            'new_transmission_system' => 'required_if:transmission_system_id,new|string|max:50',
+            'new_front_suspension' => 'required_if:front_suspension_id,new|string|max:50',
+            'new_rear_suspension' => 'required_if:rear_suspension_id,new|string|max:50'
+        ]);
 
-    // Criar a moto no banco, filtrando apenas os campos que existem na tabela
-    
-    $motorcycle = Motorcycle::create($request->only([
-    
-        'name', 
-        
-        'description', 
-        
-        'quantity', 
-        
-        'category_id', 
-        
-        'brand_id', 
-        
-        'price', 
-        
-        'license_type_id', 
-        
-        'engine_type_id', 
-        
-        'displacement', 
-        
-        'bore_stroke', 
-        
-        'compression_ratio',  
-        
-        'max_power', 
-        
-        'max_torque', 
-        
-        'lubrication_system_id', 
-        
-        'clutch_type_id', 
-        
-        'ignition_system_id', 
-        
-        'starting_system_id', 
-        
-        'transmission_system_id', 
-        
-        'final_drive', 
-        
-        'fuel_consumption',  
-        
-        'cos2_emissions', 
-        
-        'fuel_system', 
-        
-        'frame', 
-        
-        'rake_angle', 
-        
-        'trail', 
-        
-        'front_suspension_id',   
-        
-        'rear_suspension_id', 
-        
-        'front_travel', 
-        
-        'rear_travel', 
-        
-        'front_brake', 
-        
-        'rear_brake',
-        
-        'front_tire', 
-        
-        'rear_tire', 
-        
-        'total_length', 
-        
-        'total_width', 
-        
-        'total_height',
-        
-        'seat_height', 
-        
-        'wheelbase', 
-        
-        'ground_clearance', 
-        
-        'weight', 
-        
-        'fuel_tank_capacity',
-       
-        'oil_tank_capacity'
-    ]));
+        // Mensagens de validação personalizadas
+        $messages = [
+            'new_brand.required_if' => 'Por favor, digite o nome da nova marca.',
+            'new_category.required_if' => 'Por favor, digite o nome da nova categoria.',
+            'new_license_type.required_if' => 'Por favor, digite o novo tipo de licença.',
+            'new_engine_type.required_if' => 'Por favor, digite o novo tipo de motor.',
+            'new_lubrication_system.required_if' => 'Por favor, digite o novo sistema de lubrificação.',
+            'new_clutch_type.required_if' => 'Por favor, digite o novo tipo de embreagem.',
+            'new_ignition_system.required_if' => 'Por favor, digite o novo sistema de ignição.',
+            'new_starting_system.required_if' => 'Por favor, digite o novo sistema de partida.',
+            'new_transmission_system.required_if' => 'Por favor, digite o novo sistema de transmissão.',
+            'new_front_suspension.required_if' => 'Por favor, digite o novo tipo de suspensão dianteira.',
+            'new_rear_suspension.required_if' => 'Por favor, digite o novo tipo de suspensão traseira.'
+        ];
 
-    // Upload das fotos
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            if ($image->isValid()) {
-                $imagename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('motorcycles'), $imagename);
+        $validator = Validator::make($request->all(), $validator->getRules(), $messages);
+        
+        if ($validator->fails()) {
+        
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-                // Crie a entrada para a foto
-                Photo::create([
-                    'motorcycle_id' => $motorcycle->id,
-                    'image' => $imagename
-                ]);
-            } else {
-                return redirect()->back()->with('error', 'Uma das imagens não é válida.')->withInput();
+        // Verificar e criar novos registros nas tabelas relacionadas se necessário
+        $requestData = $request->all();
+
+        // Verificar e criar nova marca
+        if ($request->brand_id === 'new' && $request->filled('new_brand')) {
+            $brand = Brand::create(['brand_name' => $request->new_brand]);
+            $requestData['brand_id'] = $brand->id;
+        }
+
+        // Verificar e criar nova categoria
+        if ($request->category_id === 'new' && $request->filled('new_category')) {
+            $category = Category::create(['category_name' => $request->new_category]);
+            $requestData['category_id'] = $category->id;
+        }
+
+        // Verificar e criar novo tipo de licença
+        if ($request->license_type_id === 'new' && $request->filled('new_license_type')) {
+            $licenseType = LicenseType::create(['type' => $request->new_license_type]);
+            $requestData['license_type_id'] = $licenseType->id;
+        }
+
+        // Verificar e criar novo tipo de motor
+        if ($request->engine_type_id === 'new' && $request->filled('new_engine_type')) {
+            $engineType = EngineType::create(['type' => $request->new_engine_type]);
+            $requestData['engine_type_id'] = $engineType->id;
+        }
+
+        // Verificar e criar novo sistema de lubrificação
+        if ($request->lubrication_system_id === 'new' && $request->filled('new_lubrication_system')) {
+            $lubricationSystem = LubricationSystem::create(['system' => $request->new_lubrication_system]);
+            $requestData['lubrication_system_id'] = $lubricationSystem->id;
+        }
+
+        // Verificar e criar novo tipo de embreagem
+        if ($request->clutch_type_id === 'new' && $request->filled('new_clutch_type')) {
+            $clutchType = ClutchType::create(['type' => $request->new_clutch_type]);
+            $requestData['clutch_type_id'] = $clutchType->id;
+        }
+
+        // Verificar e criar novo sistema de ignição
+        if ($request->ignition_system_id === 'new' && $request->filled('new_ignition_system')) {
+            $ignitionSystem = IgnitionSystem::create(['system' => $request->new_ignition_system]);
+            $requestData['ignition_system_id'] = $ignitionSystem->id;
+        }
+
+        // Verificar e criar novo sistema de partida
+        if ($request->starting_system_id === 'new' && $request->filled('new_starting_system')) {
+            $startingSystem = StartingSystem::create(['system' => $request->new_starting_system]);
+            $requestData['starting_system_id'] = $startingSystem->id;
+        }
+
+        // Verificar e criar novo sistema de transmissão
+        if ($request->transmission_system_id === 'new' && $request->filled('new_transmission_system')) {
+            $transmissionSystem = TransmissionSystem::create(['system' => $request->new_transmission_system]);
+            $requestData['transmission_system_id'] = $transmissionSystem->id;
+        }
+
+        // Verificar e criar nova suspensão dianteira
+        if ($request->front_suspension_id === 'new' && $request->filled('new_front_suspension')) {
+            $frontSuspension = Suspension::create(['type' => $request->new_front_suspension]);
+            $requestData['front_suspension_id'] = $frontSuspension->id;
+        }
+
+        // Verificar e criar nova suspensão traseira
+        if ($request->rear_suspension_id === 'new' && $request->filled('new_rear_suspension')) {
+            $rearSuspension = Suspension::create(['type' => $request->new_rear_suspension]);
+            $requestData['rear_suspension_id'] = $rearSuspension->id;
+        }
+
+        // Criar a moto no banco, filtrando apenas os campos que existem na tabela
+        $motorcycle = Motorcycle::create(collect($requestData)->only([
+            'name', 
+            'description', 
+            'quantity', 
+            'category_id', 
+            'brand_id', 
+            'price', 
+            'license_type_id', 
+            'engine_type_id', 
+            'displacement', 
+            'bore_stroke', 
+            'compression_ratio',  
+            'max_power', 
+            'max_torque', 
+            'lubrication_system_id', 
+            'clutch_type_id', 
+            'ignition_system_id', 
+            'starting_system_id', 
+            'transmission_system_id', 
+            'final_drive', 
+            'fuel_consumption',  
+            'cos2_emissions', 
+            'fuel_system', 
+            'frame', 
+            'rake_angle', 
+            'trail', 
+            'front_suspension_id',   
+            'rear_suspension_id', 
+            'front_travel', 
+            'rear_travel', 
+            'front_brake', 
+            'rear_brake',
+            'front_tire', 
+            'rear_tire', 
+            'total_length', 
+            'total_width', 
+            'total_height',
+            'seat_height', 
+            'wheelbase', 
+            'ground_clearance', 
+            'weight', 
+            'fuel_tank_capacity',
+           
+            'oil_tank_capacity'
+        ])->toArray());
+
+        // Upload das fotos
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                if ($image->isValid()) {
+                    $imagename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('motorcycles'), $imagename);
+
+                    // Crie a entrada para a foto
+                    Photo::create([
+                        'motorcycle_id' => $motorcycle->id,
+                        'image' => $imagename
+                    ]);
+                } else {
+                    return redirect()->back()->with('error', 'Uma das imagens não é válida.')->withInput();
+                }
             }
         }
+
+        toastr()->timeOut(10000)->closebutton() ->addSuccess('Motorcycle Added Sucessfully');
+
+        return redirect()->back();
     }
-
-    toastr()->timeOut(10000)->closebutton() ->addSuccess('Motorcycle Added Sucessfully');
-
-    return redirect()->back();
-}
 
 
     /**
