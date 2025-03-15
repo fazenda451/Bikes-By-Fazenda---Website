@@ -820,17 +820,17 @@ public function update_suspensions(Request $request, $id)
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
 
             // Validação para novos campos quando selecionado 'new'
-            'new_brand' => 'required_if:brand_id,new|string|max:50',
-            'new_category' => 'required_if:category_id,new|string|max:50',
-            'new_license_type' => 'required_if:license_type_id,new|string|max:50',
-            'new_engine_type' => 'required_if:engine_type_id,new|string|max:50',
-            'new_lubrication_system' => 'required_if:lubrication_system_id,new|string|max:50',
-            'new_clutch_type' => 'required_if:clutch_type_id,new|string|max:50',
-            'new_ignition_system' => 'required_if:ignition_system_id,new|string|max:50',
-            'new_starting_system' => 'required_if:starting_system_id,new|string|max:50',
-            'new_transmission_system' => 'required_if:transmission_system_id,new|string|max:50',
-            'new_front_suspension' => 'required_if:front_suspension_id,new|string|max:50',
-            'new_rear_suspension' => 'required_if:rear_suspension_id,new|string|max:50'
+            'new_brand' => 'nullable|required_if:brand_id,new|string|max:50',
+            'new_category' => 'nullable|required_if:category_id,new|string|max:50',
+            'new_license_type' => 'nullable|required_if:license_type_id,new|string|max:50',
+            'new_engine_type' => 'nullable|required_if:engine_type_id,new|string|max:50',
+            'new_lubrication_system' => 'nullable|required_if:lubrication_system_id,new|string|max:50',
+            'new_clutch_type' => 'nullable|required_if:clutch_type_id,new|string|max:50',
+            'new_ignition_system' => 'nullable|required_if:ignition_system_id,new|string|max:50',
+            'new_starting_system' => 'nullable|required_if:starting_system_id,new|string|max:50',
+            'new_transmission_system' => 'nullable|required_if:transmission_system_id,new|string|max:50',
+            'new_front_suspension' => 'nullable|required_if:front_suspension_id,new|string|max:50',
+            'new_rear_suspension' => 'nullable|required_if:rear_suspension_id,new|string|max:50'
         ]);
 
         // Mensagens de validação personalizadas
@@ -878,7 +878,7 @@ public function update_suspensions(Request $request, $id)
 
         // Verificar e criar novo tipo de motor
         if ($request->engine_type_id === 'new' && $request->filled('new_engine_type')) {
-            $engineType = EngineType::create(['type' => $request->new_engine_type]);
+            $engineType = EngineType::create(['type' => strval($request->new_engine_type)]);
             $requestData['engine_type_id'] = $engineType->id;
         }
 
@@ -890,37 +890,37 @@ public function update_suspensions(Request $request, $id)
 
         // Verificar e criar novo tipo de embreagem
         if ($request->clutch_type_id === 'new' && $request->filled('new_clutch_type')) {
-            $clutchType = ClutchType::create(['type' => $request->new_clutch_type]);
+            $clutchType = ClutchType::create(['type' => strval($request->new_clutch_type)]);
             $requestData['clutch_type_id'] = $clutchType->id;
         }
 
         // Verificar e criar novo sistema de ignição
         if ($request->ignition_system_id === 'new' && $request->filled('new_ignition_system')) {
-            $ignitionSystem = IgnitionSystem::create(['system' => $request->new_ignition_system]);
+            $ignitionSystem = IgnitionSystem::create(['system' => strval($request->new_ignition_system)]);
             $requestData['ignition_system_id'] = $ignitionSystem->id;
         }
 
         // Verificar e criar novo sistema de partida
         if ($request->starting_system_id === 'new' && $request->filled('new_starting_system')) {
-            $startingSystem = StartingSystem::create(['system' => $request->new_starting_system]);
+            $startingSystem = StartingSystem::create(['system' => strval($request->new_starting_system)]);
             $requestData['starting_system_id'] = $startingSystem->id;
         }
 
         // Verificar e criar novo sistema de transmissão
         if ($request->transmission_system_id === 'new' && $request->filled('new_transmission_system')) {
-            $transmissionSystem = TransmissionSystem::create(['system' => $request->new_transmission_system]);
+            $transmissionSystem = TransmissionSystem::create(['type' => strval($request->new_transmission_system)]);
             $requestData['transmission_system_id'] = $transmissionSystem->id;
         }
 
         // Verificar e criar nova suspensão dianteira
         if ($request->front_suspension_id === 'new' && $request->filled('new_front_suspension')) {
-            $frontSuspension = Suspension::create(['type' => $request->new_front_suspension]);
+            $frontSuspension = Suspension::create(['type' => strval($request->new_front_suspension)]);
             $requestData['front_suspension_id'] = $frontSuspension->id;
         }
 
         // Verificar e criar nova suspensão traseira
         if ($request->rear_suspension_id === 'new' && $request->filled('new_rear_suspension')) {
-            $rearSuspension = Suspension::create(['type' => $request->new_rear_suspension]);
+            $rearSuspension = Suspension::create(['type' => strval($request->new_rear_suspension)]);
             $requestData['rear_suspension_id'] = $rearSuspension->id;
         }
 

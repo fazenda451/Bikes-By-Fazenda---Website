@@ -225,7 +225,7 @@
                                     <option value="new">Adicionar nova marca</option>
                                 </select>
                                 <div id="new_brand_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_brand" class="form-control" placeholder="Digite o nome da nova marca">
+                                    <input type="text" name="new_brand" class="form-control" placeholder="Digite o nome da nova marca" maxlength="50">
                                 </div>
                             </div>
                             
@@ -239,7 +239,7 @@
                                     <option value="new">Adicionar nova categoria</option>
                                 </select>
                                 <div id="new_category_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_category" class="form-control" placeholder="Digite o nome da nova categoria">
+                                    <input type="text" name="new_category" class="form-control" placeholder="Digite o nome da nova categoria" maxlength="50">
                                 </div>
                             </div>
                             
@@ -263,7 +263,7 @@
                                     <option value="new">Adicionar novo tipo de licença</option>
                                 </select>
                                 <div id="new_license_type_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_license_type" class="form-control" placeholder="Digite o novo tipo de licença">
+                                    <input type="text" name="new_license_type" class="form-control" placeholder="Digite o novo tipo de licença" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -271,8 +271,8 @@
                         <div class="form-row">
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
                                 <label class="form-label required-field">Descrição</label>
-                                <textarea name="description" class="form-control" required></textarea>
-                                <span class="form-hint">Descrição detalhada da motocicleta</span>
+                                <textarea name="description" class="form-control" required maxlength="255"></textarea>
+                                <span class="form-hint">Descrição detalhada da motocicleta (máximo 255 caracteres)</span>
                             </div>
                         </div>
                     </div>
@@ -291,7 +291,7 @@
                                     <option value="new">Adicionar novo tipo de motor</option>
                                 </select>
                                 <div id="new_engine_type_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_engine_type" class="form-control" placeholder="Digite o novo tipo de motor">
+                                    <input type="text" name="new_engine_type" class="form-control" placeholder="Digite o novo tipo de motor" maxlength="50">
                                 </div>
                             </div>
                             
@@ -333,7 +333,7 @@
                                     <option value="new">Adicionar novo sistema de lubrificação</option>
                                 </select>
                                 <div id="new_lubrication_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_lubrication_system" class="form-control" placeholder="Digite o novo sistema de lubrificação">
+                                    <input type="text" name="new_lubrication_system" class="form-control" placeholder="Digite o novo sistema de lubrificação" maxlength="50">
                                 </div>
                             </div>
                             
@@ -347,7 +347,7 @@
                                     <option value="new">Adicionar novo tipo de embreagem</option>
                                 </select>
                                 <div id="new_clutch_type_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_clutch_type" class="form-control" placeholder="Digite o novo tipo de embreagem">
+                                    <input type="text" name="new_clutch_type" class="form-control" placeholder="Digite o novo tipo de embreagem" maxlength="50">
                                 </div>
                             </div>
                             
@@ -361,7 +361,7 @@
                                     <option value="new">Adicionar novo sistema de ignição</option>
                                 </select>
                                 <div id="new_ignition_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_ignition_system" class="form-control" placeholder="Digite o novo sistema de ignição">
+                                    <input type="text" name="new_ignition_system" class="form-control" placeholder="Digite o novo sistema de ignição" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -381,7 +381,7 @@
                                     <option value="new">Adicionar novo sistema de partida</option>
                                 </select>
                                 <div id="new_starting_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_starting_system" class="form-control" placeholder="Digite o novo sistema de partida">
+                                    <input type="text" name="new_starting_system" class="form-control" placeholder="Digite o novo sistema de partida" maxlength="50">
                                 </div>
                             </div>
                             
@@ -395,7 +395,7 @@
                                     <option value="new">Adicionar novo sistema de transmissão</option>
                                 </select>
                                 <div id="new_transmission_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_transmission_system" class="form-control" placeholder="Digite o novo sistema de transmissão">
+                                    <input type="text" name="new_transmission_system" class="form-control" placeholder="Digite o novo sistema de transmissão" maxlength="50">
                                 </div>
                             </div>
                             
@@ -452,7 +452,7 @@
                                     <option value="new">Adicionar novo tipo de suspensão</option>
                                 </select>
                                 <div id="new_front_suspension_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_front_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão">
+                                    <input type="text" name="new_front_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão" maxlength="50">
                                 </div>
                             </div>
                             
@@ -466,7 +466,7 @@
                                     <option value="new">Adicionar novo tipo de suspensão</option>
                                 </select>
                                 <div id="new_rear_suspension_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_rear_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão">
+                                    <input type="text" name="new_rear_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão" maxlength="50">
                                 </div>
                             </div>
                             
@@ -488,8 +488,8 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label required-field">Freio Dianteiro</label>
-                                <input type="text" name="front_brake" class="form-control" required>
-                                <span class="form-hint">Ex: Disco duplo, 320mm, 4 pistões</span>
+                                <input type="text" name="front_brake" class="form-control" required maxlength="50">
+                                <span class="form-hint">Ex: Disco duplo, 320mm, 4 pistões (máximo 50 caracteres)</span>
                             </div>
                             
                             <div class="form-group">
@@ -634,12 +634,105 @@
                 }
             }
             
-            // Aplicar a função a todos os inputs numéricos
+            // Aplicar limites aos campos numéricos
             const numericInputs = document.querySelectorAll('input[type="number"]');
             numericInputs.forEach(input => {
                 input.addEventListener('input', function() {
                     limitLength(this, 10);
                 });
+            });
+
+            // Validação para campos de texto
+            const textInputs = document.querySelectorAll('input[type="text"]');
+            textInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Remove caracteres não alfanuméricos e espaços extras
+                    this.value = this.value.replace(/[^a-zA-Z0-9\s\-.,()]/g, '').trim();
+                });
+            });
+            
+            // Definir limites para campos numéricos
+            const numericLimits = {
+                'compression_ratio': { min: 1, max: 20 },
+                'price': { min: 0, max: 1000000 },
+                'quantity': { min: 0, max: 1000 },
+                'max_power': { min: 0, max: 500 },
+                'max_torque': { min: 0, max: 200 },
+                'fuel_consumption': { min: 0, max: 50 },
+                'cos2_emissions': { min: 0, max: 300 },
+                'rake_angle': { min: 0, max: 45 },
+                'trail': { min: 0, max: 300 },
+                'front_travel': { min: 0, max: 300 },
+                'rear_travel': { min: 0, max: 300 },
+                'total_length': { min: 0, max: 3000 },
+                'total_width': { min: 0, max: 3000 },
+                'total_height': { min: 0, max: 3000 },
+                'seat_height': { min: 0, max: 1500 },
+                'wheelbase': { min: 0, max: 3000 },
+                'ground_clearance': { min: 0, max: 500 },
+                'weight': { min: 0, max: 500 },
+                'fuel_tank_capacity': { min: 0, max: 50 },
+                'oil_tank_capacity': { min: 0, max: 10 },
+                'displacement': { min: 0, max: 3000 }
+            };
+            
+            // Aplicar validação aos campos numéricos
+            const numericFields = document.querySelectorAll('input[type="number"]');
+            numericFields.forEach(field => {
+                // Definir atributos min e max
+                const fieldName = field.getAttribute('name');
+                if (numericLimits[fieldName]) {
+                    field.setAttribute('min', numericLimits[fieldName].min);
+                    field.setAttribute('max', numericLimits[fieldName].max);
+                }
+                
+                // Validar no input
+                field.addEventListener('input', function() {
+                    if (numericLimits[fieldName]) {
+                        const value = parseFloat(this.value);
+                        if (value > numericLimits[fieldName].max) {
+                            this.value = numericLimits[fieldName].max;
+                        }
+                    }
+                });
+                
+                // Validar no blur (quando o campo perde o foco)
+                field.addEventListener('blur', function() {
+                    if (numericLimits[fieldName]) {
+                        const value = parseFloat(this.value);
+                        if (value > numericLimits[fieldName].max) {
+                            this.value = numericLimits[fieldName].max;
+                        }
+                    }
+                });
+            });
+            
+            // Validar o formulário antes de enviar
+            document.getElementById('motorcycleForm').addEventListener('submit', function(e) {
+                let hasErrors = false;
+                
+                // Verificar todos os campos numéricos
+                numericFields.forEach(field => {
+                    const fieldName = field.getAttribute('name');
+                    if (numericLimits[fieldName]) {
+                        const value = parseFloat(field.value);
+                        if (isNaN(value)) {
+                            alert(`O campo ${fieldName} deve ser um número válido.`);
+                            hasErrors = true;
+                        } else if (value < numericLimits[fieldName].min) {
+                            alert(`O campo ${fieldName} deve ser maior que ${numericLimits[fieldName].min}.`);
+                            hasErrors = true;
+                        } else if (value > numericLimits[fieldName].max) {
+                            alert(`O campo ${fieldName} deve ser menor que ${numericLimits[fieldName].max}.`);
+                            field.value = numericLimits[fieldName].max;
+                            hasErrors = true;
+                        }
+                    }
+                });
+                
+                if (hasErrors) {
+                    e.preventDefault();
+                }
             });
             
             // Mostrar/esconder campos de novos valores
@@ -665,12 +758,101 @@
                     selectElement.addEventListener('change', function() {
                         if (this.value === 'new') {
                             containerElement.style.display = 'block';
+                            // Limpa o campo quando exibido
+                            const input = containerElement.querySelector('input[type="text"]');
+                            if (input) {
+                                input.value = '';
+                            }
                         } else {
                             containerElement.style.display = 'none';
                         }
                     });
                 }
             });
+
+            // Aplicar limites aos campos numéricos
+            const compressionRatio = document.querySelector('input[name="compression_ratio"]');
+            if (compressionRatio) {
+                compressionRatio.setAttribute('min', '1');
+                compressionRatio.setAttribute('max', '20');
+                compressionRatio.setAttribute('step', '0.1');
+            }
+
+            // Preço (valor razoável para motos)
+            const price = document.querySelector('input[name="price"]');
+            if (price) {
+                price.setAttribute('max', '1000000');
+            }
+
+            // Quantidade (valor razoável para estoque)
+            const quantity = document.querySelector('input[name="quantity"]');
+            if (quantity) {
+                quantity.setAttribute('max', '1000');
+            }
+
+            // Potência (em cv - valor razoável para motos)
+            const maxPower = document.querySelector('input[name="max_power"]');
+            if (maxPower) {
+                maxPower.setAttribute('max', '500');
+            }
+
+            // Torque (em Nm - valor razoável para motos)
+            const maxTorque = document.querySelector('input[name="max_torque"]');
+            if (maxTorque) {
+                maxTorque.setAttribute('max', '200');
+            }
+
+            // Consumo de combustível (L/100km - valor razoável)
+            const fuelConsumption = document.querySelector('input[name="fuel_consumption"]');
+            if (fuelConsumption) {
+                fuelConsumption.setAttribute('max', '50');
+            }
+
+            // Emissões CO2 (g/km - valor razoável)
+            const co2Emissions = document.querySelector('input[name="cos2_emissions"]');
+            if (co2Emissions) {
+                co2Emissions.setAttribute('max', '300');
+            }
+
+            // Ângulo de caster (graus - valor típico entre 20-35)
+            const rakeAngle = document.querySelector('input[name="rake_angle"]');
+            if (rakeAngle) {
+                rakeAngle.setAttribute('max', '45');
+            }
+
+            // Dimensões (mm - valores razoáveis)
+            const dimensionInputs = [
+                'total_length',
+                'total_width',
+                'total_height',
+                'seat_height',
+                'wheelbase',
+                'ground_clearance'
+            ];
+
+            dimensionInputs.forEach(field => {
+                const input = document.querySelector(`input[name="${field}"]`);
+                if (input) {
+                    input.setAttribute('max', '3000');
+                }
+            });
+
+            // Peso (kg - valor razoável para motos)
+            const weight = document.querySelector('input[name="weight"]');
+            if (weight) {
+                weight.setAttribute('max', '500');
+            }
+
+            // Capacidades (L - valores razoáveis)
+            const fuelTankCapacity = document.querySelector('input[name="fuel_tank_capacity"]');
+            if (fuelTankCapacity) {
+                fuelTankCapacity.setAttribute('max', '50');
+            }
+
+            const oilTankCapacity = document.querySelector('input[name="oil_tank_capacity"]');
+            if (oilTankCapacity) {
+                oilTankCapacity.setAttribute('max', '10');
+            }
         });
     </script>
 </body>
