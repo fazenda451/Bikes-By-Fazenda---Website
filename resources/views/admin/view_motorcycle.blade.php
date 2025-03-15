@@ -358,7 +358,7 @@
         }
 
         .image-container {
-            position: relative;
+        position: relative;
             margin-bottom: 15px;
             width: 100%;
             height: auto;
@@ -397,84 +397,84 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-        }
+}
 
-        .delete-button {
-            position: absolute;
+.delete-button {
+    position: absolute;
             top: 10px;
             right: 10px;
             background-color: rgba(220, 53, 69, 0.8);
-            color: white;
-            border: none;
+    color: white;
+    border: none;
             width: 30px;
             height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 16px;
-            cursor: pointer;
+    cursor: pointer;
             border-radius: 50%;
             transition: background-color 0.3s;
             z-index: 10;
-        }
+}
 
-        .delete-button:hover {
+.delete-button:hover {
             background-color: rgba(200, 35, 51, 1);
-        }
+}
 
-        input[type="text"],
-        input[type="number"],
-        input[type="file"] {
-            border: 1px solid #555;
-            border-radius: 6px;
-            background-color: #222;
-            color: white;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #222;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s;
+}
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="file"]:focus {
-            outline: none;
-        }
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus {
+    outline: none;
+}
 
-        .search-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #251a2e;
-            padding: 10px;
-            border-radius: 8px;
-        }
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #251a2e;
+    padding: 10px;
+    border-radius: 8px;
+  }
 
-        .search-container input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #3b0f60;
-            color: #e0e0e0;
-            font-size: 16px;
-        }
+  .search-container input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #3b0f60;
+    color: #e0e0e0;
+    font-size: 16px;
+  }
 
-        .search-container input::placeholder {
-            color: #888;
-        }
+  .search-container input::placeholder {
+    color: #888;
+  }
 
-        .search-button {
-            background: #7d0cff;
-            border: none;
-            padding: 10px 15px;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+  .search-button {
+    background: #7d0cff;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
 
-        .search-button:hover {
-            background: #5909b1;
-        }
+  .search-button:hover {
+    background: #5909b1;
+  }
 
         .form-section {
             background-color: #343a40;
@@ -815,20 +815,20 @@
     <div class="page-content">
         <div class="page-header">
             <h1 class="page-title">Gerenciar Motocicletas</h1>
-            <div class="search-container">
+                <div class="search-container">
                 <input type="text" id="search" placeholder="Pesquisar motocicletas por nome ou marca..." />
-            </div>
+                </div>
         </div>
 
-        <div class="card-container">
-            @foreach ($motorcycles as $motorcycle)
-                <div class="card">
+                <div class="card-container">
+                    @foreach ($motorcycles as $motorcycle)
+                        <div class="card">
                     <div class="card-image-container">
-                        @if($motorcycle->photos->isNotEmpty())
-                            <img src="{{ asset('motorcycles/' . $motorcycle->photos->first()->image) }}" alt="{{ $motorcycle->name }}" class="moto-image">
-                        @else
-                            <img src="{{ asset('default-image.jpg') }}" alt="Default Image" class="moto-image">
-                        @endif
+                            @if($motorcycle->photos->isNotEmpty())
+                                <img src="{{ asset('motorcycles/' . $motorcycle->photos->first()->image) }}" alt="{{ $motorcycle->name }}" class="moto-image">
+                            @else
+                                <img src="{{ asset('default-image.jpg') }}" alt="Default Image" class="moto-image">
+                            @endif
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">{{ $motorcycle->name }}</h3>
@@ -842,97 +842,97 @@
                         <button class="button-details edit" onclick="openEditModal({{ $motorcycle->id }})">Editar</button>
                         <button class="button-details delete" onclick="deleteMotorcycle({{ $motorcycle->id }})">Excluir</button>
                     </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
-        </div>
 
-        <!-- Modal for motorcycle details -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="modal-left">
-                    <div class="image-gallery" id="image-gallery">
-                        <!-- Main image will be inserted here -->
+                <!-- Modal for motorcycle details -->
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <div class="modal-left">
+                            <div class="image-gallery" id="image-gallery">
+                                <!-- Main image will be inserted here -->
+                            </div>
+                        </div>
+                        <div class="modal-right">
+                            <h3 id="modal-title"></h3>
+                            <p><strong>Brand:</strong> <span id="modal-brand"></span></p>
+                            <p><strong>Price:</strong> <span id="modal-price"></span></p>
+                            <p><strong>Description:</strong> <span id="modal-description"></span></p>
+                            <p><strong>License Type:</strong> <span id="modal-license"></span></p>
+                            
+                            <div class="details-section">
+                                <h4>Motor</h4>
+                                <p><strong>Engine Type:</strong> <span id="modal-engine"></span></p>
+                                <p><strong>Displacement (cc):</strong> <span id="modal-displacement"></span> cc</p>
+                                <p><strong>Bore X Stroke:</strong> <span id="modal-bore-stroke"></span> mm</p>
+                                <p><strong>Compression Ratio:</strong> <span id="modal-compression-ratio"></span>:1</p>
+                                <p><strong>Max Power:</strong> <span id="modal-max-power"></span>Kw</p>
+                                <p><strong>Max Torque:</strong> <span id="modal-max-torque"></span>Nm</p>
+                                <p><strong>Lubrication System:</strong> <span id="modal-lubrication"></span></p>
+                                <p><strong>Clutch Type:</strong> <span id="modal-clutch"></span></p>
+                                <p><strong>Ignition System:</strong> <span id="modal-ignition"></span></p>
+                                <p><strong>Starting System:</strong> <span id="modal-starting"></span></p>
+                                <p><strong>Transmission System:</strong> <span id="modal-transmission"></span></p>
+                                <p><strong>Final Drive:</strong> <span id="modal-drive"></span></p>
+                                <p><strong>Fuel Consumption:</strong> <span id="modal-fuel-consumption"></span>L /100 km</p>
+                                <p><strong>CO2 Emissions:</strong> <span id="modal-co2"></span>g /100 km</p>
+                                <p><strong>Fuel System:</strong> <span id="modal-fuel-system"></span></p>
+                            </div>
+                            
+                            <div class="details-section">
+                                <h4>Chassi</h4>
+                                <p><strong>Frame:</strong> <span id="modal-frame"></span></p>
+                                <p><strong>Rake Angle:</strong> <span id="modal-rake"></span></p>
+                                <p><strong>Trail:</strong> <span id="modal-trail"></span> mm</p>
+                                <p><strong>Front Suspension:</strong> <span id="modal-front-suspension"></span></p>
+                                <p><strong>Rear Suspension:</strong> <span id="modal-rear-suspension"></span></p>
+                                <p><strong>Front Travel:</strong> <span id="modal-front-travel"></span> mm</p>
+                                <p><strong>Rear Travel:</strong> <span id="modal-rear-travel"></span> mm</p>
+                                <p><strong>Front Brake:</strong> <span id="modal-front-brake"></span></p>
+                                <p><strong>Rear Brake:</strong> <span id="modal-rear-brake"></span></p>
+                                <p><strong>Front Tire:</strong> <span id="modal-front-tire"></span></p>
+                                <p><strong>Rear Tire:</strong> <span id="modal-rear-tire"></span></p>
+                            </div>
+                            
+                            <div class="details-section">
+                                <h4>Dimensões</h4>
+                                <p><strong>Total Length:</strong> <span id="modal-total-length"></span> mm</p>
+                                <p><strong>Total Width:</strong> <span id="modal-total-width"></span> mm</p>
+                                <p><strong>Total Height:</strong> <span id="modal-total-height"></span> mm</p>
+                                <p><strong>Seat Height:</strong> <span id="modal-seat-height"></span> mm</p>
+                                <p><strong>Wheelbase:</strong> <span id="modal-wheelbase"></span> mm</p>
+                                <p><strong>Ground Clearance:</strong> <span id="modal-ground-clearance"></span> mm</p>
+                                <p><strong>Weight:</strong> <span id="modal-weight"></span> kg</p>
+                                <p><strong>Fuel Tank Capacity:</strong> <span id="modal-fuel-tank-capacity"></span> L</p>
+                                <p><strong>Oil Tank Capacity:</strong> <span id="modal-oil-tank-capacity"></span> L</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-right">
-                    <h3 id="modal-title"></h3>
-                    <p><strong>Brand:</strong> <span id="modal-brand"></span></p>
-                    <p><strong>Price:</strong> <span id="modal-price"></span></p>
-                    <p><strong>Description:</strong> <span id="modal-description"></span></p>
-                    <p><strong>License Type:</strong> <span id="modal-license"></span></p>
-                    
-                    <div class="details-section">
-                        <h4>Motor</h4>
-                        <p><strong>Engine Type:</strong> <span id="modal-engine"></span></p>
-                        <p><strong>Displacement (cc):</strong> <span id="modal-displacement"></span> cc</p>
-                        <p><strong>Bore X Stroke:</strong> <span id="modal-bore-stroke"></span> mm</p>
-                        <p><strong>Compression Ratio:</strong> <span id="modal-compression-ratio"></span>:1</p>
-                        <p><strong>Max Power:</strong> <span id="modal-max-power"></span>Kw</p>
-                        <p><strong>Max Torque:</strong> <span id="modal-max-torque"></span>Nm</p>
-                        <p><strong>Lubrication System:</strong> <span id="modal-lubrication"></span></p>
-                        <p><strong>Clutch Type:</strong> <span id="modal-clutch"></span></p>
-                        <p><strong>Ignition System:</strong> <span id="modal-ignition"></span></p>
-                        <p><strong>Starting System:</strong> <span id="modal-starting"></span></p>
-                        <p><strong>Transmission System:</strong> <span id="modal-transmission"></span></p>
-                        <p><strong>Final Drive:</strong> <span id="modal-drive"></span></p>
-                        <p><strong>Fuel Consumption:</strong> <span id="modal-fuel-consumption"></span>L /100 km</p>
-                        <p><strong>CO2 Emissions:</strong> <span id="modal-co2"></span>g /100 km</p>
-                        <p><strong>Fuel System:</strong> <span id="modal-fuel-system"></span></p>
-                    </div>
-                    
-                    <div class="details-section">
-                        <h4>Chassi</h4>
-                        <p><strong>Frame:</strong> <span id="modal-frame"></span></p>
-                        <p><strong>Rake Angle:</strong> <span id="modal-rake"></span></p>
-                        <p><strong>Trail:</strong> <span id="modal-trail"></span> mm</p>
-                        <p><strong>Front Suspension:</strong> <span id="modal-front-suspension"></span></p>
-                        <p><strong>Rear Suspension:</strong> <span id="modal-rear-suspension"></span></p>
-                        <p><strong>Front Travel:</strong> <span id="modal-front-travel"></span> mm</p>
-                        <p><strong>Rear Travel:</strong> <span id="modal-rear-travel"></span> mm</p>
-                        <p><strong>Front Brake:</strong> <span id="modal-front-brake"></span></p>
-                        <p><strong>Rear Brake:</strong> <span id="modal-rear-brake"></span></p>
-                        <p><strong>Front Tire:</strong> <span id="modal-front-tire"></span></p>
-                        <p><strong>Rear Tire:</strong> <span id="modal-rear-tire"></span></p>
-                    </div>
-                    
-                    <div class="details-section">
-                        <h4>Dimensões</h4>
-                        <p><strong>Total Length:</strong> <span id="modal-total-length"></span> mm</p>
-                        <p><strong>Total Width:</strong> <span id="modal-total-width"></span> mm</p>
-                        <p><strong>Total Height:</strong> <span id="modal-total-height"></span> mm</p>
-                        <p><strong>Seat Height:</strong> <span id="modal-seat-height"></span> mm</p>
-                        <p><strong>Wheelbase:</strong> <span id="modal-wheelbase"></span> mm</p>
-                        <p><strong>Ground Clearance:</strong> <span id="modal-ground-clearance"></span> mm</p>
-                        <p><strong>Weight:</strong> <span id="modal-weight"></span> kg</p>
-                        <p><strong>Fuel Tank Capacity:</strong> <span id="modal-fuel-tank-capacity"></span> L</p>
-                        <p><strong>Oil Tank Capacity:</strong> <span id="modal-oil-tank-capacity"></span> L</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal for editing motorcycle -->
-        <div id="editModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeEditModal()">&times;</span>
+    <!-- Modal for editing motorcycle -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
                 <form id="editForm" action="{{ route('update_motorcycle', ['id' => '__ID__']) }}" method="POST" enctype="multipart/form-data" class="edit-form">
-                    @csrf
-                    <input type="hidden" name="id" id="edit-id">
-                    <div class="modal-left">
+                @csrf
+                <input type="hidden" name="id" id="edit-id">
+                <div class="modal-left">
                         <div class="form-section">
                             <h3 class="section-title">Imagens</h3>
-                            <div class="image-gallery" id="edit-image-gallery">
-                                <!-- Images will be loaded here -->
-                            </div>
+                    <div class="image-gallery" id="edit-image-gallery">
+                        <!-- Images will be loaded here -->
+                    </div>
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px); margin-top: 15px;">
                                 <label class="form-label">Adicionar Novas Fotos</label>
                                 <input type="file" name="photos[]" multiple class="form-control">
                                 <span class="form-hint">Selecione múltiplas imagens (máx. 5MB cada). Formatos aceitos: JPG, PNG, GIF.</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-right">
+                </div>
+                <div class="modal-right">
                         <h3 class="section-title">Editar Motocicleta</h3>
                         
                         <div class="form-section">
@@ -965,7 +965,7 @@
                             </div>
                         </div>
 
-                        <!-- Motor Section -->
+                    <!-- Motor Section -->
                         <div class="form-section">
                             <h4 class="section-title">Motor</h4>
                             <div class="form-row">
@@ -1046,7 +1046,7 @@
                             </div>
                         </div>
 
-                        <!-- Chassi Section -->
+                    <!-- Chassi Section -->
                         <div class="form-section">
                             <h4 class="section-title">Chassi</h4>
                             <div class="form-row">
@@ -1107,7 +1107,7 @@
                             </div>
                         </div>
 
-                        <!-- Dimensões Section -->
+                    <!-- Dimensões Section -->
                         <div class="form-section">
                             <h4 class="section-title">Dimensões</h4>
                             <div class="form-row">
@@ -1162,118 +1162,118 @@
                             <button class="button-details" type="submit">Salvar Alterações</button>
                             <button class="button-details" type="button" onclick="closeEditModal()">Cancelar</button>
                         </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+    </div>
 
         <!-- Loading overlay -->
         <div id="loadingOverlay" class="loading-overlay">
             <div class="spinner"></div>
         </div>
 
-        <script>
-            const motorcycles = @json($motorcycles);
+                <script>
+                    const motorcycles = @json($motorcycles);
 
-            function openModal(id) {
-                const motorcycle = motorcycles.find(m => m.id === id);
-                const modal = document.getElementById('modal');
+                    function openModal(id) {
+                        const motorcycle = motorcycles.find(m => m.id === id);
+                        const modal = document.getElementById('modal');
 
-                // Moto em si
-                document.getElementById('modal-title').innerText = motorcycle.name;
-                document.getElementById('modal-description').innerText = motorcycle.description;
-                document.getElementById('modal-price').innerText = motorcycle.price;
-                document.getElementById('modal-brand').innerText = motorcycle.brand_id ? motorcycle.brand.brand_name : 'N/A';
-                document.getElementById('modal-license').innerText = motorcycle.license_type_id ? motorcycle.license_type.type : 'N/A';
+                        // Moto em si
+                        document.getElementById('modal-title').innerText = motorcycle.name;
+                        document.getElementById('modal-description').innerText = motorcycle.description;
+                        document.getElementById('modal-price').innerText = motorcycle.price;
+                        document.getElementById('modal-brand').innerText = motorcycle.brand_id ? motorcycle.brand.brand_name : 'N/A';
+                        document.getElementById('modal-license').innerText = motorcycle.license_type_id ? motorcycle.license_type.type : 'N/A';
 
-                // Motor
-                document.getElementById('modal-engine').innerText = motorcycle.engine_type_id ? motorcycle.engine_type.type : 'N/A';
-                document.getElementById('modal-displacement').innerText = motorcycle.displacement;
-                document.getElementById('modal-bore-stroke').innerText = motorcycle.bore_stroke;
-                document.getElementById('modal-compression-ratio').innerText = motorcycle.compression_ratio;
-                document.getElementById('modal-max-power').innerText = motorcycle.max_power;
-                document.getElementById('modal-max-torque').innerText = motorcycle.max_torque;
-                document.getElementById('modal-lubrication').innerText = motorcycle.lubrication_system_id ? motorcycle.lubrication_system.system : 'N/A';
-                document.getElementById('modal-clutch').innerText = motorcycle.clutch_type_id ? motorcycle.clutch_type.type : 'N/A';
-                document.getElementById('modal-ignition').innerText = motorcycle.ignition_system_id ? motorcycle.ignition_system.system : 'N/A';
-                document.getElementById('modal-starting').innerText = motorcycle.starting_system_id ? motorcycle.starting_system.system : 'N/A';
-                document.getElementById('modal-transmission').innerText = motorcycle.transmission_system_id ? motorcycle.transmission_system.type : 'N/A';
-                document.getElementById('modal-drive').innerText = motorcycle.final_drive;
-                document.getElementById('modal-fuel-consumption').innerText = motorcycle.fuel_consumption;
-                document.getElementById('modal-co2').innerText = motorcycle.cos2_emissions;
-                document.getElementById('modal-fuel-system').innerText = motorcycle.fuel_system;
+                        // Motor
+                        document.getElementById('modal-engine').innerText = motorcycle.engine_type_id ? motorcycle.engine_type.type : 'N/A';
+                        document.getElementById('modal-displacement').innerText = motorcycle.displacement;
+                        document.getElementById('modal-bore-stroke').innerText = motorcycle.bore_stroke;
+                        document.getElementById('modal-compression-ratio').innerText = motorcycle.compression_ratio;
+                        document.getElementById('modal-max-power').innerText = motorcycle.max_power;
+                        document.getElementById('modal-max-torque').innerText = motorcycle.max_torque;
+                        document.getElementById('modal-lubrication').innerText = motorcycle.lubrication_system_id ? motorcycle.lubrication_system.system : 'N/A';
+                        document.getElementById('modal-clutch').innerText = motorcycle.clutch_type_id ? motorcycle.clutch_type.type : 'N/A';
+                        document.getElementById('modal-ignition').innerText = motorcycle.ignition_system_id ? motorcycle.ignition_system.system : 'N/A';
+                        document.getElementById('modal-starting').innerText = motorcycle.starting_system_id ? motorcycle.starting_system.system : 'N/A';
+                        document.getElementById('modal-transmission').innerText = motorcycle.transmission_system_id ? motorcycle.transmission_system.type : 'N/A';
+                        document.getElementById('modal-drive').innerText = motorcycle.final_drive;
+                        document.getElementById('modal-fuel-consumption').innerText = motorcycle.fuel_consumption;
+                        document.getElementById('modal-co2').innerText = motorcycle.cos2_emissions;
+                        document.getElementById('modal-fuel-system').innerText = motorcycle.fuel_system;
 
-                //Chassi
-                document.getElementById('modal-frame').innerText = motorcycle.frame;
-                document.getElementById('modal-rake').innerText = motorcycle.rake_angle;
-                document.getElementById('modal-trail').innerText = motorcycle.trail;
-                document.getElementById('modal-rear-suspension').innerText = motorcycle.rear_suspension_id ? motorcycle.rear_suspension.type : 'N/A';
-                document.getElementById('modal-front-suspension').innerText = motorcycle.front_suspension_id ? motorcycle.front_suspension.type : 'N/A';
-                document.getElementById('modal-front-travel').innerText = motorcycle.front_travel;
-                document.getElementById('modal-rear-travel').innerText = motorcycle.rear_travel;
-                document.getElementById('modal-rear-brake').innerText = motorcycle.rear_brake;
-                document.getElementById('modal-front-brake').innerText = motorcycle.front_brake;
-                document.getElementById('modal-rear-tire').innerText = motorcycle.rear_tire;
-                document.getElementById('modal-front-tire').innerText = motorcycle.front_tire;
+                        //Chassi
+                        document.getElementById('modal-frame').innerText = motorcycle.frame;
+                        document.getElementById('modal-rake').innerText = motorcycle.rake_angle;
+                        document.getElementById('modal-trail').innerText = motorcycle.trail;
+                        document.getElementById('modal-rear-suspension').innerText = motorcycle.rear_suspension_id ? motorcycle.rear_suspension.type : 'N/A';
+                        document.getElementById('modal-front-suspension').innerText = motorcycle.front_suspension_id ? motorcycle.front_suspension.type : 'N/A';
+                        document.getElementById('modal-front-travel').innerText = motorcycle.front_travel;
+                        document.getElementById('modal-rear-travel').innerText = motorcycle.rear_travel;
+                        document.getElementById('modal-rear-brake').innerText = motorcycle.rear_brake;
+                        document.getElementById('modal-front-brake').innerText = motorcycle.front_brake;
+                        document.getElementById('modal-rear-tire').innerText = motorcycle.rear_tire;
+                        document.getElementById('modal-front-tire').innerText = motorcycle.front_tire;
 
-                //dimensões
-                document.getElementById('modal-total-width').innerText = motorcycle.total_width;
-                document.getElementById('modal-total-length').innerText = motorcycle.total_length;
-                document.getElementById('modal-seat-height').innerText = motorcycle.seat_height;
-                document.getElementById('modal-total-height').innerText = motorcycle.total_height;
-                document.getElementById('modal-ground-clearance').innerText = motorcycle.ground_clearance;
-                document.getElementById('modal-wheelbase').innerText = motorcycle.wheelbase;
-                document.getElementById('modal-weight').innerText = motorcycle.weight;
-                document.getElementById('modal-fuel-tank-capacity').innerText = motorcycle.fuel_tank_capacity;
-                document.getElementById('modal-oil-tank-capacity').innerText = motorcycle.oil_tank_capacity;
+                        //dimensões
+                        document.getElementById('modal-total-width').innerText = motorcycle.total_width;
+                        document.getElementById('modal-total-length').innerText = motorcycle.total_length;
+                        document.getElementById('modal-seat-height').innerText = motorcycle.seat_height;
+                        document.getElementById('modal-total-height').innerText = motorcycle.total_height;
+                        document.getElementById('modal-ground-clearance').innerText = motorcycle.ground_clearance;
+                        document.getElementById('modal-wheelbase').innerText = motorcycle.wheelbase;
+                        document.getElementById('modal-weight').innerText = motorcycle.weight;
+                        document.getElementById('modal-fuel-tank-capacity').innerText = motorcycle.fuel_tank_capacity;
+                        document.getElementById('modal-oil-tank-capacity').innerText = motorcycle.oil_tank_capacity;
 
-                const gallery = document.getElementById('image-gallery');
-                gallery.innerHTML = '';
-                motorcycle.photos.forEach((photo, index) => {
-                    const img = document.createElement('img');
-                    img.src = '{{ asset('motorcycles/') }}/' + photo.image;
-                    img.alt = motorcycle.name;
-                    img.className = index === 0 ? 'main-image' : 'gallery-image';
-                    gallery.appendChild(img);
-                });
+                        const gallery = document.getElementById('image-gallery');
+                        gallery.innerHTML = '';
+                        motorcycle.photos.forEach((photo, index) => {
+                            const img = document.createElement('img');
+                            img.src = '{{ asset('motorcycles/') }}/' + photo.image;
+                            img.alt = motorcycle.name;
+                            img.className = index === 0 ? 'main-image' : 'gallery-image';
+                            gallery.appendChild(img);
+                        });
 
-                modal.style.display = "block";
-            }
+                        modal.style.display = "block";
+                    }
 
-            function closeModal() {
-                const modal = document.getElementById('modal');
-                modal.style.display = "none";
-            }
+                    function closeModal() {
+                        const modal = document.getElementById('modal');
+                        modal.style.display = "none";
+                    }
 
-            window.onclick = function(event) {
-                const modal = document.getElementById('modal');
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
+                    window.onclick = function(event) {
+                        const modal = document.getElementById('modal');
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
 
-            function deleteMotorcycle(id) {
-                window.location.href = "{{ url('delete_motorcycle') }}/" + id;
-            }
+                    function deleteMotorcycle(id) {
+                        window.location.href = "{{ url('delete_motorcycle') }}/" + id;
+                    }
 
-            function closeEditModal() {
-                const editModal = document.getElementById('editModal');
-                const fileInput = document.querySelector('input[name="photos[]"]');
-                const gallery = document.getElementById('edit-image-gallery');
+function closeEditModal() {
+    const editModal = document.getElementById('editModal');
+    const fileInput = document.querySelector('input[name="photos[]"]');
+    const gallery = document.getElementById('edit-image-gallery');
 
-                // Limpa o campo de upload de arquivos
-                fileInput.value = '';
+    // Limpa o campo de upload de arquivos
+    fileInput.value = '';
 
-                // Limpa as imagens carregadas
-                gallery.innerHTML = '';
+    // Limpa as imagens carregadas
+    gallery.innerHTML = '';
 
-                // Fecha o modal
-                editModal.style.display = "none";
-            }
+    // Fecha o modal
+    editModal.style.display = "none";
+}
 
-            document.querySelector('input[name="photos[]"]').addEventListener('change', function(event) {
-                const files = event.target.files;
-                const gallery = document.getElementById('edit-image-gallery');
+document.querySelector('input[name="photos[]"]').addEventListener('change', function(event) {
+    const files = event.target.files;
+    const gallery = document.getElementById('edit-image-gallery');
                 
                 // Remove a seção de novas imagens se já existir
                 const existingNewSection = gallery.querySelector('.new-images-section');
@@ -1286,13 +1286,13 @@
                 newImagesSection.className = 'new-images-section';
                 newImagesSection.innerHTML = '<h4 class="section-title">Novas Imagens</h4>';
 
-                for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
                     const imgContainer = document.createElement('div');
                     imgContainer.className = 'image-container';
                     
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(files[i]);
-                    img.alt = 'Preview Image';
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(files[i]);
+        img.alt = 'Preview Image';
                     
                     imgContainer.appendChild(img);
                     newImagesSection.appendChild(imgContainer);
@@ -1303,88 +1303,88 @@
                     gallery.insertBefore(newImagesSection, gallery.firstChild);
                 } else {
                     gallery.appendChild(newImagesSection);
-                }
-            });
+    }
+});
 
-            function openEditModal(id) {
-                const motorcycle = motorcycles.find(m => m.id === id);
-                const editModal = document.getElementById('editModal');
-                const editForm = document.getElementById('editForm');
+function openEditModal(id) {
+    const motorcycle = motorcycles.find(m => m.id === id);
+    const editModal = document.getElementById('editModal');
+    const editForm = document.getElementById('editForm');
 
-                // Preenche os campos do formulário
-                document.getElementById('edit-name').value = motorcycle.name;
-                document.getElementById('edit-description').value = motorcycle.description;
-                document.getElementById('edit-price').value = motorcycle.price;
-                document.getElementById('edit-brand').value = motorcycle.brand_id;
-                document.getElementById('edit-license').value = motorcycle.license_type_id;
+    // Preenche os campos do formulário
+    document.getElementById('edit-name').value = motorcycle.name;
+    document.getElementById('edit-description').value = motorcycle.description;
+    document.getElementById('edit-price').value = motorcycle.price;
+    document.getElementById('edit-brand').value = motorcycle.brand_id;
+    document.getElementById('edit-license').value = motorcycle.license_type_id;
 
-                // Motor Section
-                document.getElementById('edit-engine').value = motorcycle.engine_type_id;
-                document.getElementById('edit-displacement').value = motorcycle.displacement;
-                document.getElementById('edit-bore-stroke').value = motorcycle.bore_stroke;
-                document.getElementById('edit-compression-ratio').value = motorcycle.compression_ratio;
-                document.getElementById('edit-max-power').value = motorcycle.max_power;
-                document.getElementById('edit-max-torque').value = motorcycle.max_torque;
-                document.getElementById('edit-lubrication').value = motorcycle.lubrication_system_id;
-                document.getElementById('edit-clutch').value = motorcycle.clutch_type_id;
-                document.getElementById('edit-ignition').value = motorcycle.ignition_system_id;
-                document.getElementById('edit-starting').value = motorcycle.starting_system_id;
-                document.getElementById('edit-transmission').value = motorcycle.transmission_system_id;
-                document.getElementById('edit-drive').value = motorcycle.final_drive;
-                document.getElementById('edit-fuel-consumption').value = motorcycle.fuel_consumption;
-                document.getElementById('edit-co2').value = motorcycle.cos2_emissions;
-                document.getElementById('edit-fuel-system').value = motorcycle.fuel_system;
+    // Motor Section
+    document.getElementById('edit-engine').value = motorcycle.engine_type_id;
+    document.getElementById('edit-displacement').value = motorcycle.displacement;
+    document.getElementById('edit-bore-stroke').value = motorcycle.bore_stroke;
+    document.getElementById('edit-compression-ratio').value = motorcycle.compression_ratio;
+    document.getElementById('edit-max-power').value = motorcycle.max_power;
+    document.getElementById('edit-max-torque').value = motorcycle.max_torque;
+    document.getElementById('edit-lubrication').value = motorcycle.lubrication_system_id;
+    document.getElementById('edit-clutch').value = motorcycle.clutch_type_id;
+    document.getElementById('edit-ignition').value = motorcycle.ignition_system_id;
+    document.getElementById('edit-starting').value = motorcycle.starting_system_id;
+    document.getElementById('edit-transmission').value = motorcycle.transmission_system_id;
+    document.getElementById('edit-drive').value = motorcycle.final_drive;
+    document.getElementById('edit-fuel-consumption').value = motorcycle.fuel_consumption;
+    document.getElementById('edit-co2').value = motorcycle.cos2_emissions;
+    document.getElementById('edit-fuel-system').value = motorcycle.fuel_system;
 
-                // Chassi Section
-                document.getElementById('edit-frame').value = motorcycle.frame;
-                document.getElementById('edit-rake').value = motorcycle.rake_angle;
-                document.getElementById('edit-trail').value = motorcycle.trail;
-                document.getElementById('edit-front-suspension').value = motorcycle.front_suspension_id;
-                document.getElementById('edit-rear-suspension').value = motorcycle.rear_suspension_id;
-                document.getElementById('edit-front-travel').value = motorcycle.front_travel;
-                document.getElementById('edit-rear-travel').value = motorcycle.rear_travel;
-                document.getElementById('edit-front-brake').value = motorcycle.front_brake;
-                document.getElementById('edit-rear-brake').value = motorcycle.rear_brake;
-                document.getElementById('edit-front-tire').value = motorcycle.front_tire;
-                document.getElementById('edit-rear-tire').value = motorcycle.rear_tire;
+    // Chassi Section
+    document.getElementById('edit-frame').value = motorcycle.frame;
+    document.getElementById('edit-rake').value = motorcycle.rake_angle;
+    document.getElementById('edit-trail').value = motorcycle.trail;
+    document.getElementById('edit-front-suspension').value = motorcycle.front_suspension_id;
+    document.getElementById('edit-rear-suspension').value = motorcycle.rear_suspension_id;
+    document.getElementById('edit-front-travel').value = motorcycle.front_travel;
+    document.getElementById('edit-rear-travel').value = motorcycle.rear_travel;
+    document.getElementById('edit-front-brake').value = motorcycle.front_brake;
+    document.getElementById('edit-rear-brake').value = motorcycle.rear_brake;
+    document.getElementById('edit-front-tire').value = motorcycle.front_tire;
+    document.getElementById('edit-rear-tire').value = motorcycle.rear_tire;
 
-                // Dimensões Section
-                document.getElementById('edit-total-length').value = motorcycle.total_length;
-                document.getElementById('edit-total-width').value = motorcycle.total_width;
-                document.getElementById('edit-total-height').value = motorcycle.total_height;
-                document.getElementById('edit-seat-height').value = motorcycle.seat_height;
-                document.getElementById('edit-wheelbase').value = motorcycle.wheelbase;
-                document.getElementById('edit-ground-clearance').value = motorcycle.ground_clearance;
-                document.getElementById('edit-weight').value = motorcycle.weight;
-                document.getElementById('edit-fuel-tank-capacity').value = motorcycle.fuel_tank_capacity;
-                document.getElementById('edit-oil-tank-capacity').value = motorcycle.oil_tank_capacity;
+    // Dimensões Section
+    document.getElementById('edit-total-length').value = motorcycle.total_length;
+    document.getElementById('edit-total-width').value = motorcycle.total_width;
+    document.getElementById('edit-total-height').value = motorcycle.total_height;
+    document.getElementById('edit-seat-height').value = motorcycle.seat_height;
+    document.getElementById('edit-wheelbase').value = motorcycle.wheelbase;
+    document.getElementById('edit-ground-clearance').value = motorcycle.ground_clearance;
+    document.getElementById('edit-weight').value = motorcycle.weight;
+    document.getElementById('edit-fuel-tank-capacity').value = motorcycle.fuel_tank_capacity;
+    document.getElementById('edit-oil-tank-capacity').value = motorcycle.oil_tank_capacity;
 
-                // Atualiza o action do formulário com o ID correto
-                editForm.action = "{{ route('update_motorcycle', ['id' => '__ID__']) }}".replace('__ID__', id);
+    // Atualiza o action do formulário com o ID correto
+    editForm.action = "{{ route('update_motorcycle', ['id' => '__ID__']) }}".replace('__ID__', id);
 
-                // Atualiza o campo oculto com o ID da moto
-                document.querySelector('input[name="id"]').value = id;
+    // Atualiza o campo oculto com o ID da moto
+    document.querySelector('input[name="id"]').value = id;
 
-                // Preenche as imagens
-                const gallery = document.getElementById('edit-image-gallery');
-                gallery.innerHTML = '';
+    // Preenche as imagens
+    const gallery = document.getElementById('edit-image-gallery');
+    gallery.innerHTML = '';
                 
                 if (motorcycle.photos && motorcycle.photos.length > 0) {
                     const currentImagesSection = document.createElement('div');
                     currentImagesSection.className = 'current-images-section';
                     currentImagesSection.innerHTML = '<h4 class="section-title">Imagens Atuais</h4>';
                     
-                    motorcycle.photos.forEach((photo, index) => {
-                        const imgContainer = document.createElement('div');
-                        imgContainer.className = 'image-container';
+    motorcycle.photos.forEach((photo, index) => {
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'image-container';
 
-                        const img = document.createElement('img');
-                        img.src = '{{ asset('motorcycles/') }}/' + photo.image;
-                        img.alt = motorcycle.name;
+        const img = document.createElement('img');
+        img.src = '{{ asset('motorcycles/') }}/' + photo.image;
+        img.alt = motorcycle.name;
 
-                        const deleteButton = document.createElement('button');
-                        deleteButton.innerText = 'X';
-                        deleteButton.className = 'delete-button';
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'X';
+        deleteButton.className = 'delete-button';
                         deleteButton.onclick = (e) => {
                             e.preventDefault();
                             if (confirm('Tem certeza que deseja excluir esta imagem?')) {
@@ -1392,8 +1392,8 @@
                             }
                         };
 
-                        imgContainer.appendChild(img);
-                        imgContainer.appendChild(deleteButton);
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(deleteButton);
                         currentImagesSection.appendChild(imgContainer);
                     });
                     
@@ -1403,7 +1403,7 @@
                 }
 
                 // Mostra o modal
-                editModal.style.display = "block";
+    editModal.style.display = "block";
                 
                 // Força o layout a ser renderizado corretamente
                 const modalContent = document.querySelector('#editModal .modal-content');
@@ -1428,11 +1428,11 @@
             }
 
             function deletePhoto(photoId, container) {
-                fetch(`${window.location.origin}/delete_photo/${photoId}`, { 
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    }
+    fetch(`${window.location.origin}/delete_photo/${photoId}`, { 
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        }
                 })
                 .then(response => {
                     if (response.ok) {
@@ -1477,11 +1477,11 @@
                 .catch(error => {
                     console.error('Erro:', error);
                     alert('Erro ao excluir a imagem. Tente novamente.');
-                });
-            }
+    });
+}
 
-            document.getElementById('editForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+document.getElementById('editForm').addEventListener('submit', function(event) {
+    event.preventDefault();
                 
                 // Mostra o overlay de carregamento
                 const loadingOverlay = document.getElementById('loadingOverlay');
@@ -1596,32 +1596,32 @@
                 });
             });
 
-            document.getElementById('search').addEventListener('input', function() {
-                searchMotorcycle();
-            });
+document.getElementById('search').addEventListener('input', function() {
+    searchMotorcycle();
+});
 
-            function searchMotorcycle() {
-                let input = document.getElementById('search').value.toLowerCase();
-                let cards = document.querySelectorAll('.card');
-                
-                cards.forEach(card => {
-                    let brand = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
-                    let name = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
-                    
-                    if (brand.indexOf(input) === -1 && name.indexOf(input) === -1) {
-                        card.style.display = 'none';
-                    } else {
-                        card.style.display = '';
-                    }
-                });
+function searchMotorcycle() {
+    let input = document.getElementById('search').value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        let brand = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
+        let name = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+        
+        if (brand.indexOf(input) === -1 && name.indexOf(input) === -1) {
+            card.style.display = 'none';
+        } else {
+            card.style.display = '';
+        }
+    });
 
-                if (input === '') {
-                    cards.forEach(card => card.style.display = '');
-                }
-            }
-        </script>
+    if (input === '') {
+        cards.forEach(card => card.style.display = '');
+    }
+}
+                </script>
 
-        @include('admin.js')
+                @include('admin.js')
     </div>
 </body>
 </html>

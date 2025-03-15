@@ -12,39 +12,61 @@
     <style>
 
 .statistic-block {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .statistic-block:hover {
-    transform: translateY(-5px); /* Desloca para cima */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Aumenta a sombra */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-
 .statistic-block .title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    margin-bottom: 10px;
-    padding: 5px;
+    margin-bottom: 8px;
+    padding: 3px;
 }
 
 .statistic-block .number {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 .progress {
-    height: 10px;
-    border-radius: 5px;
+    height: 8px;
+    border-radius: 4px;
     background-color: #e9ecef;
 }
 
 .progress-bar {
-    border-radius: 5px;
+    border-radius: 4px;
+}
+
+.icon {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.container-fluid {
+    padding: 15px;
+}
+
+.row {
+    margin-bottom: 15px;
+}
+
+h2.h5 {
+    font-size: 20px;
+    margin: 15px 0;
+    padding: 0 15px;
+}
+
+.col-md-3, .col-md-6 {
+    padding: 8px;
 }
     </style>
 </head>
