@@ -12,12 +12,12 @@
               <div class="product-overlay">
                 <div class="view-details">
                   <i class="fas fa-search-plus"></i>
-                  <span>View Details</span>
+                  <span>Ver Detalhes</span>
                 </div>
               </div>
               @if($products->discount_price)
                 <div class="product-tag">
-                  <span>SALE</span>
+                  <span>OFERTA</span>
                 </div>
               @endif
             </div>
@@ -41,6 +41,13 @@
         </a>
       </div>
       @endforeach
+    </div>
+    
+    <div class="text-center mt-5">
+      <a href="{{ url('product_catalog') }}" class="view-all-btn">
+        <span>Ver Todos os Produtos</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
   </div>
 
@@ -211,6 +218,36 @@
       letter-spacing: 1px;
       box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
       z-index: 1;
+    }
+    
+    .view-all-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #9935dc;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(153, 53, 220, 0.3);
+      gap: 10px;
+    }
+    
+    .view-all-btn:hover {
+      background-color: #8024c0;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(153, 53, 220, 0.4);
+      color: white;
+    }
+    
+    .view-all-btn i {
+      transition: transform 0.3s ease;
+    }
+    
+    .view-all-btn:hover i {
+      transform: translateX(5px);
     }
 
     @media (max-width: 768px) {

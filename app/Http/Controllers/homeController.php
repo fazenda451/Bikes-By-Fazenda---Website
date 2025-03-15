@@ -114,8 +114,8 @@ class homeController extends Controller
 
     public function home()
     {
-        $product = Product::with('category')->get();
-        $motorcycles = Motorcycle::with('brand')->get();
+        $product = Product::with('category')->latest()->take(8)->get();
+        $motorcycles = Motorcycle::with('brand')->latest()->take(6)->get();
         
         if(Auth::id())
         {
@@ -131,8 +131,8 @@ class homeController extends Controller
 
     public function login_home()
     {
-        $product = Product::with('category')->get();
-        $motorcycles = Motorcycle::with('brand')->get();
+        $product = Product::with('category')->latest()->take(8)->get();
+        $motorcycles = Motorcycle::with('brand')->latest()->take(6)->get();
 
         if(auth::id())
         {
