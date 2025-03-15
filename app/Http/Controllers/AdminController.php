@@ -1080,84 +1080,45 @@ public function update_suspensions(Request $request, $id)
      * Atualiza uma moto e suas fotos.
      */
     public function edit_motorcycle(Request $request, $id)
-{
+    {
+        // Encontra a moto pelo ID
+        $motorcycle = Motorcycle::find($id);
 
-    // Encontra a moto pelo ID
-    $motorcycle = Motorcycle::find($id);
-
-    if (!$motorcycle) {
-        toastr()->timeOut(10000)->closeButton()->addError('Motorcycle Not Found');
-        return redirect()->back();
-    }
-
-    // Validação dos campos
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-        'brand_id' => 'required|exists:brands,id',
-        'license_type_id' => 'required|exists:license_types,id',
-        'engine_type_id' => 'required|exists:engine_types,id',
-        'displacement' => 'required|numeric',
-        'bore_stroke' => 'required|string',
-        'compression_ratio' => 'required|string',
-        'max_power' => 'required|string',
-        'max_torque' => 'required|string',
-        'lubrication_system_id' => 'required|exists:lubrication_systems,id',
-        'clutch_type_id' => 'required|exists:clutch_types,id',
-        'ignition_system_id' => 'required|exists:ignition_systems,id',
-        'starting_system_id' => 'required|exists:starting_systems,id',
-        'transmission_system_id' => 'required|exists:transmission_systems,id',
-        'final_drive' => 'required|string',
-        'fuel_consumption' => 'required|numeric',
-        'cos2_emissions' => 'required|numeric',
-        'fuel_system' => 'required|string',
-        'frame' => 'required|string',
-        'rake_angle' => 'required|string',
-        'trail' => 'required|numeric',
-        'front_suspension_id' => 'required|exists:suspensions,id',
-        'rear_suspension_id' => 'required|exists:suspensions,id',
-        'front_travel' => 'required|numeric',
-        'rear_travel' => 'required|numeric',
-        'front_brake' => 'required|string',
-        'rear_brake' => 'required|string',
-        'front_tire' => 'required|string',
-        'rear_tire' => 'required|string',
-        'total_length' => 'required|numeric',
-        'total_width' => 'required|numeric',
-        'total_height' => 'required|numeric',
-        'seat_height' => 'required|numeric',
-        'wheelbase' => 'required|numeric',
-        'ground_clearance' => 'required|numeric',
-        'weight' => 'required|numeric',
-        'fuel_tank_capacity' => 'required|numeric',
-        'oil_tank_capacity' => 'required|numeric',
-        'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
-
-    // Atualização dos dados da moto
-    $motorcycle->update($request->except('_token', 'photos'));
-
-    // Upload de novas fotos
-    if ($request->hasFile('photos')) {
-        foreach ($request->file('photos') as $photo) {
-            // Gera um nome único para a imagem
-            $imagename = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
-
-            // Move a imagem para a pasta pública
-            $photo->move(public_path('motorcycles'), $imagename);
-
-            // Salva a imagem no banco de dados
-            Photo::create([
-                'motorcycle_id' => $motorcycle->id, // Associa a foto à moto correta
-                'image' => $imagename,
-            ]);
+        if (!$motorcycle) {
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Motocicleta não encontrada.']);
+            }
+            toastr()->timeOut(10000)->closeButton()->addError('Motorcycle Not Found');
+            return redirect()->back();
         }
-    }
 
-    toastr()->timeOut(10000)->closeButton()->addSuccess('Motorcycle Updated Successfully');
-    return redirect('/view_motorcycle');
-}
+        // Atualização dos dados da moto
+        $motorcycle->update($request->except('_token', 'photos'));
+
+        // Upload de novas fotos
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                // Gera um nome único para a imagem
+                $imagename = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+
+                // Move a imagem para a pasta pública
+                $photo->move(public_path('motorcycles'), $imagename);
+
+                // Salva a imagem no banco de dados
+                Photo::create([
+                    'motorcycle_id' => $motorcycle->id, // Associa a foto à moto correta
+                    'image' => $imagename,
+                ]);
+            }
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Motocicleta atualizada com sucesso.']);
+        }
+
+        toastr()->timeOut(10000)->closeButton()->addSuccess('Motorcycle Updated Successfully');
+        return redirect('/view_motorcycle');
+    }
 
 
 public function delete_photo($id)

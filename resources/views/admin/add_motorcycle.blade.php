@@ -242,7 +242,7 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Quantidade</label>
-                                <input type="number" name="quantity" class="form-control" required>
+                                <input type="number" min="0" step="1" name="quantity" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
@@ -281,7 +281,7 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Cilindrada (cc)</label>
-                                <input type="text" name="displacement" class="form-control" required>
+                                <input type="number" min="0" step="any" name="displacement" class="form-control" required>
                                 <span class="form-hint">Ex: 125, 250, 600, 1000</span>
                             </div>
                             
@@ -293,18 +293,18 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Taxa de Compressão</label>
-                                <input type="number" step="0.1" name="compression_ratio" class="form-control" required>
+                                <input type="number" step="any" name="compression_ratio" class="form-control" required>
                                 <span class="form-hint">Ex: 11.5:1 (digite apenas 11.5)</span>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Potência Máxima (cv)</label>
-                                <input type="number" step="0.1" name="max_power" class="form-control" required>
+                                <input type="number" step="any" name="max_power" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Torque Máximo (Nm)</label>
-                                <input type="number" step="0.1" name="max_torque" class="form-control" required>
+                                <input type="number" step="any" name="max_torque" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
@@ -371,12 +371,12 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Consumo de Combustível (L/100km)</label>
-                                <input type="number" step="0.01" name="fuel_consumption" class="form-control" required>
+                                <input type="number" step="any" name="fuel_consumption" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Emissões de CO2 (g/km)</label>
-                                <input type="number" step="0.01" name="cos2_emissions" class="form-control" required>
+                                <input type="number" step="any" name="cos2_emissions" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
@@ -398,12 +398,12 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Ângulo de Caster (graus)</label>
-                                <input type="number" step="0.1" name="rake_angle" class="form-control" required>
+                                <input type="number" step="any" name="rake_angle" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Trail (mm)</label>
-                                <input type="text" name="trail" class="form-control" required>
+                                <input type="number" step="any" name="trail" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
@@ -428,12 +428,12 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Curso Dianteiro (mm)</label>
-                                <input type="number" step="1" name="front_travel" class="form-control" required>
+                                <input type="number" step="any" name="front_travel" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Curso Traseiro (mm)</label>
-                                <input type="number" step="1" name="rear_travel" class="form-control" required>
+                                <input type="number" step="any" name="rear_travel" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -474,47 +474,47 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label required-field">Comprimento Total (mm)</label>
-                                <input type="number" step="1" name="total_length" class="form-control" required>
+                                <input type="number" step="any" name="total_length" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Largura Total (mm)</label>
-                                <input type="number" step="1" name="total_width" class="form-control" required>
+                                <input type="number" step="any" name="total_width" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Altura Total (mm)</label>
-                                <input type="number" step="1" name="total_height" class="form-control" required>
+                                <input type="number" step="any" name="total_height" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Altura do Assento (mm)</label>
-                                <input type="number" step="1" name="seat_height" class="form-control" required>
+                                <input type="number" step="any" name="seat_height" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Distância Entre-Eixos (mm)</label>
-                                <input type="number" step="1" name="wheelbase" class="form-control" required>
+                                <input type="number" step="any" name="wheelbase" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Distância ao Solo (mm)</label>
-                                <input type="number" step="1" name="ground_clearance" class="form-control" required>
+                                <input type="number" step="any" name="ground_clearance" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Peso (kg)</label>
-                                <input type="number" step="0.1" name="weight" class="form-control" required>
+                                <input type="number" step="any" name="weight" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Capacidade do Tanque (L)</label>
-                                <input type="number" step="0.1" name="fuel_tank_capacity" class="form-control" required>
+                                <input type="number" step="any" name="fuel_tank_capacity" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Capacidade de Óleo (L)</label>
-                                <input type="number" step="0.1" name="oil_tank_capacity" class="form-control" required>
+                                <input type="number" step="any" name="oil_tank_capacity" class="form-control" required>
                             </div>
                         </div>
                     </div>

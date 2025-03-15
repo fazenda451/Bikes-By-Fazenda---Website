@@ -91,20 +91,31 @@
             display: flex;
             flex-direction: row;
             gap: 20px;
-            box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
         .modal-left {
-            width: 40%;
+            width: 30%;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: 15px;
+            min-width: 300px;
         }
 
         .modal-right {
-            width: 60%;
+            width: 70%;
             padding: 10px;
-            color: white
+            color: white;
+            overflow-y: auto;
+            max-height: 80vh;
+            border-left: 1px solid #444;
+            padding-left: 15px;
+            flex: 1;
         }
 
         .modal-right strong {
@@ -121,7 +132,11 @@
         .image-gallery {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+            width: 100%;
         }
 
         .image-gallery img {
@@ -217,82 +232,455 @@
         }
 
         .image-container {
-        position: relative;
-        margin-bottom: 10px;
-}
+            position: relative;
+            margin-bottom: 15px;
+            width: 100%;
+            height: auto;
+            border: 1px solid #444;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-.delete-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            object-fit: cover;
+            display: block;
+            max-height: 300px;
+        }
 
-.delete-button:hover {
-    background-color: darkred;
-}
+        .current-images-section {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
 
-input[type="text"],
-input[type="number"],
-input[type="file"] {
-    
-    
-    border: 1px solid #555;
+        .current-images-section h4, .new-images-section h4 {
+            margin-bottom: 15px;
+            color: #9935dc;
+            border-bottom: 1px solid #3d4148;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        .images-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(220, 53, 69, 0.8);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+
+        .delete-button:hover {
+            background-color: rgba(200, 35, 51, 1);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            
+            
+            border: 1px solid #555;
+            border-radius: 6px;
+            background-color: #222;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #251a2e;
+            padding: 10px;
+            border-radius: 8px;
+          }
+
+          .search-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3b0f60;
+            color: #e0e0e0;
+            font-size: 16px;
+          }
+
+          .search-container input::placeholder {
+            color: #888;
+          }
+
+          .search-button {
+            background: #7d0cff;
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+          }
+
+          .search-button:hover {
+            background: #5909b1;
+          }
+
+.form-section {
+    background-color: #343a40;
+    padding: 20px;
     border-radius: 6px;
-    background-color: #222;
-    color: white;
-    font-size: 16px;
-    transition: all 0.3s;
+    margin-bottom: 20px;
+    border: 1px solid #3d4148;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="file"]:focus {
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.form-group {
+    flex: 0 0 calc(50% - 20px);
+    margin: 0 10px 20px;
+}
+
+@media (max-width: 992px) {
+    .form-group {
+        flex: 0 0 calc(100% - 20px);
+    }
+    
+    .modal-content {
+        flex-direction: row;
+        overflow-y: auto;
+    }
+    
+    .modal-left {
+        width: 30%;
+        min-width: 250px;
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+    
+    .modal-right {
+        width: 70%;
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+    }
+    
+    .modal-left, .modal-right {
+        width: 100%;
+        min-width: auto;
+        padding: 0;
+        border-left: none;
+    }
+    
+    .modal-right {
+        margin-top: 20px;
+    }
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    color: #adb5bd;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    height: 40px;
+    background-color: #2d3035;
+    border: 1px solid #3d4148;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #9935dc;
     outline: none;
 }
 
-.search-container {
+textarea.form-control {
+    height: 100px;
+    resize: vertical;
+}
+
+.btn-container {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #251a2e;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.button-details:hover {
+    background-color: #7d0cff;
+    transform: translateY(-2px);
+}
+
+input[type="file"] {
+    background-color: #2d3035;
+    border: 1px dashed #3d4148;
     padding: 10px;
-    border-radius: 8px;
-  }
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 100%;
+}
 
-  .search-container input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background: #3b0f60;
-    color: #e0e0e0;
-    font-size: 16px;
-  }
+.section-title {
+    color: #9935dc;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3d4148;
+}
 
-  .search-container input::placeholder {
-    color: #888;
-  }
+/* Estilização para o scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
 
-  .search-button {
+::-webkit-scrollbar-track {
+    background: #2d3035;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9709e9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
     background: #7d0cff;
-    border: none;
-    padding: 10px 15px;
+}
+
+.form-hint {
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #9709e9;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.success-message {
+    background-color: #4CAF50;
     color: white;
+    padding: 10px;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
+    margin-bottom: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
 
-  .search-button:hover {
-    background: #5909b1;
-  }
+.success-message.show {
+    opacity: 1;
+}
 
+.error-message {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+.current-images-section, .new-images-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.current-images-section h4, .new-images-section h4 {
+    margin-bottom: 15px;
+    color: #9935dc;
+    border-bottom: 1px solid #3d4148;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Estilização para o scrollbar da galeria de imagens */
+.image-gallery::-webkit-scrollbar {
+    width: 6px;
+}
+
+.image-gallery::-webkit-scrollbar-track {
+    background: #2d3035;
+    border-radius: 4px;
+}
+
+.image-gallery::-webkit-scrollbar-thumb {
+    background: #9709e9;
+    border-radius: 4px;
+}
+
+.image-gallery::-webkit-scrollbar-thumb:hover {
+    background: #7d0cff;
+}
+
+/* Estilos específicos para o modal de edição */
+#editModal .modal-content {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    max-width: 1200px !important;
+    width: 90% !important;
+    margin: 5% auto !important;
+    padding: 20px !important;
+    background-color: #333 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+}
+
+#editModal .edit-form {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    gap: 20px !important;
+}
+
+#editModal .modal-left {
+    flex: 0 0 30% !important;
+    min-width: 300px !important;
+    max-width: 400px !important;
+    padding-right: 15px !important;
+    border-right: 1px solid #444 !important;
+    overflow-y: auto !important;
+    max-height: 80vh !important;
+}
+
+#editModal .modal-right {
+    flex: 1 !important;
+    padding-left: 15px !important;
+    overflow-y: auto !important;
+    max-height: 80vh !important;
+}
+
+@media (max-width: 992px) {
+    #editModal .modal-content,
+    #editModal .edit-form {
+        flex-direction: row !important;
+    }
+    
+    #editModal .modal-left {
+        flex: 0 0 30% !important;
+        min-width: 250px !important;
+    }
+    
+    #editModal .modal-right {
+        flex: 1 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #editModal .modal-content,
+    #editModal .edit-form {
+        flex-direction: column !important;
+    }
+    
+    #editModal .modal-left, 
+    #editModal .modal-right {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        padding: 0 !important;
+        border-right: none !important;
+    }
+    
+    #editModal .modal-right {
+        margin-top: 20px !important;
+    }
+}
 
     </style>
 </head>
@@ -394,74 +782,261 @@ input[type="file"]:focus {
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
-            <form id="editForm" action="{{ route('update_motorcycle', ['id' => '__ID__']) }}" method="POST" enctype="multipart/form-data">
+            <form id="editForm" action="{{ route('update_motorcycle', ['id' => '__ID__']) }}" method="POST" enctype="multipart/form-data" class="edit-form">
                 @csrf
                 <input type="hidden" name="id" id="edit-id">
                 <div class="modal-left">
-                    <div class="image-gallery" id="edit-image-gallery">
-                        <!-- Images will be loaded here -->
+                    <div class="form-section">
+                        <h3 class="section-title">Imagens</h3>
+                        <div class="image-gallery" id="edit-image-gallery">
+                            <!-- Images will be loaded here -->
+                        </div>
+                        <div class="form-group" style="flex: 0 0 calc(100% - 20px); margin-top: 15px;">
+                            <label class="form-label">Adicionar Novas Fotos</label>
+                            <input type="file" name="photos[]" multiple class="form-control">
+                            <span class="form-hint">Selecione múltiplas imagens (máx. 5MB cada). Formatos aceitos: JPG, PNG, GIF.</span>
+                        </div>
                     </div>
-                    <input type="file" name="photos[]" multiple>
                 </div>
                 <div class="modal-right">
-                    <h3>Edit Motorcycle</h3>
-                    <input type="text" name="name" id="edit-name" placeholder="Motorcycle Name">
-                    <input type="text" name="description" id="edit-description" placeholder="Description">
-                    <input type="number" name="price" id="edit-price" placeholder="Price">
-                    <input type="text" name="brand_id" id="edit-brand" placeholder="Brand ID">
-                    <input type="text" name="license_type_id" id="edit-license" placeholder="License Type ID">
+                    <h3 class="section-title">Editar Motocicleta</h3>
+                    
+                    <div class="form-section">
+                        <h4 class="section-title">Informações Básicas</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Nome</label>
+                                <input type="text" name="name" id="edit-name" class="form-control" placeholder="Nome da Motocicleta">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Preço (€)</label>
+                                <input type="number" step="0.01" name="price" id="edit-price" class="form-control" placeholder="Preço">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Marca ID</label>
+                                <input type="text" name="brand_id" id="edit-brand" class="form-control" placeholder="ID da Marca">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Licença ID</label>
+                                <input type="text" name="license_type_id" id="edit-license" class="form-control" placeholder="ID do Tipo de Licença">
+                            </div>
+                            
+                            <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
+                                <label class="form-label">Descrição</label>
+                                <textarea name="description" id="edit-description" class="form-control" placeholder="Descrição"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Motor Section -->
-                    <h4>Motor</h4>
-                    <input type="text" name="engine_type_id" id="edit-engine" placeholder="Engine Type ID">
-                    <input type="number" name="displacement" id="edit-displacement" placeholder="Displacement (cc)">
-                    <input type="text" name="bore_stroke" id="edit-bore-stroke" placeholder="Bore X Stroke">
-                    <input type="text" name="compression_ratio" id="edit-compression-ratio" placeholder="Compression Ratio">
-                    <input type="text" name="max_power" id="edit-max-power" placeholder="Max Power">
-                    <input type="text" name="max_torque" id="edit-max-torque" placeholder="Max Torque">
-                    <input type="text" name="lubrication_system_id" id="edit-lubrication" placeholder="Lubrication System ID">
-                    <input type="text" name="clutch_type_id" id="edit-clutch" placeholder="Clutch Type ID">
-                    <input type="text" name="ignition_system_id" id="edit-ignition" placeholder="Ignition System ID">
-                    <input type="text" name="starting_system_id" id="edit-starting" placeholder="Starting System ID">
-                    <input type="text" name="transmission_system_id" id="edit-transmission" placeholder="Transmission System ID">
-                    <input type="text" name="final_drive" id="edit-drive" placeholder="Final Drive">
-                    <input type="number" name="fuel_consumption" id="edit-fuel-consumption" placeholder="Fuel Consumption">
-                    <input type="number" name="cos2_emissions" id="edit-co2" placeholder="CO2 Emissions">
-                    <input type="text" name="fuel_system" id="edit-fuel-system" placeholder="Fuel System">
+                    <div class="form-section">
+                        <h4 class="section-title">Motor</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Motor ID</label>
+                                <input type="text" name="engine_type_id" id="edit-engine" class="form-control" placeholder="ID do Tipo de Motor">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Cilindrada (cc)</label>
+                                <input type="number" min="0" step="any" name="displacement" id="edit-displacement" class="form-control" placeholder="Cilindrada">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Diâmetro x Curso</label>
+                                <input type="text" name="bore_stroke" id="edit-bore-stroke" class="form-control" placeholder="Diâmetro x Curso">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Taxa de Compressão</label>
+                                <input type="number" step="any" name="compression_ratio" id="edit-compression-ratio" class="form-control" placeholder="Taxa de Compressão">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Potência Máxima (cv)</label>
+                                <input type="number" step="any" name="max_power" id="edit-max-power" class="form-control" placeholder="Potência Máxima">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Torque Máximo (Nm)</label>
+                                <input type="number" step="any" name="max_torque" id="edit-max-torque" class="form-control" placeholder="Torque Máximo">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Sistema de Lubrificação ID</label>
+                                <input type="text" name="lubrication_system_id" id="edit-lubrication" class="form-control" placeholder="ID do Sistema de Lubrificação">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Embreagem ID</label>
+                                <input type="text" name="clutch_type_id" id="edit-clutch" class="form-control" placeholder="ID do Tipo de Embreagem">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Sistema de Ignição ID</label>
+                                <input type="text" name="ignition_system_id" id="edit-ignition" class="form-control" placeholder="ID do Sistema de Ignição">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Sistema de Partida ID</label>
+                                <input type="text" name="starting_system_id" id="edit-starting" class="form-control" placeholder="ID do Sistema de Partida">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Sistema de Transmissão ID</label>
+                                <input type="text" name="transmission_system_id" id="edit-transmission" class="form-control" placeholder="ID do Sistema de Transmissão">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Transmissão Final</label>
+                                <input type="text" name="final_drive" id="edit-drive" class="form-control" placeholder="Transmissão Final">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Consumo de Combustível (L/100km)</label>
+                                <input type="number" step="any" name="fuel_consumption" id="edit-fuel-consumption" class="form-control" placeholder="Consumo de Combustível">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Emissões de CO2 (g/km)</label>
+                                <input type="number" step="any" name="cos2_emissions" id="edit-co2" class="form-control" placeholder="Emissões de CO2">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Sistema de Combustível</label>
+                                <input type="text" name="fuel_system" id="edit-fuel-system" class="form-control" placeholder="Sistema de Combustível">
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Chassi Section -->
-                    <h4>Chassi</h4>
-                    <input type="text" name="frame" id="edit-frame" placeholder="Frame">
-                    <input type="text" name="rake_angle" id="edit-rake" placeholder="Rake Angle">
-                    <input type="number" name="trail" id="edit-trail" placeholder="Trail">
-                    <input type="text" name="front_suspension_id" id="edit-front-suspension" placeholder="Front Suspension ID">
-                    <input type="text" name="rear_suspension_id" id="edit-rear-suspension" placeholder="Rear Suspension ID">
-                    <input type="number" name="front_travel" id="edit-front-travel" placeholder="Front Travel">
-                    <input type="number" name="rear_travel" id="edit-rear-travel" placeholder="Rear Travel">
-                    <input type="text" name="front_brake" id="edit-front-brake" placeholder="Front Brake">
-                    <input type="text" name="rear_brake" id="edit-rear-brake" placeholder="Rear Brake">
-                    <input type="text" name="front_tire" id="edit-front-tire" placeholder="Front Tire">
-                    <input type="text" name="rear_tire" id="edit-rear-tire" placeholder="Rear Tire">
+                    <div class="form-section">
+                        <h4 class="section-title">Chassi</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Chassi</label>
+                                <input type="text" name="frame" id="edit-frame" class="form-control" placeholder="Tipo de Chassi">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Ângulo de Caster (graus)</label>
+                                <input type="number" step="any" name="rake_angle" id="edit-rake" class="form-control" placeholder="Ângulo de Caster">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Trail (mm)</label>
+                                <input type="number" step="any" name="trail" id="edit-trail" class="form-control" placeholder="Trail">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Suspensão Dianteira ID</label>
+                                <input type="text" name="front_suspension_id" id="edit-front-suspension" class="form-control" placeholder="ID da Suspensão Dianteira">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Suspensão Traseira ID</label>
+                                <input type="text" name="rear_suspension_id" id="edit-rear-suspension" class="form-control" placeholder="ID da Suspensão Traseira">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Curso Dianteiro (mm)</label>
+                                <input type="number" step="any" name="front_travel" id="edit-front-travel" class="form-control" placeholder="Curso Dianteiro">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Curso Traseiro (mm)</label>
+                                <input type="number" step="any" name="rear_travel" id="edit-rear-travel" class="form-control" placeholder="Curso Traseiro">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Freio Dianteiro</label>
+                                <input type="text" name="front_brake" id="edit-front-brake" class="form-control" placeholder="Freio Dianteiro">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Freio Traseiro</label>
+                                <input type="text" name="rear_brake" id="edit-rear-brake" class="form-control" placeholder="Freio Traseiro">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Pneu Dianteiro</label>
+                                <input type="text" name="front_tire" id="edit-front-tire" class="form-control" placeholder="Pneu Dianteiro">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Pneu Traseiro</label>
+                                <input type="text" name="rear_tire" id="edit-rear-tire" class="form-control" placeholder="Pneu Traseiro">
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Dimensões Section -->
-                    <h4>Dimensões</h4>
-                    <input type="number" name="total_length" id="edit-total-length" placeholder="Total Length">
-                    <input type="number" name="total_width" id="edit-total-width" placeholder="Total Width">
-                    <input type="number" name="total_height" id="edit-total-height" placeholder="Total Height">
-                    <input type="number" name="seat_height" id="edit-seat-height" placeholder="Seat Height">
-                    <input type="number" name="wheelbase" id="edit-wheelbase" placeholder="Wheelbase">
-                    <input type="number" name="ground_clearance" id="edit-ground-clearance" placeholder="Ground Clearance">
-                    <input type="number" name="weight" id="edit-weight" placeholder="Weight">
-                    <input type="number" name="fuel_tank_capacity" id="edit-fuel-tank-capacity" placeholder="Fuel Tank Capacity">
-                    <input type="number" name="oil_tank_capacity" id="edit-oil-tank-capacity" placeholder="Oil Tank Capacity">
+                    <div class="form-section">
+                        <h4 class="section-title">Dimensões</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Comprimento Total (mm)</label>
+                                <input type="number" step="any" name="total_length" id="edit-total-length" class="form-control" placeholder="Comprimento Total">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Largura Total (mm)</label>
+                                <input type="number" step="any" name="total_width" id="edit-total-width" class="form-control" placeholder="Largura Total">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Altura Total (mm)</label>
+                                <input type="number" step="any" name="total_height" id="edit-total-height" class="form-control" placeholder="Altura Total">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Altura do Assento (mm)</label>
+                                <input type="number" step="any" name="seat_height" id="edit-seat-height" class="form-control" placeholder="Altura do Assento">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Distância Entre-Eixos (mm)</label>
+                                <input type="number" step="any" name="wheelbase" id="edit-wheelbase" class="form-control" placeholder="Distância Entre-Eixos">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Distância ao Solo (mm)</label>
+                                <input type="number" step="any" name="ground_clearance" id="edit-ground-clearance" class="form-control" placeholder="Distância ao Solo">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Peso (kg)</label>
+                                <input type="number" step="any" name="weight" id="edit-weight" class="form-control" placeholder="Peso">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Capacidade do Tanque (L)</label>
+                                <input type="number" step="any" name="fuel_tank_capacity" id="edit-fuel-tank-capacity" class="form-control" placeholder="Capacidade do Tanque">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Capacidade de Óleo (L)</label>
+                                <input type="number" step="any" name="oil_tank_capacity" id="edit-oil-tank-capacity" class="form-control" placeholder="Capacidade de Óleo">
+                            </div>
+                        </div>
+                    </div>
 
-                    <button class="button-details" type="submit">Save Changes</button>
-                    <button class="button-details" type="button" onclick="closeEditModal()">Cancel</button>
+                    <div class="btn-container">
+                        <button class="button-details" type="submit">Salvar Alterações</button>
+                        <button class="button-details" type="button" onclick="closeEditModal()">Cancelar</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
 
                 <script>
                     const motorcycles = @json($motorcycles);
@@ -576,14 +1151,35 @@ function closeEditModal() {
 document.querySelector('input[name="photos[]"]').addEventListener('change', function(event) {
     const files = event.target.files;
     const gallery = document.getElementById('edit-image-gallery');
-    gallery.innerHTML = '';
-
+    
+    // Remove a seção de novas imagens se já existir
+    const existingNewSection = gallery.querySelector('.new-images-section');
+    if (existingNewSection) {
+        existingNewSection.remove();
+    }
+    
+    // Adiciona uma seção para as novas imagens
+    const newImagesSection = document.createElement('div');
+    newImagesSection.className = 'new-images-section';
+    newImagesSection.innerHTML = '<h4 class="section-title">Novas Imagens</h4>';
+    
     for (let i = 0; i < files.length; i++) {
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'image-container';
+        
         const img = document.createElement('img');
         img.src = URL.createObjectURL(files[i]);
         img.alt = 'Preview Image';
-        img.className = 'gallery-image';
-        gallery.appendChild(img);
+        
+        imgContainer.appendChild(img);
+        newImagesSection.appendChild(imgContainer);
+    }
+    
+    // Adiciona a seção de novas imagens ao topo da galeria
+    if (gallery.firstChild) {
+        gallery.insertBefore(newImagesSection, gallery.firstChild);
+    } else {
+        gallery.appendChild(newImagesSection);
     }
 });
 
@@ -649,41 +1245,232 @@ function openEditModal(id) {
     // Preenche as imagens
     const gallery = document.getElementById('edit-image-gallery');
     gallery.innerHTML = '';
-    motorcycle.photos.forEach((photo, index) => {
-        const imgContainer = document.createElement('div');
-        imgContainer.className = 'image-container';
+    
+    if (motorcycle.photos && motorcycle.photos.length > 0) {
+        const currentImagesSection = document.createElement('div');
+        currentImagesSection.className = 'current-images-section';
+        currentImagesSection.innerHTML = '<h4 class="section-title">Imagens Atuais</h4>';
+        
+        motorcycle.photos.forEach((photo, index) => {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
+            
+            const img = document.createElement('img');
+            img.src = '{{ asset('motorcycles/') }}/' + photo.image;
+            img.alt = motorcycle.name;
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'X';
+            deleteButton.className = 'delete-button';
+            deleteButton.onclick = (e) => {
+                e.preventDefault();
+                if (confirm('Tem certeza que deseja excluir esta imagem?')) {
+                    deletePhoto(photo.id, imgContainer);
+                }
+            };
+            
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(deleteButton);
+            currentImagesSection.appendChild(imgContainer);
+        });
+        
+        gallery.appendChild(currentImagesSection);
+    } else {
+        gallery.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">Nenhuma imagem disponível</p>';
+    }
 
-        const img = document.createElement('img');
-        img.src = '{{ asset('motorcycles/') }}/' + photo.image;
-        img.alt = motorcycle.name;
-        img.className = index === 0 ? 'main-image' : 'gallery-image';
-
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'X';
-        deleteButton.className = 'delete-button';
-        deleteButton.onclick = () => deletePhoto(photo.id); // Função para apagar a foto
-
-        imgContainer.appendChild(img);
-        imgContainer.appendChild(deleteButton);
-        gallery.appendChild(imgContainer);
-    });
-
+    // Mostra o modal
     editModal.style.display = "block";
+    
+    // Força o layout a ser renderizado corretamente
+    const modalContent = document.querySelector('#editModal .modal-content');
+    
+    // Verifica o tamanho da tela e aplica o layout apropriado
+    if (window.innerWidth <= 768) {
+        modalContent.style.flexDirection = 'column';
+    } else {
+        modalContent.style.flexDirection = 'row';
+    }
+    
+    // Adiciona um listener para redimensionamento da janela
+    window.addEventListener('resize', function() {
+        if (editModal.style.display === "block") {
+            if (window.innerWidth <= 768) {
+                modalContent.style.flexDirection = 'column';
+            } else {
+                modalContent.style.flexDirection = 'row';
+            }
+        }
+    });
 }
 
-function deletePhoto(photoId) {
+function deletePhoto(photoId, container) {
     fetch(`${window.location.origin}/delete_photo/${photoId}`, { 
         method: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
         }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Adiciona efeito de fade out antes de remover
+            container.style.transition = 'opacity 0.5s';
+            container.style.opacity = '0';
+            
+            // Remove o container após a animação
+            setTimeout(() => {
+                container.remove();
+                
+                // Verifica se ainda existem imagens na seção
+                const section = document.querySelector('.current-images-section');
+                if (section && !section.querySelector('.image-container')) {
+                    section.innerHTML = '<p>Todas as imagens foram removidas</p>';
+                }
+            }, 500);
+            
+            // Mostra mensagem de sucesso
+            const message = document.createElement('div');
+            message.textContent = 'Imagem excluída com sucesso!';
+            message.style.backgroundColor = '#4CAF50';
+            message.style.color = 'white';
+            message.style.padding = '10px';
+            message.style.borderRadius = '5px';
+            message.style.marginBottom = '10px';
+            message.style.textAlign = 'center';
+            
+            const gallery = document.getElementById('edit-image-gallery');
+            gallery.insertBefore(message, gallery.firstChild);
+            
+            // Remove a mensagem após 3 segundos
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transition = 'opacity 0.5s';
+                setTimeout(() => message.remove(), 500);
+            }, 3000);
+        } else {
+            alert('Erro ao excluir a imagem. Tente novamente.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao excluir a imagem. Tente novamente.');
     });
 }
 
 document.getElementById('editForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    console.log('Displacement:', document.getElementById('edit-displacement').value);
-    this.submit();
+    
+    // Mostra o overlay de carregamento
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.classList.add('active');
+    
+    // Adiciona um feedback visual de que o formulário está sendo enviado
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerText;
+    submitButton.innerText = 'Salvando...';
+    submitButton.disabled = true;
+    
+    // Cria um FormData para enviar o formulário com arquivos
+    const formData = new FormData(this);
+    
+    // Envia o formulário via AJAX
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        // Verifica se a resposta é JSON
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return response.json();
+        } else {
+            // Se não for JSON, provavelmente é uma redireção ou HTML
+            window.location.reload(); // Recarrega a página
+            return { success: true }; // Retorna um objeto para não quebrar a cadeia de promises
+        }
+    })
+    .then(data => {
+        // Esconde o overlay de carregamento
+        loadingOverlay.classList.remove('active');
+        
+        // Restaura o botão
+        submitButton.innerText = originalText;
+        submitButton.disabled = false;
+        
+        if (data.success) {
+            // Mostra mensagem de sucesso
+            const message = document.createElement('div');
+            message.className = 'success-message';
+            message.textContent = 'Motocicleta atualizada com sucesso!';
+            
+            const modalRight = document.querySelector('.modal-right');
+            modalRight.insertBefore(message, modalRight.firstChild);
+            
+            setTimeout(() => {
+                message.classList.add('show');
+            }, 100);
+            
+            // Remove a mensagem após 1 segundo e fecha o modal
+            setTimeout(() => {
+                message.classList.remove('show');
+                setTimeout(() => {
+                    message.remove();
+                    closeEditModal();
+                    // Recarrega a página para mostrar as alterações
+                    window.location.reload();
+                }, 300);
+            }, 1000);
+        } else {
+            // Mostra mensagem de erro
+            const message = document.createElement('div');
+            message.className = 'error-message';
+            message.textContent = data.message || 'Erro ao atualizar a motocicleta. Tente novamente.';
+            
+            const modalRight = document.querySelector('.modal-right');
+            modalRight.insertBefore(message, modalRight.firstChild);
+            
+            setTimeout(() => {
+                message.classList.add('show');
+            }, 100);
+            
+            // Remove a mensagem após 3 segundos
+            setTimeout(() => {
+                message.classList.remove('show');
+                setTimeout(() => message.remove(), 300);
+            }, 3000);
+        }
+    })
+    .catch(error => {
+        // Esconde o overlay de carregamento
+        loadingOverlay.classList.remove('active');
+        
+        // Restaura o botão
+        submitButton.innerText = originalText;
+        submitButton.disabled = false;
+        
+        // Mostra mensagem de erro
+        const message = document.createElement('div');
+        message.className = 'error-message';
+        message.textContent = 'Erro ao processar a requisição. Tente novamente.';
+        
+        const modalRight = document.querySelector('.modal-right');
+        modalRight.insertBefore(message, modalRight.firstChild);
+        
+        setTimeout(() => {
+            message.classList.add('show');
+        }, 100);
+        
+        // Remove a mensagem após 3 segundos
+        setTimeout(() => {
+            message.classList.remove('show');
+            setTimeout(() => message.remove(), 300);
+        }, 3000);
+        
+        console.error('Erro:', error);
+    });
 });
 
 
