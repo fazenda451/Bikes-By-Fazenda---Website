@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="category-card" onclick="window.location.href='#equipment'">
+          <div class="category-card" onclick="window.location.href='#products'">
             <div class="category-icon">
               <i class="fas fa-helmet-safety fa-3x"></i>
             </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="category-card" onclick="window.location.href='#accessories'">
+          <div class="category-card" onclick="window.location.href='#products'">
             <div class="category-icon">
               <i class="fas fa-tools fa-3x"></i>
             </div>

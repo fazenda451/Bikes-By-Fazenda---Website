@@ -44,7 +44,7 @@
     </div>
     
     <div class="text-center mt-5">
-      <a href="{{ url('product_catalog') }}" class="view-all-btn">
+      <a href="{{ url('product-catalog') }}" class="view-all-btn">
         <span>Ver Todos os Produtos</span>
         <i class="fas fa-arrow-right"></i>
       </a>

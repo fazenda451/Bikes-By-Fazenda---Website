@@ -38,6 +38,7 @@
       top: 20px;
       transition: all 0.3s ease;
       border: 1px solid #f0f0f0;
+      margin-right: 15px;
     }
     
     .filter-section:hover {
@@ -186,8 +187,8 @@
     /* Estilos para os cards de produtos */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
       margin-bottom: 40px;
     }
 
@@ -223,21 +224,21 @@
     }
 
     .product-image {
-      position: relative;
-      padding-top: 100%; /* 1:1 Aspect Ratio (Square) */
-      overflow: hidden;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
       background-color: #f8f9fa;
+      position: relative;
+      overflow: hidden;
     }
 
     .product-image img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      max-height: 100%;
+      max-width: 100%;
       object-fit: contain;
-      transition: transform 0.5s ease;
-      padding: 10px;
+      transition: transform 0.3s ease;
     }
 
     .product-card:hover .product-image img {
@@ -245,18 +246,17 @@
     }
 
     .product-info {
-      padding: 20px;
-      flex-grow: 1;
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      border-top: 1px solid #f0f0f0;
+      height: 100%;
     }
 
     .product-title {
       font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 8px;
       color: #333;
+      margin-bottom: 10px;
       height: 2.6em;
       overflow: hidden;
       display: -webkit-box;
@@ -319,7 +319,7 @@
     .product-description {
       font-size: 0.85rem;
       color: #6c757d;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       height: 2.4em;
       overflow: hidden;
       display: -webkit-box;
@@ -486,16 +486,9 @@
       margin-right: 8px;
     }
 
-    @media (max-width: 992px) {
-      .filter-section {
-        position: relative;
-        top: 0;
-        margin-bottom: 30px;
-      }
-      
+    @media (max-width: 1199px) {
       .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
       }
       
       .catalog-title {
@@ -517,7 +510,7 @@
       }
       
       .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
       }
       
@@ -548,7 +541,7 @@
     
     @media (max-width: 576px) {
       .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(1, 1fr);
         gap: 12px;
       }
       
@@ -589,7 +582,7 @@
       </div>
       
       <!-- Coluna de Filtros (Esquerda) -->
-      <div class="col-lg-3">
+      <div class="col-lg-4 col-xl-3">
         <div class="filter-section" id="filterSection">
           <h2 class="filter-title">Filtros</h2>
           <form action="{{ route('product.catalog') }}" method="GET">
@@ -645,7 +638,7 @@
       </div>
 
       <!-- Coluna de Produtos (Direita) -->
-      <div class="col-lg-9">
+      <div class="col-lg-8 col-xl-9">
         <!-- Resultados -->
         <div class="results-info">
           <div class="results-count">
