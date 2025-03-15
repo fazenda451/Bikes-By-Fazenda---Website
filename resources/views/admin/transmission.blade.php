@@ -2,144 +2,264 @@
 <html>
   <head> 
     @include('admin.css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style type="text/css">
-  
-      input[type='text'] {
-        width: 400px;
-        height: 50px;
-        padding: 10px;
-        border-radius: 5px;
-        border: 2px solid #6a1b9a; /* roxo */
-        margin-right: 10px;
-        background-color: #444;
-        color: white;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      input[type='text']:focus {
-        border-color: #8e24aa; /* roxo mais claro */
-        box-shadow: 0 0 8px rgba(106, 27, 154, 0.6);
-      }
-
-      .div_deg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 30px;
-      }
-
-      .table_deg {
-        text-align: center;
-        margin: auto;
-        border: 2px solid #6a1b9a; /* roxo */
-        margin-top: 50px;
-        width: 80%;
+      .content-wrapper {
+        padding: 25px;
+        background-color: #2d3035;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        background-color: #333; /* fundo cinza escuro para a tabela */
-        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
       }
-
-      th {
-        background-color: #6a1b9a; /* roxo */
-        padding: 15px;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        transition: background-color 0.3s ease;
-      }
-
-      th:hover {
-        background-color: #8e24aa; /* tom de roxo mais claro */
-      }
-
-      td {
-        color: white;
-        padding: 10px;
-        border: 1px solid #6a1b9a; /* roxo */
-        transition: background-color 0.3s ease;
-      }
-
-      td:hover {
-        background-color: #444; /* fundo mais claro ao passar o mouse */
-      }
-
-      .btn {
-        padding: 8px 15px;
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: 14px;
-        transition: all 0.3s ease;
-      }
-
-      .btn-primary {
-        background-color: #6a1b9a; /* roxo */
-        color: white;
-        border: none;
-      }
-
-      .btn-primary:hover {
-        background-color: #8e24aa; /* tom de roxo mais claro */
-        transform: scale(1.05);
-      }
-
-      .btn-success {
-        background-color: #388e3c;
-        color: white;
-      }
-
-      .btn-success:hover {
-        background-color: #4caf50;
-        transform: scale(1.05);
-      }
-
-      .btn-danger {
-        background-color: #d32f2f;
-        color: white;
-      }
-
-      .btn-danger:hover {
-        background-color: #f44336;
-        transform: scale(1.05);
-      }
-
-      .search-button {
-        background-color: #6a1b9a; /* roxo */
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-      }
-
-      .search-button:hover {
-        background-color: #8e24aa;
-        transform: scale(1.05);
-      }
-
-      .search-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .page-header h1 {
-        text-align: center;
-        font-size: 2.5em;
-        margin-bottom: 20px;
-        color: #6a1b9a; /* roxo */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      }
-
+      
       .page-header {
-        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+      }
+      
+      .page-title {
+        color: #9935dc;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .stats-container {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+      }
+      
+      .stat-card {
+        flex: 1;
+        min-width: 200px;
+        background-color: #343a40;
+        border-radius: 8px;
         padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        border: 1px solid #3d4148;
+      }
+      
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 20px;
+      }
+      
+      .stat-transmission {
+        background-color: rgba(153, 53, 220, 0.2);
+        color: #9935dc;
+      }
+      
+      .stat-motorcycles {
+        background-color: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+      }
+      
+      .stat-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+      }
+      
+      .stat-label {
+        font-size: 14px;
+        color: #adb5bd;
+        margin: 0;
       }
 
-      .container-fluid {
+      .form-container {
+        background-color: #343a40;
+        border-radius: 8px;
         padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #3d4148;
+      }
+      
+      .form-title {
+        color: #9935dc;
+        font-size: 18px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .form-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      
+      .form-control {
+        flex-grow: 1;
+        background-color: #2d3035;
+        border: 1px solid #3d4148;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      
+      .form-control:focus {
+        outline: none;
+        border-color: #9935dc;
+        box-shadow: 0 0 0 2px rgba(153, 53, 220, 0.25);
+      }
+      
+      .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+      
+      .btn-primary {
+        background-color: #9935dc;
+        color: white;
+      }
+      
+      .btn-primary:hover {
+        background-color: #8024c0;
+      }
+      
+      .btn-success {
+        background-color: #28a745;
+        color: white;
+      }
+      
+      .btn-success:hover {
+        background-color: #218838;
+      }
+      
+      .btn-danger {
+        background-color: #dc3545;
+        color: white;
+      }
+      
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+      
+      .search-container {
+        width: 100%;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        background-color: #343a40;
+        border-radius: 8px;
+        padding: 5px 15px;
+        border: 1px solid #3d4148;
+      }
+      
+      .search-container i {
+        color: #9935dc;
+        margin-right: 10px;
+      }
+      
+      .search-input {
+        flex-grow: 1;
+        background: transparent;
+        border: none;
+        color: #fff;
+        padding: 10px 5px;
+        font-size: 16px;
+      }
+      
+      .search-input:focus {
+        outline: none;
+      }
+      
+      .table-container {
+        background-color: #343a40;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #3d4148;
+      }
+      
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      
+      .data-table th {
+        background-color: #9935dc;
+        color: white;
+        text-align: left;
+        padding: 15px;
+        font-weight: 500;
+        font-size: 15px;
+      }
+      
+      .data-table td {
+        padding: 15px;
+        border-bottom: 1px solid #3d4148;
+        color: #e9ecef;
+      }
+      
+      .data-table tr:last-child td {
+        border-bottom: none;
+      }
+      
+      .data-table tr:hover {
+        background-color: #3d4148;
+      }
+      
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #adb5bd;
+      }
+      
+      .empty-state i {
+        font-size: 50px;
+        color: #3d4148;
+        margin-bottom: 20px;
+      }
+      
+      .empty-state h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: white;
+      }
+      
+      @media (max-width: 768px) {
+        .form-group {
+          flex-direction: column;
+        }
+        
+        .stats-container {
+          flex-direction: column;
+        }
+        
+        .stat-card {
+          width: 100%;
+        }
       }
     </style>
   </head>
@@ -147,69 +267,123 @@
   <body>
     @include('admin.header')
     @include('admin.sidebar')
-    <!-- Sidebar Navigation end-->
+    
     <div class="page-content">
-      <div class="page-header">
-        <div class="container-fluid">
-          <h1 style="color: white;"><i class="fa-solid fa-link"></i> Add Transmission</h1>
-          <div class="div_deg"> 
+      <div class="container-fluid">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-cogs"></i> Gerenciamento de Transmissões</h1>
+          </div>
+          
+          <!-- Estatísticas Rápidas -->
+          <div class="stats-container">
+            <div class="stat-card">
+              <div class="stat-icon stat-transmission">
+                <i class="fas fa-cog"></i>
+              </div>
+              <div>
+                <h2 class="stat-value">{{ count($data) }}</h2>
+                <p class="stat-label">Tipos de Transmissão</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon stat-motorcycles">
+                <i class="fas fa-motorcycle"></i>
+              </div>
+              <div>
+                <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
+                <p class="stat-label">Motos Cadastradas</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Formulário de Adição -->
+          <div class="form-container">
+            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Nova Transmissão</h3>
             <form action="{{url('add_transmission')}}" method="post">
               @csrf 
-              <div>
-                <input type="text" name="TransmissionSystem" placeholder="Enter Transmission" />
-                <input class="btn btn-primary" type="submit" value="Add Transmission">
+              <div class="form-group">
+                <input type="text" name="TransmissionType" class="form-control" placeholder="Digite o tipo de transmissão" required />
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save"></i> Salvar
+                </button>
               </div>
             </form>
           </div>
-
-          <!-- Search Section -->
+          
+          <!-- Barra de Pesquisa -->
           <div class="search-container">
-            <input type="text" id="search" placeholder="Search Transmission..." />
-            <button class="search-button" onclick="searchTransmission()">Search</button>
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar transmissões..." oninput="searchTransmission()">
           </div>
-
-          <!-- Table Section -->
-          <div>
-            <table class="table_deg">
-              <tr>
-                <th>Transmission System</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-
-              @foreach($data as $data)
-
-              <tr>
-                <td>{{$data->type}}</td>
-                <td>
-                  <a class="btn btn-success" href="{{url('edit_transmission',$data->id)}}">Edit</a>
-                </td>
-                <td>
-                  <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_transmission',$data->id)}}">Delete</a>
-                </td>
-              </tr>
-              @endforeach
+          
+          <!-- Tabela de Transmissões -->
+          <div class="table-container">
+            @if(count($data) > 0)
+            <table class="data-table" id="transmissionTable">
+              <thead>
+                <tr>
+                  <th>Tipo de Transmissão</th>
+                  <th>Motos</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($data as $transmission)
+                <tr>
+                  <td>{{ $transmission->type }}</td>
+                  <td>{{ \App\Models\Motorcycle::where('transmission_system_id', $transmission->id)->count() }}</td>
+                  <td>
+                    <div class="action-buttons">
+                      <a href="{{ url('edit_transmission', $transmission->id) }}" class="btn btn-success">
+                        <i class="fas fa-edit"></i> Editar
+                      </a>
+                      <a onclick="confirmDelete(event, '{{ $transmission->type }}')" href="{{ url('delete_transmission', $transmission->id) }}" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Excluir
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
             </table>
+            @else
+            <div class="empty-state">
+              <i class="fas fa-cog"></i>
+              <h3>Nenhum tipo de transmissão encontrado</h3>
+              <p>Adicione seu primeiro tipo de transmissão usando o formulário acima.</p>
+            </div>
+            @endif
           </div>
         </div>
       </div>
     </div>
-    <!-- JavaScript files-->
+    
+    @include('admin.js')
+    
     <script>
       function searchTransmission() {
-        let input = document.getElementById('search').value.toLowerCase();
-        let rows = document.querySelectorAll('.table_deg tr');
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const table = document.getElementById('transmissionTable');
+        const rows = table.getElementsByTagName('tr');
         
-        rows.forEach(row => {
-          let transmission = row.querySelector('td') ? row.querySelector('td').innerText.toLowerCase() : '';
-          if (transmission.indexOf(input) === -1) {
-            row.style.display = 'none';
+        for (let i = 1; i < rows.length; i++) {
+          const transmissionType = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+          if (transmissionType.includes(input)) {
+            rows[i].style.display = '';
           } else {
-            row.style.display = '';
+            rows[i].style.display = 'none';
           }
-        });
+        }
+      }
+      
+      function confirmDelete(event, transmissionType) {
+        event.preventDefault();
+        if (confirm(`Tem certeza que deseja excluir o tipo de transmissão "${transmissionType}"?`)) {
+          window.location.href = event.target.closest('a').href;
+        }
       }
     </script>
-    @include('admin.js')
   </body>
 </html>
