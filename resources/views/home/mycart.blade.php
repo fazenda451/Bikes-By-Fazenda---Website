@@ -38,14 +38,14 @@
       vertical-align: middle;
     }
 
-    .product-image {
+    .item-image {
       width: 100px;
       height: 100px;
       object-fit: cover;
       border-radius: 4px;
     }
 
-    .product-title {
+    .item-title {
       font-weight: 600;
       color: #333;
       margin-bottom: 0.5rem;
@@ -247,19 +247,19 @@
       color: #9935dc;
     }
 
-    .product-info {
+    .item-info {
       display: flex;
       flex-direction: column;
     }
 
-    .product-meta {
+    .item-meta {
       margin-top: 0.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
 
-    .product-meta-item {
+    .item-meta-item {
       background-color: #f8f9fa;
       padding: 0.25rem 0.5rem;
       border-radius: 4px;
@@ -418,7 +418,7 @@
         overflow-x: auto;
       }
 
-      .product-image {
+      .item-image {
         width: 80px;
         height: 80px;
       }
@@ -457,7 +457,7 @@
               <table class="cart-table">
                 <thead>
                   <tr>
-                    <th>Product</th>
+                    <th>Item</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
@@ -472,25 +472,25 @@
                       <td>
                         <div class="d-flex align-items-center">
                           @if($item->is_motorcycle)
-                            <img src="{{ $item->motorcycle->photos->first() ? asset('motorcycles/' . $item->motorcycle->photos->first()->image) : asset('images/no-image.jpg') }}" alt="{{$item->motorcycle->name}}" class="product-image me-3">
-                            <div class="product-info">
-                              <div class="product-title">{{$item->motorcycle->name}}</div>
-                              <div class="product-meta">
-                                <span class="product-meta-item">
+                            <img src="{{ $item->motorcycle->photos->first() ? asset('motorcycles/' . $item->motorcycle->photos->first()->image) : asset('images/no-image.jpg') }}" alt="{{$item->motorcycle->name}}" class="item-image me-3">
+                            <div class="item-info">
+                              <div class="item-title">{{$item->motorcycle->name}}</div>
+                              <div class="item-meta">
+                                <span class="item-meta-item">
                                   <i class="fas fa-motorcycle me-1"></i>Moto
                                 </span>
                               </div>
                             </div>
                           @else
-                            <img src="/products/{{$item->product->image}}" alt="{{$item->product->title}}" class="product-image me-3">
-                            <div class="product-info">
-                              <div class="product-title">{{$item->product->title}}</div>
-                              <div class="product-meta">
-                                <span class="product-meta-item">
+                            <img src="/products/{{$item->product->image}}" alt="{{$item->product->title}}" class="item-image me-3">
+                            <div class="item-info">
+                              <div class="item-title">{{$item->product->title}}</div>
+                              <div class="item-meta">
+                                <span class="item-meta-item">
                                   <i class="fas fa-box me-1"></i>Disponível: {{$item->product->Quantity}} unidades
                                 </span>
                                 @if($item->size)
-                                <span class="product-meta-item">
+                                <span class="item-meta-item">
                                   <i class="fas fa-ruler me-1"></i>Tamanho: {{$item->size}}
                                 </span>
                                 @endif
@@ -714,6 +714,9 @@
   <!-- info section -->
 
   @include('home.footer')
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     function autoSubmitForm(formId) {

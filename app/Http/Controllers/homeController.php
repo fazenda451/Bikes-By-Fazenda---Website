@@ -57,8 +57,9 @@ class homeController extends Controller
 
         $motorcycleCategories = Order::where('is_motorcycle', 1)
             ->join('motorcycles', 'orders.motorcycle_id', '=', 'motorcycles.id')
-            ->select('motorcycles.category as category', DB::raw('COUNT(orders.id) as total_sold'))
-            ->groupBy('motorcycles.category');
+            ->join('categories', 'motorcycles.Category', '=', 'categories.id')
+            ->select('categories.category_name as category', DB::raw('COUNT(orders.id) as total_sold'))
+            ->groupBy('categories.category_name');
 
         $categories = $productCategories->union($motorcycleCategories)
             ->orderByDesc('total_sold')

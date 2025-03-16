@@ -38,7 +38,7 @@
       position: absolute;
       top: 20px;
       left: 20px;
-      background-color: rgba(230, 0, 18, 0.85);
+      background-color: purple;
       color: white;
       padding: 8px 15px;
       border-radius: 4px;
@@ -71,7 +71,7 @@
 
     .price-tag {
       display: inline-block;
-      background-color: #e60012;
+      background-color: purple;
       color: #fff;
       padding: 10px 20px;
       font-size: 1.5rem;
@@ -109,8 +109,8 @@
     }
 
     .tab-item.active {
-      color: #e60012;
-      border-bottom: 3px solid #e60012;
+      color: purple;
+      border-bottom: 3px solid purple;
     }
 
     /* Image gallery */
@@ -186,7 +186,7 @@
       font-weight: 600;
       margin-bottom: 15px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #e60012;
+      border-bottom: 2px solid purple;
       color: #000;
     }
 
@@ -235,15 +235,15 @@
     }
 
     .btn-primary {
-      background-color: #e60012;
+      background-color: purple;
       color: #fff;
       border: none;
     }
 
     .btn-primary:hover {
-      background-color: #c5000f;
+      background-color: purple;
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(230, 0, 18, 0.3);
+      box-shadow: 0 5px 15px rgb(95, 10, 95);
     }
 
     .btn-secondary {
@@ -409,7 +409,7 @@
 
     .add-to-cart-btn {
       display: inline-block;
-      background-color: #e60012;
+      background-color: purple;
       color: white;
       padding: 12px 25px;
       border-radius: 4px;
@@ -420,7 +420,7 @@
     }
 
     .add-to-cart-btn:hover {
-      background-color: #c5000f;
+      background-color: rgb(73, 13, 73);
       transform: translateY(-2px);
       color: white;
     }
@@ -447,13 +447,13 @@
     .wishlist-btn:hover {
       background-color: #f8f9fa;
       transform: translateY(-2px);
-      color: #e60012;
-      border-color: #e60012;
+      color: rgb(70, 18, 70);
+      border-color: rgb(70, 18, 70);
     }
 
     .wishlist-btn i {
       margin-right: 8px;
-      color: #e60012;
+      color: purple;
       transition: transform 0.3s ease;
     }
     
@@ -505,7 +505,7 @@
     }
 
     .notification-btn i {
-      color: #e60012;
+      color: purple;
       margin-right: 10px;
     }
 
@@ -959,6 +959,9 @@
 
   <!-- info section -->
   @include('home.footer')
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

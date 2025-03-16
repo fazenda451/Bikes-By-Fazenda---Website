@@ -64,7 +64,7 @@
         color: #9935dc;
       }
       
-      .stat-products {
+      .stat-items {
         background-color: rgba(40, 167, 69, 0.2);
         color: #28a745;
       }
@@ -288,12 +288,12 @@
             </div>
             
             <div class="stat-card">
-              <div class="stat-icon stat-products">
-                <i class="fas fa-box"></i>
+              <div class="stat-icon stat-items">
+                <i class="fas fa-cubes"></i>
               </div>
               <div>
-                <h2 class="stat-value">{{ \App\Models\Product::count() }}</h2>
-                <p class="stat-label">Registered Products</p>
+                <h2 class="stat-value">{{ \App\Models\Product::count() + \App\Models\Motorcycle::count() }}</h2>
+                <p class="stat-label">Total Items</p>
               </div>
             </div>
           </div>
@@ -325,7 +325,7 @@
               <thead>
                 <tr>
                   <th>Category Name</th>
-                  <th>Products</th>
+                  <th>Items</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -333,7 +333,7 @@
                 @foreach($data as $category)
                 <tr>
                   <td>{{ $category->category_name }}</td>
-                  <td>{{ \App\Models\Product::where('category_id', $category->id)->count() }}</td>
+                  <td>{{ \App\Models\Product::where('category_id', $category->id)->count() + \App\Models\Motorcycle::where('Category', $category->id)->count() }}</td>
                   <td>
                     <div class="action-buttons">
                       <a href="{{ url('edit_category', $category->id) }}" class="btn btn-success">

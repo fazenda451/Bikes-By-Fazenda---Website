@@ -3,7 +3,7 @@
     <div class="container">
       <!-- Logo -->
       <a class="navbar-brand" href="{{url('/')}}">
-        <span class="logo-text">Bikes<span class="text-danger">BY</span>Fazenda</span>
+        <span class="logo-text">Bikes<span class="text-purple">BY</span>Fazenda</span>
       </a>
 
       <!-- Botão de toggle para menu mobile -->
@@ -36,9 +36,8 @@
           @if (Route::has('login'))
             @auth
               <div class="dropdown">
-                <a class="btn btn-link" href="#" role="button" onclick="toggleDropdown(event)">
+                <a class="btn btn-link" href="#" role="button" onclick="toggleUserDropdown(event)">
                   <i class="fa-solid fa-user"></i>
-                  <i class="fa-solid fa-caret-down" style="font-size: 0.8em; margin-left: 2px;"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" id="userDropdownMenu">
                   <a class="dropdown-item" href="{{url('profile')}}">My Profile</a>
@@ -94,6 +93,10 @@
       color: #333;
       text-transform: uppercase;
       letter-spacing: 1px;
+    }
+    
+    .text-purple {
+      color: #9935dc !important;
     }
 
     .nav-link {
@@ -153,14 +156,9 @@
       opacity: 1;
     }
 
-    /* Estilo para a seta do dropdown */
-    .dropdown .fa-caret-down {
-      transition: transform 0.3s ease;
-    }
-
-    /* Rotação da seta quando o dropdown está aberto */
-    .dropdown.show .fa-caret-down {
-      transform: rotate(180deg);
+    /* Remover a seta padrão do dropdown-toggle */
+    .dropdown-toggle::after {
+      display: none;
     }
 
     @media (max-width: 991.98px) {
@@ -168,34 +166,54 @@
         background-color: #fff;
         padding: 15px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
       }
 
       .user-area {
         margin-top: 15px;
         justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .navbar-brand {
+        max-width: 70%;
+      }
+      
+      .logo-text {
+        font-size: 1.5rem;
       }
     }
   </style>
-  
+
   <script>
-    function toggleDropdown(event) {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializa os dropdowns do Bootstrap
+      var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+      var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl)
+      })
+    });
+  </script>
+
+  <script>
+    function toggleUserDropdown(event) {
       event.preventDefault();
       var dropdownMenu = document.getElementById('userDropdownMenu');
-      var dropdown = event.target.closest('.dropdown');
       
-      if (dropdownMenu.style.display === 'block') {
-        dropdownMenu.style.display = 'none';
-        dropdown.classList.remove('show');
+      if (dropdownMenu.classList.contains('show')) {
+        dropdownMenu.classList.remove('show');
       } else {
-        dropdownMenu.style.display = 'block';
-        dropdown.classList.add('show');
+        dropdownMenu.classList.add('show');
       }
       
       // Fechar o dropdown quando clicar fora dele
       document.addEventListener('click', function closeDropdown(e) {
         if (!e.target.closest('.dropdown')) {
-          dropdownMenu.style.display = 'none';
-          dropdown.classList.remove('show');
+          dropdownMenu.classList.remove('show');
           document.removeEventListener('click', closeDropdown);
         }
       });

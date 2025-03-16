@@ -173,26 +173,23 @@
     }
     
     .back-to-shop a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 15px;
-      background-color: #9b59b6;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
+      background-color: #9b59b6 !important;
+      border-color: #9b59b6 !important;
+      color: white !important;
+      font-weight: 600 !important;
       transition: all 0.3s ease;
-      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
     
     .back-to-shop a:hover {
-      background-color: #8e44ad;
+      background-color: #8e44ad !important;
+      border-color: #8e44ad !important;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     .back-to-shop i {
-      margin-right: 10px;
+      color: white !important;
     }
 
   @media (max-width: 991.98px) {
@@ -303,9 +300,9 @@
         
         <!-- Botão para voltar à loja -->
         <div class="back-to-shop">
-          <a href="{{url('/')}}" target="_blank">
-            <i class="fa-solid fa-store"></i>
-            Voltar à Loja
+          <a href="{{url('/')}}" target="_blank" class="btn w-100 d-flex align-items-center justify-content-center" style="background-color: #9b59b6; color: white; font-weight: bold;">
+            <i class="fa-solid fa-store me-2" style="color: white;"></i>
+            Back to Store
           </a>
         </div>
       </nav>

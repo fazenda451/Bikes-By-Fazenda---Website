@@ -10,7 +10,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" type="image/x-icon">
 
   <title>Page Not Found - Bikes By Fazenda</title>
 

@@ -1,11 +1,16 @@
 // Arquivo específico para o dropdown do menu de usuário
 document.addEventListener('DOMContentLoaded', function() {
-  // Seleciona o dropdown do usuário
-  var userDropdown = document.getElementById('userDropdown');
+  // Inicializa os dropdowns do Bootstrap 5
+  var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+  var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+    return new bootstrap.Dropdown(dropdownToggleEl);
+  });
   
-  if (userDropdown) {
-    // Adiciona um evento de clique ao dropdown
-    userDropdown.addEventListener('click', function(e) {
+  // Código para dropdowns personalizados que não usam Bootstrap 5
+  var customDropdowns = document.querySelectorAll('.custom-dropdown-toggle');
+  
+  customDropdowns.forEach(function(dropdown) {
+    dropdown.addEventListener('click', function(e) {
       e.preventDefault();
       
       // Encontra o menu dropdown associado
@@ -18,17 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdownMenu.classList.add('show');
       }
     });
-    
-    // Fecha o dropdown quando clicar fora dele
-    document.addEventListener('click', function(e) {
-      if (!e.target.matches('#userDropdown') && !e.target.closest('.dropdown-menu')) {
-        var dropdowns = document.getElementsByClassName('dropdown-menu');
-        for (var i = 0; i < dropdowns.length; i++) {
-          if (dropdowns[i].classList.contains('show')) {
-            dropdowns[i].classList.remove('show');
-          }
-        }
-      }
-    });
-  }
+  });
+  
+  // Fecha os dropdowns personalizados quando clicar fora deles
+  document.addEventListener('click', function(e) {
+    if (!e.target.matches('.custom-dropdown-toggle') && !e.target.closest('.dropdown-menu')) {
+      var dropdowns = document.querySelectorAll('.custom-dropdown-menu.show');
+      dropdowns.forEach(function(dropdown) {
+        dropdown.classList.remove('show');
+      });
+    }
+  });
 }); 
