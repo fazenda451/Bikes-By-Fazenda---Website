@@ -12,7 +12,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Página não encontrada - Bikes By Fazenda</title>
+  <title>Page Not Found - Bikes By Fazenda</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -37,7 +37,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: #f8f9fa;
     }
     
     .error-code {
@@ -46,14 +45,12 @@
       color: #9935dc;
       margin-bottom: 20px;
       line-height: 1;
-      text-shadow: 0 2px 10px rgba(153, 53, 220, 0.2);
     }
     
     .error-message {
       font-size: 28px;
       margin-bottom: 30px;
       color: #333;
-      font-weight: 600;
     }
     
     .error-description {
@@ -61,42 +58,38 @@
       margin-bottom: 40px;
       color: #666;
       max-width: 600px;
-      line-height: 1.6;
     }
     
     .buttons-container {
       display: flex;
-      gap: 15px;
+      gap: 20px;
       margin-bottom: 40px;
-      flex-wrap: wrap;
-      justify-content: center;
     }
     
     .home-btn {
-      background: linear-gradient(135deg, #9935dc 0%, #7b2ab0 100%);
+      background-color: #9935dc;
       color: white;
-      padding: 14px 30px;
+      padding: 12px 30px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s;
       border: none;
-      box-shadow: 0 4px 15px rgba(153, 53, 220, 0.3);
       display: inline-flex;
       align-items: center;
     }
     
     .home-btn:hover {
-      background: linear-gradient(135deg, #7b2ab0 0%, #9935dc 100%);
+      background-color: #7b2ab0;
       color: white;
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(153, 53, 220, 0.4);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     .search-btn {
-      background-color: #f5f5f5;
+      background-color: #f8f9fa;
       color: #333;
-      padding: 14px 30px;
+      padding: 12px 30px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
@@ -149,14 +142,12 @@
       border-radius: 8px;
       font-size: 16px;
       transition: all 0.3s;
-      background-color: #fff;
-      padding-right: 50px;
     }
     
     .search-input:focus {
       border-color: #9935dc;
-      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
       outline: none;
+      box-shadow: 0 0 0 3px rgba(153, 53, 220, 0.2);
     }
     
     .search-button {
@@ -169,22 +160,16 @@
       color: #9935dc;
       font-size: 20px;
       cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .search-button:hover {
-      color: #7b2ab0;
     }
     
     .popular-links {
-      margin-top: 20px;
+      margin-top: 40px;
     }
     
     .popular-links h3 {
       font-size: 18px;
       color: #333;
       margin-bottom: 15px;
-      font-weight: 600;
     }
     
     .links-container {
@@ -195,7 +180,7 @@
     }
     
     .popular-link {
-      background-color: #fff;
+      background-color: #f8f9fa;
       color: #333;
       padding: 8px 15px;
       border-radius: 5px;
@@ -262,12 +247,12 @@
         <div class="col-md-12">
           <i class="fas fa-exclamation-triangle error-icon animate__animated animate__fadeIn"></i>
           <h1 class="error-code animate__animated animate__fadeInDown">404</h1>
-          <h2 class="error-message animate__animated animate__fadeInUp">Página não encontrada</h2>
-          <p class="error-description animate__animated animate__fadeInUp animate__delay-1s">Desculpe, a página que você está procurando não existe ou foi movida. Por favor, verifique o URL ou retorne à página inicial.</p>
+          <h2 class="error-message animate__animated animate__fadeInUp">Page Not Found</h2>
+          <p class="error-description animate__animated animate__fadeInUp animate__delay-1s">Sorry, the page you are looking for doesn't exist or has been moved. Please check the URL or return to the homepage.</p>
           
           <div class="search-container animate__animated animate__fadeIn animate__delay-1s">
             <form action="/search" method="GET">
-              <input type="text" class="search-input" placeholder="Buscar no site..." name="q">
+              <input type="text" class="search-input" placeholder="Search the website..." name="q">
               <button type="submit" class="search-button">
                 <i class="fas fa-search"></i>
               </button>
@@ -276,21 +261,21 @@
           
           <div class="buttons-container animate__animated animate__fadeInUp animate__delay-1s">
             <a href="/" class="home-btn">
-              <i class="fas fa-home btn-icon"></i> Página Inicial
+              <i class="fas fa-home btn-icon"></i> Homepage
             </a>
             <a href="/products" class="search-btn">
-              <i class="fas fa-motorcycle btn-icon"></i> Ver Produtos
+              <i class="fas fa-motorcycle btn-icon"></i> View Products
             </a>
           </div>
           
           <div class="popular-links animate__animated animate__fadeIn animate__delay-2s">
-            <h3>Links Populares</h3>
+            <h3>Popular Links</h3>
             <div class="links-container">
-              <a href="/products/category/motorcycles" class="popular-link">Motocicletas</a>
-              <a href="/products/category/accessories" class="popular-link">Acessórios</a>
-              <a href="/products/category/parts" class="popular-link">Peças</a>
-              <a href="/contact" class="popular-link">Contato</a>
-              <a href="/about" class="popular-link">Sobre Nós</a>
+              <a href="/products/category/motorcycles" class="popular-link">Motorcycles</a>
+              <a href="/products/category/accessories" class="popular-link">Accessories</a>
+              <a href="/products/category/parts" class="popular-link">Parts</a>
+              <a href="/contact" class="popular-link">Contact</a>
+              <a href="/about" class="popular-link">About Us</a>
             </div>
           </div>
         </div>

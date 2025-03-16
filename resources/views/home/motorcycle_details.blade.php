@@ -4,7 +4,7 @@
 <head>
   @include('home.css')
   <style type="text/css">
-    /* Estilo inspirado no site da Yamaha */
+    /* Style inspired by Yamaha website */
     body {
       background-color: #f5f5f5;
       font-family: 'Roboto', 'Arial', sans-serif;
@@ -17,7 +17,7 @@
       color: #fff;
     }
 
-    /* Banner principal */
+    /* Main banner */
     .motorcycle-banner {
       position: relative;
       width: 100%;
@@ -80,7 +80,7 @@
       border-radius: 4px;
     }
 
-    /* Seção de conteúdo */
+    /* Content section */
     .content-section {
       padding: 60px 0;
     }
@@ -91,7 +91,7 @@
       padding: 0 15px;
     }
 
-    /* Navegação por tabs */
+    /* Tab navigation */
     .tabs-navigation {
       display: flex;
       border-bottom: 1px solid #ddd;
@@ -113,7 +113,7 @@
       border-bottom: 3px solid #e60012;
     }
 
-    /* Galeria de imagens */
+    /* Image gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -138,7 +138,7 @@
       transform: scale(1.05);
     }
 
-    /* Descrição */
+    /* Description */
     .description {
       margin-bottom: 40px;
     }
@@ -156,7 +156,7 @@
       color: #555;
     }
 
-    /* Especificações */
+    /* Specifications */
     .specs-section {
       background-color: #fff;
       padding: 50px 0;
@@ -211,7 +211,7 @@
       color: #333;
     }
 
-    /* Botões de ação */
+    /* Action buttons */
     .action-buttons {
       display: flex;
       justify-content: center;
@@ -258,7 +258,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    /* Responsividade */
+    /* Responsiveness */
     @media (max-width: 992px) {
       .banner-content h1 {
         font-size: 2.5rem;
@@ -302,7 +302,7 @@
       }
     }
 
-    /* Animações */
+    /* Animations */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -318,7 +318,7 @@
       animation: fadeIn 0.8s ease forwards;
     }
 
-    /* Carrossel de Produto estilo Yamaha */
+    /* Yamaha-style Product Carousel */
     .product-carousel {
       display: flex;
       margin-bottom: 40px;
@@ -606,11 +606,11 @@
         <div class="product-price">A partir de: {{ number_format($data->price, 2, ',', '.') }}€</div>
         
         <a href="{{url('add_cart', $data->id)}}" class="add-to-cart-btn">
-          <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+          <i class="fas fa-shopping-cart"></i> Add to Cart
         </a>
         
         <a href="{{ route('add.motorcycle.to.wishlist', $data->id) }}" class="wishlist-btn">
-          <i class="fas fa-heart"></i> Adicionar à Lista de Desejos
+          <i class="fas fa-heart"></i> Add to Wishlist
         </a>
         
         @if($data->color)
@@ -622,7 +622,7 @@
         
         <div class="notification-btn">
           <i class="fas fa-bell"></i>
-          <span>Seja o primeiro a saber quando pode experimentar</span>
+          <span>Be the first to know when you can test ride</span>
         </div>
       </div>
     </div>
@@ -633,14 +633,14 @@
     <div class="container">
       <!-- Tabs Navigation -->
       <div class="tabs-navigation">
-        <div class="tab-item active">Visão Geral</div>
-        <div class="tab-item">Especificações</div>
-        <div class="tab-item">Acessórios</div>
+        <div class="tab-item active">Overview</div>
+        <div class="tab-item">Specifications</div>
+        <div class="tab-item">Accessories</div>
       </div>
 
       <!-- Description -->
       <div class="description animated">
-        <h2>Sobre a {{ $data->name }}</h2>
+        <h2>About the {{ $data->name }}</h2>
         <p>{{ $data->description }}</p>
       </div>
     </div>
@@ -649,244 +649,244 @@
   <!-- Specifications Section -->
   <section class="specs-section animated">
     <div class="container">
-      <h2>Especificações Técnicas</h2>
+      <h2>Technical Specifications</h2>
       
       <div class="specs-container">
-        <!-- Motor e Performance -->
+        <!-- Engine and Performance -->
         <div class="specs-group">
-          <h3>Motor e Performance</h3>
+          <h3>Engine and Performance</h3>
           
           @if($data->engine_type)
           <div class="specs-item">
-            <div class="specs-label">Tipo de Motor</div>
+            <div class="specs-label">Engine Type</div>
             <div class="specs-value">{{ $data->engineType->name ?? 'N/A' }}</div>
           </div>
           @endif
           
           @if($data->displacement)
           <div class="specs-item">
-            <div class="specs-label">Cilindrada</div>
+            <div class="specs-label">Displacement</div>
             <div class="specs-value">{{ $data->displacement }} cc</div>
           </div>
           @endif
           
           @if($data->bore_stroke)
           <div class="specs-item">
-            <div class="specs-label">Diâmetro x Curso</div>
+            <div class="specs-label">Bore x Stroke</div>
             <div class="specs-value">{{ $data->bore_stroke }}</div>
           </div>
           @endif
           
           @if($data->compression_ratio)
           <div class="specs-item">
-            <div class="specs-label">Taxa de Compressão</div>
+            <div class="specs-label">Compression Ratio</div>
             <div class="specs-value">{{ $data->compression_ratio }}</div>
           </div>
           @endif
           
           @if($data->max_power)
           <div class="specs-item">
-            <div class="specs-label">Potência Máxima</div>
+            <div class="specs-label">Maximum Power</div>
             <div class="specs-value">{{ $data->max_power }}</div>
           </div>
           @endif
           
           @if($data->max_torque)
           <div class="specs-item">
-            <div class="specs-label">Torque Máximo</div>
+            <div class="specs-label">Maximum Torque</div>
             <div class="specs-value">{{ $data->max_torque }}</div>
           </div>
           @endif
         </div>
         
-        <!-- Transmissão -->
+        <!-- Transmission -->
         <div class="specs-group">
-          <h3>Transmissão</h3>
+          <h3>Transmission</h3>
           
           @if($data->transmission_system_id)
           <div class="specs-item">
-            <div class="specs-label">Sistema de Transmissão</div>
+            <div class="specs-label">Transmission System</div>
             <div class="specs-value">{{ $data->transmissionSystem->name ?? 'N/A' }}</div>
           </div>
           @endif
           
           @if($data->clutch_type_id)
           <div class="specs-item">
-            <div class="specs-label">Tipo de Embreagem</div>
+            <div class="specs-label">Clutch Type</div>
             <div class="specs-value">{{ $data->clutchType->name ?? 'N/A' }}</div>
           </div>
           @endif
           
           @if($data->final_drive)
           <div class="specs-item">
-            <div class="specs-label">Transmissão Final</div>
+            <div class="specs-label">Final Drive</div>
             <div class="specs-value">{{ $data->final_drive }}</div>
           </div>
           @endif
         </div>
         
-        <!-- Chassi e Suspensão -->
+        <!-- Chassis and Suspension -->
         <div class="specs-group">
-          <h3>Chassi e Suspensão</h3>
+          <h3>Chassis and Suspension</h3>
           
           @if($data->frame)
           <div class="specs-item">
-            <div class="specs-label">Quadro</div>
+            <div class="specs-label">Frame</div>
             <div class="specs-value">{{ $data->frame }}</div>
           </div>
           @endif
           
           @if($data->front_suspension_id)
           <div class="specs-item">
-            <div class="specs-label">Suspensão Dianteira</div>
+            <div class="specs-label">Front Suspension</div>
             <div class="specs-value">{{ $data->frontSuspension->name ?? 'N/A' }}</div>
           </div>
           @endif
           
           @if($data->front_travel)
           <div class="specs-item">
-            <div class="specs-label">Curso Dianteiro</div>
+            <div class="specs-label">Front Travel</div>
             <div class="specs-value">{{ $data->front_travel }} mm</div>
           </div>
           @endif
           
           @if($data->rear_suspension_id)
           <div class="specs-item">
-            <div class="specs-label">Suspensão Traseira</div>
+            <div class="specs-label">Rear Suspension</div>
             <div class="specs-value">{{ $data->rearSuspension->name ?? 'N/A' }}</div>
           </div>
           @endif
           
           @if($data->rear_travel)
           <div class="specs-item">
-            <div class="specs-label">Curso Traseiro</div>
+            <div class="specs-label">Rear Travel</div>
             <div class="specs-value">{{ $data->rear_travel }} mm</div>
           </div>
           @endif
-            </div>
+        </div>
 
-        <!-- Freios e Rodas -->
+        <!-- Brakes and Wheels -->
         <div class="specs-group">
-          <h3>Freios e Rodas</h3>
+          <h3>Brakes and Wheels</h3>
           
           @if($data->front_brake)
           <div class="specs-item">
-            <div class="specs-label">Freio Dianteiro</div>
+            <div class="specs-label">Front Brake</div>
             <div class="specs-value">{{ $data->front_brake }}</div>
           </div>
           @endif
           
           @if($data->rear_brake)
           <div class="specs-item">
-            <div class="specs-label">Freio Traseiro</div>
+            <div class="specs-label">Rear Brake</div>
             <div class="specs-value">{{ $data->rear_brake }}</div>
           </div>
           @endif
           
           @if($data->front_tire)
           <div class="specs-item">
-            <div class="specs-label">Pneu Dianteiro</div>
+            <div class="specs-label">Front Tire</div>
             <div class="specs-value">{{ $data->front_tire }}</div>
           </div>
           @endif
           
           @if($data->rear_tire)
           <div class="specs-item">
-            <div class="specs-label">Pneu Traseiro</div>
+            <div class="specs-label">Rear Tire</div>
             <div class="specs-value">{{ $data->rear_tire }}</div>
           </div>
           @endif
-            </div>
+        </div>
 
-        <!-- Dimensões -->
+        <!-- Dimensions -->
         <div class="specs-group">
-          <h3>Dimensões</h3>
+          <h3>Dimensions</h3>
           
           @if($data->total_length)
           <div class="specs-item">
-            <div class="specs-label">Comprimento Total</div>
+            <div class="specs-label">Total Length</div>
             <div class="specs-value">{{ $data->total_length }} mm</div>
           </div>
           @endif
           
           @if($data->total_width)
           <div class="specs-item">
-            <div class="specs-label">Largura Total</div>
+            <div class="specs-label">Total Width</div>
             <div class="specs-value">{{ $data->total_width }} mm</div>
           </div>
           @endif
           
           @if($data->total_height)
           <div class="specs-item">
-            <div class="specs-label">Altura Total</div>
+            <div class="specs-label">Total Height</div>
             <div class="specs-value">{{ $data->total_height }} mm</div>
           </div>
           @endif
           
           @if($data->seat_height)
           <div class="specs-item">
-            <div class="specs-label">Altura do Assento</div>
+            <div class="specs-label">Seat Height</div>
             <div class="specs-value">{{ $data->seat_height }} mm</div>
           </div>
           @endif
           
           @if($data->wheelbase)
           <div class="specs-item">
-            <div class="specs-label">Distância entre Eixos</div>
+            <div class="specs-label">Wheelbase</div>
             <div class="specs-value">{{ $data->wheelbase }} mm</div>
           </div>
           @endif
           
           @if($data->ground_clearance)
           <div class="specs-item">
-            <div class="specs-label">Distância ao Solo</div>
+            <div class="specs-label">Ground Clearance</div>
             <div class="specs-value">{{ $data->ground_clearance }} mm</div>
           </div>
           @endif
           
           @if($data->weight)
           <div class="specs-item">
-            <div class="specs-label">Peso</div>
+            <div class="specs-label">Weight</div>
             <div class="specs-value">{{ $data->weight }} kg</div>
           </div>
           @endif
-            </div>
+        </div>
 
-        <!-- Outros -->
+        <!-- Others -->
         <div class="specs-group">
-          <h3>Outros</h3>
+          <h3>Others</h3>
           
           @if($data->fuel_tank_capacity)
           <div class="specs-item">
-            <div class="specs-label">Capacidade do Tanque</div>
+            <div class="specs-label">Fuel Tank Capacity</div>
             <div class="specs-value">{{ $data->fuel_tank_capacity }} L</div>
           </div>
           @endif
           
           @if($data->oil_tank_capacity)
           <div class="specs-item">
-            <div class="specs-label">Capacidade de Óleo</div>
+            <div class="specs-label">Oil Capacity</div>
             <div class="specs-value">{{ $data->oil_tank_capacity }} L</div>
           </div>
           @endif
           
           @if($data->fuel_consumption)
           <div class="specs-item">
-            <div class="specs-label">Consumo de Combustível</div>
+            <div class="specs-label">Fuel Consumption</div>
             <div class="specs-value">{{ $data->fuel_consumption }} L/100km</div>
           </div>
           @endif
           
           @if($data->cos2_emissions)
           <div class="specs-item">
-            <div class="specs-label">Emissões de CO₂</div>
+            <div class="specs-label">CO₂ Emissions</div>
             <div class="specs-value">{{ $data->cos2_emissions }} g/km</div>
-            </div>
+          </div>
           @endif
           
           @if($data->license_type_id)
           <div class="specs-item">
-            <div class="specs-label">Tipo de Carta</div>
+            <div class="specs-label">License Type</div>
             <div class="specs-value">{{ $data->licenseType->name ?? 'N/A' }}</div>
           </div>
           @endif
@@ -898,7 +898,7 @@
   <!-- Action Buttons -->
   <div class="container">
     <div class="action-buttons animated">
-      <a href="{{url('/')}}" class="btn btn-secondary">Voltar à Página Inicial</a>
+      <a href="{{url('/')}}" class="btn btn-secondary">Back to Homepage</a>
     </div>
   </div>
 

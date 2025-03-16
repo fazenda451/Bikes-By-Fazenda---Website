@@ -31,7 +31,7 @@
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <i class="fas fa-map-marker-alt me-2 text-purple"></i>
-                        Rua Gago Coutinho, 2, Alverca do Ribatejo
+                        Gago Coutinho Street, 2, Alverca do Ribatejo
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-phone me-2 text-purple"></i>

@@ -3,7 +3,7 @@
 <head>
   @include('home.css')
   <style>
-    /* Estilos para o catálogo de produtos */
+    /* Styles for the product catalog */
     .catalog-header {
       background-color: #f8f9fa;
       padding: 40px 0;
@@ -184,7 +184,7 @@
       font-weight: 600;
     }
 
-    /* Estilos para os cards de produtos */
+    /* Styles for product cards */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -566,8 +566,8 @@
   <!-- Catálogo Header -->
   <div class="catalog-header">
     <div class="container">
-      <h1 class="catalog-title">Catálogo de Produtos</h1>
-      <p class="catalog-subtitle">Descubra nossa coleção de equipamentos de alta qualidade para motociclistas. Encontre o produto perfeito para suas necessidades.</p>
+      <h1 class="catalog-title">Product Catalog</h1>
+      <p class="catalog-subtitle">Discover our collection of high-quality equipment for motorcyclists. Find the perfect product for your needs.</p>
     </div>
   </div>
 
@@ -577,19 +577,19 @@
       <!-- Botão de filtro para mobile -->
       <div class="col-12 d-md-none">
         <button class="mobile-filter-toggle" id="mobileFilterToggle">
-          <i class="fas fa-filter"></i> Mostrar Filtros
+          <i class="fas fa-filter"></i> Show Filters
         </button>
       </div>
       
       <!-- Coluna de Filtros (Esquerda) -->
       <div class="col-lg-4 col-xl-3">
         <div class="filter-section" id="filterSection">
-          <h2 class="filter-title">Filtros</h2>
+          <h2 class="filter-title">Filters</h2>
           <form action="{{ route('product.catalog') }}" method="GET">
             <div class="filter-group">
-              <label class="filter-label">Categoria</label>
+              <label class="filter-label">Category</label>
               <select name="category" class="filter-select">
-                <option value="">Todas as categorias</option>
+                <option value="">All categories</option>
                 @foreach($categories as $category)
                   <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
                 @endforeach
@@ -597,15 +597,15 @@
             </div>
 
             <div class="filter-group">
-              <label class="filter-label">Buscar produto</label>
+              <label class="filter-label">Search product</label>
               <div class="search-box">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" name="search" class="search-input" placeholder="Nome ou descrição" value="{{ request('search') }}">
+                <input type="text" name="search" class="search-input" placeholder="Name or description" value="{{ request('search') }}">
               </div>
             </div>
 
             <div class="filter-group">
-              <label class="filter-label">Faixa de preço</label>
+              <label class="filter-label">Price range</label>
               <div class="price-range">
                 <input type="number" name="min_price" class="filter-input" placeholder="Min €" value="{{ request('min_price') }}">
                 <span class="price-separator">-</span>
@@ -614,23 +614,23 @@
             </div>
 
             <div class="filter-group">
-              <label class="filter-label">Ordenar por</label>
+              <label class="filter-label">Sort by</label>
               <select name="sort" class="filter-select">
-                <option value="recommended" {{ request('sort') == 'recommended' ? 'selected' : '' }}>Recomendado</option>
-                <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Preço: Menor para Maior</option>
-                <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
-                <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
-                <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
-                <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Mais recentes</option>
+                <option value="recommended" {{ request('sort') == 'recommended' ? 'selected' : '' }}>Recommended</option>
+                <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Price: Low to High</option>
+                <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Price: High to Low</option>
+                <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name: A-Z</option>
+                <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Name: Z-A</option>
+                <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest</option>
               </select>
             </div>
 
             <div class="filter-buttons">
               <button type="submit" class="btn-filter btn-apply">
-                <i class="fas fa-filter"></i> Aplicar Filtros
+                <i class="fas fa-filter"></i> Apply Filters
               </button>
               <a href="{{ route('product.catalog') }}" class="btn-filter btn-reset">
-                <i class="fas fa-undo"></i> Limpar Filtros
+                <i class="fas fa-undo"></i> Clear Filters
               </a>
             </div>
           </form>
@@ -642,11 +642,11 @@
         <!-- Resultados -->
         <div class="results-info">
           <div class="results-count">
-            Exibindo <strong>{{ $products->count() }}</strong> de <strong>{{ $products->total() }}</strong> produtos
+            Showing <strong>{{ $products->count() }}</strong> of <strong>{{ $products->total() }}</strong> products
           </div>
           
           <div class="d-md-none">
-            <span class="text-muted">{{ request('sort') ? 'Ordenado por: ' . ucfirst(str_replace('_', ' ', request('sort'))) : 'Ordenado por: Recomendado' }}</span>
+            <span class="text-muted">{{ request('sort') ? 'Sorted by: ' . ucfirst(str_replace('_', ' ', request('sort'))) : 'Sorted by: Recommended' }}</span>
           </div>
         </div>
 
@@ -655,22 +655,22 @@
             @foreach($products as $product)
               <div class="product-card">
                 @if($product->Quantity <= 5 && $product->Quantity > 0)
-                  <div class="product-badge">Últimas unidades</div>
+                  <div class="product-badge">Last units</div>
                 @elseif($product->created_at->diffInDays(now()) < 30)
-                  <div class="product-badge">Novo</div>
+                  <div class="product-badge">New</div>
                 @endif
                 
                 <div class="product-image">
                   <img src="/products/{{$product->image}}" alt="{{ $product->title }}">
                 </div>
                 <div class="product-info">
-                  <div class="product-category">{{ $product->category ? $product->category->category_name : 'Sem categoria' }}</div>
+                  <div class="product-category">{{ $product->category ? $product->category->category_name : 'No category' }}</div>
                   <h3 class="product-title">{{ $product->title }}</h3>
                   
                   <div class="product-specs">
                     <div class="spec-item">
                       <i class="fas fa-box spec-icon"></i>
-                      <span>{{ $product->Quantity > 0 ? 'Em estoque: ' . $product->Quantity . ' unidades' : 'Fora de estoque' }}</span>
+                      <span>{{ $product->Quantity > 0 ? 'In stock: ' . $product->Quantity . ' units' : 'Out of stock' }}</span>
                     </div>
                   </div>
                   
@@ -689,12 +689,12 @@
                   </div>
                   
                   <div class="product-price">
-                    {{ number_format($product->price, 2, ',', '.') }}€
+                    {{ number_format($product->price, 2, '.', ',') }}€
                   </div>
                   
                   <div class="product-actions">
                     <a href="{{ url('product_details', $product->id) }}" class="btn-details">
-                      <i class="fas fa-eye"></i> Ver Detalhes
+                      <i class="fas fa-eye"></i> View Details
                     </a>
                     <a href="{{ url('add_cart', $product->id) }}" class="btn-cart" {{ $product->Quantity <= 0 ? 'disabled' : '' }}>
                       <i class="fas fa-shopping-cart"></i>
@@ -712,10 +712,10 @@
         @else
           <div class="no-results">
             <i class="fas fa-search"></i>
-            <h3>Nenhum produto encontrado</h3>
-            <p>Tente ajustar seus filtros ou procurar por outro termo.</p>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search for another term.</p>
             <a href="{{ route('product.catalog') }}" class="btn-filter btn-apply mt-3">
-              <i class="fas fa-undo"></i> Limpar Filtros
+              <i class="fas fa-undo"></i> Clear Filters
             </a>
           </div>
         @endif
@@ -747,19 +747,19 @@
           filterSection.classList.toggle('active');
           
           if (filterSection.classList.contains('active')) {
-            mobileFilterToggle.innerHTML = '<i class="fas fa-times"></i> Esconder Filtros';
+            mobileFilterToggle.innerHTML = '<i class="fas fa-times"></i> Hide Filters';
           } else {
-            mobileFilterToggle.innerHTML = '<i class="fas fa-filter"></i> Mostrar Filtros';
+            mobileFilterToggle.innerHTML = '<i class="fas fa-filter"></i> Show Filters';
           }
         });
       }
       
-      // Desabilitar botões de carrinho para produtos fora de estoque
+      // Disable cart buttons for out-of-stock products
       const cartButtons = document.querySelectorAll('.btn-cart[disabled]');
       cartButtons.forEach(button => {
         button.addEventListener('click', function(e) {
           e.preventDefault();
-          alert('Este produto está fora de estoque.');
+          alert('This product is out of stock.');
         });
         button.style.opacity = '0.6';
         button.style.cursor = 'not-allowed';

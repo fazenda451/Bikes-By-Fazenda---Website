@@ -19,7 +19,7 @@
               <div class="motorcycle-overlay">
                 <div class="view-details">
                   <i class="fas fa-search-plus"></i>
-                  <span>Ver Detalhes</span>
+                  <span>View Details</span>
                 </div>
               </div>
             </div>
@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="motorcycle-badge">
-              <span>NOVA</span>
+              <span>NEW</span>
             </div>
           </div>
         </a>
@@ -41,7 +41,7 @@
     
     <div class="text-center mt-5">
       <a href="{{ url('motorcycle-catalog') }}" class="view-all-btn">
-        <span>Ver Todas as Motos</span>
+        <span>View All Motorcycles</span>
         <i class="fas fa-arrow-right"></i>
       </a>
     </div>

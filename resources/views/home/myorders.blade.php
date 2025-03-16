@@ -23,16 +23,16 @@
                             <i class="fas fa-user me-2"></i> Meu Perfil
                         </a>
                         <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
-                            <i class="fas fa-shopping-bag me-2"></i> Meus Pedidos
+                            <i class="fas fa-shopping-bag me-2"></i> My Orders
                         </a>
                         <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-award me-2"></i> Pontos de Fidelidade
-                          </a>
+                            <i class="fas fa-award me-2"></i> Loyalty Points
+                        </a>
                         <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                             <i class="fas fa-heart me-2"></i> Lista de Desejos
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-map-marker-alt me-2"></i> Endereços
+                            <i class="fas fa-map-marker-alt me-2"></i> Addresses
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
                             <i class="fas fa-credit-card me-2"></i> Cartões
@@ -50,7 +50,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title fw-bold mb-0">Histórico de Pedidos</h5>
+                        <h5 class="card-title fw-bold mb-0">Order History</h5>
                     </div>
 
                     @if(isset($orders) && $orders->count() > 0)
@@ -62,8 +62,8 @@
                             <div class="order-item mb-4">
                                 <div class="order-header d-flex justify-content-between align-items-center mb-3">
                                     <div>
-                                        <h6 class="mb-1">Pedido #{{$orderNumber}}</h6>
-                                        <small class="text-muted">Realizado em {{date('d/m/Y H:i', strtotime($orderItems->first()->created_at))}}</small>
+                                        <h6 class="mb-1">Order #{{$orderNumber}}</h6>
+                                        <small class="text-muted">Realized at {{date('d/m/Y H:i', strtotime($orderItems->first()->created_at))}}</small>
                                     </div>
                                     <div class="text-end">
                                         @php
@@ -73,9 +73,9 @@
                                                 'Delivered' => 'bg-success'
                                             ];
                                             $statusText = [
-                                                'in progress' => 'Em Processamento',
-                                                'On the way' => 'Em Trânsito',
-                                                'Delivered' => 'Entregue'
+                                                'in progress' => 'In Progress',
+                                                'On the way' => 'On the way',
+                                                'Delivered' => 'Delivered'
                                             ];
                                             $mainStatus = $orderItems->pluck('status')->contains('in progress') ? 'in progress' : 
                                                           ($orderItems->pluck('status')->contains('On the way') ? 'On the way' : 'Delivered');
@@ -108,7 +108,7 @@
                                                      style="width: 80px; height: 80px; object-fit: cover;">
                                                 <div class="flex-grow-1">
                                                     <h6 class="mb-1">{{$item->motorcycle->name}}</h6>
-                                                    <small class="text-muted">Quantidade: 1</small>
+                                                    <small class="text-muted">Quantity: 1</small>
                                                     <div class="product-price mt-1">{{ number_format($item->motorcycle->price, 2, ',', '.') }}€</div>
                                                 </div>
                                             @else
@@ -118,9 +118,9 @@
                                                      style="width: 80px; height: 80px; object-fit: cover;">
                                                 <div class="flex-grow-1">
                                                     <h6 class="mb-1">{{$item->product->title}}</h6>
-                                                    <small class="text-muted">Quantidade: {{$item->quantity}}</small>
+                                                    <small class="text-muted">Quantity: {{$item->quantity}}</small>
                                                     @if($item->size)
-                                                        <small class="text-muted">Tamanho: {{$item->size}}</small>
+                                                        <small class="text-muted">Size: {{$item->size}}</small>
                                                     @endif
                                                     <div class="product-price mt-1">{{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€</div>
                                                 </div>
@@ -132,12 +132,12 @@
                                 <div class="order-footer mt-3 pt-3 border-top">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <small class="text-muted">Endereço de entrega:</small>
+                                            <small class="text-muted">Delivery address:</small>
                                             <div>{{$orderItems->first()->rec_address}}</div>
-                                            <div>Telefone: {{$orderItems->first()->phone}}</div>
+                                            <div>Phone: {{$orderItems->first()->phone}}</div>
                                         </div>
                                         <div class="text-end">
-                                            <small class="text-muted">Forma de pagamento:</small>
+                                            <small class="text-muted">Payment method:</small>
                                             <div>{{$orderItems->first()->payment_status}}</div>
                                         </div>
                                     </div>
@@ -147,10 +147,10 @@
                     @else
                         <div class="text-center py-5">
                             <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
-                            <h3>Nenhum pedido encontrado</h3>
-                            <p class="text-muted">Você ainda não fez nenhum pedido. Que tal começar a comprar?</p>
+                            <h3>No orders found</h3>
+                            <p class="text-muted">You haven't placed any orders yet. How about starting to shop?</p>
                             <a href="{{ route('motorcycle.catalog') }}" class="btn btn-primary mt-3">
-                                <i class="fas fa-motorcycle me-2"></i>Ver Catálogo
+                                <i class="fas fa-motorcycle me-2"></i>View Catalog
                             </a>
                         </div>
                     @endif

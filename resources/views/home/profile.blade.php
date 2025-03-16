@@ -20,25 +20,25 @@
                     </div>
                     <div class="list-group list-group-flush">
                         <a href="{{ route('profile') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
-                            <i class="fas fa-user me-2"></i> Meu Perfil
+                            <i class="fas fa-user me-2"></i> My Profile
                         </a>
                         <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-shopping-bag me-2"></i> Meus Pedidos
+                            <i class="fas fa-shopping-bag me-2"></i> My Orders
                         </a>
                         <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-award me-2"></i> Pontos de Fidelidade
+                            <i class="fas fa-award me-2"></i> Loyalty Points
                           </a>
                         <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-heart me-2"></i> Lista de Desejos
+                            <i class="fas fa-heart me-2"></i> Wishlist
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-map-marker-alt me-2"></i> Endereços
+                            <i class="fas fa-map-marker-alt me-2"></i> Addresses
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-credit-card me-2"></i> Cartões
+                            <i class="fas fa-credit-card me-2"></i> Payment Methods
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-cog me-2"></i> Configurações
+                            <i class="fas fa-cog me-2"></i> Settings
                         </a>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title fw-bold mb-0">Informações Pessoais</h5>
+                        <h5 class="card-title fw-bold mb-0">Personal Information</h5>
                     </div>
 
                     <form method="POST" action="{{ route('profile.update') }}">
@@ -60,7 +60,7 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Nome</label>
+                                <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -71,36 +71,36 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="phone" class="form-label">Telefone</label>
+                                <label for="phone" class="form-label">Phone</label>
                                 <input type="tel" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="birth_date" class="form-label">Data de Nascimento</label>
+                                <label for="birth_date" class="form-label">Birth Date</label>
                                 <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ auth()->user()->birth_date }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <label for="address" class="form-label">Endereço</label>
+                                <label for="address" class="form-label">Address</label>
                                 <input type="text" class="form-control" id="address" name="address" value="{{ auth()->user()->address }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="city" class="form-label">Cidade</label>
+                                <label for="city" class="form-label">City</label>
                                 <input type="text" class="form-control" id="city" name="city" value="{{ auth()->user()->city }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="zip_code" class="form-label">Código Postal</label>
+                                <label for="zip_code" class="form-label">Postal Code</label>
                                 <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ auth()->user()->zip_code }}">
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Salvar Alterações
+                                <i class="fas fa-save me-2"></i>Save Changes
                             </button>
                         </div>
                     </form>
@@ -111,7 +111,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title fw-bold mb-0">Alterar Senha</h5>
+                        <h5 class="card-title fw-bold mb-0">Change Password</h5>
                     </div>
 
                     <form method="POST" action="{{ route('profile.update') }}">
@@ -120,18 +120,18 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="password" class="form-label">Nova Senha</label>
+                                <label for="password" class="form-label">New Password</label>
                                 <input type="password" class="form-control" id="password" name="password">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="password_confirmation" class="form-label">Confirmar Nova Senha</label>
+                                <label for="password_confirmation" class="form-label">Confirm New Password</label>
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-key me-2"></i>Alterar Senha
+                                <i class="fas fa-key me-2"></i>Change Password
                             </button>
                         </div>
                     </form>
@@ -188,8 +188,6 @@ body {
     box-shadow: 0 2px 10px rgba(153, 53, 220, 0.3);
 }
 
-
-
 .form-control {
     border-radius: 10px;
     border: 1px solid #dee2e6;
@@ -230,8 +228,5 @@ body {
 .text-danger {
     color: #9935dc !important;
 }
-
-
-
 </style>
 @endsection 

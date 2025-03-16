@@ -12,7 +12,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Redefinir Senha - Bikes By Fazenda</title>
+  <title>Reset Password - Bikes By Fazenda</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -309,12 +309,12 @@
         <div class="reset-row">
           <div class="reset-image">
             <div class="reset-image-overlay">
-              <h2 class="reset-image-title animate__animated animate__fadeInUp">Redefinir Senha</h2>
-              <p class="reset-image-text animate__animated animate__fadeInUp animate__delay-1s">Crie uma nova senha segura para sua conta. Recomendamos usar uma combinação de letras, números e caracteres especiais.</p>
+              <h2 class="reset-image-title animate__animated animate__fadeInUp">Reset Password</h2>
+              <p class="reset-image-text animate__animated animate__fadeInUp animate__delay-1s">Create a new secure password for your account. We recommend using a combination of letters, numbers, and special characters.</p>
             </div>
           </div>
           <div class="reset-form">
-            <h2 class="reset-title animate__animated animate__fadeInDown">Nova Senha</h2>
+            <h2 class="reset-title animate__animated animate__fadeInDown">New Password</h2>
             
             <form method="POST" action="{{ route('password.store') }}" class="animate__animated animate__fadeIn animate__delay-1s">
         @csrf
@@ -334,7 +334,7 @@
 
         <!-- Password -->
               <div class="form-group">
-                <label for="password" class="form-label">Nova Senha</label>
+                <label for="password" class="form-label">New Password</label>
                 <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" placeholder="Digite sua nova senha" />
                 <i class="fas fa-lock input-icon"></i>
                 @error('password')
@@ -344,12 +344,12 @@
                 <div class="password-strength">
                   <div class="password-strength-meter medium"></div>
                 </div>
-                <div class="password-strength-text">Força da senha: Média</div>
+                <div class="password-strength-text">Password strength: Medium</div>
         </div>
 
         <!-- Confirm Password -->
               <div class="form-group">
-                <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
                 <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirme sua nova senha" />
                 <i class="fas fa-lock input-icon"></i>
                 @error('password_confirmation')
@@ -358,11 +358,11 @@
         </div>
 
               <button type="submit" class="reset-btn">
-                <i class="fas fa-key mr-2"></i> Redefinir Senha
+                <i class="fas fa-key mr-2"></i> Reset Password
               </button>
               
               <div class="login-link">
-                Lembrou sua senha? <a href="{{ route('login') }}">Voltar para o login</a>
+                Remembered your password? <a href="{{ route('login') }}">Back to login</a>
               </div>
             </form>
           </div>
@@ -408,23 +408,23 @@
         switch(strength) {
           case 0:
             meterClass = '';
-            strengthText = 'Força da senha: Muito fraca';
+            strengthText = 'Password strength: Very weak';
             break;
           case 1:
             meterClass = 'weak';
-            strengthText = 'Força da senha: Fraca';
+            strengthText = 'Password strength: Weak';
             break;
           case 2:
             meterClass = 'medium';
-            strengthText = 'Força da senha: Média';
+            strengthText = 'Password strength: Medium';
             break;
           case 3:
             meterClass = 'strong';
-            strengthText = 'Força da senha: Forte';
+            strengthText = 'Password strength: Strong';
             break;
           case 4:
             meterClass = 'very-strong';
-            strengthText = 'Força da senha: Muito forte';
+            strengthText = 'Password strength: Very strong';
             break;
         }
         

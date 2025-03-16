@@ -379,12 +379,12 @@
             @if($data->Quantity > 0)
               <div class="product-availability">
                 <i class="fas fa-check-circle availability-icon"></i>
-                <span class="availability-text">Em estoque - {{$data->Quantity}} unidades disponíveis</span>
+                <span class="availability-text">In stock - {{$data->Quantity}} units available</span>
               </div>
             @else
               <div class="product-availability" style="background-color: #ffebee;">
                 <i class="fas fa-times-circle availability-icon" style="color: #f44336;"></i>
-                <span class="availability-text" style="color: #c62828;">Fora de estoque</span>
+                <span class="availability-text" style="color: #c62828;">Out of stock</span>
               </div>
             @endif
             
@@ -393,7 +393,7 @@
               
               <div class="product-options">
                 @if($data->size)
-                  <div class="option-title">Selecione o Tamanho:</div>
+                  <div class="option-title">Select Size:</div>
                   <div class="size-options">
                     @php
                       $availableSizes = explode(',', $data->size);
@@ -407,14 +407,14 @@
                   
                   <div class="text-end">
                     <span class="size-guide" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">
-                      <i class="fas fa-ruler"></i> Guia de tamanhos
+                      <i class="fas fa-ruler"></i> Size Guide
                     </span>
                   </div>
                 @else
                   <input type="hidden" name="size" value="Único">
                 @endif
                 
-                <div class="option-title mt-4">Quantidade:</div>
+                <div class="option-title mt-4">Quantity:</div>
                 <div class="quantity-selector">
                   <div class="quantity-controls">
                     <button type="button" class="quantity-btn" onclick="decrementQuantity()">-</button>
@@ -426,13 +426,13 @@
               
               <button type="submit" class="btn-add-cart" {{ $data->Quantity <= 0 ? 'disabled' : '' }}>
                 <i class="fas fa-shopping-cart"></i>
-                Adicionar ao Carrinho
+                Add to Cart
               </button>
             </form>
             
             <a href="{{ route('add.to.wishlist', $data->id) }}" class="btn-wishlist mt-3">
               <i class="fas fa-heart"></i>
-              Adicionar à Lista de Desejos
+              Add to Wishlist
             </a>
             
             <div class="product-features">
@@ -441,8 +441,8 @@
                   <i class="fas fa-truck"></i>
                 </div>
                 <div class="feature-text">
-                  <strong>Entrega Rápida</strong><br>
-                  2-4 dias úteis
+                  <strong>Fast Delivery</strong><br>
+                  2-4 business days
                 </div>
               </div>
               
@@ -451,8 +451,8 @@
                   <i class="fas fa-undo"></i>
                 </div>
                 <div class="feature-text">
-                  <strong>Devolução Gratuita</strong><br>
-                  Até 30 dias
+                  <strong>Free Returns</strong><br>
+                  Up to 30 days
                 </div>
               </div>
               
@@ -461,8 +461,8 @@
                   <i class="fas fa-shield-alt"></i>
                 </div>
                 <div class="feature-text">
-                  <strong>Garantia de Qualidade</strong><br>
-                  Produtos certificados
+                  <strong>Quality Guarantee</strong><br>
+                  Certified products
                 </div>
               </div>
             </div>
@@ -470,20 +470,20 @@
         </div>
         
         <div class="product-description-container">
-          <h2 class="description-title">Descrição do Produto</h2>
+          <h2 class="description-title">Product Description</h2>
           <div class="product-description">
             {{$data->description}}
           </div>
           
           <div class="product-meta">
             <div class="meta-item">
-              <div class="meta-label">Categoria:</div>
-              <div class="meta-value">{{$data->category ? $data->category->category_name : 'Sem categoria'}}</div>
+              <div class="meta-label">Category:</div>
+              <div class="meta-value">{{$data->category ? $data->category->category_name : 'No category'}}</div>
             </div>
             
             @if($data->size)
             <div class="meta-item">
-              <div class="meta-label">Tamanhos Disponíveis:</div>
+              <div class="meta-label">Available Sizes:</div>
               <div class="meta-value">{{$data->size}}</div>
             </div>
             @endif
@@ -498,7 +498,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="sizeGuideModalLabel">Guia de Tamanhos</h5>
+          <h5 class="modal-title" id="sizeGuideModalLabel">Size Guide</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -506,9 +506,9 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Tamanho Europeu</th>
-                  <th>Tamanho Brasil</th>
-                  <th>Comprimento do Pé (cm)</th>
+                  <th>European Size</th>
+                  <th>Brazilian Size</th>
+                  <th>Foot Length (cm)</th>
                 </tr>
               </thead>
               <tbody>
@@ -557,7 +557,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

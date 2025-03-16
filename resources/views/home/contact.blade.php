@@ -15,7 +15,7 @@
                             <i class="fas fa-map-marker-alt fa-2x text-purple"></i>
                         </div>
                         <h5>Our Address</h5>
-                        <p class="text-muted mb-0">Rua Gago Coutinho, 2, Alverca do Ribatejo</p>
+                        <p class="text-muted mb-0">Gago Coutinho Street, 2, Alverca do Ribatejo</p>
                     </div>
 
                     <div class="info-item mb-4">

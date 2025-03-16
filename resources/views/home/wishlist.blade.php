@@ -56,7 +56,7 @@
               <i class="fas fa-award me-2"></i> Pontos de Fidelidade
             </a>
             <a href="{{ url('/wishlist') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
-              <i class="fas fa-heart me-2"></i> Lista de Desejos
+              <i class="fas fa-heart me-2"></i> Wishlist
             </a>
             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
               <i class="fas fa-map-marker-alt me-2"></i> Endereços
@@ -77,7 +77,7 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="card-title fw-bold mb-0">Minha Lista de Desejos</h5>
+            <h5 class="card-title fw-bold mb-0">My Wishlist</h5>
           </div>
 
           @if(session()->has('message'))
@@ -88,7 +88,7 @@
           @endif
 
           @if($wishlist_motorcycles->count() > 0)
-            <h2 class="section-title">Motocicletas</h2>
+            <h2 class="section-title">Motorcycles</h2>
             @foreach($wishlist_motorcycles as $item)
               <div class="wishlist-item">
                 <div class="wishlist-image">
@@ -115,13 +115,13 @@
                   </div>
                   <div class="wishlist-actions">
                     <a href="{{ url('motorcycle_details', $item->motorcycle->id) }}" class="btn-action btn-view">
-                      <i class="fas fa-eye"></i> Ver Detalhes
+                      <i class="fas fa-eye"></i> View Details
                     </a>
                     <a href="{{ route('move.to.cart', $item->id) }}" class="btn-action btn-cart">
-                      <i class="fas fa-shopping-cart"></i> Mover para o Carrinho
+                      <i class="fas fa-shopping-cart"></i> Move to Cart
                     </a>
-                    <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Tem certeza que deseja remover este item da lista de desejos?')">
-                      <i class="fas fa-trash-alt"></i> Remover
+                    <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
+                      <i class="fas fa-trash-alt"></i> Remove
                     </a>
                   </div>
                 </div>
@@ -130,7 +130,7 @@
           @endif
 
           @if($wishlist_products->count() > 0)
-            <h2 class="section-title">Produtos</h2>
+            <h2 class="section-title">Products</h2>
             @foreach($wishlist_products as $item)
               <div class="wishlist-item">
                 <div class="wishlist-image">
@@ -151,13 +151,13 @@
                   </div>
                   <div class="wishlist-actions">
                     <a href="{{ url('product_details', $item->product->id) }}" class="btn-action btn-view">
-                      <i class="fas fa-eye"></i> Ver Detalhes
+                      <i class="fas fa-eye"></i> View Details
                     </a>
                     <a href="{{ route('move.to.cart', $item->id) }}" class="btn-action btn-cart">
-                      <i class="fas fa-shopping-cart"></i> Mover para o Carrinho
+                      <i class="fas fa-shopping-cart"></i> Move to Cart
                     </a>
-                    <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Tem certeza que deseja remover este item da lista de desejos?')">
-                      <i class="fas fa-trash-alt"></i> Remover
+                    <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
+                      <i class="fas fa-trash-alt"></i> Remove
                     </a>
                   </div>
                 </div>
@@ -168,14 +168,14 @@
           @if($wishlist_motorcycles->count() == 0 && $wishlist_products->count() == 0)
             <div class="wishlist-empty">
               <i class="fas fa-heart-broken"></i>
-              <h3>Sua lista de desejos está vazia</h3>
-              <p>Adicione itens à sua lista de desejos para salvá-los para mais tarde.</p>
+              <h3>Your wishlist is empty</h3>
+              <p>Add items to your wishlist to save them for later.</p>
               <div class="explore-buttons">
                 <a href="{{ route('motorcycle.catalog') }}" class="btn-action btn-view">
-                  <i class="fas fa-motorcycle"></i> Explorar Motocicletas
+                  <i class="fas fa-motorcycle"></i> Explore Motorcycles
                 </a>
                 <a href="{{ route('product.catalog') }}" class="btn-action btn-view">
-                  <i class="fas fa-tshirt"></i> Explorar Produtos
+                  <i class="fas fa-tshirt"></i> Explore Products
                 </a>
               </div>
             </div>

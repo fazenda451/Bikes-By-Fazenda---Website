@@ -12,7 +12,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Confirmar Senha - Bikes By Fazenda</title>
+  <title>Confirm Password - Bikes By Fazenda</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -265,16 +265,16 @@
         <div class="confirm-row">
           <div class="confirm-image">
             <div class="confirm-image-overlay">
-              <h2 class="confirm-image-title animate__animated animate__fadeInUp">Área Segura</h2>
-              <p class="confirm-image-text animate__animated animate__fadeInUp animate__delay-1s">Esta é uma área segura do aplicativo. Por favor, confirme sua senha antes de continuar para garantir a proteção dos seus dados.</p>
+              <h2 class="confirm-image-title animate__animated animate__fadeInUp">Security Check</h2>
+              <p class="confirm-description animate__animated animate__fadeInUp animate__delay-1s">This is a secure area of the application. Please confirm your password before continuing to ensure the protection of your data.</p>
             </div>
           </div>
           <div class="confirm-form">
             <h2 class="confirm-title animate__animated animate__fadeInDown">
-              <i class="fas fa-shield-alt security-icon"></i>Confirmar Senha
+              <i class="fas fa-shield-alt security-icon"></i>Confirm Password
             </h2>
             <p class="confirm-subtitle animate__animated animate__fadeInDown animate__delay-1s">
-              Para sua segurança, por favor confirme sua senha antes de prosseguir.
+              For your security, please confirm your password before proceeding.
             </p>
             
             <form method="POST" action="{{ route('password.confirm') }}" class="animate__animated animate__fadeIn animate__delay-1s">
@@ -282,8 +282,8 @@
               
               <!-- Password -->
               <div class="form-group">
-                <label for="password" class="form-label">Senha</label>
-                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Digite sua senha atual" />
+                <label for="password" class="form-label">Password</label>
+                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Enter your current password" />
                 <i class="fas fa-lock input-icon"></i>
                 @error('password')
                   <div class="error-message">{{ $message }}</div>
@@ -291,7 +291,7 @@
               </div>
               
               <button type="submit" class="confirm-btn">
-                <i class="fas fa-check-circle mr-2"></i> Confirmar
+                <i class="fas fa-check-circle mr-2"></i> Confirm
               </button>
             </form>
           </div>

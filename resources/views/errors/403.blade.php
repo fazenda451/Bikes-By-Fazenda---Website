@@ -12,7 +12,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Acesso Proibido - Bikes By Fazenda</title>
+  <title>Access Forbidden - Bikes By Fazenda</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -37,7 +37,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: #f8f9fa;
     }
     
     .error-code {
@@ -46,14 +45,12 @@
       color: #9935dc;
       margin-bottom: 20px;
       line-height: 1;
-      text-shadow: 0 2px 10px rgba(153, 53, 220, 0.2);
     }
     
     .error-message {
       font-size: 28px;
       margin-bottom: 30px;
       color: #333;
-      font-weight: 600;
     }
     
     .error-description {
@@ -61,31 +58,30 @@
       margin-bottom: 40px;
       color: #666;
       max-width: 600px;
-      line-height: 1.6;
     }
     
     .home-btn {
-      background: linear-gradient(135deg, #9935dc 0%, #7b2ab0 100%);
+      background-color: #9935dc;
       color: white;
-      padding: 14px 30px;
+      padding: 12px 30px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s;
       border: none;
-      box-shadow: 0 4px 15px rgba(153, 53, 220, 0.3);
       display: inline-flex;
       align-items: center;
+      margin-bottom: 30px;
     }
     
     .home-btn:hover {
-      background: linear-gradient(135deg, #7b2ab0 0%, #9935dc 100%);
+      background-color: #7b2ab0;
       color: white;
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(153, 53, 220, 0.4);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
-    .home-btn i {
+    .btn-icon {
       margin-right: 10px;
     }
     
@@ -93,72 +89,70 @@
       font-size: 100px;
       color: #9935dc;
       margin-bottom: 30px;
-      animation: shake 1.5s ease-in-out infinite;
+      animation: shake 2s infinite;
     }
     
     @keyframes shake {
       0%, 100% {
-        transform: rotate(0deg);
+        transform: translateX(0);
       }
-      20% {
-        transform: rotate(10deg);
+      10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
       }
-      40% {
-        transform: rotate(-10deg);
-      }
-      60% {
-        transform: rotate(5deg);
-      }
-      80% {
-        transform: rotate(-5deg);
+      20%, 40%, 60%, 80% {
+        transform: translateX(10px);
       }
     }
     
-    .contact-info {
-      background-color: rgba(153, 53, 220, 0.1);
+    .support-info {
+      background-color: #f8f9fa;
       border-radius: 10px;
       padding: 20px;
-      margin-top: 30px;
+      margin-bottom: 40px;
       max-width: 600px;
-      border-left: 4px solid #9935dc;
+      border-left: 5px solid #9935dc;
     }
     
-    .contact-info h3 {
-      font-size: 18px;
+    .support-info h3 {
+      font-size: 20px;
       color: #333;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-    
-    .contact-info p {
-      font-size: 15px;
-      color: #666;
       margin-bottom: 15px;
     }
     
-    .contact-info .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      background-color: #f5f5f5;
+    .support-info p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .contact-options {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .contact-btn {
+      background-color: #f8f9fa;
       color: #333;
       padding: 10px 20px;
       border-radius: 5px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       transition: all 0.3s;
       border: 1px solid #e1e1e1;
-      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
     }
     
-    .contact-info .contact-btn:hover {
-      background-color: #9935dc;
-      color: white;
-      border-color: #9935dc;
+    .contact-btn:hover {
+      background-color: #e1e1e1;
+      transform: translateY(-3px);
     }
     
-    .contact-info .contact-btn i {
+    .contact-icon {
       margin-right: 8px;
-      font-size: 16px;
+      color: #9935dc;
     }
     
     @media (max-width: 768px) {
@@ -178,6 +172,15 @@
       .error-icon {
         font-size: 80px;
       }
+      
+      .support-info {
+        margin: 0 20px 40px;
+      }
+      
+      .contact-options {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
     
     @media (max-width: 576px) {
@@ -187,10 +190,6 @@
       
       .error-message {
         font-size: 20px;
-      }
-      
-      .contact-info {
-        margin: 30px 20px 0;
       }
     }
   </style>
@@ -207,19 +206,25 @@
         <div class="col-md-12">
           <i class="fas fa-ban error-icon animate__animated animate__fadeIn"></i>
           <h1 class="error-code animate__animated animate__fadeInDown">403</h1>
-          <h2 class="error-message animate__animated animate__fadeInUp">Acesso Proibido</h2>
-          <p class="error-description animate__animated animate__fadeInUp animate__delay-1s">Desculpe, você não tem permissão para acessar esta página. Se você acredita que isso é um erro, entre em contato com o administrador do site.</p>
+          <h2 class="error-message animate__animated animate__fadeInUp">Access Forbidden</h2>
+          <p class="error-description animate__animated animate__fadeInUp animate__delay-1s">Sorry, you don't have permission to access this page. If you believe this is an error, please contact the website administrator.</p>
           
           <a href="/" class="home-btn animate__animated animate__fadeInUp animate__delay-1s">
-            <i class="fas fa-home"></i> Voltar para a Página Inicial
+            <i class="fas fa-home btn-icon"></i> Return to Homepage
           </a>
           
-          <div class="contact-info animate__animated animate__fadeIn animate__delay-2s">
-            <h3>Precisa de ajuda?</h3>
-            <p>Se você acredita que deveria ter acesso a esta página, por favor entre em contato com nossa equipe de suporte para resolver este problema.</p>
-            <a href="mailto:suporte@bikesbyfazenda.com" class="contact-btn">
-              <i class="fas fa-envelope"></i> Contatar Suporte
-            </a>
+          <div class="support-info animate__animated animate__fadeIn animate__delay-1s">
+            <h3>Need Help?</h3>
+            <p>If you believe you should have access to this page, please contact our support team to resolve this issue.</p>
+            
+            <div class="contact-options">
+              <a href="mailto:support@bikesbyfazenda.com" class="contact-btn">
+                <i class="fas fa-envelope contact-icon"></i> Email Support
+              </a>
+              <a href="/contact" class="contact-btn">
+                <i class="fas fa-headset contact-icon"></i> Contact Form
+              </a>
+            </div>
           </div>
         </div>
       </div>

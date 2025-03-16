@@ -12,12 +12,12 @@
               <div class="product-overlay">
                 <div class="view-details">
                   <i class="fas fa-search-plus"></i>
-                  <span>Ver Detalhes</span>
+                  <span>View Details</span>
                 </div>
               </div>
               @if($products->discount_price)
                 <div class="product-tag">
-                  <span>OFERTA</span>
+                  <span>SALE</span>
                 </div>
               @endif
             </div>
@@ -45,7 +45,7 @@
     
     <div class="text-center mt-5">
       <a href="{{ url('product-catalog') }}" class="view-all-btn">
-        <span>Ver Todos os Produtos</span>
+        <span>View All Products</span>
         <i class="fas fa-arrow-right"></i>
       </a>
     </div>

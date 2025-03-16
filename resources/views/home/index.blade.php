@@ -25,8 +25,8 @@
             <div class="category-icon">
               <i class="fas fa-motorcycle fa-3x"></i>
             </div>
-            <h3>Motos</h3>
-            <p>Explore nossa coleção de motos de alto desempenho</p>
+            <h3>Motorcycles</h3>
+            <p>Explore our high-performance motorcycle collection</p>
           </div>
         </div>
         <div class="col-md-4">
@@ -34,8 +34,8 @@
             <div class="category-icon">
               <i class="fas fa-helmet-safety fa-3x"></i>
             </div>
-            <h3>Equipamentos</h3>
-            <p>Equipamentos essenciais de proteção e acessórios</p>
+            <h3>Equipment</h3>
+            <p>Essential protection gear and accessories</p>
           </div>
         </div>
         <div class="col-md-4">
@@ -43,8 +43,8 @@
             <div class="category-icon">
               <i class="fas fa-tools fa-3x"></i>
             </div>
-            <h3>Acessórios</h3>
-            <p>Peças e acessórios para sua moto</p>
+            <h3>Accessories</h3>
+            <p>Parts and accessories for your motorcycle</p>
           </div>
         </div>
       </div>
@@ -55,8 +55,8 @@
   <section id="motorcycles" class="featured-bikes py-5">
     <div class="container">
       <div class="section-header text-center mb-5">
-        <h2>Motos em Destaque</h2>
-        <p>Descubra nossa seleção premium de motocicletas</p>
+        <h2>Featured Motorcycles</h2>
+        <p>Discover our premium motorcycle selection</p>
       </div>
       @include('home.motorcycle')
     </div>
@@ -66,8 +66,8 @@
   <section id="products" class="featured-products py-5 bg-light">
     <div class="container">
       <div class="section-header text-center mb-5">
-        <h2>Produtos em Destaque</h2>
-        <p>Equipamentos e acessórios selecionados</p>
+        <h2>Featured Products</h2>
+        <p>Selected equipment and accessories</p>
       </div>
       @include('home.product')
     </div>
@@ -81,29 +81,29 @@
         <div class="col-md-3">
           <div class="benefit-item">
             <i class="fas fa-truck fa-3x mb-3"></i>
-            <h4>Frete Grátis</h4>
-            <p>Em pedidos acima de €500</p>
+            <h4>Free Shipping</h4>
+            <p>On orders over €500</p>
           </div>
         </div>
         <div class="col-md-3">
           <div class="benefit-item">
             <i class="fas fa-shield-alt fa-3x mb-3"></i>
-            <h4>Pagamento Seguro</h4>
-            <p>Checkout 100% seguro</p>
+            <h4>Secure Payment</h4>
+            <p>100% secure checkout</p>
           </div>
         </div>
         <div class="col-md-3">
           <div class="benefit-item">
             <i class="fas fa-exchange-alt fa-3x mb-3"></i>
-            <h4>Devolução Fácil</h4>
-            <p>Política de devolução de 30 dias</p>
+            <h4>Easy Returns</h4>
+            <p>30-day return policy</p>
           </div>
         </div>
         <div class="col-md-3">
           <div class="benefit-item">
             <i class="fas fa-headset fa-3x mb-3"></i>
-            <h4>Suporte 24/7</h4>
-            <p>Assistência especializada</p>
+            <h4>24/7 Support</h4>
+            <p>Expert assistance</p>
           </div>
         </div>
       </div>

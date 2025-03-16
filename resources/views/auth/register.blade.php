@@ -547,30 +547,38 @@
               <div class="form-row">
                 <div class="form-col">
         <!-- Password -->
-                  <div class="form-group">
-                    <label for="password" class="form-label">Senha</label>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" placeholder="Crie uma senha forte" />
-                    <i class="fas fa-lock input-icon"></i>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Create a strong password" />
+                      <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
                     @error('password')
-                      <div class="error-message">{{ $message }}</div>
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
                     @enderror
                     
-                    <div class="password-strength">
-                      <div class="password-strength-meter medium"></div>
+                    <div class="password-strength mt-2">
+                      <div class="password-strength-bar">
+                        <div class="strength-meter" id="strength-meter"></div>
+                      </div>
+                      <div class="password-strength-text">Password strength: Medium</div>
                     </div>
-                    <div class="password-strength-text">Força da senha: Média</div>
                   </div>
         </div>
 
                 <div class="form-col">
         <!-- Confirm Password -->
-                  <div class="form-group">
-                    <label for="password_confirmation" class="form-label">Confirmar Senha</label>
-                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirme sua senha" />
-                    <i class="fas fa-lock input-icon"></i>
-                    @error('password_confirmation')
-                      <div class="error-message">{{ $message }}</div>
-                    @enderror
+                  <div class="mb-4">
+                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                      <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -608,53 +616,59 @@
   
   <script>
     $(document).ready(function() {
-      // Simulação de força de senha
-      $('#password').on('input', function() {
-        var password = $(this).val();
-        var strength = 0;
+      // Password strength simulation
+      const passwordInput = document.getElementById('password');
+      const strengthMeter = document.getElementById('strength-meter');
+      const strengthText = document.querySelector('.password-strength-text');
+      
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+        let width = '0%';
+        let color = '#dc3545';
+        let strengthText = '';
         
         if (password.length > 0) {
-          // Comprimento
+          // Length check
           if (password.length >= 8) strength += 1;
+          if (password.length >= 12) strength += 1;
           
-          // Letras maiúsculas e minúsculas
-          if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 1;
-          
-          // Números
+          // Complexity checks
+          if (/[A-Z]/.test(password)) strength += 1;
           if (/[0-9]/.test(password)) strength += 1;
+          if (/[^A-Za-z0-9]/.test(password)) strength += 1;
           
-          // Caracteres especiais
-          if (/[^a-zA-Z0-9]/.test(password)) strength += 1;
+          // Set width and color based on strength
+          if (strength === 1) {
+            width = '20%';
+            color = '#dc3545';
+            strengthText = 'Password strength: Very weak';
+          } 
+          else if (strength === 2) {
+            width = '40%';
+            color = '#ffc107';
+            strengthText = 'Password strength: Weak';
+          }
+          else if (strength === 3) {
+            width = '60%';
+            color = '#fd7e14';
+            strengthText = 'Password strength: Medium';
+          }
+          else if (strength === 4) {
+            width = '80%';
+            color = '#20c997';
+            strengthText = 'Password strength: Strong';
+          }
+          else if (strength >= 5) {
+            width = '100%';
+            color = '#198754';
+            strengthText = 'Password strength: Very strong';
+          }
         }
         
-        var meterClass = '';
-        var strengthText = '';
-        
-        switch(strength) {
-          case 0:
-            meterClass = '';
-            strengthText = 'Força da senha: Muito fraca';
-            break;
-          case 1:
-            meterClass = 'weak';
-            strengthText = 'Força da senha: Fraca';
-            break;
-          case 2:
-            meterClass = 'medium';
-            strengthText = 'Força da senha: Média';
-            break;
-          case 3:
-            meterClass = 'strong';
-            strengthText = 'Força da senha: Forte';
-            break;
-          case 4:
-            meterClass = 'very-strong';
-            strengthText = 'Força da senha: Muito forte';
-            break;
-        }
-        
-        $('.password-strength-meter').removeClass('weak medium strong very-strong').addClass(meterClass);
-        $('.password-strength-text').text(strengthText);
+        strengthMeter.style.width = width;
+        strengthMeter.style.backgroundColor = color;
+        strengthText.textContent = strengthText;
       });
     });
   </script>

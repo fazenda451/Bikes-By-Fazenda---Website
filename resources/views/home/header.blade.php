@@ -18,16 +18,16 @@
             <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url('/motorcycle-catalog')}}">Motos</a>
+            <a class="nav-link" href="{{url('/motorcycle-catalog')}}">Motorcycles</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url('/product-catalog')}}">Equipamentos</a>
+            <a class="nav-link" href="{{url('/product-catalog')}}">Equipment</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Acessórios</a>
+            <a class="nav-link" href="#">Accessories</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Promoções</a>
+            <a class="nav-link" href="#">Promotions</a>
           </li>
         </ul>
 
@@ -41,15 +41,15 @@
                   <i class="fa-solid fa-caret-down" style="font-size: 0.8em; margin-left: 2px;"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" id="userDropdownMenu">
-                  <a class="dropdown-item" href="{{url('profile')}}">Meu Perfil</a>
+                  <a class="dropdown-item" href="{{url('profile')}}">My Profile</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{url('orders')}}">Meus Pedidos</a>
+                  <a class="dropdown-item" href="{{url('orders')}}">My Orders</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{url('loyalty-points')}}">Pontos de Fidelidade</a>
+                  <a class="dropdown-item" href="{{url('loyalty-points')}}">Loyalty Points</a>
                   <div class="dropdown-divider"></div>
                   <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="dropdown-item">Sair</button>
+                    <button type="submit" class="dropdown-item">Logout</button>
                   </form>
                 </div>
               </div>

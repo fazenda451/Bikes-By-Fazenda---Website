@@ -457,11 +457,11 @@
               <table class="cart-table">
                 <thead>
                   <tr>
-                    <th>Produto</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
                     <th>Total</th>
-                    <th>Ações</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -570,11 +570,11 @@
           <div class="col-lg-4">
             <!-- Resumo do pedido -->
             <div class="cart-summary">
-              <h2 class="order-summary-title">RESUMO DO PEDIDO</h2>
+              <h2 class="order-summary-title">ORDER SUMMARY</h2>
               
               <div class="shipping-info">
                 <i class="fas fa-truck"></i>
-                <span>Frete grátis disponível para o seu pedido!</span>
+                <span>Free shipping available for your order!</span>
               </div>
 
               <div class="summary-item">
@@ -589,7 +589,7 @@
 
               <!-- Sistema de Pontos de Fidelidade -->
               <div class="summary-item loyalty-points">
-                <span>Seus Pontos de Fidelidade</span>
+                <span>Your Loyalty Points</span>
                 <span class="badge bg-primary">{{ $userPoints ?? 0 }}</span>
               </div>
 
@@ -604,40 +604,40 @@
                   $pointsNeededForMaxDiscount = min($maxPointsDiscount * 1000, $userPoints);
                 ?>
                 <div class="summary-item possible-discount">
-                  <span>Desconto com Pontos (1% por cada 1000 pontos, máx. 10%)</span>
+                  <span>Discount with Points (1% for every 1000 points, max. 10%)</span>
                   <span>-{{ number_format($maxDiscount, 2) }}€</span>
                 </div>
 
                 <div class="summary-item total-with-discount">
-                  <span>Total com Desconto</span>
+                  <span>Total with Discount</span>
                   <span>{{ number_format($total - $maxDiscount, 2) }}€</span>
                 </div>
 
                 <div class="form-check use-points-check mt-3 mb-3">
                   <input class="form-check-input" type="checkbox" id="use-points" name="use_points" form="checkout-form">
                   <label class="form-check-label" for="use-points">
-                    Usar pontos para desconto
+                    Use points for discount
                   </label>
                 </div>
 
                 <div class="points-selector mt-2" id="points-selector" style="display: none;">
-                  <label class="form-label">Quantidade de pontos a usar:</label>
+                  <label class="form-label">Number of points to use:</label>
                   <div class="input-group">
                     <input type="number" class="form-control" id="points-input" min="1000" max="{{ $userPoints }}" step="1000" value="1000">
-                    <span class="input-group-text">pontos</span>
-                    <button type="button" class="btn btn-outline-primary" id="max-points-btn">Máximo</button>
+                    <span class="input-group-text">points</span>
+                    <button type="button" class="btn btn-outline-primary" id="max-points-btn">Maximum</button>
                   </div>
-                  <small class="text-muted">Você pode usar múltiplos de 1000 pontos (1% de desconto por cada 1000 pontos, limitado a 10%)</small>
+                  <small class="text-muted">You can use multiples of 1000 points (1% discount for every 1000 points, limited to 10%)</small>
                   
                   <div class="points-preview mt-2">
                     <div class="alert alert-info">
-                      <span id="points-preview-text">Usando 1000 pontos, você receberá 1% de desconto ({{ number_format($total * 0.01, 2) }}€)</span>
+                      <span id="points-preview-text">Using 1000 points, you will receive a 1% discount ({{ number_format($total * 0.01, 2) }}€)</span>
                     </div>
                   </div>
                   
                   <div class="alert alert-warning mt-2">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    <span>Atenção: Ao usar pontos para desconto, você não receberá pontos por esta compra.</span>
+                    <span>Note: When using points for discount, you will not receive points for this purchase.</span>
                   </div>
                 </div>
               @endif
@@ -649,7 +649,7 @@
 
               @if($originalTotal > $total)
               <div class="summary-item original-price">
-                <span>Preço original</span>
+                <span>Original price</span>
                 <span>{{ $originalTotal }}€</span>
               </div>
               @endif
@@ -657,7 +657,7 @@
               <!-- Informação sobre ganho de pontos -->
               <div class="loyalty-info mt-3" id="loyalty-info">
                 <i class="fas fa-award text-primary me-2"></i>
-                <span>Você ganhará aproximadamente {{ floor(($total / 10) * 5) }} pontos com esta compra!</span>
+                <span>You will earn approximately {{ floor(($total / 10) * 5) }} points with this purchase!</span>
               </div>
             </div>
 
@@ -697,11 +697,11 @@
                 <div class="payment-options">
                   <button type="submit" class="btn-payment btn-cash">
                     <i class="fas fa-money-bill-wave"></i>
-                    Pagar na Entrega
+                    Pay on Delivery
                   </button>
                   <a href="{{url('stripe', $total)}}" class="btn-payment btn-card" id="stripe-link">
                     <i class="fas fa-credit-card"></i>
-                    Finalizar Compra
+                    Checkout
                   </a>
                 </div>
               </form>
@@ -739,7 +739,7 @@
         input.value = currentQuantity + 1;
         form.submit();
       } else {
-        toastr.warning('Quantidade máxima disponível em estoque atingida');
+        toastr.warning('Maximum quantity available in stock reached');
       }
     }
 
@@ -759,7 +759,7 @@
       const pointsNeededForOnePercent = 1000; // 1000 pontos = 1%
       const maxDiscountPoints = Math.min(Math.floor(maxPercentage) * pointsNeededForOnePercent, {{ $userPoints }});
       
-      console.log('Total do carrinho:', totalValue);
+      console.log('Cart total:', totalValue);
       console.log('Valor máximo de desconto (10%):', maxDiscountValue);
       console.log('Pontos máximos permitidos:', maxDiscountPoints);
       console.log('Pontos do usuário:', {{ $userPoints }});
@@ -885,7 +885,7 @@
         
         // Atualiza o texto de preview
         if (pointsPreviewText) {
-          pointsPreviewText.textContent = `Usando ${points} pontos, você receberá ${discountPercentage}% de desconto (${discount.toFixed(2)}€)`;
+          pointsPreviewText.textContent = `Using ${points} points, you will receive ${discountPercentage}% discount (${discount.toFixed(2)}€)`;
         }
         
         // Atualiza o link do Stripe

@@ -404,40 +404,55 @@
         @csrf
 
         <!-- Email Address -->
-              <div class="form-group">
+              <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Seu endereço de email" />
-                <i class="fas fa-envelope input-icon"></i>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Your email address" />
+                </div>
                 @error('email')
-                  <div class="error-message">{{ $message }}</div>
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
                 @enderror
-        </div>
+              </div>
 
         <!-- Password -->
-              <div class="form-group">
-                <label for="password" class="form-label">Senha</label>
-                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Sua senha" />
-                <i class="fas fa-lock input-icon"></i>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                  <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Your password" />
+                  <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
                 @error('password')
-                  <div class="error-message">{{ $message }}</div>
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
                 @enderror
-        </div>
+              </div>
 
         <!-- Remember Me -->
-              <div class="form-check">
-                <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                <label for="remember_me" class="form-check-label">Lembrar-me</label>
-        </div>
+              <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember_me" {{ old('remember') ? 'checked' : '' }}>
+                <label class="form-check-label" for="remember_me">Remember me</label>
+              </div>
 
-            @if (Route::has('password.request'))
-                <a class="forgot-password" href="{{ route('password.request') }}">
-                  Esqueceu sua senha?
-                </a>
-            @endif
+        @if (Route::has('password.request'))
+            <div class="mb-4 text-center">
+              <a class="forgot-password-link" href="{{ route('password.request') }}">
+                Forgot your password?
+              </a>
+            </div>
+        @endif
 
-              <button type="submit" class="login-btn">
-                <i class="fas fa-sign-in-alt mr-2"></i> Entrar
-              </button>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary login-btn">
+                  <i class="fas fa-sign-in-alt mr-2"></i> Login
+                </button>
+              </div>
               
               <div class="social-login">
                 <div class="social-login-title">Ou entre com</div>

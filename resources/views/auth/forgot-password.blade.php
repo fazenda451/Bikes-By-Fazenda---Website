@@ -12,7 +12,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Recuperar Senha - Bikes By Fazenda</title>
+  <title>Password Recovery - Bikes By Fazenda</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -287,13 +287,13 @@
         <div class="forgot-row">
           <div class="forgot-image">
             <div class="forgot-image-overlay">
-              <h2 class="forgot-image-title animate__animated animate__fadeInUp">Esqueceu sua senha?</h2>
-              <p class="forgot-image-text animate__animated animate__fadeInUp animate__delay-1s">Não se preocupe! Enviaremos um link para o seu e-mail para que você possa redefinir sua senha e voltar a acessar sua conta.</p>
+              <h2 class="forgot-image-title animate__animated animate__fadeInUp">Forgot your password?</h2>
+              <p class="forgot-image-text animate__animated animate__fadeInUp animate__delay-1s">Don't worry! It happens to the best of us. We'll send you an email so you can reset your password and regain access to your account.</p>
             </div>
           </div>
           <div class="forgot-form">
-            <h2 class="forgot-title animate__animated animate__fadeInDown">Recuperar Senha</h2>
-            <p class="forgot-subtitle animate__animated animate__fadeInDown animate__delay-1s">Informe seu endereço de e-mail cadastrado e enviaremos um link para redefinir sua senha.</p>
+            <h2 class="forgot-title animate__animated animate__fadeInDown">Password Recovery</h2>
+            <p class="forgot-subtitle animate__animated animate__fadeIn">Enter your email address and we'll send you a link to reset your password.</p>
             
             <!-- Session Status -->
             @if (session('status'))
@@ -316,11 +316,11 @@
               </div>
               
               <button type="submit" class="forgot-btn">
-                <i class="fas fa-paper-plane mr-2"></i> Enviar Link de Recuperação
+                <i class="fas fa-paper-plane mr-2"></i> Send Password Reset Link
               </button>
               
               <div class="login-link">
-                Lembrou sua senha? <a href="{{ route('login') }}">Voltar para o login</a>
+                Remembered your password? <a href="{{ route('login') }}">Back to login</a>
               </div>
             </form>
           </div>

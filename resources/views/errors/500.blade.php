@@ -12,7 +12,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Erro do Servidor - Bikes By Fazenda</title>
+  <title>Internal Server Error - Bikes By Fazenda</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -24,6 +24,9 @@
   <link href="{{asset('css/style.css')}}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{{asset('css/responsive.css')}}" rel="stylesheet" />
+  
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
   <style>
     .error-container {
@@ -45,7 +48,7 @@
     }
     
     .error-message {
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 30px;
       color: #333;
     }
@@ -61,11 +64,13 @@
       background-color: #9935dc;
       color: white;
       padding: 12px 30px;
-      border-radius: 5px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s;
       border: none;
+      display: inline-flex;
+      align-items: center;
     }
     
     .home-btn:hover {
@@ -75,10 +80,56 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
+    .btn-icon {
+      margin-right: 10px;
+    }
+    
     .error-icon {
-      font-size: 80px;
+      font-size: 100px;
       color: #9935dc;
       margin-bottom: 30px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .error-code {
+        font-size: 100px;
+      }
+      
+      .error-message {
+        font-size: 24px;
+      }
+      
+      .error-description {
+        font-size: 16px;
+        padding: 0 20px;
+      }
+      
+      .error-icon {
+        font-size: 80px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .error-code {
+        font-size: 80px;
+      }
+      
+      .error-message {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -92,11 +143,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <i class="fas fa-server error-icon"></i>
-          <h1 class="error-code">500</h1>
-          <h2 class="error-message">Erro Interno do Servidor</h2>
-          <p class="error-description">Desculpe, ocorreu um erro inesperado em nosso servidor. Nossa equipe técnica já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.</p>
-          <a href="/" class="home-btn">Voltar para a Página Inicial</a>
+          <i class="fas fa-cogs error-icon animate__animated animate__fadeIn"></i>
+          <h1 class="error-code animate__animated animate__fadeInDown">500</h1>
+          <h2 class="error-message animate__animated animate__fadeInUp">Internal Server Error</h2>
+          <p class="error-description animate__animated animate__fadeInUp animate__delay-1s">Sorry, we encountered an unexpected error while processing your request. Our technical team has been notified and is working to resolve the issue.</p>
+          
+          <a href="/" class="home-btn animate__animated animate__fadeInUp animate__delay-1s">
+            <i class="fas fa-home btn-icon"></i> Return to Homepage
+          </a>
         </div>
       </div>
     </div>

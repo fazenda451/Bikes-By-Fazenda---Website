@@ -25,10 +25,10 @@
               <i class="fas fa-user me-2"></i> Meu Perfil
             </a>
             <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-shopping-bag me-2"></i> Meus Pedidos
+              <i class="fas fa-shopping-bag me-2"></i> My Orders
             </a>
             <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
-              <i class="fas fa-award me-2"></i> Pontos de Fidelidade
+              <i class="fas fa-award me-2"></i> Loyalty Points
             </a>
             <a href="{{ url('/wishlist') }}" class="list-group-item list-group-item-action d-flex align-items-center">
               <i class="fas fa-heart me-2"></i> Lista de Desejos
@@ -53,7 +53,7 @@
       <div class="card shadow-sm mb-4">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="card-title fw-bold mb-0">Meus Pontos de Fidelidade</h5>
+            <h5 class="card-title fw-bold mb-0">My Loyalty Points</h5>
           </div>
 
           <div class="points-summary mb-4">
@@ -65,35 +65,35 @@
                   </div>
                   <div class="points-card-content">
                     <h3 class="points-card-value">{{ $user->Points }}</h3>
-                    <p class="points-card-label">Pontos Disponíveis</p>
+                    <p class="points-card-label">Available Points</p>
                   </div>
                 </div>
               </div>
               <div class="col-md-8">
                 <div class="points-info">
-                  <h6 class="points-info-title">Como funciona o programa de fidelidade?</h6>
+                  <h6 class="points-info-title">How does the loyalty program work?</h6>
                   <ul class="points-info-list">
-                    <li><i class="fas fa-check-circle"></i> A cada 10€ em compras, você ganha 5 pontos</li>
-                    <li><i class="fas fa-check-circle"></i> Seus pontos podem ser usados como desconto em compras futuras</li>
-                    <li><i class="fas fa-check-circle"></i> A cada 1000 pontos, você recebe 1% de desconto no valor total da compra</li>
-                    <li><i class="fas fa-check-circle"></i> O desconto máximo é de 10% (10.000 pontos)</li>
-                    <li><i class="fas fa-check-circle"></i> Você pode escolher quantos pontos deseja usar (múltiplos de 1000)</li>
-                    <li><i class="fas fa-check-circle"></i> Os pontos não expiram e podem ser acumulados</li>
+                    <li><i class="fas fa-check-circle"></i> For every €10 spent, you earn 5 points</li>
+                    <li><i class="fas fa-check-circle"></i> Your points can be used as a discount on future purchases</li>
+                    <li><i class="fas fa-check-circle"></i> For every 1000 points, you receive 1% discount on the total purchase amount</li>
+                    <li><i class="fas fa-check-circle"></i> The maximum discount is 10% (10,000 points)</li>
+                    <li><i class="fas fa-check-circle"></i> You can choose how many points to use (multiples of 1000)</li>
+                    <li><i class="fas fa-check-circle"></i> Points do not expire and can be accumulated</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          <h6 class="history-title">Histórico de Pontos</h6>
+          <h6 class="history-title">Points History</h6>
           
           @if(count($pointsHistory) > 0)
             <div class="points-legend mb-3">
               <span class="legend-item">
-                <span class="badge bg-success">+</span> Pontos ganhos em compras
+                <span class="badge bg-success">+</span> Points earned from purchases
               </span>
               <span class="legend-item">
-                <span class="badge bg-danger">-</span> Pontos usados como desconto
+                <span class="badge bg-danger">-</span> Points used as discount
               </span>
             </div>
             
@@ -101,10 +101,10 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Pedido</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                    <th>Pontos</th>
+                    <th>Order</th>
+                    <th>Date</th>
+                    <th>Value</th>
+                    <th>Points</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,7 +128,7 @@
           @else
             <div class="empty-history">
               <i class="fas fa-history"></i>
-              <p>Você ainda não tem histórico de pontos</p>
+              <p>You don't have any points history yet</p>
               <a href="{{ url('/product-catalog') }}" class="btn btn-primary">Comece a Comprar</a>
             </div>
           @endif
