@@ -170,11 +170,11 @@ class AdminController extends Controller
                     Log::info('Ordenação: Nome (Z-A)');
                     break;
                 case 'price-asc':
-                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) asc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
                     Log::info('Ordenação: Preço (Menor-Maior)');
                     break;
                 case 'price-desc':
-                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) desc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
                     Log::info('Ordenação: Preço (Maior-Menor)');
                     break;
                 case 'stock-asc':
@@ -320,11 +320,11 @@ class AdminController extends Controller
                     Log::info('Ordenação de busca: Nome (Z-A)');
                     break;
                 case 'price-asc':
-                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) asc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
                     Log::info('Ordenação de busca: Preço (Menor-Maior)');
                     break;
                 case 'price-desc':
-                    $query->orderByRaw('CAST(price AS DECIMAL(10,2)) desc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
                     Log::info('Ordenação de busca: Preço (Maior-Menor)');
                     break;
                 case 'stock-asc':

@@ -570,10 +570,10 @@ class homeController extends Controller
         if ($request->has('sort')) {
             switch ($request->sort) {
                 case 'price_asc':
-                    $query->orderBy('price', 'asc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
                     break;
                 case 'price_desc':
-                    $query->orderBy('price', 'desc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
                     break;
                 case 'name_asc':
                     $query->orderBy('name', 'asc');
@@ -639,10 +639,10 @@ class homeController extends Controller
         if ($request->has('sort')) {
             switch ($request->sort) {
                 case 'price_asc':
-                    $query->orderBy('price', 'asc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
                     break;
                 case 'price_desc':
-                    $query->orderBy('price', 'desc');
+                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
                     break;
                 case 'name_asc':
                     $query->orderBy('title', 'asc');

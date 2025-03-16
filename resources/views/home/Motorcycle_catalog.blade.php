@@ -669,7 +669,7 @@
                     </div>
                     <div class="spec-item">
                       <i class="fas fa-bolt spec-icon"></i>
-                      <span>{{ $motorcycle->max_power ?? 'N/A' }} {{ $motorcycle->max_power ? 'hp' : '' }}</span>
+                      <span>{{ $motorcycle->max_power ?? 'N/A' }} {{ $motorcycle->max_power ? 'kw' : '' }}</span>
                     </div>
                     <div class="spec-item">
                       <i class="fas fa-weight spec-icon"></i>

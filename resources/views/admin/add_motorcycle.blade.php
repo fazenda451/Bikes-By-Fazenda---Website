@@ -228,229 +228,229 @@
                 <form action="{{ url('upload_motorcycle') }}" method="POST" enctype="multipart/form-data" id="motorcycleForm">
                     @csrf
                     
-                    <!-- Informações Básicas -->
+                    <!-- Basic Information -->
                     <div class="form-section">
-                        <h3 class="section-title">Informações Básicas</h3>
+                        <h3 class="section-title">Basic Information</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label required-field">Nome</label>
+                                <label class="form-label required-field">Name</label>
                                 <input type="text" name="name" class="form-control" required>
-                                <span class="form-hint">Nome completo da motocicleta</span>
+                                <span class="form-hint">Full name of the motorcycle</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Marca</label>
+                                <label class="form-label required-field">Brand</label>
                                 <select name="brand_id" class="form-control" id="brand_select" required>
-                                    <option value="">Selecione uma marca</option>
+                                    <option value="">Select a brand</option>
                                     @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar nova marca</option>
+                                    <option value="new">Add new brand</option>
                                 </select>
                                 <div id="new_brand_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_brand" class="form-control" placeholder="Digite o nome da nova marca" maxlength="50">
+                                    <input type="text" name="new_brand" class="form-control" placeholder="Enter the name of the new brand" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Categoria</label>
+                                <label class="form-label required-field">Category</label>
                                 <select name="Category" class="form-control" id="category_select" required>
-                                    <option value="">Selecione uma categoria</option>
+                                    <option value="">Select a category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar nova categoria</option>
+                                    <option value="new">Add new category</option>
                                 </select>
                                 <div id="new_category_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_category" class="form-control" placeholder="Digite o nome da nova categoria" maxlength="50">
+                                    <input type="text" name="new_category" class="form-control" placeholder="Enter the name of the new category" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Preço (€)</label>
+                                <label class="form-label required-field">Price (€)</label>
                                 <input type="number" step="0.01" name="price" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Quantidade</label>
+                                <label class="form-label required-field">Quantity</label>
                                 <input type="number" min="0" step="1" name="quantity" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Tipo de Licença</label>
+                                <label class="form-label required-field">License Type</label>
                                 <select name="license_type_id" class="form-control" id="license_type_select" required>
-                                    <option value="">Selecione o tipo de licença</option>
+                                    <option value="">Select the license type</option>
                                     @foreach($license_types as $type)
                                         <option value="{{ $type->id }}">{{ $type->type }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo tipo de licença</option>
+                                    <option value="new">Add new license type</option>
                                 </select>
                                 <div id="new_license_type_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_license_type" class="form-control" placeholder="Digite o novo tipo de licença" maxlength="50">
+                                    <input type="text" name="new_license_type" class="form-control" placeholder="Enter the new license type" maxlength="50">
                                 </div>
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
-                                <label class="form-label required-field">Descrição</label>
+                                <label class="form-label required-field">Description</label>
                                 <textarea name="description" class="form-control" required maxlength="255"></textarea>
-                                <span class="form-hint">Descrição detalhada da motocicleta (máximo 255 caracteres)</span>
+                                <span class="form-hint">Detailed description of the motorcycle (maximum 255 characters)</span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Especificações do Motor -->
+                    <!-- Engine Specifications -->
                     <div class="form-section">
-                        <h3 class="section-title">Especificações do Motor</h3>
+                        <h3 class="section-title">Engine Specifications</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label required-field">Tipo de Motor</label>
+                                <label class="form-label required-field">Engine Type</label>
                                 <input type="text" name="engine_type" class="form-control" maxlength="50" required>
                                 <span class="form-hint">Ex: 4-stroke, 2-cylinder, Liquid-cooled, DOHC, 4-valves</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Cilindrada (cc)</label>
+                                <label class="form-label required-field">Displacement (cc)</label>
                                 <input type="number" min="0" step="any" name="displacement" class="form-control" required>
                                 <span class="form-hint">Ex: 125, 250, 600, 1000</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Diâmetro x Curso</label>
+                                <label class="form-label required-field">Bore x Stroke</label>
                                 <input type="text" name="bore_stroke" class="form-control" required>
                                 <span class="form-hint">Ex: 67 x 42.5</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Taxa de Compressão</label>
+                                <label class="form-label required-field">Compression Ratio</label>
                                 <input type="number" step="any" name="compression_ratio" class="form-control" required>
-                                <span class="form-hint">Ex: 11.5:1 (digite apenas 11.5)</span>
+                                <span class="form-hint">Ex: 11.5:1 (enter only 11.5)</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Potência Máxima (kW)</label>
+                                <label class="form-label required-field">Max Power (kW)</label>
                                 <input type="number" step="any" name="max_power" class="form-control" required>
                                 <span class="form-hint">Ex: 100, 150, 200, 300</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Torque Máximo (Nm)</label>
+                                <label class="form-label required-field">Max Torque (Nm)</label>
                                 <input type="number" step="any" name="max_torque" class="form-control" required>
                                 <span class="form-hint">Ex: 100, 150, 200, 300</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Sistema de Lubrificação</label>
+                                <label class="form-label required-field">Lubrication System</label>
                                 <select name="lubrication_system_id" class="form-control" id="lubrication_system_select" required>
-                                    <option value="">Selecione o sistema</option>
+                                    <option value="">Select the system</option>
                                     @foreach($lubrication_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->system }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo sistema de lubrificação</option>
+                                    <option value="new">Add new lubrication system</option>
                                 </select>
                                 <div id="new_lubrication_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_lubrication_system" class="form-control" placeholder="Digite o novo sistema de lubrificação" maxlength="50">
+                                    <input type="text" name="new_lubrication_system" class="form-control" placeholder="Enter the new lubrication system" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Tipo de Embreagem</label>
+                                <label class="form-label required-field">Clutch Type</label>
                                 <select name="clutch_type_id" class="form-control" id="clutch_type_select" required>
-                                    <option value="">Selecione o tipo</option>
+                                    <option value="">Select the type</option>
                                     @foreach($clutch_types as $type)
                                         <option value="{{ $type->id }}">{{ $type->type }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo tipo de embreagem</option>
+                                    <option value="new">Add new clutch type</option>
                                 </select>
                                 <div id="new_clutch_type_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_clutch_type" class="form-control" placeholder="Digite o novo tipo de embreagem" maxlength="50">
+                                    <input type="text" name="new_clutch_type" class="form-control" placeholder="Enter the new clutch type" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Sistema de Ignição</label>
+                                <label class="form-label required-field">Ignition System</label>
                                 <select name="ignition_system_id" class="form-control" id="ignition_system_select" required>
-                                    <option value="">Selecione o sistema</option>
+                                    <option value="">Select the system</option>
                                     @foreach($ignition_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->system }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo sistema de ignição</option>
+                                    <option value="new">Add new ignition system</option>
                                 </select>
                                 <div id="new_ignition_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_ignition_system" class="form-control" placeholder="Digite o novo sistema de ignição" maxlength="50">
+                                    <input type="text" name="new_ignition_system" class="form-control" placeholder="Enter the new ignition system" maxlength="50">
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Transmissão e Combustível -->
+                    <!-- Transmission and Fuel -->
                     <div class="form-section">
-                        <h3 class="section-title">Transmissão e Combustível</h3>
+                        <h3 class="section-title">Transmission and Fuel</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label required-field">Sistema de Partida</label>
+                                <label class="form-label required-field">Starting System</label>
                                 <select name="starting_system_id" class="form-control" id="starting_system_select" required>
-                                    <option value="">Selecione o sistema</option>
+                                    <option value="">Select the system</option>
                                     @foreach($starting_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->system }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo sistema de partida</option>
+                                    <option value="new">Add new starting system</option>
                                 </select>
                                 <div id="new_starting_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_starting_system" class="form-control" placeholder="Digite o novo sistema de partida" maxlength="50">
+                                    <input type="text" name="new_starting_system" class="form-control" placeholder="Enter the new starting system" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Sistema de Transmissão</label>
+                                <label class="form-label required-field">Transmission System</label>
                                 <select name="transmission_system_id" class="form-control" id="transmission_system_select" required>
-                                    <option value="">Selecione o sistema</option>
+                                    <option value="">Select the system</option>
                                     @foreach($transmission_systems as $system)
                                         <option value="{{ $system->id }}">{{ $system->type }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo sistema de transmissão</option>
+                                    <option value="new">Add new transmission system</option>
                                 </select>
                                 <div id="new_transmission_system_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_transmission_system" class="form-control" placeholder="Digite o novo sistema de transmissão" maxlength="50">
+                                    <input type="text" name="new_transmission_system" class="form-control" placeholder="Enter the new transmission system" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Transmissão Final</label>
+                                <label class="form-label required-field">Final Drive</label>
                                 <input type="text" name="final_drive" class="form-control" required>
-                                <span class="form-hint">Ex: Corrente, Cardã, Correia</span>
+                                <span class="form-hint">Ex: Chain, Shaft, Belt</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Consumo de Combustível (L/100km)</label>
+                                <label class="form-label required-field">Fuel Consumption (L/100km)</label>
                                 <input type="number" step="any" name="fuel_consumption" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Emissões de CO2 (g/km)</label>
+                                <label class="form-label required-field">CO2 Emissions (g/km)</label>
                                 <input type="number" step="any" name="cos2_emissions" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Sistema de Combustível</label>
+                                <label class="form-label required-field">Fuel System</label>
                                 <input type="text" name="fuel_system" class="form-control" required>
-                                <span class="form-hint">Ex: Injeção Eletrônica, Carburador</span>
+                                <span class="form-hint">Ex: Electronic Fuel Injection, Carburetor</span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Chassi e Suspensão -->
+                    <!-- Chassis and Suspension -->
                     <div class="form-section">
-                        <h3 class="section-title">Chassi e Suspensão</h3>
+                        <h3 class="section-title">Chassis and Suspension</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label required-field">Tipo de Chassi</label>
+                                <label class="form-label required-field">Frame Type</label>
                                 <input type="text" name="frame" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Ângulo de Caster (graus)</label>
+                                <label class="form-label required-field">Caster Angle (degrees)</label>
                                 <input type="number" step="any" name="rake_angle" class="form-control" required>
                             </div>
                             
@@ -460,134 +460,134 @@
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Suspensão Dianteira</label>
+                                <label class="form-label required-field">Front Suspension</label>
                                 <select name="front_suspension_id" class="form-control" id="front_suspension_select" required>
-                                    <option value="">Selecione o tipo</option>
+                                    <option value="">Select the type</option>
                                     @foreach($suspensions as $suspension)
                                         <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo tipo de suspensão</option>
+                                    <option value="new">Add new suspension type</option>
                                 </select>
                                 <div id="new_front_suspension_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_front_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão" maxlength="50">
+                                    <input type="text" name="new_front_suspension" class="form-control" placeholder="Enter the new suspension type" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Suspensão Traseira</label>
+                                <label class="form-label required-field">Rear Suspension</label>
                                 <select name="rear_suspension_id" class="form-control" id="rear_suspension_select" required>
-                                    <option value="">Selecione o tipo</option>
+                                    <option value="">Select the type</option>
                                     @foreach($suspensions as $suspension)
                                         <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
                                     @endforeach
-                                    <option value="new">Adicionar novo tipo de suspensão</option>
+                                    <option value="new">Add new suspension type</option>
                                 </select>
                                 <div id="new_rear_suspension_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_rear_suspension" class="form-control" placeholder="Digite o novo tipo de suspensão" maxlength="50">
+                                    <input type="text" name="new_rear_suspension" class="form-control" placeholder="Enter the new suspension type" maxlength="50">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Curso Dianteiro (mm)</label>
+                                <label class="form-label required-field">Front Travel (mm)</label>
                                 <input type="number" step="any" name="front_travel" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Curso Traseiro (mm)</label>
+                                <label class="form-label required-field">Rear Travel (mm)</label>
                                 <input type="number" step="any" name="rear_travel" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Freios e Pneus -->
+                    <!-- Brakes and Tires -->
                     <div class="form-section">
-                        <h3 class="section-title">Freios e Pneus</h3>
+                        <h3 class="section-title">Brakes and Tires</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label required-field">Freio Dianteiro</label>
+                                <label class="form-label required-field">Front Brake</label>
                                 <input type="text" name="front_brake" class="form-control" required maxlength="50">
-                                <span class="form-hint">Ex: Disco duplo, 320mm, 4 pistões (máximo 50 caracteres)</span>
+                                <span class="form-hint">Ex: Dual disc, 320mm, 4-piston (max 50 characters)</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Freio Traseiro</label>
+                                <label class="form-label required-field">Rear Brake</label>
                                 <input type="text" name="rear_brake" class="form-control" required>
-                                <span class="form-hint">Ex: Disco simples, 240mm, 1 pistão</span>
+                                <span class="form-hint">Ex: Single disc, 240mm, 1-piston</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Pneu Dianteiro</label>
+                                <label class="form-label required-field">Front Tire</label>
                                 <input type="text" name="front_tire" class="form-control" required>
                                 <span class="form-hint">Ex: 120/70 ZR17</span>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Pneu Traseiro</label>
+                                <label class="form-label required-field">Rear Tire</label>
                                 <input type="text" name="rear_tire" class="form-control" required>
                                 <span class="form-hint">Ex: 180/55 ZR17</span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Dimensões -->
+                    <!-- Dimensions -->
                     <div class="form-section">
-                        <h3 class="section-title">Dimensões e Capacidades</h3>
+                        <h3 class="section-title">Dimensions and Capacities</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label required-field">Comprimento Total (mm)</label>
+                                <label class="form-label required-field">Total Length (mm)</label>
                                 <input type="number" step="any" name="total_length" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Largura Total (mm)</label>
+                                <label class="form-label required-field">Total Width (mm)</label>
                                 <input type="number" step="any" name="total_width" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Altura Total (mm)</label>
+                                <label class="form-label required-field">Total Height (mm)</label>
                                 <input type="number" step="any" name="total_height" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Altura do Assento (mm)</label>
+                                <label class="form-label required-field">Seat Height (mm)</label>
                                 <input type="number" step="any" name="seat_height" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Distância Entre-Eixos (mm)</label>
+                                <label class="form-label required-field">Wheelbase (mm)</label>
                                 <input type="number" step="any" name="wheelbase" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Distância ao Solo (mm)</label>
+                                <label class="form-label required-field">Ground Clearance (mm)</label>
                                 <input type="number" step="any" name="ground_clearance" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Peso (kg)</label>
+                                <label class="form-label required-field">Weight (kg)</label>
                                 <input type="number" step="any" name="weight" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Capacidade do Tanque (L)</label>
+                                <label class="form-label required-field">Fuel Tank Capacity (L)</label>
                                 <input type="number" step="any" name="fuel_tank_capacity" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Capacidade de Óleo (L)</label>
+                                <label class="form-label required-field">Oil Tank Capacity (L)</label>
                                 <input type="number" step="any" name="oil_tank_capacity" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Imagens -->
+                    <!-- Images -->
                     <div class="form-section">
-                        <h3 class="section-title">Imagens</h3>
+                        <h3 class="section-title">Images</h3>
                         <div class="form-row">
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
-                                <label class="form-label required-field">Fotos da Moto</label>
+                                <label class="form-label required-field">Motorcycle Photos</label>
                                 <input type="file" name="images[]" id="motorcycle-images" class="form-control" multiple required>
-                                <span class="form-hint">Selecione múltiplas imagens (máx. 5MB cada). Formatos aceitos: JPG, PNG, GIF.</span>
+                                <span class="form-hint">Select multiple images (max. 5MB each). Accepted formats: JPG, PNG, GIF.</span>
                                 
                                 <div class="image-preview-container" id="image-preview-container"></div>
                             </div>
@@ -596,10 +596,10 @@
                     
                     <div class="btn-container">
                         <div>
-                            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancelar</button>
-                            <button type="button" class="btn btn-danger" onclick="document.getElementById('motorcycleForm').reset(); document.getElementById('image-preview-container').innerHTML = '';">Limpar</button>
+                            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancel</button>
+                            <button type="button" class="btn btn-danger" onclick="document.getElementById('motorcycleForm').reset(); document.getElementById('image-preview-container').innerHTML = '';">Clear</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Salvar Moto</button>
+                        <button type="submit" class="btn btn-primary">Save Motorcycle</button>
                     </div>
                 </form>
             </div>

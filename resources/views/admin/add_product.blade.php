@@ -190,45 +190,45 @@
     <div class="page-content">
         <div class="page-header">
             <div class="container-fluid">
-                <h2 class="h5 no-margin-bottom">Adicionar Novo Produto</h2>
-              </div>
+                <h2 class="h5 no-margin-bottom">Add New Product</h2>
             </div>
+        </div>
         <section class="no-padding-top no-padding-bottom">
-          <div class="container-fluid">
+            <div class="container-fluid">
                 <div class="form-container">
                     
                     <form action="{{url('upload_product')}}" method="Post" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="form-section">
-                            <h3 class="section-title">Informações do Produto</h3>
+                            <h3 class="section-title">Product Information</h3>
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-label">Título do Produto</label>
+                                    <label class="form-label">Product Title</label>
                                     <input type="text" name="title" class="form-control" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Preço</label>
+                                    <label class="form-label">Price</label>
                                     <input type="text" name="price" class="form-control" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Quantidade</label>
+                                    <label class="form-label">Quantity</label>
                                     <input type="number" name="qty" class="form-control" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Tamanhos</label>
-                                    <input type="text" name="size" class="form-control" placeholder="Ex: S,M,L,XL ou 38,39,40,41,42">
-                                    <span class="form-hint">Separe os tamanhos por vírgula</span>
+                                    <label class="form-label">Sizes</label>
+                                    <input type="text" name="size" class="form-control" placeholder="E.g.: S,M,L,XL or 38,39,40,41,42">
+                                    <span class="form-hint">Separate sizes with commas</span>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Categoria</label>
+                                    <label class="form-label">Category</label>
                                     <select name="category_id" class="form-control" required>
-                                        <option value="">Selecione uma categoria</option>
+                                        <option value="">Select a category</option>
                                         @foreach($category as $category)
                                         <option value="{{$category->id}}">{{$category->category_name}}</option>
                                         @endforeach
@@ -236,28 +236,28 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Imagem do Produto</label>
+                                    <label class="form-label">Product Image</label>
                                     <div class="file-upload">
                                         <input type="file" name="image" class="file-upload-input" required>
                                         <div class="file-upload-btn">
                                             <i class="fa fa-upload"></i>
-                                            <span class="file-upload-text">Escolher arquivo</span>
+                                            <span class="file-upload-text">Choose file</span>
                                         </div>
                                     </div>
-                                    <span class="form-hint">Formatos suportados: JPG, PNG, GIF</span>
+                                    <span class="form-hint">Supported formats: JPG, PNG, GIF</span>
                                 </div>
                             </div>
                             
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px); margin: 0 10px 20px;">
-                                <label class="form-label">Descrição</label>
+                                <label class="form-label">Description</label>
                                 <textarea name="description" class="form-control" required></textarea>
-                                <span class="form-hint">Descreva o produto detalhadamente</span>
+                                <span class="form-hint">Describe the product in detail</span>
                             </div>
                         </div>
                         
                         <div class="btn-container">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-plus-circle"></i> Adicionar Produto
+                                <i class="fa fa-plus-circle"></i> Add Product
                             </button>
                         </div>
                     </form>
@@ -265,6 +265,7 @@
             </div>
         </div>
     </div>
+    
 
 </section>
     
