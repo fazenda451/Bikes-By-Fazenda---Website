@@ -442,167 +442,169 @@
   @include('home.header')
 
   <!-- Register Section -->
-  <section class="register-section">
-    <div class="container">
-      <div class="register-container animate__animated animate__fadeIn">
-        <div class="register-row">
-          <div class="register-image">
-            <div class="register-image-overlay">
-              <h2 class="register-image-title animate__animated animate__fadeInUp">Junte-se a nós!</h2>
-              <p class="register-image-text animate__animated animate__fadeInUp animate__delay-1s">Crie sua conta para acessar ofertas exclusivas, acompanhar seus pedidos e muito mais.</p>
-              
-              <div class="register-benefits animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="benefit-item">
-                  <i class="fas fa-tag benefit-icon"></i>
-                  <span class="benefit-text">Acesso a promoções exclusivas para membros</span>
-                </div>
-                <div class="benefit-item">
-                  <i class="fas fa-truck benefit-icon"></i>
-                  <span class="benefit-text">Acompanhamento de pedidos em tempo real</span>
-                </div>
-                <div class="benefit-item">
-                  <i class="fas fa-history benefit-icon"></i>
-                  <span class="benefit-text">Histórico completo de compras</span>
-                </div>
-                <div class="benefit-item">
-                  <i class="fas fa-heart benefit-icon"></i>
-                  <span class="benefit-text">Lista de favoritos personalizada</span>
-                </div>
+  <!-- Register Section -->
+<section class="register-section">
+  <div class="container">
+    <div class="register-container animate__animated animate__fadeIn">
+      <div class="register-row">
+        <div class="register-image">
+          <div class="register-image-overlay">
+            <h2 class="register-image-title animate__animated animate__fadeInUp">Join Us!</h2>
+            <p class="register-image-text animate__animated animate__fadeInUp animate__delay-1s">Create your account to access exclusive offers, track your orders, and much more.</p>
+            
+            <div class="register-benefits animate__animated animate__fadeInUp animate__delay-2s">
+              <div class="benefit-item">
+                <i class="fas fa-tag benefit-icon"></i>
+                <span class="benefit-text">Access to exclusive member promotions</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-truck benefit-icon"></i>
+                <span class="benefit-text">Real-time order tracking</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-history benefit-icon"></i>
+                <span class="benefit-text">Complete purchase history</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-heart benefit-icon"></i>
+                <span class="benefit-text">Personalized favorites list</span>
               </div>
             </div>
           </div>
-          <div class="register-form">
-            <h2 class="register-title animate__animated animate__fadeInDown">Criar Conta</h2>
-            
-            <div class="form-steps animate__animated animate__fadeIn animate__delay-1s">
-              <div class="form-step active">
-                <div class="step-number">1</div>
-                <div class="step-text">Informações Pessoais</div>
+        </div>
+        <div class="register-form">
+          <h2 class="register-title animate__animated animate__fadeInDown">Create Account</h2>
+          
+          <div class="form-steps animate__animated animate__fadeIn animate__delay-1s">
+            <div class="form-step active">
+              <div class="step-number">1</div>
+              <div class="step-text">Personal Information</div>
+            </div>
+            <div class="form-step">
+              <div class="step-number">2</div>
+              <div class="step-text">Address</div>
+            </div>
+            <div class="form-step">
+              <div class="step-number">3</div>
+              <div class="step-text">Confirmation</div>
+            </div>
+          </div>
+          
+          <form method="POST" action="{{ route('register') }}" class="animate__animated animate__fadeIn animate__delay-1s">
+      @csrf
+
+            <div class="form-row">
+              <div class="form-col">
+      <!-- Name -->
+                <div class="form-group">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Your full name" />
+                  <i class="fas fa-user input-icon"></i>
+                  @error('name')
+                    <div class="error-message">{{ $message }}</div>
+                  @enderror
+                </div>
+      </div>
+
+              <div class="form-col">
+      <!-- Email Address -->
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="Your email address" />
+                  <i class="fas fa-envelope input-icon"></i>
+                  @error('email')
+                    <div class="error-message">{{ $message }}</div>
+                  @enderror
+                </div>
               </div>
-              <div class="form-step">
-                <div class="step-number">2</div>
-                <div class="step-text">Endereço</div>
+      </div>
+
+            <div class="form-row">
+              <div class="form-col">
+      <!-- Phone -->
+                <div class="form-group">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input id="phone" class="form-control" type="text" name="phone" value="{{ old('phone') }}" required autocomplete="tel" placeholder="(00) 00000-0000" />
+                  <i class="fas fa-phone input-icon"></i>
+                  @error('phone')
+                    <div class="error-message">{{ $message }}</div>
+                  @enderror
+                </div>
+      </div>
+
+              <div class="form-col">
+                <!-- Address -->
+                <div class="form-group">
+                  <label for="address" class="form-label">Address</label>
+                  <input id="address" class="form-control" type="text" name="address" value="{{ old('address') }}" required autocomplete="street-address" placeholder="Street, number, neighborhood" />
+                  <i class="fas fa-map-marker-alt input-icon"></i>
+                  @error('address')
+                    <div class="error-message">{{ $message }}</div>
+                  @enderror
+                </div>
               </div>
-              <div class="form-step">
-                <div class="step-number">3</div>
-                <div class="step-text">Confirmação</div>
+      </div>
+
+            <div class="form-row">
+              <div class="form-col">
+      <!-- Password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Create a strong password" />
+                    <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                  @error('password')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                  
+                  <div class="password-strength mt-2">
+                    <div class="password-strength-bar">
+                      <div class="strength-meter" id="strength-meter"></div>
+                    </div>
+                    <div class="password-strength-text">Password strength: Medium</div>
+                  </div>
+                </div>
+      </div>
+
+              <div class="form-col">
+      <!-- Confirm Password -->
+                <div class="mb-4">
+                  <label for="password_confirmation" class="form-label">Confirm Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password" />
+                  </div>
+                </div>
               </div>
             </div>
             
-            <form method="POST" action="{{ route('register') }}" class="animate__animated animate__fadeIn animate__delay-1s">
-        @csrf
+            <div class="terms-check">
+              <input type="checkbox" id="terms" name="terms" class="terms-check-input" required>
+              <label for="terms" class="terms-check-label">
+                I have read and agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of Bikes By Fazenda.
+              </label>
+      </div>
 
-              <div class="form-row">
-                <div class="form-col">
-        <!-- Name -->
-                  <div class="form-group">
-                    <label for="name" class="form-label">Nome Completo</label>
-                    <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Seu nome completo" />
-                    <i class="fas fa-user input-icon"></i>
-                    @error('name')
-                      <div class="error-message">{{ $message }}</div>
-                    @enderror
-                  </div>
-        </div>
-
-                <div class="form-col">
-        <!-- Email Address -->
-                  <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="Seu endereço de email" />
-                    <i class="fas fa-envelope input-icon"></i>
-                    @error('email')
-                      <div class="error-message">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
-        </div>
-
-              <div class="form-row">
-                <div class="form-col">
-        <!-- Phone -->
-                  <div class="form-group">
-                    <label for="phone" class="form-label">Telefone</label>
-                    <input id="phone" class="form-control" type="text" name="phone" value="{{ old('phone') }}" required autocomplete="tel" placeholder="(00) 00000-0000" />
-                    <i class="fas fa-phone input-icon"></i>
-                    @error('phone')
-                      <div class="error-message">{{ $message }}</div>
-                    @enderror
-                  </div>
-        </div>
-
-                <div class="form-col">
-                  <!-- Address -->
-                  <div class="form-group">
-                    <label for="address" class="form-label">Endereço</label>
-                    <input id="address" class="form-control" type="text" name="address" value="{{ old('address') }}" required autocomplete="street-address" placeholder="Rua, número, bairro" />
-                    <i class="fas fa-map-marker-alt input-icon"></i>
-                    @error('address')
-                      <div class="error-message">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
-        </div>
-
-              <div class="form-row">
-                <div class="form-col">
-        <!-- Password -->
-                  <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Create a strong password" />
-                      <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
-                        <i class="fas fa-eye"></i>
-                      </button>
-                    </div>
-                    @error('password')
-                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                    
-                    <div class="password-strength mt-2">
-                      <div class="password-strength-bar">
-                        <div class="strength-meter" id="strength-meter"></div>
-                      </div>
-                      <div class="password-strength-text">Password strength: Medium</div>
-                    </div>
-                  </div>
-        </div>
-
-                <div class="form-col">
-        <!-- Confirm Password -->
-                  <div class="mb-4">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                      <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="terms-check">
-                <input type="checkbox" id="terms" name="terms" class="terms-check-input" required>
-                <label for="terms" class="terms-check-label">
-                  Eu li e concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a> da Bikes By Fazenda.
-                </label>
-        </div>
-
-              <button type="submit" class="register-btn">
-                <i class="fas fa-user-plus mr-2"></i> Criar Conta
-              </button>
-              
-              <div class="login-link">
-                Já tem uma conta? <a href="{{ route('login') }}">Faça login</a>
-              </div>
-            </form>
-          </div>
+            <button type="submit" class="register-btn">
+              <i class="fas fa-user-plus mr-2"></i> Create Account
+            </button>
+            
+            <div class="login-link">
+              Already have an account? <a href="{{ route('login') }}">Log in</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Footer -->
   @include('home.footer')
