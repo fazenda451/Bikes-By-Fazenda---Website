@@ -272,10 +272,10 @@
       <div class="container-fluid">
         <div class="content-wrapper">
           <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-car-battery"></i> Gerenciamento de Suspensões</h1>
+            <h1 class="page-title"><i class="fas fa-car-battery"></i> Suspension Management</h1>
           </div>
           
-          <!-- Estatísticas Rápidas -->
+          <!-- Quick Stats -->
           <div class="stats-container">
             <div class="stat-card">
               <div class="stat-icon stat-suspensions">
@@ -283,7 +283,7 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Tipos de Suspensão</p>
+                <p class="stat-label">Suspension Types</p>
               </div>
             </div>
             
@@ -293,40 +293,40 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
+                <p class="stat-label">Registered Motorcycles</p>
               </div>
             </div>
           </div>
           
-          <!-- Formulário de Adição -->
+          <!-- Add Form -->
           <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Nova Suspensão</h3>
+            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Suspension</h3>
             <form action="{{url('add_suspensions')}}" method="post">
               @csrf 
               <div class="form-group">
-                <input type="text" name="SuspensionsType" class="form-control" placeholder="Digite o tipo de suspensão" required />
+                <input type="text" name="SuspensionsType" class="form-control" placeholder="Enter suspension type" required />
                 <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
+                  <i class="fas fa-save"></i> Save
                 </button>
               </div>
             </form>
           </div>
           
-          <!-- Barra de Pesquisa -->
+          <!-- Search Bar -->
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar suspensões..." oninput="searchSuspensions()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search suspensions..." oninput="searchSuspensions()">
           </div>
           
-          <!-- Tabela de Suspensões -->
+          <!-- Suspension Table -->
           <div class="table-container">
             @if(count($data) > 0)
             <table class="data-table" id="suspensionsTable">
               <thead>
                 <tr>
-                  <th>Tipo de Suspensão</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
+                  <th>Suspension Type</th>
+                  <th>Motorcycles</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -337,10 +337,10 @@
                   <td>
                     <div class="action-buttons">
                       <a href="{{ url('edit_suspensions', $suspension->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fas fa-edit"></i> Edit
                       </a>
                       <a onclick="confirmDelete(event, '{{ $suspension->type }}')" href="{{ url('delete_suspensions', $suspension->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
+                        <i class="fas fa-trash"></i> Delete
                       </a>
                     </div>
                   </td>
@@ -351,14 +351,15 @@
             @else
             <div class="empty-state">
               <i class="fas fa-car-side"></i>
-              <h3>Nenhum tipo de suspensão encontrado</h3>
-              <p>Adicione seu primeiro tipo de suspensão usando o formulário acima.</p>
+              <h3>No suspension types found</h3>
+              <p>Add your first suspension type using the form above.</p>
             </div>
             @endif
           </div>
         </div>
       </div>
     </div>
+    
     
     @include('admin.js')
     

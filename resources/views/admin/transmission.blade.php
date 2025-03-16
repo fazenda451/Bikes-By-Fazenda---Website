@@ -272,10 +272,10 @@
       <div class="container-fluid">
         <div class="content-wrapper">
           <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-cogs"></i> Gerenciamento de Transmissões</h1>
+            <h1 class="page-title"><i class="fas fa-cogs"></i> Transmission Management</h1>
           </div>
           
-          <!-- Estatísticas Rápidas -->
+          <!-- Quick Stats -->
           <div class="stats-container">
             <div class="stat-card">
               <div class="stat-icon stat-transmission">
@@ -283,7 +283,7 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Tipos de Transmissão</p>
+                <p class="stat-label">Transmission Types</p>
               </div>
             </div>
             
@@ -293,40 +293,40 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
+                <p class="stat-label">Registered Motorcycles</p>
               </div>
             </div>
           </div>
           
-          <!-- Formulário de Adição -->
+          <!-- Add Form -->
           <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Nova Transmissão</h3>
+            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Transmission</h3>
             <form action="{{url('add_transmission')}}" method="post">
               @csrf 
               <div class="form-group">
-                <input type="text" name="TransmissionType" class="form-control" placeholder="Digite o tipo de transmissão" required />
+                <input type="text" name="TransmissionType" class="form-control" placeholder="Enter transmission type" required />
                 <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
+                  <i class="fas fa-save"></i> Save
                 </button>
               </div>
             </form>
           </div>
           
-          <!-- Barra de Pesquisa -->
+          <!-- Search Bar -->
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar transmissões..." oninput="searchTransmission()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search transmissions..." oninput="searchTransmission()">
           </div>
           
-          <!-- Tabela de Transmissões -->
+          <!-- Transmission Table -->
           <div class="table-container">
             @if(count($data) > 0)
             <table class="data-table" id="transmissionTable">
               <thead>
                 <tr>
-                  <th>Tipo de Transmissão</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
+                  <th>Transmission Type</th>
+                  <th>Motorcycles</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -337,10 +337,10 @@
                   <td>
                     <div class="action-buttons">
                       <a href="{{ url('edit_transmission', $transmission->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fas fa-edit"></i> Edit
                       </a>
                       <a onclick="confirmDelete(event, '{{ $transmission->type }}')" href="{{ url('delete_transmission', $transmission->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
+                        <i class="fas fa-trash"></i> Delete
                       </a>
                     </div>
                   </td>
@@ -351,14 +351,15 @@
             @else
             <div class="empty-state">
               <i class="fas fa-cog"></i>
-              <h3>Nenhum tipo de transmissão encontrado</h3>
-              <p>Adicione seu primeiro tipo de transmissão usando o formulário acima.</p>
+              <h3>No transmission types found</h3>
+              <p>Add your first transmission type using the form above.</p>
             </div>
             @endif
           </div>
         </div>
       </div>
     </div>
+    
     
     @include('admin.js')
     

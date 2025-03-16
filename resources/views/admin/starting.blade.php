@@ -272,10 +272,10 @@
       <div class="container-fluid">
         <div class="content-wrapper">
           <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-power-off"></i> Gerenciamento de Sistemas de Partida</h1>
+            <h1 class="page-title"><i class="fas fa-power-off"></i> Starting System Management</h1>
           </div>
           
-          <!-- Estatísticas Rápidas -->
+          <!-- Quick Stats -->
           <div class="stats-container">
             <div class="stat-card">
               <div class="stat-icon stat-starting">
@@ -283,7 +283,7 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Sistemas de Partida</p>
+                <p class="stat-label">Starting Systems</p>
               </div>
             </div>
             
@@ -293,40 +293,40 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
+                <p class="stat-label">Registered Motorcycles</p>
               </div>
             </div>
           </div>
           
-          <!-- Formulário de Adição -->
+          <!-- Add Form -->
           <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Novo Sistema de Partida</h3>
+            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Starting System</h3>
             <form action="{{url('add_starting')}}" method="post">
               @csrf 
               <div class="form-group">
-                <input type="text" name="StartingSystem" class="form-control" placeholder="Digite o sistema de partida" required />
+                <input type="text" name="StartingSystem" class="form-control" placeholder="Enter starting system" required />
                 <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
+                  <i class="fas fa-save"></i> Save
                 </button>
               </div>
             </form>
           </div>
           
-          <!-- Barra de Pesquisa -->
+          <!-- Search Bar -->
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar sistemas de partida..." oninput="searchStarting()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search starting systems..." oninput="searchStarting()">
           </div>
           
-          <!-- Tabela de Sistemas de Partida -->
+          <!-- Starting System Table -->
           <div class="table-container">
             @if(count($data) > 0)
             <table class="data-table" id="startingTable">
               <thead>
                 <tr>
-                  <th>Sistema de Partida</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
+                  <th>Starting System</th>
+                  <th>Motorcycles</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -337,10 +337,10 @@
                   <td>
                     <div class="action-buttons">
                       <a href="{{ url('edit_starting', $starting->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fas fa-edit"></i> Edit
                       </a>
                       <a onclick="confirmDelete(event, '{{ $starting->system }}')" href="{{ url('delete_starting', $starting->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
+                        <i class="fas fa-trash"></i> Delete
                       </a>
                     </div>
                   </td>
@@ -351,14 +351,15 @@
             @else
             <div class="empty-state">
               <i class="fas fa-power-off"></i>
-              <h3>Nenhum sistema de partida encontrado</h3>
-              <p>Adicione seu primeiro sistema de partida usando o formulário acima.</p>
+              <h3>No starting systems found</h3>
+              <p>Add your first starting system using the form above.</p>
             </div>
             @endif
           </div>
         </div>
       </div>
     </div>
+    
     
     @include('admin.js')
     

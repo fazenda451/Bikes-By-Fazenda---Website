@@ -272,10 +272,10 @@
       <div class="container-fluid">
         <div class="content-wrapper">
           <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-oil-can"></i> Gerenciamento de Sistemas de Lubrificação</h1>
+            <h1 class="page-title"><i class="fas fa-oil-can"></i> Lubrication System Management</h1>
           </div>
           
-          <!-- Estatísticas Rápidas -->
+          <!-- Quick Stats -->
           <div class="stats-container">
             <div class="stat-card">
               <div class="stat-icon stat-lubrication">
@@ -283,7 +283,7 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Sistemas de Lubrificação</p>
+                <p class="stat-label">Lubrication Systems</p>
               </div>
             </div>
             
@@ -293,40 +293,40 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
+                <p class="stat-label">Registered Motorcycles</p>
               </div>
             </div>
           </div>
           
-          <!-- Formulário de Adição -->
+          <!-- Add Form -->
           <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Novo Sistema de Lubrificação</h3>
+            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Lubrication System</h3>
             <form action="{{url('add_lubrication')}}" method="post">
               @csrf 
               <div class="form-group">
-                <input type="text" name="LubricationSystem" class="form-control" placeholder="Digite o sistema de lubrificação" required />
+                <input type="text" name="LubricationSystem" class="form-control" placeholder="Enter lubrication system" required />
                 <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
+                  <i class="fas fa-save"></i> Save
                 </button>
               </div>
             </form>
           </div>
           
-          <!-- Barra de Pesquisa -->
+          <!-- Search Bar -->
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar sistemas de lubrificação..." oninput="searchLubrication()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search lubrication systems..." oninput="searchLubrication()">
           </div>
           
-          <!-- Tabela de Sistemas de Lubrificação -->
+          <!-- Lubrication System Table -->
           <div class="table-container">
             @if(count($data) > 0)
             <table class="data-table" id="lubricationTable">
               <thead>
                 <tr>
-                  <th>Sistema de Lubrificação</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
+                  <th>Lubrication System</th>
+                  <th>Motorcycles</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -337,10 +337,10 @@
                   <td>
                     <div class="action-buttons">
                       <a href="{{ url('edit_lubrication', $lubrication->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fas fa-edit"></i> Edit
                       </a>
                       <a onclick="confirmDelete(event, '{{ $lubrication->system }}')" href="{{ url('delete_lubrication', $lubrication->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
+                        <i class="fas fa-trash"></i> Delete
                       </a>
                     </div>
                   </td>
@@ -351,14 +351,15 @@
             @else
             <div class="empty-state">
               <i class="fas fa-tint"></i>
-              <h3>Nenhum sistema de lubrificação encontrado</h3>
-              <p>Adicione seu primeiro sistema de lubrificação usando o formulário acima.</p>
+              <h3>No lubrication systems found</h3>
+              <p>Add your first lubrication system using the form above.</p>
             </div>
             @endif
           </div>
         </div>
       </div>
     </div>
+    
     
     @include('admin.js')
     
