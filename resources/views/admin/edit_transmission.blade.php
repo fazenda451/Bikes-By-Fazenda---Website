@@ -237,53 +237,53 @@
     
     <div class="page-content">
         <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-cogs"></i> Atualizar Sistema de Transmissão</h1>
+            <h1 class="page-title"><i class="fas fa-cogs"></i> Update Transmission System</h1>
             
             <div class="form-container">
                 <div class="form-header">
-                    <h2>Editar Informações do Sistema</h2>
-                    <p>Atualize os detalhes do sistema de transmissão para as motocicletas</p>
+                    <h2>Edit System Information</h2>
+                    <p>Update the transmission system details for motorcycles</p>
                 </div>
                 
                 <div class="transmission-types">
                     <div class="type-card">
                         <i class="fas fa-cog"></i>
                         <h4>Manual</h4>
-                        <p>Controle total</p>
+                        <p>Sequential gears</p>
                     </div>
                     <div class="type-card">
                         <i class="fas fa-tachometer-alt"></i>
-                        <h4>Automática</h4>
-                        <p>Facilidade de uso</p>
+                        <h4>Automatic</h4>
+                        <p>CVT system</p>
                     </div>
                     <div class="type-card">
                         <i class="fas fa-sliders-h"></i>
-                        <h4>Semi-automática</h4>
-                        <p>Híbrido eficiente</p>
+                        <h4>Semi-Automatic</h4>
+                        <p>Dual-clutch system</p>
                     </div>
                 </div>
                 
                 <div class="info-box">
-                    <h3><i class="fas fa-info-circle"></i> Informação Importante</h3>
-                    <p>O sistema de transmissão é um componente crítico que afeta diretamente o desempenho e a experiência de pilotagem da motocicleta.</p>
+                    <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+                    <p>The transmission system is crucial for power delivery. Make sure to enter accurate information.</p>
                 </div>
                 
                 <form action="{{url('update_transmission', $data->id) }}" method="post">
                     @csrf
                     
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-tag"></i> Sistema de Transmissão</label>
-                        <i class="fas fa-cog input-icon"></i>
-                        <input type="text" name="type" value="{{$data->type}}" class="form-control" required placeholder="Ex: Manual, Automática, CVT, etc.">
+                        <label class="form-label"><i class="fas fa-tag"></i> Transmission System</label>
+                        <i class="fas fa-cogs input-icon"></i>
+                        <input type="text" name="type" value="{{$data->type}}" class="form-control" required placeholder="Ex: Manual, Automatic, Semi-Automatic, etc.">
                     </div>
                     
                     <div class="buttons-container">
-                        <a href="{{ url('view_transmission') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar Sistema</button>
+                        <a href="{{ url('view_transmission') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update System</button>
                     </div>
                     
                     <div class="form-footer">
-                        <i class="fas fa-clock"></i> Última atualização: {{ date('d/m/Y H:i') }}
+                        <i class="fas fa-clock"></i> Last update: {{ date('m/d/Y H:i') }}
                     </div>
                 </form>
             </div>

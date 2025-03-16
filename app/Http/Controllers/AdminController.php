@@ -498,7 +498,7 @@ class AdminController extends Controller
     {
         $data = LubricationSystem::find($id);
         
-        $data->system = $request-> LubricationSystem; 
+        $data->system = $request->type; 
 
         $data->save();
         
@@ -551,7 +551,7 @@ class AdminController extends Controller
     {
         $data = ClutchType::find($id);
         
-        $data->type = $request-> ClutchType; 
+        $data->type = $request->type; 
 
         $data->save();
         
@@ -602,7 +602,7 @@ public function update_ignition(Request $request, $id)
 {
     $data = IgnitionSystem::find($id);
     
-    $data->system = $request->IgnitionSystem; 
+    $data->system = $request->type; 
 
     $data->save();
     
@@ -653,7 +653,7 @@ public function update_starting(Request $request, $id)
 {
     $data = StartingSystem::find($id);
     
-    $data->system = $request->StartingSystem; 
+    $data->system = $request->type; 
 
     $data->save();
     
@@ -673,7 +673,7 @@ public function add_transmission(Request $request)
 {
     $TransmissionSystem = new TransmissionSystem();
 
-    $TransmissionSystem->type = $request->TransmissionSystem;
+    $TransmissionSystem->type = $request->TransmissionType;
 
     $TransmissionSystem->save();
 
@@ -704,7 +704,7 @@ public function update_transmission(Request $request, $id)
 {
     $data = TransmissionSystem::find($id);
     
-    $data->type = $request->TransmissionSystem; 
+    $data->type = $request->type; 
 
     $data->save();
     
@@ -724,7 +724,7 @@ public function add_suspensions(Request $request)
 {
     $suspension = new Suspension();
 
-    $suspension->type = $request->suspension;
+    $suspension->type = $request->SuspensionsType;
 
     $suspension->save();
 

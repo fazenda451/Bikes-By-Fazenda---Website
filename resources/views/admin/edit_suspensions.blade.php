@@ -237,53 +237,53 @@
     
     <div class="page-content">
         <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-motorcycle"></i> Atualizar Suspensões</h1>
+            <h1 class="page-title"><i class="fas fa-motorcycle"></i> Update Suspension</h1>
             
             <div class="form-container">
                 <div class="form-header">
-                    <h2>Editar Informações do Sistema</h2>
-                    <p>Atualize os detalhes do sistema de suspensão para as motocicletas</p>
+                    <h2>Edit System Information</h2>
+                    <p>Update the suspension system details for motorcycles</p>
                 </div>
                 
                 <div class="suspension-types">
                     <div class="type-card">
                         <i class="fas fa-compress-alt"></i>
-                        <h4>Telescópica</h4>
-                        <p>Conforto e controle</p>
+                        <h4>Telescopic</h4>
+                        <p>Comfort and control</p>
                     </div>
                     <div class="type-card">
                         <i class="fas fa-expand-alt"></i>
                         <h4>Monoshock</h4>
-                        <p>Performance superior</p>
+                        <p>Superior performance</p>
                     </div>
                     <div class="type-card">
                         <i class="fas fa-balance-scale"></i>
-                        <h4>Duplo Amortecedor</h4>
-                        <p>Estabilidade máxima</p>
+                        <h4>Dual Shock</h4>
+                        <p>Maximum stability</p>
                     </div>
                 </div>
                 
                 <div class="info-box">
-                    <h3><i class="fas fa-info-circle"></i> Informação Importante</h3>
-                    <p>O sistema de suspensão é crucial para o conforto, estabilidade e segurança da motocicleta. Escolha o tipo adequado para cada modelo.</p>
+                    <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+                    <p>The suspension system is crucial for comfort, stability, and safety of the motorcycle. Choose the appropriate type for each model.</p>
                 </div>
                 
                 <form action="{{url('update_suspensions', $data->id) }}" method="post">
                     @csrf
                     
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-tag"></i> Tipo de Suspensão</label>
+                        <label class="form-label"><i class="fas fa-tag"></i> Suspension Type</label>
                         <i class="fas fa-compress-alt input-icon"></i>
-                        <input type="text" name="suspension" value="{{$data->type}}" class="form-control" required placeholder="Ex: Telescópica, Monoshock, Duplo Amortecedor, etc.">
+                        <input type="text" name="suspension" value="{{$data->type}}" class="form-control" required placeholder="Ex: Telescopic, Monoshock, Dual Shock, etc.">
                     </div>
                     
                     <div class="buttons-container">
-                        <a href="{{ url('view_suspensions') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar Suspensão</button>
+                        <a href="{{ url('view_suspensions') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update Suspension</button>
                     </div>
                     
                     <div class="form-footer">
-                        <i class="fas fa-clock"></i> Última atualização: {{ date('d/m/Y H:i') }}
+                        <i class="fas fa-clock"></i> Last update: {{ date('m/d/Y H:i') }}
                     </div>
                 </form>
             </div>

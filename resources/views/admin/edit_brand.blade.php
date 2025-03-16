@@ -3,6 +3,7 @@
   <head> 
    
   @include('admin.css')
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style type="text/css">
     .page-content {
@@ -21,19 +22,56 @@
       margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 2px solid #9709e9;
+      display: flex;
+      align-items: center;
+    }
+    
+    .page-title i {
+      margin-right: 15px;
+      font-size: 32px;
     }
 
     .form-container {
       background-color: #2a2a2a;
       border-radius: 10px;
       padding: 30px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
       margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, #9709e9, #7d0cff);
+    }
+
+    .form-header {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #444;
+    }
+    
+    .form-header h2 {
+      color: #fff;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .form-header p {
+      color: #adb5bd;
+      font-size: 14px;
     }
 
     .form-group {
       margin-bottom: 25px;
+      position: relative;
     }
 
     .form-label {
@@ -41,68 +79,157 @@
       color: #adb5bd;
       margin-bottom: 8px;
       font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .form-label i {
+      margin-right: 8px;
+      color: #9709e9;
     }
 
     .form-control {
       width: 100%;
-      padding: 12px 15px;
+      padding: 15px 15px 15px 45px;
       background-color: #333;
       border: 1px solid #444;
       border-radius: 5px;
       color: #fff;
       font-size: 16px;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      transition: all 0.3s ease;
     }
 
     .form-control:focus {
       border-color: #9709e9;
       box-shadow: 0 0 0 3px rgba(151, 9, 233, 0.25);
       outline: none;
+      background-color: #3a3a3a;
+    }
+    
+    .input-icon {
+      position: absolute;
+      top: 42px;
+      left: 15px;
+      color: #adb5bd;
     }
 
     .btn-primary {
-      background-color: #9709e9;
+      background: linear-gradient(135deg, #9709e9, #7d0cff);
       border: none;
       color: white;
-      padding: 12px 25px;
+      padding: 14px 28px;
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
       font-weight: 500;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: all 0.3s ease;
       display: inline-block;
       text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .btn-primary:hover {
-      background-color: #7d0cff;
+      background: linear-gradient(135deg, #7d0cff, #9709e9);
       transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     }
 
     .btn-secondary {
       background-color: #6c757d;
       border: none;
       color: white;
-      padding: 12px 25px;
+      padding: 14px 28px;
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
       font-weight: 500;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: all 0.3s ease;
       display: inline-block;
       text-align: center;
-      margin-right: 10px;
+      margin-right: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .btn-secondary:hover {
       background-color: #5a6268;
       transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     }
 
     .buttons-container {
       display: flex;
       justify-content: flex-start;
-      margin-top: 20px;
+      margin-top: 30px;
+    }
+    
+    .form-footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      color: #adb5bd;
+      font-size: 14px;
+    }
+    
+    .form-footer i {
+      color: #9709e9;
+      margin-right: 5px;
+    }
+    
+    .info-box {
+      background-color: rgba(151, 9, 233, 0.1);
+      border-left: 4px solid #9709e9;
+      padding: 15px;
+      margin-bottom: 25px;
+      border-radius: 0 5px 5px 0;
+    }
+    
+    .info-box h3 {
+      color: #9709e9;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    
+    .info-box p {
+      color: #adb5bd;
+      font-size: 14px;
+      margin: 0;
+    }
+    
+    .brand-types {
+      display: flex;
+      margin-bottom: 25px;
+      gap: 15px;
+    }
+    
+    .type-card {
+      flex: 1;
+      background-color: #333;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .type-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .type-card i {
+      font-size: 24px;
+      color: #9709e9;
+      margin-bottom: 10px;
+    }
+    
+    .type-card h4 {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    
+    .type-card p {
+      color: #adb5bd;
+      font-size: 14px;
     }
   </style>
   
@@ -115,27 +242,55 @@
       <!-- Sidebar Navigation end-->
       <div class="page-content">
         <div class="page-header">
-          <h1 class="page-title">Atualizar Marca</h1>
+          <h1 class="page-title"><i class="fas fa-trademark"></i> Update Brand</h1>
            
         <div class="form-container">
-
+          <div class="form-header">
+            <h2>Edit Brand Information</h2>
+            <p>Update the brand details for motorcycles and products</p>
+          </div>
+          
+          <div class="brand-types">
+            <div class="type-card">
+              <i class="fas fa-motorcycle"></i>
+              <h4>Motorcycle Brands</h4>
+              <p>Premium quality</p>
+            </div>
+            <div class="type-card">
+              <i class="fas fa-globe"></i>
+              <h4>Global Reach</h4>
+              <p>International brands</p>
+            </div>
+            <div class="type-card">
+              <i class="fas fa-star"></i>
+              <h4>Brand Recognition</h4>
+              <p>Customer trust</p>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+            <p>Brands are essential for organizing your inventory and helping customers find products they trust. Choose clear and accurate brand names.</p>
+          </div>
+          
+          <form action="{{url('update_brand', $data->id) }}" method="post">
+            @csrf
             
-
-            <form action="{{url('update_brand', $data->id) }}" method="post">
-
-              @csrf
-
-                <div class="form-group">
-                    <label class="form-label">Nome da Marca</label>
-                    <input type="text" name="brand" value="{{$data->brand_name}}" class="form-control" required>
-                </div>
-                
-                <div class="buttons-container">
-                    <a href="{{ url('view_brand') }}" class="btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn-primary">Atualizar Marca</button>
-                </div>
-            </form>
-
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-tag"></i> Brand Name</label>
+              <i class="fas fa-trademark input-icon"></i>
+              <input type="text" name="brand" value="{{$data->brand_name}}" class="form-control" required placeholder="Ex: Honda, Yamaha, Ducati, etc.">
+            </div>
+            
+            <div class="buttons-container">
+              <a href="{{ url('view_brand') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+              <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update Brand</button>
+            </div>
+            
+            <div class="form-footer">
+              <i class="fas fa-clock"></i> Last update: {{ date('m/d/Y H:i') }}
+            </div>
+          </form>
         </div>
 
 

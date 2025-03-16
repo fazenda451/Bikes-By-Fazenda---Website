@@ -242,66 +242,58 @@
       <!-- Sidebar Navigation end-->
       <div class="page-content">
         <div class="page-header">
-          <h1 class="page-title"><i class="fas fa-power-off"></i> Atualizar Sistema de Partida</h1>
+          <h1 class="page-title"><i class="fas fa-power-off"></i> Update Starting System</h1>
           
           <div class="form-container">
             <div class="form-header">
-              <h2>Editar Informações do Sistema</h2>
-              <p>Atualize os detalhes do sistema de partida para as motocicletas</p>
+              <h2>Edit System Information</h2>
+              <p>Update the starting system details for motorcycles</p>
             </div>
             
             <div class="starting-types">
               <div class="type-card">
                 <i class="fas fa-bolt"></i>
-                <h4>Elétrica</h4>
-                <p>Facilidade de uso</p>
+                <h4>Electric</h4>
+                <p>Push-button start</p>
               </div>
               <div class="type-card">
                 <i class="fas fa-shoe-prints"></i>
-                <h4>Pedal</h4>
-                <p>Sistema mecânico</p>
+                <h4>Kick Start</h4>
+                <p>Manual operation</p>
               </div>
               <div class="type-card">
                 <i class="fas fa-sync-alt"></i>
-                <h4>Combinada</h4>
-                <p>Versatilidade máxima</p>
+                <h4>Dual System</h4>
+                <p>Both options available</p>
               </div>
             </div>
             
             <div class="info-box">
-              <h3><i class="fas fa-info-circle"></i> Informação Importante</h3>
-              <p>O sistema de partida é responsável por iniciar o funcionamento do motor. Um sistema adequado garante confiabilidade e facilidade de uso da motocicleta.</p>
+              <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+              <p>The starting system is essential for engine ignition. Make sure to enter accurate information.</p>
             </div>
             
             <form action="{{url('update_starting', $data->id) }}" method="post">
               @csrf
               
               <div class="form-group">
-                <label class="form-label"><i class="fas fa-tag"></i> Sistema de Partida</label>
+                <label class="form-label"><i class="fas fa-tag"></i> Starting System</label>
                 <i class="fas fa-power-off input-icon"></i>
-                <input type="text" name="type" value="{{$data->system}}" class="form-control" required placeholder="Ex: Elétrica, Pedal, Combinada, etc.">
+                <input type="text" name="type" value="{{$data->system}}" class="form-control" required placeholder="Ex: Electric, Kick Start, Dual System, etc.">
               </div>
               
               <div class="buttons-container">
-                <a href="{{ url('view_starting') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar Sistema</button>
+                <a href="{{ url('view_starting') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update System</button>
               </div>
               
               <div class="form-footer">
-                <i class="fas fa-clock"></i> Última atualização: {{ date('d/m/Y H:i') }}
+                <i class="fas fa-clock"></i> Last update: {{ date('m/d/Y H:i') }}
               </div>
             </form>
           </div>
         </div>
       </div>
-    <!-- JavaScript files-->
-    <script src=" {{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
-    <script src=" {{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/jquery.cookie/jquery.cookie.js')}}"> </script>
-    <script src=" {{asset('admincss/vendor/chart.js/Chart.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/jquery-validation/jquery.validate.min.js')}}"></script>
-    <script src=" {{asset('admincss/js/charts-home.js')}}"></script>
-    <script src=" {{asset('admincss/js/front.js')}}"></script>
+    @include('admin.js')
   </body>
 </html> 

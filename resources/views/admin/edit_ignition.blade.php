@@ -242,12 +242,12 @@
       <!-- Sidebar Navigation end-->
       <div class="page-content">
         <div class="page-header">
-          <h1 class="page-title"><i class="fas fa-bolt"></i> Atualizar Sistema de Ignição</h1>
+          <h1 class="page-title"><i class="fas fa-bolt"></i> Update Ignition System</h1>
           
           <div class="form-container">
             <div class="form-header">
-              <h2>Editar Informações do Sistema</h2>
-              <p>Atualize os detalhes do sistema de ignição para as motocicletas</p>
+              <h2>Edit System Information</h2>
+              <p>Update the ignition system details for motorcycles</p>
             </div>
             
             <div class="ignition-types">
@@ -262,46 +262,38 @@
                 <p>Transistor Controlled</p>
               </div>
               <div class="type-card">
-                <i class="fas fa-laptop-code"></i>
-                <h4>ECU</h4>
-                <p>Controle Eletrônico</p>
+                <i class="fas fa-plug"></i>
+                <h4>Magneto</h4>
+                <p>Traditional system</p>
               </div>
             </div>
             
             <div class="info-box">
-              <h3><i class="fas fa-info-circle"></i> Informação Importante</h3>
-              <p>O sistema de ignição é responsável por iniciar a combustão no motor. Um sistema adequado garante melhor desempenho e economia de combustível.</p>
+              <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+              <p>The ignition system is crucial for engine performance. Make sure to enter accurate information.</p>
             </div>
             
             <form action="{{url('update_ignition', $data->id) }}" method="post">
               @csrf
               
               <div class="form-group">
-                <label class="form-label"><i class="fas fa-tag"></i> Sistema de Ignição</label>
+                <label class="form-label"><i class="fas fa-tag"></i> Ignition System</label>
                 <i class="fas fa-bolt input-icon"></i>
-                <input type="text" name="type" value="{{$data->system}}" class="form-control" required placeholder="Ex: CDI, TCI, ECU, etc.">
+                <input type="text" name="type" value="{{$data->system}}" class="form-control" required placeholder="Ex: CDI, TCI, Magneto, etc.">
               </div>
               
               <div class="buttons-container">
-                <a href="{{ url('view_ignition') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar Sistema</button>
+                <a href="{{ url('view_ignition') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update System</button>
               </div>
               
               <div class="form-footer">
-                <i class="fas fa-clock"></i> Última atualização: {{ date('d/m/Y H:i') }}
+                <i class="fas fa-clock"></i> Last update: {{ date('m/d/Y H:i') }}
               </div>
             </form>
           </div>
         </div>
       </div>
-    <!-- JavaScript files-->
-    <script src=" {{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
-    <script src=" {{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/jquery.cookie/jquery.cookie.js')}}"> </script>
-    <script src=" {{asset('admincss/vendor/chart.js/Chart.min.js')}}"></script>
-    <script src=" {{asset('admincss/vendor/jquery-validation/jquery.validate.min.js')}}"></script>
-    <script src=" {{asset('admincss/js/charts-home.js')}}"></script>
-    <script src=" {{asset('admincss/js/front.js')}}"></script>
+    @include('admin.js')
   </body>
 </html> 

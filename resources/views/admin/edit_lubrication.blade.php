@@ -242,53 +242,53 @@
       <!-- Sidebar Navigation end-->
       <div class="page-content">
         <div class="page-header">
-          <h1 class="page-title"><i class="fas fa-oil-can"></i> Atualizar Sistema de Lubrificação</h1>
+          <h1 class="page-title"><i class="fas fa-oil-can"></i> Update Lubrication System</h1>
            
         <div class="form-container">
             <div class="form-header">
-                <h2>Editar Informações do Sistema</h2>
-                <p>Atualize os detalhes do sistema de lubrificação para as motocicletas</p>
+                <h2>Edit System Information</h2>
+                <p>Update the lubrication system details for motorcycles</p>
             </div>
             
             <div class="lubrication-types">
                 <div class="type-card">
                     <i class="fas fa-tint"></i>
-                    <h4>Cárter Úmido</h4>
-                    <p>Comum em motos</p>
+                    <h4>Wet Sump</h4>
+                    <p>Common in bikes</p>
                 </div>
                 <div class="type-card">
                     <i class="fas fa-oil-can"></i>
-                    <h4>Cárter Seco</h4>
-                    <p>Alta performance</p>
+                    <h4>Dry Sump</h4>
+                    <p>High performance</p>
                 </div>
                 <div class="type-card">
                     <i class="fas fa-filter"></i>
-                    <h4>Injeção de Óleo</h4>
-                    <p>Eficiência máxima</p>
+                    <h4>Oil Injection</h4>
+                    <p>Maximum efficiency</p>
                 </div>
             </div>
             
             <div class="info-box">
-                <h3><i class="fas fa-info-circle"></i> Informação Importante</h3>
-                <p>O sistema de lubrificação é essencial para o funcionamento adequado do motor. Certifique-se de inserir informações precisas.</p>
+                <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+                <p>The lubrication system is essential for proper engine operation. Make sure to enter accurate information.</p>
             </div>
             
             <form action="{{url('update_lubrication', $data->id) }}" method="post">
                 @csrf
                 
                 <div class="form-group">
-                    <label class="form-label"><i class="fas fa-tag"></i> Sistema de Lubrificação</label>
+                    <label class="form-label"><i class="fas fa-tag"></i> Lubrication System</label>
                     <i class="fas fa-tint input-icon"></i>
-                    <input type="text" name="type" value="{{$data->system}}" class="form-control" required placeholder="Ex: Cárter úmido, Cárter seco, etc.">
+                    <input type="text" name="type" value="{{$data->system}}" class="form-control" required placeholder="Ex: Wet sump, Dry sump, etc.">
                 </div>
                 
                 <div class="buttons-container">
-                    <a href="{{ url('view_lubrication') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar Sistema</button>
+                    <a href="{{ url('view_lubrication') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update System</button>
                 </div>
                 
                 <div class="form-footer">
-                    <i class="fas fa-clock"></i> Última atualização: {{ date('d/m/Y H:i') }}
+                    <i class="fas fa-clock"></i> Last update: {{ date('m/d/Y H:i') }}
                 </div>
             </form>
         </div>
