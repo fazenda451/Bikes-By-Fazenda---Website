@@ -231,7 +231,7 @@
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Categoria</label>
-                                <select name="category_id" class="form-control" id="category_select" required>
+                                <select name="Category" class="form-control" id="category_select" required>
                                     <option value="">Selecione uma categoria</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
@@ -283,16 +283,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label required-field">Tipo de Motor</label>
-                                <select name="engine_type_id" class="form-control" id="engine_type_select" required>
-                                    <option value="">Selecione o tipo de motor</option>
-                                    @foreach($engine_types as $type)
-                                        <option value="{{ $type->id }}">{{ $type->type }}</option>
-                                    @endforeach
-                                    <option value="new">Adicionar novo tipo de motor</option>
-                                </select>
-                                <div id="new_engine_type_container" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="new_engine_type" class="form-control" placeholder="Digite o novo tipo de motor" maxlength="50">
-                                </div>
+                                <input type="text" name="engine_type" class="form-control" placeholder="Digite o tipo de motor" maxlength="50" required>
                             </div>
                             
                             <div class="form-group">
@@ -740,7 +731,6 @@
                 { select: 'brand_select', container: 'new_brand_container' },
                 { select: 'category_select', container: 'new_category_container' },
                 { select: 'license_type_select', container: 'new_license_type_container' },
-                { select: 'engine_type_select', container: 'new_engine_type_container' },
                 { select: 'lubrication_system_select', container: 'new_lubrication_system_container' },
                 { select: 'clutch_type_select', container: 'new_clutch_type_container' },
                 { select: 'ignition_system_select', container: 'new_ignition_system_container' },

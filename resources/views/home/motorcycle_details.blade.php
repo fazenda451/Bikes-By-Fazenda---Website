@@ -659,7 +659,7 @@
           @if($data->engine_type)
           <div class="specs-item">
             <div class="specs-label">Engine Type</div>
-            <div class="specs-value">{{ $data->engineType->name ?? 'N/A' }}</div>
+            <div class="specs-value">{{ $data->engine_type }}</div>
           </div>
           @endif
           

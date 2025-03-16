@@ -175,7 +175,6 @@ class homeController extends Controller
             'photos', 
             'brand', 
             'licenseType', 
-            'engineType', 
             'lubricationSystem', 
             'clutchType', 
             'ignitionSystem', 

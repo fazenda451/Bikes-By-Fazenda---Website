@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Brand;
-use App\Models\EngineType;
 use App\Models\LubricationSystem;
 use App\Models\ClutchType;
 use App\Models\IgnitionSystem;
@@ -455,59 +454,6 @@ class AdminController extends Controller
         return redirect('/view_brand');
     }
 
-public function view_engine()
-    {
-        $data = EngineType::all();
-
-        return view('admin.engine', compact('data'));
-    }
-
-    public function add_engine(Request $request)
-    {
-
-        $EngineType = new EngineType();
-
-        $EngineType-> type = $request-> EngineType ;
-
-        $EngineType->save();
-
-        toastr()->timeOut(10000)->closebutton() ->addSuccess('Engine Added Sucessfully');
-
-        return redirect()->back();
-
-    }
-
-    public function delete_engine($id)
-    {
-        $EngineType = EngineType::find($id);
-
-        $EngineType-> delete();
-
-        toastr()->timeOut(10000)->closebutton() ->addSuccess('Engine Deleted Sucessfully');
-
-        return redirect()-> back();
-    }
-
-    public function edit_engine($id)
-    {
-        $data = EngineType::find($id);
-
-        return view('admin.edit_engine',compact('data'));
-    }
-
-    public function update_engine(Request $request,$id)
-    {
-        $data = EngineType::find($id);
-        
-        $data->type = $request-> EngineType; 
-
-        $data->save();
-        
-        toastr()->timeOut(10000)->closebutton() ->addSuccess('Engine Updated Sucessfully');
-
-        return redirect('/view_engine');
-    }
-
     public function view_lubrication()
     {
         $data = LubricationSystem::all();
@@ -829,8 +775,6 @@ public function update_suspensions(Request $request, $id)
         
         $license_types = LicenseType::all();
         
-        $engine_types = EngineType::all();
-        
         $lubrication_systems = LubricationSystem::all();
         
         $clutch_types = ClutchType::all();
@@ -850,8 +794,6 @@ public function update_suspensions(Request $request, $id)
             
             
             'license_types', 
-            
-            'engine_types', 
             
             'lubrication_systems',
             
@@ -881,7 +823,7 @@ public function update_suspensions(Request $request, $id)
             
             'quantity' => 'required|integer',
             
-            'category_id' => 'required',
+            'Category' => 'required',
             
             'brand_id' => 'required',
             
@@ -889,9 +831,9 @@ public function update_suspensions(Request $request, $id)
             
             'license_type_id' => 'required',
             
-            'engine_type_id' => 'required',
-            
             'displacement' => 'required|string|max:50',
+            
+            'engine_type' => 'required|string|max:50',
             
             'bore_stroke' => 'required|string|max:50',
             
@@ -963,9 +905,8 @@ public function update_suspensions(Request $request, $id)
 
             // Validação para novos campos quando selecionado 'new'
             'new_brand' => 'nullable|required_if:brand_id,new|string|max:50',
-            'new_category' => 'nullable|required_if:category_id,new|string|max:50',
+            'new_category' => 'nullable|required_if:Category,new|string|max:50',
             'new_license_type' => 'nullable|required_if:license_type_id,new|string|max:50',
-            'new_engine_type' => 'nullable|required_if:engine_type_id,new|string|max:50',
             'new_lubrication_system' => 'nullable|required_if:lubrication_system_id,new|string|max:50',
             'new_clutch_type' => 'nullable|required_if:clutch_type_id,new|string|max:50',
             'new_ignition_system' => 'nullable|required_if:ignition_system_id,new|string|max:50',
@@ -980,7 +921,6 @@ public function update_suspensions(Request $request, $id)
             'new_brand.required_if' => 'Por favor, digite o nome da nova marca.',
             'new_category.required_if' => 'Por favor, digite o nome da nova categoria.',
             'new_license_type.required_if' => 'Por favor, digite o novo tipo de licença.',
-            'new_engine_type.required_if' => 'Por favor, digite o novo tipo de motor.',
             'new_lubrication_system.required_if' => 'Por favor, digite o novo sistema de lubrificação.',
             'new_clutch_type.required_if' => 'Por favor, digite o novo tipo de embreagem.',
             'new_ignition_system.required_if' => 'Por favor, digite o novo sistema de ignição.',
@@ -1007,21 +947,15 @@ public function update_suspensions(Request $request, $id)
         }
 
         // Verificar e criar nova categoria
-        if ($request->category_id === 'new' && $request->filled('new_category')) {
+        if ($request->Category === 'new' && $request->filled('new_category')) {
             $category = Category::create(['category_name' => $request->new_category]);
-            $requestData['category_id'] = $category->id;
+            $requestData['Category'] = $category->id;
         }
 
         // Verificar e criar novo tipo de licença
         if ($request->license_type_id === 'new' && $request->filled('new_license_type')) {
             $licenseType = LicenseType::create(['type' => $request->new_license_type]);
             $requestData['license_type_id'] = $licenseType->id;
-        }
-
-        // Verificar e criar novo tipo de motor
-        if ($request->engine_type_id === 'new' && $request->filled('new_engine_type')) {
-            $engineType = EngineType::create(['type' => strval($request->new_engine_type)]);
-            $requestData['engine_type_id'] = $engineType->id;
         }
 
         // Verificar e criar novo sistema de lubrificação
@@ -1071,11 +1005,11 @@ public function update_suspensions(Request $request, $id)
             'name', 
             'description', 
             'quantity', 
-            'category_id', 
+            'Category', 
             'brand_id', 
             'price', 
             'license_type_id', 
-            'engine_type_id', 
+            'engine_type',
             'displacement', 
             'bore_stroke', 
             'compression_ratio',  
@@ -1143,7 +1077,7 @@ public function update_suspensions(Request $request, $id)
     public function view_motorcycle()
 {
     $motorcycles = Motorcycle::with([
-        'category', 'brand', 'licenseType', 'engineType', 
+        'category', 'brand', 'licenseType', 
         'lubricationSystem', 'clutchType', 'ignitionSystem', 
         'startingSystem', 'transmissionSystem', 'frontSuspension', 'rearSuspension', 'photos'
     ])->get();
@@ -1203,8 +1137,6 @@ public function update_suspensions(Request $request, $id)
     
         $license_types = LicenseType::all();
     
-        $engine_types = EngineType::all();
-    
         $lubrication_systems = LubricationSystem::all();
     
         $clutch_types = ClutchType::all();
@@ -1237,8 +1169,6 @@ public function update_suspensions(Request $request, $id)
             'brands',
             
             'license_types', 
-            
-            'engine_types', 
             
             'lubrication_systems', 
             

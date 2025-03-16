@@ -916,7 +916,7 @@ input[type="file"]:focus {
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
-                <form id="editForm" action="{{ route('update_motorcycle', ['id' => '__ID__']) }}" method="POST" enctype="multipart/form-data" class="edit-form">
+                <form id="editForm" action="{{ url('edit_motorcycle/__ID__') }}" method="POST" enctype="multipart/form-data" class="edit-form">
                 @csrf
                 <input type="hidden" name="id" id="edit-id">
                 <div class="modal-left">
@@ -949,13 +949,26 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Marca ID</label>
-                                    <input type="text" name="brand_id" id="edit-brand" class="form-control" placeholder="ID da Marca">
+                                    <label class="form-label">Quantidade</label>
+                                    <input type="number" min="0" step="1" name="quantity" id="edit-quantity" class="form-control" placeholder="Quantidade">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Licença ID</label>
-                                    <input type="text" name="license_type_id" id="edit-license" class="form-control" placeholder="ID do Tipo de Licença">
+                                    <label class="form-label">Marca</label>
+                                    <input type="text" id="edit-brand-text" class="form-control" placeholder="Marca" readonly>
+                                    <input type="hidden" name="brand_id" id="edit-brand">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Categoria</label>
+                                    <input type="text" id="edit-category-text" class="form-control" placeholder="Categoria" readonly>
+                                    <input type="hidden" name="Category" id="edit-category">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Tipo de Licença</label>
+                                    <input type="text" id="edit-license-text" class="form-control" placeholder="Tipo de Licença" readonly>
+                                    <input type="hidden" name="license_type_id" id="edit-license">
                                 </div>
                                 
                                 <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
@@ -970,8 +983,8 @@ input[type="file"]:focus {
                             <h4 class="section-title">Motor</h4>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Motor ID</label>
-                                    <input type="text" name="engine_type_id" id="edit-engine" class="form-control" placeholder="ID do Tipo de Motor">
+                                    <label class="form-label">Tipo de Motor</label>
+                                    <input type="text" name="engine_type" id="edit-engine-type" class="form-control" placeholder="Tipo de Motor">
                                 </div>
                                 
                                 <div class="form-group">
@@ -1000,28 +1013,33 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Lubrificação ID</label>
-                                    <input type="text" name="lubrication_system_id" id="edit-lubrication" class="form-control" placeholder="ID do Sistema de Lubrificação">
+                                    <label class="form-label">Sistema de Lubrificação</label>
+                                    <input type="text" id="edit-lubrication-text" class="form-control" placeholder="Sistema de Lubrificação" readonly>
+                                    <input type="hidden" name="lubrication_system_id" id="edit-lubrication">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Embreagem ID</label>
-                                    <input type="text" name="clutch_type_id" id="edit-clutch" class="form-control" placeholder="ID do Tipo de Embreagem">
+                                    <label class="form-label">Tipo de Embreagem</label>
+                                    <input type="text" id="edit-clutch-text" class="form-control" placeholder="Tipo de Embreagem" readonly>
+                                    <input type="hidden" name="clutch_type_id" id="edit-clutch">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Ignição ID</label>
-                                    <input type="text" name="ignition_system_id" id="edit-ignition" class="form-control" placeholder="ID do Sistema de Ignição">
+                                    <label class="form-label">Sistema de Ignição</label>
+                                    <input type="text" id="edit-ignition-text" class="form-control" placeholder="Sistema de Ignição" readonly>
+                                    <input type="hidden" name="ignition_system_id" id="edit-ignition">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Partida ID</label>
-                                    <input type="text" name="starting_system_id" id="edit-starting" class="form-control" placeholder="ID do Sistema de Partida">
+                                    <label class="form-label">Sistema de Partida</label>
+                                    <input type="text" id="edit-starting-text" class="form-control" placeholder="Sistema de Partida" readonly>
+                                    <input type="hidden" name="starting_system_id" id="edit-starting">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Transmissão ID</label>
-                                    <input type="text" name="transmission_system_id" id="edit-transmission" class="form-control" placeholder="ID do Sistema de Transmissão">
+                                    <label class="form-label">Sistema de Transmissão</label>
+                                    <input type="text" id="edit-transmission-text" class="form-control" placeholder="Sistema de Transmissão" readonly>
+                                    <input type="hidden" name="transmission_system_id" id="edit-transmission">
                                 </div>
                                 
                                 <div class="form-group">
@@ -1066,13 +1084,15 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Suspensão Dianteira ID</label>
-                                    <input type="text" name="front_suspension_id" id="edit-front-suspension" class="form-control" placeholder="ID da Suspensão Dianteira">
+                                    <label class="form-label">Suspensão Dianteira</label>
+                                    <input type="text" id="edit-front-suspension-text" class="form-control" placeholder="Suspensão Dianteira" readonly>
+                                    <input type="hidden" name="front_suspension_id" id="edit-front-suspension">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Suspensão Traseira ID</label>
-                                    <input type="text" name="rear_suspension_id" id="edit-rear-suspension" class="form-control" placeholder="ID da Suspensão Traseira">
+                                    <label class="form-label">Suspensão Traseira</label>
+                                    <input type="text" id="edit-rear-suspension-text" class="form-control" placeholder="Suspensão Traseira" readonly>
+                                    <input type="hidden" name="rear_suspension_id" id="edit-rear-suspension">
                                 </div>
                                 
                                 <div class="form-group">
@@ -1187,7 +1207,7 @@ input[type="file"]:focus {
                         document.getElementById('modal-license').innerText = motorcycle.license_type_id ? motorcycle.license_type.type : 'N/A';
 
                         // Motor
-                        document.getElementById('modal-engine').innerText = motorcycle.engine_type_id ? motorcycle.engine_type.type : 'N/A';
+                        document.getElementById('modal-engine').innerText = motorcycle.engine_type || 'N/A';
                         document.getElementById('modal-displacement').innerText = motorcycle.displacement;
                         document.getElementById('modal-bore-stroke').innerText = motorcycle.bore_stroke;
                         document.getElementById('modal-compression-ratio').innerText = motorcycle.compression_ratio;
@@ -1315,21 +1335,42 @@ function openEditModal(id) {
     document.getElementById('edit-name').value = motorcycle.name;
     document.getElementById('edit-description').value = motorcycle.description;
     document.getElementById('edit-price').value = motorcycle.price;
+    document.getElementById('edit-quantity').value = motorcycle.quantity;
+    
+    // Marca, categoria e tipo de licença - preencher os IDs nos campos ocultos e os nomes nos campos de texto
     document.getElementById('edit-brand').value = motorcycle.brand_id;
+    document.getElementById('edit-brand-text').value = motorcycle.brand_id ? motorcycle.brand.brand_name : '';
+    
+    document.getElementById('edit-category').value = motorcycle.Category;
+    document.getElementById('edit-category-text').value = motorcycle.category ? motorcycle.category.category_name : '';
+    
     document.getElementById('edit-license').value = motorcycle.license_type_id;
+    document.getElementById('edit-license-text').value = motorcycle.license_type_id ? motorcycle.license_type.type : '';
 
     // Motor Section
-    document.getElementById('edit-engine').value = motorcycle.engine_type_id;
+    document.getElementById('edit-engine-type').value = motorcycle.engine_type || '';
     document.getElementById('edit-displacement').value = motorcycle.displacement;
     document.getElementById('edit-bore-stroke').value = motorcycle.bore_stroke;
     document.getElementById('edit-compression-ratio').value = motorcycle.compression_ratio;
     document.getElementById('edit-max-power').value = motorcycle.max_power;
     document.getElementById('edit-max-torque').value = motorcycle.max_torque;
+    
+    // Sistemas - preencher os IDs nos campos ocultos e os nomes nos campos de texto
     document.getElementById('edit-lubrication').value = motorcycle.lubrication_system_id;
+    document.getElementById('edit-lubrication-text').value = motorcycle.lubrication_system_id ? motorcycle.lubrication_system.system : '';
+    
     document.getElementById('edit-clutch').value = motorcycle.clutch_type_id;
+    document.getElementById('edit-clutch-text').value = motorcycle.clutch_type_id ? motorcycle.clutch_type.type : '';
+    
     document.getElementById('edit-ignition').value = motorcycle.ignition_system_id;
+    document.getElementById('edit-ignition-text').value = motorcycle.ignition_system_id ? motorcycle.ignition_system.system : '';
+    
     document.getElementById('edit-starting').value = motorcycle.starting_system_id;
+    document.getElementById('edit-starting-text').value = motorcycle.starting_system_id ? motorcycle.starting_system.system : '';
+    
     document.getElementById('edit-transmission').value = motorcycle.transmission_system_id;
+    document.getElementById('edit-transmission-text').value = motorcycle.transmission_system_id ? motorcycle.transmission_system.type : '';
+    
     document.getElementById('edit-drive').value = motorcycle.final_drive;
     document.getElementById('edit-fuel-consumption').value = motorcycle.fuel_consumption;
     document.getElementById('edit-co2').value = motorcycle.cos2_emissions;
@@ -1339,8 +1380,14 @@ function openEditModal(id) {
     document.getElementById('edit-frame').value = motorcycle.frame;
     document.getElementById('edit-rake').value = motorcycle.rake_angle;
     document.getElementById('edit-trail').value = motorcycle.trail;
+    
+    // Suspensões - preencher os IDs nos campos ocultos e os nomes nos campos de texto
     document.getElementById('edit-front-suspension').value = motorcycle.front_suspension_id;
+    document.getElementById('edit-front-suspension-text').value = motorcycle.front_suspension_id ? motorcycle.front_suspension.type : '';
+    
     document.getElementById('edit-rear-suspension').value = motorcycle.rear_suspension_id;
+    document.getElementById('edit-rear-suspension-text').value = motorcycle.rear_suspension_id ? motorcycle.rear_suspension.type : '';
+    
     document.getElementById('edit-front-travel').value = motorcycle.front_travel;
     document.getElementById('edit-rear-travel').value = motorcycle.rear_travel;
     document.getElementById('edit-front-brake').value = motorcycle.front_brake;
@@ -1360,7 +1407,7 @@ function openEditModal(id) {
     document.getElementById('edit-oil-tank-capacity').value = motorcycle.oil_tank_capacity;
 
     // Atualiza o action do formulário com o ID correto
-    editForm.action = "{{ route('update_motorcycle', ['id' => '__ID__']) }}".replace('__ID__', id);
+    editForm.action = "{{ url('edit_motorcycle/__ID__') }}".replace('__ID__', id);
 
     // Atualiza o campo oculto com o ID da moto
     document.querySelector('input[name="id"]').value = id;
@@ -1369,22 +1416,22 @@ function openEditModal(id) {
     const gallery = document.getElementById('edit-image-gallery');
     gallery.innerHTML = '';
                 
-                if (motorcycle.photos && motorcycle.photos.length > 0) {
-                    const currentImagesSection = document.createElement('div');
-                    currentImagesSection.className = 'current-images-section';
-                    currentImagesSection.innerHTML = '<h4 class="section-title">Imagens Atuais</h4>';
-                    
-    motorcycle.photos.forEach((photo, index) => {
-        const imgContainer = document.createElement('div');
-        imgContainer.className = 'image-container';
+    if (motorcycle.photos && motorcycle.photos.length > 0) {
+        const currentImagesSection = document.createElement('div');
+        currentImagesSection.className = 'current-images-section';
+        currentImagesSection.innerHTML = '<h4 class="section-title">Imagens Atuais</h4>';
+        
+        motorcycle.photos.forEach((photo, index) => {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'image-container';
 
-        const img = document.createElement('img');
-        img.src = '{{ asset('motorcycles/') }}/' + photo.image;
-        img.alt = motorcycle.name;
+            const img = document.createElement('img');
+            img.src = '{{ asset('motorcycles/') }}/' + photo.image;
+            img.alt = motorcycle.name;
 
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'X';
-        deleteButton.className = 'delete-button';
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'X';
+            deleteButton.className = 'delete-button';
                         deleteButton.onclick = (e) => {
                             e.preventDefault();
                             if (confirm('Tem certeza que deseja excluir esta imagem?')) {
@@ -1392,8 +1439,8 @@ function openEditModal(id) {
                             }
                         };
 
-        imgContainer.appendChild(img);
-        imgContainer.appendChild(deleteButton);
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(deleteButton);
                         currentImagesSection.appendChild(imgContainer);
                     });
                     
@@ -1481,120 +1528,22 @@ function openEditModal(id) {
 }
 
 document.getElementById('editForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-                
-                // Mostra o overlay de carregamento
-                const loadingOverlay = document.getElementById('loadingOverlay');
-                loadingOverlay.classList.add('active');
-                
-                // Adiciona um feedback visual de que o formulário está sendo enviado
-                const submitButton = this.querySelector('button[type="submit"]');
-                const originalText = submitButton.innerText;
-                submitButton.innerText = 'Salvando...';
-                submitButton.disabled = true;
-                
-                // Cria um FormData para enviar o formulário com arquivos
-                const formData = new FormData(this);
-                
-                // Envia o formulário via AJAX
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    // Verifica se a resposta é JSON
-                    const contentType = response.headers.get('content-type');
-                    if (contentType && contentType.includes('application/json')) {
-                        return response.json();
-                    } else {
-                        // Se não for JSON, provavelmente é uma redireção ou HTML
-                        window.location.reload(); // Recarrega a página
-                        return { success: true }; // Retorna um objeto para não quebrar a cadeia de promises
-                    }
-                })
-                .then(data => {
-                    // Esconde o overlay de carregamento
-                    loadingOverlay.classList.remove('active');
-                    
-                    // Restaura o botão
-                    submitButton.innerText = originalText;
-                    submitButton.disabled = false;
-                    
-                    if (data.success) {
-                        // Mostra mensagem de sucesso
-                        const message = document.createElement('div');
-                        message.className = 'success-message';
-                        message.textContent = 'Motocicleta atualizada com sucesso!';
-                        
-                        const modalRight = document.querySelector('.modal-right');
-                        modalRight.insertBefore(message, modalRight.firstChild);
-                        
-                        setTimeout(() => {
-                            message.classList.add('show');
-                        }, 100);
-                        
-                        // Remove a mensagem após 1 segundo e fecha o modal
-                        setTimeout(() => {
-                            message.classList.remove('show');
-                            setTimeout(() => {
-                                message.remove();
-                                closeEditModal();
-                                // Recarrega a página para mostrar as alterações
-                                window.location.reload();
-                            }, 300);
-                        }, 1000);
-                    } else {
-                        // Mostra mensagem de erro
-                        const message = document.createElement('div');
-                        message.className = 'error-message';
-                        message.textContent = data.message || 'Erro ao atualizar a motocicleta. Tente novamente.';
-                        
-                        const modalRight = document.querySelector('.modal-right');
-                        modalRight.insertBefore(message, modalRight.firstChild);
-                        
-                        setTimeout(() => {
-                            message.classList.add('show');
-                        }, 100);
-                        
-                        // Remove a mensagem após 3 segundos
-                        setTimeout(() => {
-                            message.classList.remove('show');
-                            setTimeout(() => message.remove(), 300);
-                        }, 3000);
-                    }
-                })
-                .catch(error => {
-                    // Esconde o overlay de carregamento
-                    loadingOverlay.classList.remove('active');
-                    
-                    // Restaura o botão
-                    submitButton.innerText = originalText;
-                    submitButton.disabled = false;
-                    
-                    // Mostra mensagem de erro
-                    const message = document.createElement('div');
-                    message.className = 'error-message';
-                    message.textContent = 'Erro ao processar a requisição. Tente novamente.';
-                    
-                    const modalRight = document.querySelector('.modal-right');
-                    modalRight.insertBefore(message, modalRight.firstChild);
-                    
-                    setTimeout(() => {
-                        message.classList.add('show');
-                    }, 100);
-                    
-                    // Remove a mensagem após 3 segundos
-                    setTimeout(() => {
-                        message.classList.remove('show');
-                        setTimeout(() => message.remove(), 300);
-                    }, 3000);
-                    
-                    console.error('Erro:', error);
-                });
-            });
+    // Não previne o comportamento padrão do formulário
+    // Deixa o formulário ser enviado normalmente
+    
+    // Mostra o overlay de carregamento
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.classList.add('active');
+    
+    // Adiciona um feedback visual de que o formulário está sendo enviado
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerText;
+    submitButton.innerText = 'Salvando...';
+    submitButton.disabled = true;
+    
+    // Permite que o formulário seja enviado normalmente
+    return true;
+});
 
 document.getElementById('search').addEventListener('input', function() {
     searchMotorcycle();

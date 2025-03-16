@@ -17,7 +17,7 @@ class CreateMotorcyclesTable extends Migration
             $table->foreignId('brand_id')->constrained('brands');
             $table->decimal('price', 10, 2);
             $table->foreignId('license_type_id')->constrained('license_types'); 
-            $table->foreignId('engine_type_id')->constrained('engine_types');
+            $table->string('engine_type', 250);
             $table->string('displacement', 50);
             $table->string('bore_stroke', 50);
             $table->decimal('compression_ratio', 5, 2);

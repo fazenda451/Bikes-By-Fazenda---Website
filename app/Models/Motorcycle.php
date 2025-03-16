@@ -13,11 +13,11 @@ class Motorcycle extends Model
         'name',
         'description',
         'quantity',
-        'category',
+        'Category',
         'brand_id',
         'price',
         'license_type_id',
-        'engine_type_id',
+        'engine_type',
         'displacement',
         'bore_stroke',
         'compression_ratio',
@@ -64,7 +64,7 @@ class Motorcycle extends Model
     // Relacionamento com Categoria
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'Category');
     }
 
     // Relacionamento com Marca
@@ -77,12 +77,6 @@ class Motorcycle extends Model
     public function licenseType()
     {
         return $this->belongsTo(LicenseType::class);
-    }
-
-    // Relacionamento com Tipo de Motor
-    public function engineType()
-    {
-        return $this->belongsTo(EngineType::class);
     }
 
     // Relacionamento com Sistema de Lubrificação
