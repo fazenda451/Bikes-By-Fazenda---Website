@@ -955,20 +955,32 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Marca</label>
-                                    <input type="text" id="edit-brand-text" class="form-control" placeholder="Marca" readonly>
-                                    <input type="hidden" name="brand_id" id="edit-brand">
+                                    <select name="brand_id" class="form-control" id="edit-brand-select">
+                                        <option value="">Selecione uma marca</option>
+                                        @foreach($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Categoria</label>
-                                    <input type="text" id="edit-category-text" class="form-control" placeholder="Categoria" readonly>
-                                    <input type="hidden" name="Category" id="edit-category">
+                                    <select name="Category" class="form-control" id="edit-category-select">
+                                        <option value="">Selecione uma categoria</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Tipo de Licença</label>
-                                    <input type="text" id="edit-license-text" class="form-control" placeholder="Tipo de Licença" readonly>
-                                    <input type="hidden" name="license_type_id" id="edit-license">
+                                    <select name="license_type_id" class="form-control" id="edit-license-select">
+                                        <option value="">Selecione o tipo de licença</option>
+                                        @foreach($license_types as $type)
+                                            <option value="{{ $type->id }}">{{ $type->type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
@@ -1014,32 +1026,52 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Sistema de Lubrificação</label>
-                                    <input type="text" id="edit-lubrication-text" class="form-control" placeholder="Sistema de Lubrificação" readonly>
-                                    <input type="hidden" name="lubrication_system_id" id="edit-lubrication">
+                                    <select name="lubrication_system_id" class="form-control" id="edit-lubrication-select">
+                                        <option value="">Selecione o sistema</option>
+                                        @foreach($lubrication_systems as $system)
+                                            <option value="{{ $system->id }}">{{ $system->system }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Tipo de Embreagem</label>
-                                    <input type="text" id="edit-clutch-text" class="form-control" placeholder="Tipo de Embreagem" readonly>
-                                    <input type="hidden" name="clutch_type_id" id="edit-clutch">
+                                    <select name="clutch_type_id" class="form-control" id="edit-clutch-select">
+                                        <option value="">Selecione o tipo</option>
+                                        @foreach($clutch_types as $type)
+                                            <option value="{{ $type->id }}">{{ $type->type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Sistema de Ignição</label>
-                                    <input type="text" id="edit-ignition-text" class="form-control" placeholder="Sistema de Ignição" readonly>
-                                    <input type="hidden" name="ignition_system_id" id="edit-ignition">
+                                    <select name="ignition_system_id" class="form-control" id="edit-ignition-select">
+                                        <option value="">Selecione o sistema</option>
+                                        @foreach($ignition_systems as $system)
+                                            <option value="{{ $system->id }}">{{ $system->system }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Sistema de Partida</label>
-                                    <input type="text" id="edit-starting-text" class="form-control" placeholder="Sistema de Partida" readonly>
-                                    <input type="hidden" name="starting_system_id" id="edit-starting">
+                                    <select name="starting_system_id" class="form-control" id="edit-starting-select">
+                                        <option value="">Selecione o sistema</option>
+                                        @foreach($starting_systems as $system)
+                                            <option value="{{ $system->id }}">{{ $system->system }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Sistema de Transmissão</label>
-                                    <input type="text" id="edit-transmission-text" class="form-control" placeholder="Sistema de Transmissão" readonly>
-                                    <input type="hidden" name="transmission_system_id" id="edit-transmission">
+                                    <select name="transmission_system_id" class="form-control" id="edit-transmission-select">
+                                        <option value="">Selecione o sistema</option>
+                                        @foreach($transmission_systems as $system)
+                                            <option value="{{ $system->id }}">{{ $system->type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
@@ -1085,14 +1117,22 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Suspensão Dianteira</label>
-                                    <input type="text" id="edit-front-suspension-text" class="form-control" placeholder="Suspensão Dianteira" readonly>
-                                    <input type="hidden" name="front_suspension_id" id="edit-front-suspension">
+                                    <select name="front_suspension_id" class="form-control" id="edit-front-suspension-select">
+                                        <option value="">Selecione o tipo</option>
+                                        @foreach($suspensions as $suspension)
+                                            <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Suspensão Traseira</label>
-                                    <input type="text" id="edit-rear-suspension-text" class="form-control" placeholder="Suspensão Traseira" readonly>
-                                    <input type="hidden" name="rear_suspension_id" id="edit-rear-suspension">
+                                    <select name="rear_suspension_id" class="form-control" id="edit-rear-suspension-select">
+                                        <option value="">Selecione o tipo</option>
+                                        @foreach($suspensions as $suspension)
+                                            <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group">
@@ -1338,14 +1378,11 @@ function openEditModal(id) {
     document.getElementById('edit-quantity').value = motorcycle.quantity;
     
     // Marca, categoria e tipo de licença - preencher os IDs nos campos ocultos e os nomes nos campos de texto
-    document.getElementById('edit-brand').value = motorcycle.brand_id;
-    document.getElementById('edit-brand-text').value = motorcycle.brand_id ? motorcycle.brand.brand_name : '';
+    document.getElementById('edit-brand-select').value = motorcycle.brand_id;
     
-    document.getElementById('edit-category').value = motorcycle.Category;
-    document.getElementById('edit-category-text').value = motorcycle.category ? motorcycle.category.category_name : '';
+    document.getElementById('edit-category-select').value = motorcycle.Category;
     
-    document.getElementById('edit-license').value = motorcycle.license_type_id;
-    document.getElementById('edit-license-text').value = motorcycle.license_type_id ? motorcycle.license_type.type : '';
+    document.getElementById('edit-license-select').value = motorcycle.license_type_id;
 
     // Motor Section
     document.getElementById('edit-engine-type').value = motorcycle.engine_type || '';
@@ -1356,20 +1393,15 @@ function openEditModal(id) {
     document.getElementById('edit-max-torque').value = motorcycle.max_torque;
     
     // Sistemas - preencher os IDs nos campos ocultos e os nomes nos campos de texto
-    document.getElementById('edit-lubrication').value = motorcycle.lubrication_system_id;
-    document.getElementById('edit-lubrication-text').value = motorcycle.lubrication_system_id ? motorcycle.lubrication_system.system : '';
+    document.getElementById('edit-lubrication-select').value = motorcycle.lubrication_system_id;
     
-    document.getElementById('edit-clutch').value = motorcycle.clutch_type_id;
-    document.getElementById('edit-clutch-text').value = motorcycle.clutch_type_id ? motorcycle.clutch_type.type : '';
+    document.getElementById('edit-clutch-select').value = motorcycle.clutch_type_id;
     
-    document.getElementById('edit-ignition').value = motorcycle.ignition_system_id;
-    document.getElementById('edit-ignition-text').value = motorcycle.ignition_system_id ? motorcycle.ignition_system.system : '';
+    document.getElementById('edit-ignition-select').value = motorcycle.ignition_system_id;
     
-    document.getElementById('edit-starting').value = motorcycle.starting_system_id;
-    document.getElementById('edit-starting-text').value = motorcycle.starting_system_id ? motorcycle.starting_system.system : '';
+    document.getElementById('edit-starting-select').value = motorcycle.starting_system_id;
     
-    document.getElementById('edit-transmission').value = motorcycle.transmission_system_id;
-    document.getElementById('edit-transmission-text').value = motorcycle.transmission_system_id ? motorcycle.transmission_system.type : '';
+    document.getElementById('edit-transmission-select').value = motorcycle.transmission_system_id;
     
     document.getElementById('edit-drive').value = motorcycle.final_drive;
     document.getElementById('edit-fuel-consumption').value = motorcycle.fuel_consumption;
@@ -1381,12 +1413,9 @@ function openEditModal(id) {
     document.getElementById('edit-rake').value = motorcycle.rake_angle;
     document.getElementById('edit-trail').value = motorcycle.trail;
     
-    // Suspensões - preencher os IDs nos campos ocultos e os nomes nos campos de texto
-    document.getElementById('edit-front-suspension').value = motorcycle.front_suspension_id;
-    document.getElementById('edit-front-suspension-text').value = motorcycle.front_suspension_id ? motorcycle.front_suspension.type : '';
-    
-    document.getElementById('edit-rear-suspension').value = motorcycle.rear_suspension_id;
-    document.getElementById('edit-rear-suspension-text').value = motorcycle.rear_suspension_id ? motorcycle.rear_suspension.type : '';
+    // Suspensões - preencher os selects
+    document.getElementById('edit-front-suspension-select').value = motorcycle.front_suspension_id;
+    document.getElementById('edit-rear-suspension-select').value = motorcycle.rear_suspension_id;
     
     document.getElementById('edit-front-travel').value = motorcycle.front_travel;
     document.getElementById('edit-rear-travel').value = motorcycle.rear_travel;

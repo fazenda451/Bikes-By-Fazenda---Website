@@ -1082,7 +1082,29 @@ public function update_suspensions(Request $request, $id)
         'startingSystem', 'transmissionSystem', 'frontSuspension', 'rearSuspension', 'photos'
     ])->get();
 
-    return view('admin.view_motorcycle', compact('motorcycles'));
+    // Buscar dados para os selects do formulário de edição
+    $brands = Brand::all();
+    $categories = Category::all();
+    $license_types = LicenseType::all();
+    $lubrication_systems = LubricationSystem::all();
+    $clutch_types = ClutchType::all();
+    $ignition_systems = IgnitionSystem::all();
+    $starting_systems = StartingSystem::all();
+    $transmission_systems = TransmissionSystem::all();
+    $suspensions = Suspension::all();
+
+    return view('admin.view_motorcycle', compact(
+        'motorcycles', 
+        'brands', 
+        'categories', 
+        'license_types',
+        'lubrication_systems',
+        'clutch_types',
+        'ignition_systems',
+        'starting_systems',
+        'transmission_systems',
+        'suspensions'
+    ));
 }
 
     /**

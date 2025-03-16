@@ -42,7 +42,7 @@
         
         .form-group {
             flex: 0 0 calc(33.333% - 20px);
-            margin: 0 10px 20px;
+            margin: 0 10px 25px;
         }
         
         @media (max-width: 992px) {
@@ -61,29 +61,32 @@
             display: block;
             font-size: 14px;
             color: #adb5bd;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .form-control {
             width: 100%;
-            height: 40px;
+            height: 45px;
             background-color: #2d3035;
             border: 1px solid #3d4148;
             color: white;
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 4px;
             font-size: 14px;
             transition: border-color 0.3s;
+            margin-bottom: 5px;
         }
         
         .form-control:focus {
             border-color: #9935dc;
             outline: none;
+            box-shadow: 0 0 0 2px rgba(153, 53, 220, 0.25);
         }
         
         textarea.form-control {
             height: 100px;
             resize: vertical;
+            padding: 12px 15px;
         }
         
         .form-hint {
@@ -93,6 +96,20 @@
             margin-top: 5px;
         }
         
+        select.form-control {
+            padding-right: 30px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23adb5bd' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px 12px;
+        }
+        
+        div[id$="_container"] .form-control {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        
         .btn-container {
             display: flex;
             justify-content: space-between;
@@ -100,7 +117,7 @@
         }
         
         .btn {
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 4px;
             font-size: 14px;
             font-weight: 500;
@@ -116,6 +133,8 @@
         
         .btn-primary:hover {
             background-color: #8024c0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .btn-secondary {
@@ -125,6 +144,8 @@
         
         .btn-secondary:hover {
             background-color: #4d5158;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .btn-danger {
@@ -134,6 +155,8 @@
         
         .btn-danger:hover {
             background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .alert-danger {
@@ -283,7 +306,8 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label required-field">Tipo de Motor</label>
-                                <input type="text" name="engine_type" class="form-control" placeholder="Digite o tipo de motor" maxlength="50" required>
+                                <input type="text" name="engine_type" class="form-control" maxlength="50" required>
+                                <span class="form-hint">Ex: 4-stroke, 2-cylinder, Liquid-cooled, DOHC, 4-valves</span>
                             </div>
                             
                             <div class="form-group">
@@ -295,7 +319,7 @@
                             <div class="form-group">
                                 <label class="form-label required-field">Diâmetro x Curso</label>
                                 <input type="text" name="bore_stroke" class="form-control" required>
-                                <span class="form-hint">Ex: 67mm x 42.5mm</span>
+                                <span class="form-hint">Ex: 67 x 42.5</span>
                             </div>
                             
                             <div class="form-group">
@@ -305,13 +329,15 @@
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label required-field">Potência Máxima (cv)</label>
+                                <label class="form-label required-field">Potência Máxima (kW)</label>
                                 <input type="number" step="any" name="max_power" class="form-control" required>
+                                <span class="form-hint">Ex: 100, 150, 200, 300</span>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label required-field">Torque Máximo (Nm)</label>
                                 <input type="number" step="any" name="max_torque" class="form-control" required>
+                                <span class="form-hint">Ex: 100, 150, 200, 300</span>
                             </div>
                             
                             <div class="form-group">
@@ -637,8 +663,8 @@
             const textInputs = document.querySelectorAll('input[type="text"]');
             textInputs.forEach(input => {
                 input.addEventListener('input', function() {
-                    // Remove caracteres não alfanuméricos e espaços extras
-                    this.value = this.value.replace(/[^a-zA-Z0-9\s\-.,()]/g, '').trim();
+                    // Remove caracteres especiais mas permite espaços
+                    this.value = this.value.replace(/[^\w\s\-.,()]/g, '');
                 });
             });
             
