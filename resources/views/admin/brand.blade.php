@@ -270,95 +270,96 @@
     
     <div class="page-content">
       <div class="container-fluid">
-        <div class="content-wrapper">
-          <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-tags"></i> Gerenciamento de Marcas</h1>
-          </div>
-          
-          <!-- Estatísticas Rápidas -->
-          <div class="stats-container">
-            <div class="stat-card">
-              <div class="stat-icon stat-brands">
-                <i class="fas fa-tag"></i>
+          <div class="content-wrapper">
+              <div class="page-header">
+                  <h1 class="page-title"><i class="fas fa-tags"></i> Brand Management</h1>
               </div>
-              <div>
-                <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Total de Marcas</p>
+  
+              <!-- Quick Stats -->
+              <div class="stats-container">
+                  <div class="stat-card">
+                      <div class="stat-icon stat-brands">
+                          <i class="fas fa-tag"></i>
+                      </div>
+                      <div>
+                          <h2 class="stat-value">{{ count($data) }}</h2>
+                          <p class="stat-label">Total Brands</p>
+                      </div>
+                  </div>
+  
+                  <div class="stat-card">
+                      <div class="stat-icon stat-products">
+                          <i class="fas fa-motorcycle"></i>
+                      </div>
+                      <div>
+                          <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
+                          <p class="stat-label">Registered Motorcycles</p>
+                      </div>
+                  </div>
               </div>
-            </div>
-            
-            <div class="stat-card">
-              <div class="stat-icon stat-products">
-                <i class="fas fa-motorcycle"></i>
+  
+              <!-- Add Brand Form -->
+              <div class="form-container">
+                  <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Brand</h3>
+                  <form action="{{url('add_brand')}}" method="post">
+                      @csrf 
+                      <div class="form-group">
+                          <input type="text" name="brand" class="form-control" placeholder="Enter brand name" required />
+                          <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-save"></i> Save
+                          </button>
+                      </div>
+                  </form>
               </div>
-              <div>
-                <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
+  
+              <!-- Search Bar -->
+              <div class="search-container">
+                  <i class="fas fa-search"></i>
+                  <input type="text" id="searchInput" class="search-input" placeholder="Search brands..." oninput="searchBrands()">
               </div>
-            </div>
-          </div>
-          
-          <!-- Formulário de Adição -->
-          <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Nova Marca</h3>
-            <form action="{{url('add_brand')}}" method="post">
-              @csrf 
-              <div class="form-group">
-                <input type="text" name="brand" class="form-control" placeholder="Digite o nome da marca" required />
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
-                </button>
+  
+              <!-- Brands Table -->
+              <div class="table-container">
+                  @if(count($data) > 0)
+                  <table class="data-table" id="brandsTable">
+                      <thead>
+                          <tr>
+                              <th>Brand Name</th>
+                              <th>Motorcycles</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($data as $brand)
+                          <tr>
+                              <td>{{ $brand->brand_name }}</td>
+                              <td>{{ \App\Models\Motorcycle::where('brand_id', $brand->id)->count() }}</td>
+                              <td>
+                                  <div class="action-buttons">
+                                      <a href="{{ url('edit_brand', $brand->id) }}" class="btn btn-success">
+                                          <i class="fas fa-edit"></i> Edit
+                                      </a>
+                                      <a onclick="confirmDelete(event, '{{ $brand->brand_name }}')" href="{{ url('delete_brand', $brand->id) }}" class="btn btn-danger">
+                                          <i class="fas fa-trash"></i> Delete
+                                      </a>
+                                  </div>
+                              </td>
+                          </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+                  @else
+                  <div class="empty-state">
+                      <i class="fas fa-tag"></i>
+                      <h3>No brands found</h3>
+                      <p>Add your first brand using the form above.</p>
+                  </div>
+                  @endif
               </div>
-            </form>
           </div>
-          
-          <!-- Barra de Pesquisa -->
-          <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar marcas..." oninput="searchBrands()">
-          </div>
-          
-          <!-- Tabela de Marcas -->
-          <div class="table-container">
-            @if(count($data) > 0)
-            <table class="data-table" id="brandsTable">
-              <thead>
-                <tr>
-                  <th>Nome da Marca</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($data as $brand)
-                <tr>
-                  <td>{{ $brand->brand_name }}</td>
-                  <td>{{ \App\Models\Motorcycle::where('brand_id', $brand->id)->count() }}</td>
-                  <td>
-                    <div class="action-buttons">
-                      <a href="{{ url('edit_brand', $brand->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
-                      </a>
-                      <a onclick="confirmDelete(event, '{{ $brand->brand_name }}')" href="{{ url('delete_brand', $brand->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-            @else
-            <div class="empty-state">
-              <i class="fas fa-tag"></i>
-              <h3>Nenhuma marca encontrada</h3>
-              <p>Adicione sua primeira marca usando o formulário acima.</p>
-            </div>
-            @endif
-          </div>
-        </div>
       </div>
-    </div>
+  </div>
+  
     
     @include('admin.js')
     
