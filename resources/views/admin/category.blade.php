@@ -272,10 +272,10 @@
       <div class="container-fluid">
         <div class="content-wrapper">
           <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-layer-group"></i> Gerenciamento de Categorias</h1>
+            <h1 class="page-title"><i class="fas fa-layer-group"></i> Category Management</h1>
           </div>
           
-          <!-- Estatísticas Rápidas -->
+          <!-- Quick Stats -->
           <div class="stats-container">
             <div class="stat-card">
               <div class="stat-icon stat-categories">
@@ -283,7 +283,7 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Total de Categorias</p>
+                <p class="stat-label">Total Categories</p>
               </div>
             </div>
             
@@ -293,40 +293,40 @@
               </div>
               <div>
                 <h2 class="stat-value">{{ \App\Models\Product::count() }}</h2>
-                <p class="stat-label">Produtos Cadastrados</p>
+                <p class="stat-label">Registered Products</p>
               </div>
             </div>
           </div>
           
-          <!-- Formulário de Adição -->
+          <!-- Add Category Form -->
           <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Nova Categoria</h3>
+            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Category</h3>
             <form action="{{url('add_category')}}" method="post">
               @csrf 
               <div class="form-group">
-                <input type="text" name="category" class="form-control" placeholder="Digite o nome da categoria" required />
+                <input type="text" name="category" class="form-control" placeholder="Enter category name" required />
                 <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
+                  <i class="fas fa-save"></i> Save
                 </button>
               </div>
             </form>
           </div>
           
-          <!-- Barra de Pesquisa -->
+          <!-- Search Bar -->
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar categorias..." oninput="searchCategories()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search categories..." oninput="searchCategories()">
           </div>
           
-          <!-- Tabela de Categorias -->
+          <!-- Categories Table -->
           <div class="table-container">
             @if(count($data) > 0)
             <table class="data-table" id="categoriesTable">
               <thead>
                 <tr>
-                  <th>Nome da Categoria</th>
-                  <th>Produtos</th>
-                  <th>Ações</th>
+                  <th>Category Name</th>
+                  <th>Products</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -337,10 +337,10 @@
                   <td>
                     <div class="action-buttons">
                       <a href="{{ url('edit_category', $category->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fas fa-edit"></i> Edit
                       </a>
                       <a onclick="confirmDelete(event, '{{ $category->category_name }}')" href="{{ url('delete_category', $category->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
+                        <i class="fas fa-trash"></i> Delete
                       </a>
                     </div>
                   </td>
@@ -351,8 +351,8 @@
             @else
             <div class="empty-state">
               <i class="fas fa-folder-open"></i>
-              <h3>Nenhuma categoria encontrada</h3>
-              <p>Adicione sua primeira categoria usando o formulário acima.</p>
+              <h3>No categories found</h3>
+              <p>Add your first category using the form above.</p>
             </div>
             @endif
           </div>
@@ -380,7 +380,7 @@
       
       function confirmDelete(event, categoryName) {
         event.preventDefault();
-        if (confirm(`Tem certeza que deseja excluir a categoria "${categoryName}"?`)) {
+        if (confirm(`Are you sure you want to delete the category "${categoryName}"?`)) {
           window.location.href = event.target.closest('a').href;
         }
       }
