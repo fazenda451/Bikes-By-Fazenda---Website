@@ -240,61 +240,61 @@
     
    @include('admin.sidebar')
       <!-- Sidebar Navigation end-->
-      <div class="page-content">
-        <div class="page-header">
-          <h1 class="page-title"><i class="fas fa-tags"></i> Atualizar Categoria</h1>
-          
-          <div class="form-container">
-            <div class="form-header">
-              <h2>Editar Informações da Categoria</h2>
-              <p>Atualize os detalhes da categoria para organizar seus produtos e motocicletas</p>
-            </div>
-            
-            <div class="category-stats">
-              <div class="stat-card">
-                <i class="fas fa-motorcycle"></i>
-                <h4>Motocicletas</h4>
-                <p>Organização eficiente</p>
-              </div>
-              <div class="stat-card">
-                <i class="fas fa-shopping-cart"></i>
-                <h4>Produtos</h4>
-                <p>Melhor navegação</p>
-              </div>
-              <div class="stat-card">
-                <i class="fas fa-search"></i>
-                <h4>Pesquisa</h4>
-                <p>Facilita a busca</p>
-              </div>
-            </div>
-            
-            <div class="info-box">
-              <h3><i class="fas fa-info-circle"></i> Informação Importante</h3>
-              <p>As categorias são essenciais para organizar seu inventário. Escolha nomes claros e descritivos para facilitar a navegação dos clientes.</p>
-            </div>
-            
-            <form action="{{url('update_category', $data->id) }}" method="post">
-              @csrf
-              
-              <div class="form-group">
-                <label class="form-label"><i class="fas fa-tag"></i> Nome da Categoria</label>
-                <i class="fas fa-folder input-icon"></i>
-                <input type="text" name="category" value="{{$data->category_name}}" class="form-control" required placeholder="Ex: Esportivas, Off-road, Clássicas, etc.">
-              </div>
-              
-              <div class="buttons-container">
-                <a href="{{ url('view_category') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar Categoria</button>
-              </div>
-              
-              <div class="form-footer">
-                <i class="fas fa-clock"></i> Última atualização: {{ date('d/m/Y H:i') }}
-              </div>
-            </form>
-          </div>
+<div class="page-content">
+  <div class="page-header">
+    <h1 class="page-title"><i class="fas fa-tags"></i> Update Category</h1>
+    
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Edit Category Information</h2>
+        <p>Update the category details to organize your products and motorcycles</p>
+      </div>
+      
+      <div class="category-stats">
+        <div class="stat-card">
+          <i class="fas fa-motorcycle"></i>
+          <h4>Motorcycles</h4>
+          <p>Efficient organization</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-shopping-cart"></i>
+          <h4>Products</h4>
+          <p>Better navigation</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-search"></i>
+          <h4>Search</h4>
+          <p>Facilitates search</p>
         </div>
       </div>
-    
+      
+      <div class="info-box">
+        <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+        <p>Categories are essential for organizing your inventory. Choose clear and descriptive names to make navigation easier for customers.</p>
+      </div>
+      
+      <form action="{{url('update_category', $data->id) }}" method="post">
+        @csrf
+        
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-tag"></i> Category Name</label>
+          <i class="fas fa-folder input-icon"></i>
+          <input type="text" name="category" value="{{$data->category_name}}" class="form-control" required placeholder="E.g.: Sports, Off-road, Classic, etc.">
+        </div>
+        
+        <div class="buttons-container">
+          <a href="{{ url('view_category') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+          <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update Category</button>
+        </div>
+        
+        <div class="form-footer">
+          <i class="fas fa-clock"></i> Last update: {{ date('d/m/Y H:i') }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
     @include('admin.js')
   </body>
 </html> 
