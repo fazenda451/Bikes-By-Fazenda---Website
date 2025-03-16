@@ -660,7 +660,7 @@
                 
                 <div class="motorcycle-info">
                   <h3 class="motorcycle-title">{{ $motorcycle->model }}</h3>
-                  <div class="motorcycle-brand">{{ $motorcycle->brand->name }}</div>
+                  <div class="motorcycle-brand">{{ $motorcycle->name }}</div>
                   
                   <div class="motorcycle-specs">
                     <div class="spec-item">
