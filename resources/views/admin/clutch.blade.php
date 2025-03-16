@@ -270,95 +270,96 @@
     
     <div class="page-content">
       <div class="container-fluid">
-        <div class="content-wrapper">
-          <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-cog"></i> Gerenciamento de Tipos de Embreagem</h1>
-          </div>
-          
-          <!-- Estatísticas Rápidas -->
-          <div class="stats-container">
-            <div class="stat-card">
-              <div class="stat-icon stat-clutch">
-                <i class="fas fa-wrench"></i>
+          <div class="content-wrapper">
+              <div class="page-header">
+                  <h1 class="page-title"><i class="fas fa-cog"></i> Clutch Type Management</h1>
               </div>
-              <div>
-                <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Tipos de Embreagem</p>
+  
+              <!-- Quick Stats -->
+              <div class="stats-container">
+                  <div class="stat-card">
+                      <div class="stat-icon stat-clutch">
+                          <i class="fas fa-wrench"></i>
+                      </div>
+                      <div>
+                          <h2 class="stat-value">{{ count($data) }}</h2>
+                          <p class="stat-label">Clutch Types</p>
+                      </div>
+                  </div>
+  
+                  <div class="stat-card">
+                      <div class="stat-icon stat-motorcycles">
+                          <i class="fas fa-motorcycle"></i>
+                      </div>
+                      <div>
+                          <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
+                          <p class="stat-label">Registered Motorcycles</p>
+                      </div>
+                  </div>
               </div>
-            </div>
-            
-            <div class="stat-card">
-              <div class="stat-icon stat-motorcycles">
-                <i class="fas fa-motorcycle"></i>
+  
+              <!-- Add Clutch Type Form -->
+              <div class="form-container">
+                  <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Clutch Type</h3>
+                  <form action="{{url('add_clutch')}}" method="post">
+                      @csrf 
+                      <div class="form-group">
+                          <input type="text" name="ClutchType" class="form-control" placeholder="Enter clutch type" required />
+                          <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-save"></i> Save
+                          </button>
+                      </div>
+                  </form>
               </div>
-              <div>
-                <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
+  
+              <!-- Search Bar -->
+              <div class="search-container">
+                  <i class="fas fa-search"></i>
+                  <input type="text" id="searchInput" class="search-input" placeholder="Search clutch types..." oninput="searchClutch()">
               </div>
-            </div>
-          </div>
-          
-          <!-- Formulário de Adição -->
-          <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Novo Tipo de Embreagem</h3>
-            <form action="{{url('add_clutch')}}" method="post">
-              @csrf 
-              <div class="form-group">
-                <input type="text" name="ClutchType" class="form-control" placeholder="Digite o tipo de embreagem" required />
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
-                </button>
+  
+              <!-- Clutch Types Table -->
+              <div class="table-container">
+                  @if(count($data) > 0)
+                  <table class="data-table" id="clutchTable">
+                      <thead>
+                          <tr>
+                              <th>Clutch Type</th>
+                              <th>Motorcycles</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($data as $clutch)
+                          <tr>
+                              <td>{{ $clutch->type }}</td>
+                              <td>{{ \App\Models\Motorcycle::where('clutch_type_id', $clutch->id)->count() }}</td>
+                              <td>
+                                  <div class="action-buttons">
+                                      <a href="{{ url('edit_clutch', $clutch->id) }}" class="btn btn-success">
+                                          <i class="fas fa-edit"></i> Edit
+                                      </a>
+                                      <a onclick="confirmDelete(event, '{{ $clutch->type }}')" href="{{ url('delete_clutch', $clutch->id) }}" class="btn btn-danger">
+                                          <i class="fas fa-trash"></i> Delete
+                                      </a>
+                                  </div>
+                              </td>
+                          </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+                  @else
+                  <div class="empty-state">
+                      <i class="fas fa-wrench"></i>
+                      <h3>No clutch types found</h3>
+                      <p>Add your first clutch type using the form above.</p>
+                  </div>
+                  @endif
               </div>
-            </form>
           </div>
-          
-          <!-- Barra de Pesquisa -->
-          <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar tipos de embreagem..." oninput="searchClutch()">
-          </div>
-          
-          <!-- Tabela de Tipos de Embreagem -->
-          <div class="table-container">
-            @if(count($data) > 0)
-            <table class="data-table" id="clutchTable">
-              <thead>
-                <tr>
-                  <th>Tipo de Embreagem</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($data as $clutch)
-                <tr>
-                  <td>{{ $clutch->type }}</td>
-                  <td>{{ \App\Models\Motorcycle::where('clutch_type_id', $clutch->id)->count() }}</td>
-                  <td>
-                    <div class="action-buttons">
-                      <a href="{{ url('edit_clutch', $clutch->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
-                      </a>
-                      <a onclick="confirmDelete(event, '{{ $clutch->type }}')" href="{{ url('delete_clutch', $clutch->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-            @else
-            <div class="empty-state">
-              <i class="fas fa-wrench"></i>
-              <h3>Nenhum tipo de embreagem encontrado</h3>
-              <p>Adicione seu primeiro tipo de embreagem usando o formulário acima.</p>
-            </div>
-            @endif
-          </div>
-        </div>
       </div>
-    </div>
+  </div>
+  
     
     @include('admin.js')
     
