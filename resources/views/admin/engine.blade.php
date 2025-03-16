@@ -275,90 +275,88 @@
             <h1 class="page-title"><i class="fas fa-cogs"></i> Gerenciamento de Tipos de Motor</h1>
           </div>
           
-          <!-- Estatísticas Rápidas -->
-          <div class="stats-container">
-            <div class="stat-card">
-              <div class="stat-icon stat-engines">
-                <i class="fas fa-cog"></i>
-              </div>
-              <div>
-                <h2 class="stat-value">{{ count($data) }}</h2>
-                <p class="stat-label">Tipos de Motor</p>
-              </div>
-            </div>
-            
-            <div class="stat-card">
-              <div class="stat-icon stat-motorcycles">
-                <i class="fas fa-motorcycle"></i>
-              </div>
-              <div>
-                <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
-                <p class="stat-label">Motos Cadastradas</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Formulário de Adição -->
-          <div class="form-container">
-            <h3 class="form-title"><i class="fas fa-plus-circle"></i> Adicionar Novo Tipo de Motor</h3>
-            <form action="{{url('add_engine')}}" method="post">
-              @csrf 
-              <div class="form-group">
-                <input type="text" name="EngineType" class="form-control" placeholder="Digite o tipo de motor" required />
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Salvar
-                </button>
-              </div>
-            </form>
-          </div>
-          
-          <!-- Barra de Pesquisa -->
-          <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar tipos de motor..." oninput="searchEngines()">
-          </div>
-          
-          <!-- Tabela de Tipos de Motor -->
-          <div class="table-container">
-            @if(count($data) > 0)
-            <table class="data-table" id="enginesTable">
-              <thead>
-                <tr>
-                  <th>Tipo de Motor</th>
-                  <th>Motos</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($data as $engine)
-                <tr>
-                  <td>{{ $engine->type }}</td>
-                  <td>{{ \App\Models\Motorcycle::where('engine_type_id', $engine->id)->count() }}</td>
-                  <td>
-                    <div class="action-buttons">
+         <!-- Quick Stats -->
+<div class="stats-container">
+  <div class="stat-card">
+      <div class="stat-icon stat-engines">
+          <i class="fas fa-cog"></i>
+      </div>
+      <div>
+          <h2 class="stat-value">{{ count($data) }}</h2>
+          <p class="stat-label">Engine Types</p>
+      </div>
+  </div>
+
+  <div class="stat-card">
+      <div class="stat-icon stat-motorcycles">
+          <i class="fas fa-motorcycle"></i>
+      </div>
+      <div>
+          <h2 class="stat-value">{{ \App\Models\Motorcycle::count() }}</h2>
+          <p class="stat-label">Registered Motorcycles</p>
+      </div>
+  </div>
+</div>
+
+<!-- Add Engine Type Form -->
+<div class="form-container">
+  <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add New Engine Type</h3>
+  <form action="{{url('add_engine')}}" method="post">
+      @csrf 
+      <div class="form-group">
+          <input type="text" name="EngineType" class="form-control" placeholder="Enter engine type" required />
+          <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Save
+          </button>
+      </div>
+  </form>
+</div>
+
+<!-- Search Bar -->
+<div class="search-container">
+  <i class="fas fa-search"></i>
+  <input type="text" id="searchInput" class="search-input" placeholder="Search engine types..." oninput="searchEngines()">
+</div>
+
+<!-- Engine Types Table -->
+<div class="table-container">
+  @if(count($data) > 0)
+  <table class="data-table" id="enginesTable">
+      <thead>
+          <tr>
+              <th>Engine Type</th>
+              <th>Motorcycles</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach($data as $engine)
+          <tr>
+              <td>{{ $engine->type }}</td>
+              <td>{{ \App\Models\Motorcycle::where('engine_type_id', $engine->id)->count() }}</td>
+              <td>
+                  <div class="action-buttons">
                       <a href="{{ url('edit_engine', $engine->id) }}" class="btn btn-success">
-                        <i class="fas fa-edit"></i> Editar
+                          <i class="fas fa-edit"></i> Edit
                       </a>
                       <a onclick="confirmDelete(event, '{{ $engine->type }}')" href="{{ url('delete_engine', $engine->id) }}" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Excluir
+                          <i class="fas fa-trash"></i> Delete
                       </a>
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-            @else
-            <div class="empty-state">
-              <i class="fas fa-cog"></i>
-              <h3>Nenhum tipo de motor encontrado</h3>
-              <p>Adicione seu primeiro tipo de motor usando o formulário acima.</p>
-            </div>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
+                  </div>
+              </td>
+          </tr>
+          @endforeach
+      </tbody>
+  </table>
+  @else
+  <div class="empty-state">
+      <i class="fas fa-cog"></i>
+      <h3>No engine types found</h3>
+      <p>Add your first engine type using the form above.</p>
+  </div>
+  @endif
+</div>
+
     
     @include('admin.js')
     
