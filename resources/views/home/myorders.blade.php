@@ -20,7 +20,7 @@
                     </div>
                     <div class="list-group list-group-flush">
                         <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-user me-2"></i> Meu Perfil
+                            <i class="fas fa-user me-2"></i> My Profile
                         </a>
                         <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
                             <i class="fas fa-shopping-bag me-2"></i> My Orders

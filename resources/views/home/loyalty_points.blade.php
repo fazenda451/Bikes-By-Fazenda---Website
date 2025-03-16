@@ -12,40 +12,40 @@
     <!-- Menu lateral -->
     <div class="col-md-3">
       <div class="card shadow-sm">
-        <div class="card-body">
-          <div class="profile-header text-center mb-4">
-            <div class="profile-avatar mb-3">
-              <i class="fas fa-user-circle fa-4x text-primary"></i>
-            </div>
-            <h5 class="card-title fw-bold">{{ auth()->user()->name }}</h5>
-            <p class="text-muted">{{ auth()->user()->email }}</p>
+          <div class="card-body">
+              <div class="profile-header text-center mb-4">
+                  <div class="profile-avatar mb-3">
+                      <i class="fas fa-user-circle fa-4x text-primary"></i>
+                  </div>
+                  <h5 class="card-title fw-bold">{{ auth()->user()->name }}</h5>
+                  <p class="text-muted">{{ auth()->user()->email }}</p>
+              </div>
+              <div class="list-group list-group-flush">
+                  <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <i class="fas fa-user me-2"></i> My Profile
+                  </a>
+                  <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <i class="fas fa-shopping-bag me-2"></i> My Orders
+                  </a>
+                  <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
+                      <i class="fas fa-award me-2"></i> Loyalty Points
+                    </a>
+                  <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <i class="fas fa-heart me-2"></i> Wishlist
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <i class="fas fa-map-marker-alt me-2"></i> Addresses
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <i class="fas fa-credit-card me-2"></i> Payment Methods
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <i class="fas fa-cog me-2"></i> Settings
+                  </a>
+              </div>
           </div>
-          <div class="list-group list-group-flush">
-            <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-user me-2"></i> Meu Perfil
-            </a>
-            <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-shopping-bag me-2"></i> My Orders
-            </a>
-            <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action active d-flex align-items-center">
-              <i class="fas fa-award me-2"></i> Loyalty Points
-            </a>
-            <a href="{{ url('/wishlist') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-heart me-2"></i> Lista de Desejos
-            </a>
-            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-map-marker-alt me-2"></i> Endereços
-            </a>
-            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-credit-card me-2"></i> Cartões
-            </a>
-            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-              <i class="fas fa-cog me-2"></i> Configurações
-            </a>
-          </div>
-        </div>
       </div>
-    </div>
+  </div>
 
     <!-- Conteúdo principal -->
     <div class="col-md-9">
