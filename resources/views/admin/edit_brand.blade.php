@@ -5,20 +5,104 @@
   @include('admin.css')
 
   <style type="text/css">
-    .div_deg
-    {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin:60px;
+    .page-content {
+      padding: 30px;
+      background-color: #1a1a1a;
+      min-height: 100vh;
     }
 
-    input[type='text']
-    {
-      width: 400px;
-      height: 50px;
+    .page-header {
+      margin-bottom: 30px;
+    }
 
+    .page-title {
+      color: #9709e9;
+      font-size: 28px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #9709e9;
+    }
 
+    .form-container {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      color: #adb5bd;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      background-color: #333;
+      border: 1px solid #444;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 16px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: #9709e9;
+      box-shadow: 0 0 0 3px rgba(151, 9, 233, 0.25);
+      outline: none;
+    }
+
+    .btn-primary {
+      background-color: #9709e9;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s, transform 0.2s;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary:hover {
+      background-color: #7d0cff;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s, transform 0.2s;
+      display: inline-block;
+      text-align: center;
+      margin-right: 10px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 20px;
     }
   </style>
   
@@ -31,11 +115,9 @@
       <!-- Sidebar Navigation end-->
       <div class="page-content">
         <div class="page-header">
-          <div class="container-fluid">
-
-          <h1 style="color: white;">Update Brand</h1>
+          <h1 class="page-title">Atualizar Marca</h1>
            
-        <div class="div_deg">
+        <div class="form-container">
 
             
 
@@ -43,9 +125,15 @@
 
               @csrf
 
-                <input type="text" name="brand" value="{{$data->brand_name}}">
-
-                <input class="btn btn-primary" type="submit" value="Update Brand">
+                <div class="form-group">
+                    <label class="form-label">Nome da Marca</label>
+                    <input type="text" name="brand" value="{{$data->brand_name}}" class="form-control" required>
+                </div>
+                
+                <div class="buttons-container">
+                    <a href="{{ url('view_brand') }}" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">Atualizar Marca</button>
+                </div>
             </form>
 
         </div>

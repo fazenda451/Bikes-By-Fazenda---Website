@@ -251,9 +251,6 @@
                 <i class="fa-solid fa-gears"></i>Motorcycle Specs </a>
                 <ul id="SpecsdropdownDropdown" class="collapse list-unstyled ">
                   <li>
-                    <a href="{{url('view_engine')}}"><i class="fa-solid fa-gear"></i>Engine </a>
-                  </li>
-                  <li>
                     <a href="{{url('view_lubrication')}}"><i class="fa fa-droplet"></i>Lubrication Systems </a>
                   </li>
                   <li>
