@@ -386,12 +386,12 @@
         <div class="login-row">
           <div class="login-image">
             <div class="login-image-overlay">
-              <h2 class="login-image-title animate__animated animate__fadeInUp">Bem-vindo de volta!</h2>
-              <p class="login-image-text animate__animated animate__fadeInUp animate__delay-1s">Entre na sua conta para acessar suas compras, favoritos e aproveitar ofertas exclusivas para membros.</p>
+              <h2 class="login-image-title animate__animated animate__fadeInUp">Welcome back!</h2>
+              <p class="login-image-text animate__animated animate__fadeInUp animate__delay-1s">Log into your account to access your purchases, favorites, and enjoy exclusive member offers.</p>
             </div>
           </div>
           <div class="login-form">
-            <h2 class="login-title animate__animated animate__fadeInDown">Acessar Conta</h2>
+            <h2 class="login-title animate__animated animate__fadeInDown">Sign In</h2>
             
     <!-- Session Status -->
             @if (session('status'))
@@ -455,7 +455,7 @@
               </div>
               
               <div class="social-login">
-                <div class="social-login-title">Ou entre com</div>
+                <div class="social-login-title">Or sign in with</div>
                 <div class="social-buttons">
                   <a href="#" class="social-button facebook">
                     <i class="fab fa-facebook-f"></i>
@@ -470,7 +470,7 @@
               </div>
               
               <div class="register-link">
-                Não tem uma conta? <a href="{{ route('register') }}">Registre-se agora</a>
+                Don't have an account? <a href="{{ route('register') }}">Register now</a>
               </div>
             </form>
           </div>
@@ -478,6 +478,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- Footer -->
   @include('home.footer')
