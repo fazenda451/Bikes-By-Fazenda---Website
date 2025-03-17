@@ -655,6 +655,12 @@
           <h2 class="filter-title">Advanced Filters</h2>
           
           <form action="{{ route('motorcycle.catalog') }}" method="GET" class="filter-form">
+            <!-- Search by Name -->
+            <div class="filter-group">
+              <label class="filter-label" for="searchName">Search by Name</label>
+              <input type="text" id="searchName" name="search" class="filter-input" placeholder="Enter motorcycle name..." value="{{ request('search') }}">
+            </div>
+
             <div class="filter-group">
               <label class="filter-label">License Type</label>
               <select name="license_type" class="filter-select">

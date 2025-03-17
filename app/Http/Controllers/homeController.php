@@ -517,101 +517,55 @@ class homeController extends Controller
 
     public function motorcycleCatalog(Request $request)
     {
-        // Obter todas as marcas e tipos de licença para os filtros
-        $brands = \App\Models\Brand::all();
-        $licenseTypes = \App\Models\LicenseType::all();
-        
-        // Obter apenas categorias que têm motos associadas
-        $categories = \App\Models\Category::whereHas('motorcycles', function($query) {
-            $query->where('id', '>', 0);
-        })->get();
-        
-        // Iniciar a query
-        $query = Motorcycle::with(['brand', 'licenseType', 'photos', 'category']);
-        
-        // Aplicar filtros
-        if ($request->has('license_type') && $request->license_type) {
+        $query = Motorcycle::query();
+
+        // Search by name
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where('name', 'LIKE', "%{$search}%");
+        }
+
+        // Existing filters
+        if ($request->has('license_type') && !empty($request->license_type)) {
             $query->where('license_type_id', $request->license_type);
         }
-        
-        if ($request->has('brand') && $request->brand) {
+
+        if ($request->has('brand') && !empty($request->brand)) {
             $query->where('brand_id', $request->brand);
         }
-        
-        if ($request->has('category') && $request->category) {
-            $query->where('Category', $request->category);
-        }
-        
-        if ($request->has('power') && $request->power) {
-            // Verifica se o valor termina com '+' e não contém hífen
-            if (str_ends_with($request->power, '+') && !str_contains($request->power, '-')) {
-                // Remove o '+' do final e usa o valor como mínimo
-                $min = str_replace('+', '', $request->power);
-                $query->whereRaw('CAST(displacement AS DECIMAL(10,2)) >= ?', [$min]);
-            } else {
-                // Caso normal com hífen
-                list($min, $max) = explode('-', $request->power);
-                if ($max == '+') {
-                    $query->whereRaw('CAST(displacement AS DECIMAL(10,2)) >= ?', [$min]);
-                } else {
-                    $query->whereRaw('CAST(displacement AS DECIMAL(10,2)) BETWEEN ? AND ?', [$min, $max]);
-                }
-            }
-        }
-        
-        if ($request->has('min_price') && $request->min_price) {
+
+        if ($request->has('min_price') && !empty($request->min_price)) {
             $query->where('price', '>=', $request->min_price);
         }
-        
-        if ($request->has('max_price') && $request->max_price) {
+
+        if ($request->has('max_price') && !empty($request->max_price)) {
             $query->where('price', '<=', $request->max_price);
         }
-        
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('model', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
-            });
+
+        if ($request->has('category') && !empty($request->category)) {
+            $query->where('Category', $request->category);
         }
-        
-        // Ordenação
-        if ($request->has('sort')) {
-            switch ($request->sort) {
-                case 'price_asc':
-                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
-                    break;
-                case 'price_desc':
-                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
-                    break;
-                case 'name_asc':
-                    $query->orderBy('name', 'asc');
-                    break;
-                case 'name_desc':
-                    $query->orderBy('name', 'desc');
-                    break;
-                case 'newest':
-                    $query->orderBy('created_at', 'desc');
-                    break;
-                default:
-                    $query->orderBy('id', 'desc'); // Recomendado (padrão)
-            }
-        } else {
-            $query->orderBy('id', 'desc'); // Ordenação padrão
+
+        // Get the filtered results with eager loading
+        $motorcycles = $query->with(['brand', 'licenseType', 'photos'])->paginate(9);
+
+        // Get data for filter dropdowns with all columns
+        $brands = \App\Models\Brand::all();
+        $licenseTypes = \App\Models\LicenseType::all();
+        $categories = \App\Models\Category::all();
+
+        if(Auth::id())
+        {
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id',$userid)->count();
         }
-        
-        // Paginação
-        $motorcycles = $query->paginate(9);
-        
-        // Verificar se o usuário está logado para o contador do carrinho
-        if (Auth::id()) {
-            $user_id = Auth::user()->id;
-            $count = Cart::where('user_id', $user_id)->count();
-            return view('home.Motorcycle_catalog', compact('motorcycles', 'brands', 'licenseTypes', 'categories', 'count'));
-        } else {
-            return view('home.Motorcycle_catalog', compact('motorcycles', 'brands', 'licenseTypes', 'categories'));
+        else
+        {
+            $count = '';
         }
+
+        return view('home.motorcycle_catalog', compact('motorcycles', 'brands', 'licenseTypes', 'categories', 'count'));
     }
 
     public function productCatalog(Request $request)
