@@ -343,17 +343,48 @@
         flex: 1 1 100%;
       }
     }
+
+    /* Estilo para o loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-image {
+      width: 600px;
+      height: 600px;
+      object-fit: contain;
+    }
   </style>
 
 </head>
 
 <body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay">
+    <img src="{{ asset('images/loading.gif') }}" alt="Loading..." class="loading-image">
+  </div>
+  
   <div class="hero_area">
-    <!-- header section strats -->
-
+    <!-- header section starts -->
     @include('home.header')
-
-    <!-- end header section --> 
+    <!-- end header section -->
   </div>
   
   <!-- Products details start -->
@@ -590,6 +621,29 @@
         quantityInput.value = currentValue - 1;
       }
     }
+    
+    // Loading overlay
+    document.addEventListener('DOMContentLoaded', function() {
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      
+      // Ativar loading overlay para o formulário de adicionar ao carrinho
+      const addToCartForm = document.querySelector('form[action*="add_cart"]');
+      if (addToCartForm && loadingOverlay) {
+        addToCartForm.addEventListener('submit', function() {
+          loadingOverlay.classList.add('active');
+        });
+      }
+      
+      // Ativar loading overlay para os links de navegação
+      const navigationLinks = document.querySelectorAll('a:not([href="#"])');
+      navigationLinks.forEach(link => {
+        if (!link.getAttribute('href').startsWith('#') && !link.hasAttribute('data-bs-toggle')) {
+          link.addEventListener('click', function() {
+            loadingOverlay.classList.add('active');
+          });
+        }
+      });
+    });
   </script>
 </body>
 

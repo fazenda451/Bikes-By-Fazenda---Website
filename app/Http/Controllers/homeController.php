@@ -521,8 +521,13 @@ class homeController extends Controller
         $brands = \App\Models\Brand::all();
         $licenseTypes = \App\Models\LicenseType::all();
         
+        // Obter apenas categorias que têm motos associadas
+        $categories = \App\Models\Category::whereHas('motorcycles', function($query) {
+            $query->where('id', '>', 0);
+        })->get();
+        
         // Iniciar a query
-        $query = Motorcycle::with(['brand', 'licenseType', 'photos']);
+        $query = Motorcycle::with(['brand', 'licenseType', 'photos', 'category']);
         
         // Aplicar filtros
         if ($request->has('license_type') && $request->license_type) {
@@ -531,6 +536,10 @@ class homeController extends Controller
         
         if ($request->has('brand') && $request->brand) {
             $query->where('brand_id', $request->brand);
+        }
+        
+        if ($request->has('category') && $request->category) {
+            $query->where('Category', $request->category);
         }
         
         if ($request->has('power') && $request->power) {
@@ -599,11 +608,10 @@ class homeController extends Controller
         if (Auth::id()) {
             $user_id = Auth::user()->id;
             $count = Cart::where('user_id', $user_id)->count();
+            return view('home.Motorcycle_catalog', compact('motorcycles', 'brands', 'licenseTypes', 'categories', 'count'));
         } else {
-            $count = '';
+            return view('home.Motorcycle_catalog', compact('motorcycles', 'brands', 'licenseTypes', 'categories'));
         }
-        
-        return view('home.motorcycle_catalog', compact('motorcycles', 'brands', 'licenseTypes', 'count'));
     }
 
     public function productCatalog(Request $request)

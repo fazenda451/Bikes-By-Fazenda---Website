@@ -553,10 +553,43 @@
         width: 100%;
       }
     }
+
+    /* Estilo para o loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-image {
+      width: 600px;
+      height: 600px;
+      object-fit: contain;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay">
+    <img src="{{ asset('images/loading.gif') }}" alt="Loading..." class="loading-image">
+  </div>
+  
   <div class="hero_area">
     <!-- header section starts -->
     @include('home.header')
@@ -585,7 +618,7 @@
       <div class="col-lg-4 col-xl-3">
         <div class="filter-section" id="filterSection">
           <h2 class="filter-title">Filters</h2>
-          <form action="{{ route('product.catalog') }}" method="GET">
+          <form action="{{ route('product.catalog') }}" method="GET" class="filter-form">
             <div class="filter-group">
               <label class="filter-label">Category</label>
               <select name="category" class="filter-select">
@@ -756,6 +789,52 @@
           }
         });
       }
+      
+      // Loading overlay
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      const filterForm = document.querySelector('.filter-form');
+      
+      if (filterForm && loadingOverlay) {
+        filterForm.addEventListener('submit', function() {
+          loadingOverlay.classList.add('active');
+        });
+      }
+      
+      // Aplicar filtros automaticamente ao mudar os selects
+      const filterSelects = document.querySelectorAll('.filter-select');
+      filterSelects.forEach(select => {
+        select.addEventListener('change', function() {
+          // Mostrar loading overlay
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+          
+          // Enviar o formulário automaticamente após um pequeno delay
+          setTimeout(() => {
+            this.closest('form').submit();
+          }, 300);
+        });
+      });
+      
+      // Ativar loading overlay para os links de paginação
+      const paginationItems = document.querySelectorAll('.pagination .page-link');
+      paginationItems.forEach(link => {
+        link.addEventListener('click', function() {
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+        });
+      });
+      
+      // Ativar loading overlay para os links de produtos
+      const productLinks = document.querySelectorAll('.product-card a');
+      productLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+        });
+      });
       
       // Disable cart buttons for out-of-stock products
       const cartButtons = document.querySelectorAll('.btn-cart[disabled]');

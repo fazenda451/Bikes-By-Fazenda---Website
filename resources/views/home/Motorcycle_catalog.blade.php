@@ -91,6 +91,11 @@
       box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
     }
     
+    .filter-select option:checked {
+      background-color: #9935dc;
+      color: white;
+    }
+    
     .price-range {
       display: flex;
       gap: 10px;
@@ -102,8 +107,22 @@
     }
     
     .price-separator {
+      margin: 0 5px;
       color: #6c757d;
-      font-weight: 600;
+    }
+
+    .price-inputs {
+      display: flex;
+      align-items: center;
+    }
+    
+    .filter-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
     .filter-buttons {
@@ -512,10 +531,101 @@
     .fade.show {
       opacity: 1;
     }
+
+    .filter-select option:checked {
+      background-color: #9935dc;
+      color: white;
+    }
+    
+    .filter-select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    .filter-select:focus {
+      border-color: #9935dc;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+
+    /* Estilos para filtros ativos */
+    .active-filters {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+    }
+    
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      background-color: #e9ecef;
+      color: #495057;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .filter-tag:hover {
+      background-color: #dee2e6;
+    }
+    
+    .filter-tag-remove {
+      margin-left: 6px;
+      font-size: 1.1rem;
+      line-height: 1;
+      color: #6c757d;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .filter-tag-remove:hover {
+      color: #dc3545;
+    }
+    
+    /* Estilo para o loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-image {
+      width: 600px;
+      height: 600px;
+      object-fit: contain;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay">
+    <img src="{{ asset('images/loading.gif') }}" alt="Loading..." class="loading-image">
+  </div>
+  
   <div class="hero_area">
     <!-- header section starts -->
     @include('home.header')
@@ -543,9 +653,10 @@
       <div class="col-lg-4 col-xl-3">
         <div class="filter-section" id="filterSection">
           <h2 class="filter-title">Advanced Filters</h2>
-          <form action="{{ route('motorcycle.catalog') }}" method="GET">
+          
+          <form action="{{ route('motorcycle.catalog') }}" method="GET" class="filter-form">
             <div class="filter-group">
-              <label class="filter-label">Required License</label>
+              <label class="filter-label">License Type</label>
               <select name="license_type" class="filter-select">
                 <option value="">Select option(s)</option>
                 @foreach($licenseTypes as $licenseType)
@@ -583,11 +694,23 @@
             </div>
 
             <div class="filter-group">
+              <label class="filter-label">Category</label>
+              <select name="category" class="filter-select">
+                <option value="">All categories</option>
+                @foreach($categories as $category)
+                  <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                    {{ $category->category_name }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+
+            <div class="filter-group">
               <label class="filter-label">Price Range</label>
-              <div class="price-range">
-                <input type="number" name="min_price" class="filter-input" placeholder="Min €" value="{{ request('min_price') }}">
+              <div class="price-inputs">
+                <input type="number" name="min_price" placeholder="Min €" class="filter-input" value="{{ request('min_price') }}">
                 <span class="price-separator">-</span>
-                <input type="number" name="max_price" class="filter-input" placeholder="Max €" value="{{ request('max_price') }}">
+                <input type="number" name="max_price" placeholder="Max €" class="filter-input" value="{{ request('max_price') }}">
               </div>
             </div>
 
@@ -637,6 +760,63 @@
             <span class="text-muted">{{ request('sort') ? 'Sorted by: ' . ucfirst(str_replace('_', ' ', request('sort'))) : 'Sorted by: Recommended' }}</span>
           </div>
         </div>
+        
+        <!-- Active Filters -->
+        @if(request('brand') || request('category') || request('license_type') || request('power') || request('min_price') || request('max_price'))
+        <div class="active-filters mb-4">
+          <div class="d-flex align-items-center flex-wrap">
+            <span class="me-2 fw-bold">Active filters:</span>
+            
+            @if(request('brand'))
+              @php
+                $brandName = $brands->where('id', request('brand'))->first()->name ?? '';
+              @endphp
+              <div class="filter-tag">
+                Brand: {{ $brandName }}
+                <a href="{{ route('motorcycle.catalog', array_merge(request()->except('brand'), ['page' => 1])) }}" class="filter-tag-remove">×</a>
+              </div>
+            @endif
+            
+            @if(request('category'))
+              @php
+                $categoryName = $categories->where('id', request('category'))->first()->category_name ?? '';
+              @endphp
+              <div class="filter-tag">
+                Category: {{ $categoryName }}
+                <a href="{{ route('motorcycle.catalog', array_merge(request()->except('category'), ['page' => 1])) }}" class="filter-tag-remove">×</a>
+              </div>
+            @endif
+            
+            @if(request('license_type'))
+              @php
+                $licenseName = $licenseTypes->where('id', request('license_type'))->first()->name ?? '';
+              @endphp
+              <div class="filter-tag">
+                License: {{ $licenseName }}
+                <a href="{{ route('motorcycle.catalog', array_merge(request()->except('license_type'), ['page' => 1])) }}" class="filter-tag-remove">×</a>
+              </div>
+            @endif
+            
+            @if(request('power'))
+              <div class="filter-tag">
+                Power: {{ request('power') }}
+                <a href="{{ route('motorcycle.catalog', array_merge(request()->except('power'), ['page' => 1])) }}" class="filter-tag-remove">×</a>
+              </div>
+            @endif
+            
+            @if(request('min_price') || request('max_price'))
+              <div class="filter-tag">
+                Price: {{ request('min_price') ? '€'.request('min_price') : '€0' }} - {{ request('max_price') ? '€'.request('max_price') : '∞' }}
+                <a href="{{ route('motorcycle.catalog', array_merge(request()->except(['min_price', 'max_price']), ['page' => 1])) }}" class="filter-tag-remove">×</a>
+              </div>
+            @endif
+            
+            <a href="{{ route('motorcycle.catalog') }}" class="btn btn-sm btn-outline-secondary ms-auto">
+              <i class="fas fa-times-circle"></i> Clear all
+            </a>
+          </div>
+        </div>
+        @endif
 
         @if($motorcycles->count() > 0)
           <div class="motorcycle-grid">
@@ -723,41 +903,72 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    // Script para melhorar a experiência do usuário com os filtros
     document.addEventListener('DOMContentLoaded', function() {
-      // Adicionar classes do Bootstrap à paginação
-      const paginationLinks = document.querySelectorAll('.pagination li');
-      paginationLinks.forEach(item => {
-        item.classList.add('page-item');
-        const link = item.querySelector('a, span');
-        if (link) {
-          link.classList.add('page-link');
-        }
-      });
+      // Mostrar/ocultar filtros em dispositivos móveis
+      const filterToggle = document.querySelector('.mobile-filter-toggle');
+      const filterSection = document.querySelector('.filter-section');
       
-      // Toggle de filtros em dispositivos móveis
-      const mobileFilterToggle = document.getElementById('mobileFilterToggle');
-      const filterSection = document.getElementById('filterSection');
-      
-      if (mobileFilterToggle && filterSection) {
-        mobileFilterToggle.addEventListener('click', function() {
+      if (filterToggle && filterSection) {
+        filterToggle.addEventListener('click', function() {
           filterSection.classList.toggle('active');
           
           if (filterSection.classList.contains('active')) {
-            mobileFilterToggle.innerHTML = '<i class="fas fa-times"></i> Hide Filters';
+            filterToggle.innerHTML = '<i class="fas fa-times"></i> Hide Filters';
           } else {
-            mobileFilterToggle.innerHTML = '<i class="fas fa-filter"></i> Show Filters';
+            filterToggle.innerHTML = '<i class="fas fa-filter"></i> Show Filters';
           }
         });
       }
       
-      // Inicializar os alertas do Bootstrap para que possam ser fechados
-      const alertClose = document.querySelector('.alert .btn-close');
-      if (alertClose) {
-        alertClose.addEventListener('click', function() {
-          this.closest('.alert').classList.remove('show');
+      // Loading overlay
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      const filterForm = document.querySelector('.filter-form');
+      
+      if (filterForm && loadingOverlay) {
+        filterForm.addEventListener('submit', function() {
+          loadingOverlay.classList.add('active');
+        });
+      }
+      
+      // Aplicar filtros automaticamente ao mudar os selects
+      const filterSelects = document.querySelectorAll('.filter-select');
+      filterSelects.forEach(select => {
+        select.addEventListener('change', function() {
+          // Destacar visualmente a opção selecionada
+          const selectedOption = this.options[this.selectedIndex];
+          if (selectedOption) {
+            selectedOption.style.backgroundColor = '#9935dc';
+            selectedOption.style.color = 'white';
+          }
+          
+          // Mostrar loading overlay
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+          
+          // Enviar o formulário automaticamente após um pequeno delay
           setTimeout(() => {
-            this.closest('.alert').remove();
-          }, 150);
+            this.closest('form').submit();
+          }, 300);
+        });
+      });
+      
+      // Ativar loading overlay para os links de remoção de filtro
+      const filterRemoveLinks = document.querySelectorAll('.filter-tag-remove');
+      filterRemoveLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+        });
+      });
+      
+      // Ativar loading overlay para o botão de limpar todos os filtros
+      const clearAllButton = document.querySelector('.active-filters .btn-outline-secondary');
+      if (clearAllButton && loadingOverlay) {
+        clearAllButton.addEventListener('click', function() {
+          loadingOverlay.classList.add('active');
         });
       }
     });

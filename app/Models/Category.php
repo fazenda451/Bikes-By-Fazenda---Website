@@ -21,4 +21,12 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    
+    /**
+     * Obtém as motos associadas a esta categoria.
+     */
+    public function motorcycles()
+    {
+        return $this->hasMany(Motorcycle::class, 'Category', 'id');
+    }
 }

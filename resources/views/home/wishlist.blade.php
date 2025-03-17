@@ -29,169 +29,7 @@
   <link href="{{asset('css/style.css')}}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{{asset('css/responsive.css')}}" rel="stylesheet" />
-</head>
-
-<body>
-  <div class="hero_area">
-    <!-- header section starts -->
-    @include('home.header')
-    <!-- end header section -->
-  </div>
-
-  <div class="container py-5">
-    <div class="row">
-      <!-- Menu lateral -->
-      <div class="col-md-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div class="profile-header text-center mb-4">
-                    <div class="profile-avatar mb-3">
-                        <i class="fas fa-user-circle fa-4x text-primary"></i>
-                    </div>
-                    <h5 class="card-title fw-bold">{{ auth()->user()->name }}</h5>
-                    <p class="text-muted">{{ auth()->user()->email }}</p>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-user me-2"></i> My Profile
-                    </a>
-                    <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-shopping-bag me-2"></i> My Orders
-                    </a>
-                    <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-award me-2"></i> Loyalty Points
-                      </a>
-                    <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action active d-flex align-items-center">
-                        <i class="fas fa-heart me-2"></i> Wishlist
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-map-marker-alt me-2"></i> Addresses
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-credit-card me-2"></i> Payment Methods
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-cog me-2"></i> Settings
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-      <!-- Conteúdo principal -->
-      <div class="col-md-9">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <h5 class="card-title fw-bold mb-0">My Wishlist</h5>
-            </div>
-
-            @if(session()->has('message'))
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session()->get('message') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            @endif
-
-            @if($wishlist_motorcycles->count() > 0)
-              <h2 class="section-title">Motorcycles</h2>
-              @foreach($wishlist_motorcycles as $item)
-                <div class="wishlist-item">
-                  <div class="wishlist-image">
-                    @if($item->motorcycle->photos->isNotEmpty())
-                      <img src="{{ asset('motorcycles/' . $item->motorcycle->photos->first()->image) }}" alt="{{ $item->motorcycle->name }}">
-                    @else
-                      <img src="{{ asset('images/no-image.jpg') }}" alt="No image available">
-                    @endif
-                    @if($item->motorcycle->licenseType)
-                      <div class="license-badge">{{ $item->motorcycle->licenseType->name }}</div>
-                    @endif
-                  </div>
-                  <div class="wishlist-info">
-                    <div>
-                      <h3 class="wishlist-name">{{ $item->motorcycle->name }}</h3>
-                      <div class="wishlist-brand">{{ $item->motorcycle->brand->brand_name }}</div>
-                      <div class="wishlist-price">
-                        @if($item->motorcycle->price)
-                          {{ number_format($item->motorcycle->price, 2, ',', '.') }}€
-                        @else
-                          Preço sob consulta
-                        @endif
-                      </div>
-                    </div>
-                    <div class="wishlist-actions">
-                      <a href="{{ url('motorcycle_details', $item->motorcycle->id) }}" class="btn-action btn-view">
-                        <i class="fas fa-eye"></i> View Details
-                      </a>
-                      <a href="{{ route('move.to.cart', $item->id) }}" class="btn-action btn-cart">
-                        <i class="fas fa-shopping-cart"></i> Move to Cart
-                      </a>
-                      <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
-                        <i class="fas fa-trash-alt"></i> Remove
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              @endforeach
-            @endif
-
-            @if($wishlist_products->count() > 0)
-              <h2 class="section-title">Products</h2>
-              @foreach($wishlist_products as $item)
-                <div class="wishlist-item">
-                  <div class="wishlist-image">
-                    <img src="/products/{{$item->product->image}}" alt="{{ $item->product->title }}">
-                  </div>
-                  <div class="wishlist-info">
-                    <div>
-                      <h3 class="wishlist-name">{{ $item->product->title }}</h3>
-                      <div class="wishlist-brand">{{ $item->product->category->category_name }}</div>
-                      <div class="wishlist-price">
-                        @if($item->product->discount_price)
-                          <span style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 0.5rem;">{{ number_format($item->product->price, 2, ',', '.') }}€</span>
-                          {{ number_format($item->product->discount_price, 2, ',', '.') }}€
-                        @else
-                          {{ number_format($item->product->price, 2, ',', '.') }}€
-                        @endif
-                      </div>
-                    </div>
-                    <div class="wishlist-actions">
-                      <a href="{{ url('product_details', $item->product->id) }}" class="btn-action btn-view">
-                        <i class="fas fa-eye"></i> View Details
-                      </a>
-                      <a href="{{ route('move.to.cart', $item->id) }}" class="btn-action btn-cart">
-                        <i class="fas fa-shopping-cart"></i> Move to Cart
-                      </a>
-                      <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
-                        <i class="fas fa-trash-alt"></i> Remove
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              @endforeach
-            @endif
-
-            @if($wishlist_motorcycles->count() == 0 && $wishlist_products->count() == 0)
-              <div class="wishlist-empty">
-                <i class="fas fa-heart-broken"></i>
-                <h3>Your wishlist is empty</h3>
-                <p>Add items to your wishlist to save them for later.</p>
-                <div class="explore-buttons">
-                  <a href="{{ route('motorcycle.catalog') }}" class="btn-action btn-view">
-                    <i class="fas fa-motorcycle"></i> Explore Motorcycles
-                  </a>
-                  <a href="{{ route('product.catalog') }}" class="btn-action btn-view">
-                    <i class="fas fa-tshirt"></i> Explore Products
-                  </a>
-                </div>
-              </div>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  
   <style>
     /* Estilos minimalistas para a lista de desejos */
     :root {
@@ -505,7 +343,202 @@
     .text-primary {
       color: #9935dc !important;
     }
+
+    /* Estilo para o loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-image {
+      width: 600px;
+      height: 600px;
+      object-fit: contain;
+    }
   </style>
+</head>
+
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay">
+    <img src="{{ asset('images/loading.gif') }}" alt="Loading..." class="loading-image">
+  </div>
+  
+  <div class="hero_area">
+    <!-- header section starts -->
+    @include('home.header')
+    <!-- end header section -->
+  </div>
+
+  <div class="container py-5">
+    <div class="row">
+      <!-- Menu lateral -->
+      <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="profile-header text-center mb-4">
+                    <div class="profile-avatar mb-3">
+                        <i class="fas fa-user-circle fa-4x text-primary"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">{{ auth()->user()->name }}</h5>
+                    <p class="text-muted">{{ auth()->user()->email }}</p>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-user me-2"></i> My Profile
+                    </a>
+                    <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-shopping-bag me-2"></i> My Orders
+                    </a>
+                    <a href="{{ route('loyalty.points') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-award me-2"></i> Loyalty Points
+                      </a>
+                    <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action active d-flex align-items-center">
+                        <i class="fas fa-heart me-2"></i> Wishlist
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-map-marker-alt me-2"></i> Addresses
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-credit-card me-2"></i> Payment Methods
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-cog me-2"></i> Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- Conteúdo principal -->
+      <div class="col-md-9">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="card-title fw-bold mb-0">My Wishlist</h5>
+            </div>
+
+            @if(session()->has('message'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session()->get('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            @endif
+
+            @if($wishlist_motorcycles->count() > 0)
+              <h2 class="section-title">Motorcycles</h2>
+              @foreach($wishlist_motorcycles as $item)
+                <div class="wishlist-item">
+                  <div class="wishlist-image">
+                    @if($item->motorcycle->photos->isNotEmpty())
+                      <img src="{{ asset('motorcycles/' . $item->motorcycle->photos->first()->image) }}" alt="{{ $item->motorcycle->name }}">
+                    @else
+                      <img src="{{ asset('images/no-image.jpg') }}" alt="No image available">
+                    @endif
+                    @if($item->motorcycle->licenseType)
+                      <div class="license-badge">{{ $item->motorcycle->licenseType->name }}</div>
+                    @endif
+                  </div>
+                  <div class="wishlist-info">
+                    <div>
+                      <h3 class="wishlist-name">{{ $item->motorcycle->name }}</h3>
+                      <div class="wishlist-brand">{{ $item->motorcycle->brand->brand_name }}</div>
+                      <div class="wishlist-price">
+                        @if($item->motorcycle->price)
+                          {{ number_format($item->motorcycle->price, 2, ',', '.') }}€
+                        @else
+                          Preço sob consulta
+                        @endif
+                      </div>
+                    </div>
+                    <div class="wishlist-actions">
+                      <a href="{{ url('motorcycle_details', $item->motorcycle->id) }}" class="btn-action btn-view">
+                        <i class="fas fa-eye"></i> View Details
+                      </a>
+                      <a href="{{ route('move.to.cart', $item->id) }}" class="btn-action btn-cart">
+                        <i class="fas fa-shopping-cart"></i> Move to Cart
+                      </a>
+                      <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
+                        <i class="fas fa-trash-alt"></i> Remove
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @endif
+
+            @if($wishlist_products->count() > 0)
+              <h2 class="section-title">Products</h2>
+              @foreach($wishlist_products as $item)
+                <div class="wishlist-item">
+                  <div class="wishlist-image">
+                    <img src="/products/{{$item->product->image}}" alt="{{ $item->product->title }}">
+                  </div>
+                  <div class="wishlist-info">
+                    <div>
+                      <h3 class="wishlist-name">{{ $item->product->title }}</h3>
+                      <div class="wishlist-brand">{{ $item->product->category->category_name }}</div>
+                      <div class="wishlist-price">
+                        @if($item->product->discount_price)
+                          <span style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 0.5rem;">{{ number_format($item->product->price, 2, ',', '.') }}€</span>
+                          {{ number_format($item->product->discount_price, 2, ',', '.') }}€
+                        @else
+                          {{ number_format($item->product->price, 2, ',', '.') }}€
+                        @endif
+                      </div>
+                    </div>
+                    <div class="wishlist-actions">
+                      <a href="{{ url('product_details', $item->product->id) }}" class="btn-action btn-view">
+                        <i class="fas fa-eye"></i> View Details
+                      </a>
+                      <a href="{{ route('move.to.cart', $item->id) }}" class="btn-action btn-cart">
+                        <i class="fas fa-shopping-cart"></i> Move to Cart
+                      </a>
+                      <a href="{{ route('delete.wishlist.item', $item->id) }}" class="btn-action btn-remove" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
+                        <i class="fas fa-trash-alt"></i> Remove
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @endif
+
+            @if($wishlist_motorcycles->count() == 0 && $wishlist_products->count() == 0)
+              <div class="wishlist-empty">
+                <i class="fas fa-heart-broken"></i>
+                <h3>Your wishlist is empty</h3>
+                <p>Add items to your wishlist to save them for later.</p>
+                <div class="explore-buttons">
+                  <a href="{{ route('motorcycle.catalog') }}" class="btn-action btn-view">
+                    <i class="fas fa-motorcycle"></i> Explore Motorcycles
+                  </a>
+                  <a href="{{ route('product.catalog') }}" class="btn-action btn-view">
+                    <i class="fas fa-tshirt"></i> Explore Products
+                  </a>
+                </div>
+              </div>
+            @endif
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -527,6 +560,23 @@
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Loading overlay
+    document.addEventListener('DOMContentLoaded', function() {
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      
+      // Ativar loading overlay para os links de navegação
+      const navigationLinks = document.querySelectorAll('a:not([href="#"])');
+      navigationLinks.forEach(link => {
+        if (!link.getAttribute('href').startsWith('#') && !link.hasAttribute('data-bs-toggle')) {
+          link.addEventListener('click', function() {
+            loadingOverlay.classList.add('active');
+          });
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
