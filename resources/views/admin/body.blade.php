@@ -25,14 +25,14 @@
 }
 
 .statistic-block .title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 8px;
     padding: 3px;
 }
 
 .statistic-block .number {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
 }
 
