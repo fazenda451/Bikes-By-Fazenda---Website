@@ -294,8 +294,8 @@
                         <div class="form-row">
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
                                 <label class="form-label required-field">Description</label>
-                                <textarea name="description" class="form-control" required maxlength="255"></textarea>
-                                <span class="form-hint">Detailed description of the motorcycle (maximum 255 characters)</span>
+                                <textarea name="description" class="form-control" required maxlength="250"></textarea>
+                                <span class="form-hint">Detailed description of the motorcycle (maximum 250 characters)</span>
                             </div>
                         </div>
                     </div>
