@@ -1017,4 +1017,20 @@ class homeController extends Controller
         return redirect('login');
     }
 
+    public function findStore()
+    {
+        if(Auth::id())
+        {
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id',$userid)->count();
+        }
+        else
+        {
+            $count = '';
+        }
+
+        return view('home.find_store', compact('count'));
+    }
+
 }

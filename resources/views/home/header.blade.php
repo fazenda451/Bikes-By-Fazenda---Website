@@ -33,6 +33,10 @@
 
         <!-- Área do usuário -->
         <div class="user-area">
+          <a href="{{url('/find-store')}}" class="btn btn-link">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="ms-2">Find a store</span>
+          </a>
           @if (Route::has('login'))
             @auth
               <div class="dropdown">

@@ -25,7 +25,7 @@
             </div>
             <div class="motorcycle-info">
               <h3 class="motorcycle-title">{{$motorcycle->model}}</h3>
-              <div class="motorcycle-subtitle">{{$motorcycle->brand->name}}</div>
+              <div class="motorcycle-subtitle">{{$motorcycle->name}}</div>
               <div class="motorcycle-price">
                 <span class="price">€{{number_format($motorcycle->price, 2)}}</span>
               </div>

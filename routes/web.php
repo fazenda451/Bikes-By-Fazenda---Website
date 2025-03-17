@@ -14,6 +14,9 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'home']);
 
+Route::get('/find-store', [HomeController::class, 'findStore'])
+    ->name('find.store');
+
 Route::get('/motorcycle-catalog', [HomeController::class, 'motorcycleCatalog'])
     ->name('motorcycle.catalog');
 
