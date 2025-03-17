@@ -546,13 +546,77 @@ class homeController extends Controller
             $query->where('Category', $request->category);
         }
 
+        // Filtro de cilindrada
+        if ($request->has('power') && !empty($request->power)) {
+            switch ($request->power) {
+                case '0-50':
+                    $query->where('displacement', '<=', 50);
+                    break;
+                case '51-125':
+                    $query->where('displacement', '>', 50)->where('displacement', '<=', 125);
+                    break;
+                case '126-250':
+                    $query->where('displacement', '>', 125)->where('displacement', '<=', 250);
+                    break;
+                case '251-500':
+                    $query->where('displacement', '>', 250)->where('displacement', '<=', 500);
+                    break;
+                case '501-750':
+                    $query->where('displacement', '>', 500)->where('displacement', '<=', 750);
+                    break;
+                case '751-1000':
+                    $query->where('displacement', '>', 750)->where('displacement', '<=', 1000);
+                    break;
+                case '1001+':
+                    $query->where('displacement', '>', 1000);
+                    break;
+            }
+        }
+
+        // Ordenação
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
         // Get the filtered results with eager loading
         $motorcycles = $query->with(['brand', 'licenseType', 'photos'])->paginate(9);
 
         // Get data for filter dropdowns with all columns
         $brands = \App\Models\Brand::all();
-        $licenseTypes = \App\Models\LicenseType::all();
-        $categories = \App\Models\Category::all();
+        
+        // Ordenar tipos de licença na ordem específica
+        $licenseTypes = \App\Models\LicenseType::orderByRaw("
+            CASE 
+                WHEN type = 'A' THEN 1
+                WHEN type = 'A1' THEN 2
+                WHEN type = 'A2' THEN 3
+                WHEN type = 'Competitive' THEN 4
+                ELSE 5
+            END
+        ")->get();
+        
+        // Obter apenas categorias que têm motos associadas
+        $categories = \App\Models\Category::whereHas('motorcycles')->get();
 
         if(Auth::id())
         {
