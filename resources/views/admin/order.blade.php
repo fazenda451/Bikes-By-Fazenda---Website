@@ -105,6 +105,26 @@
         color: #fff;
       }
 
+      .delivery-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .delivery-home {
+        background-color: #28a745;
+        color: #fff;
+      }
+
+      .delivery-store {
+        background-color: #07b9ff;
+        color: #fff;
+      }
+
       .btn-action {
         padding: 5px 10px;
         font-size: 0.8rem;
@@ -301,15 +321,16 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Nº Pedido</th>
-                      <th>Data</th>
-                      <th>Cliente</th>
-                      <th>Telefone</th>
-                      <th>Itens</th>
+                      <th>Order Number</th>
+                      <th>Date</th>
+                      <th>Customer</th>
+                      <th>Phone</th>
+                      <th>Delivery</th>
+                      <th>Items</th>
                       <th>Total</th>
-                    <th>Status</th>
-                      <th>Pagamento</th>
-                      <th>Ações</th>
+                      <th>Status</th>
+          
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="ordersTableBody">
@@ -346,22 +367,29 @@
                         <td>{{ $orderDate }}</td>
                         <td>{{ $firstItem->name }}</td>
                         <td>{{ $firstItem->phone }}</td>
-                        <td>{{ $orderItems->count() }} produtos</td>
+                        <td>
+                          @if($firstItem->delivery_method == 'home')
+                            <span class="delivery-badge delivery-home">
+                              <i class="fa fa-home"></i> Home
+                            </span>
+                          @else
+                            <span class="delivery-badge delivery-store">
+                              <i class="fa fa-store"></i> Shop: {{ $firstItem->store_location }}
+                            </span>
+                          @endif
+                        </td>
+                        <td>{{ $orderItems->count() }} products</td>
                         <td>{{ $orderTotal }}€</td>
                         <td>
                           <span class="status-badge {{ str_replace(' ', '-', $statusColors[$mainStatus] ?? '') }}">
                             {{ $statusText[$mainStatus] ?? $mainStatus }}
                           </span>
                         </td>
-                        <td>
-                          <span class="payment-badge payment-{{ str_replace(' ', '-', strtolower($firstItem->payment_status)) }}">
-                            {{ $firstItem->payment_status }}
-                          </span>
-                        </td>
+                        
                         <td>
                           <div class="btn-group">
                             <button class="btn-view-details" data-toggle="modal" data-target="#orderModal-{{ $orderNumber }}">
-                              <i class="fa fa-eye"></i> Detalhes
+                              <i class="fa fa-eye"></i> Details
                             </button>
                             </div>
                           </div>
@@ -372,8 +400,8 @@
                 </table>
                 <div id="noResults" class="no-results" style="display: none;">
                   <i class="fa fa-search fa-3x mb-3"></i>
-                  <h4>Nenhum pedido encontrado</h4>
-                  <p>Tente ajustar os critérios de pesquisa</p>
+                  <h4>No orders found</h4>
+                  <p>Try adjusting the search criteria</p>
                 </div>
               </div>
             </div>
@@ -417,25 +445,25 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="order-info">
-                      <div class="order-info-label">Cliente</div>
+                      <div class="order-info-label">Customer</div>
                       <div class="order-info-value">{{ $firstItem->name }}</div>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="order-info">
-                      <div class="order-info-label">Telefone</div>
+                      <div class="order-info-label">Phone</div>
                       <div class="order-info-value">{{ $firstItem->phone }}</div>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="order-info">
-                      <div class="order-info-label">Data</div>
+                      <div class="order-info-label">Date</div>
                       <div class="order-info-value">{{ $orderDate }}</div>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="order-info">
-                      <div class="order-info-label">Método de Pagamento</div>
+                      <div class="order-info-label">Payment Method</div>
                       <div class="order-info-value">{{ $firstItem->payment_status }}</div>
                     </div>
                   </div>
@@ -443,8 +471,26 @@
                 <div class="row mt-3">
                   <div class="col-12">
                     <div class="order-info">
-                      <div class="order-info-label">Endereço</div>
-                      <div class="order-info-value">{{ $firstItem->rec_address }}</div>
+                      <div class="order-info-label">Delivery Method</div>
+                      <div class="order-info-value">
+                        @if($firstItem->delivery_method == 'home')
+                          <span class="delivery-badge delivery-home">
+                            <i class="fa fa-home"></i> Home Delivery
+                          </span>
+                          <div class="mt-2">
+                            <strong>Address:</strong><br>
+                            {{ $firstItem->rec_address }}
+                          </div>
+                        @else
+                          <span class="delivery-badge delivery-store">
+                            <i class="fa fa-store"></i> Shop Delivery
+                          </span>
+                          <div class="mt-2">
+                            <strong>Location:</strong><br>
+                            {{ $firstItem->store_location }}
+                          </div>
+                        @endif
+                      </div>
                     </div>
                   </div>
                 </div>

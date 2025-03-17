@@ -132,9 +132,44 @@
                                 <div class="order-footer mt-3 pt-3 border-top">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <small class="text-muted">Delivery address:</small>
-                                            <div>{{$orderItems->first()->rec_address}}</div>
-                                            <div>Phone: {{$orderItems->first()->phone}}</div>
+                                            <small class="text-muted">Delivery method:</small>
+                                            <div>
+                                                @if($orderItems->first()->delivery_method == 'home')
+                                                    <span class="badge bg-info">
+                                                        <i class="fas fa-home me-1"></i> Home Delivery
+                                                    </span>
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">Delivery address:</small>
+                                                        <div>{{$orderItems->first()->rec_address}}</div>
+                                                    </div>
+                                                @else
+                                                    <span class="badge bg-primary">
+                                                        <i class="fas fa-store me-1"></i> Store Pickup
+                                                    </span>
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">Store location:</small>
+                                                        <div>
+                                                            @switch($orderItems->first()->store_location)
+                                                                @case('lisbon')
+                                                                    Lisbon Store - Av. da Liberdade 123
+                                                                    @break
+                                                                @case('porto')
+                                                                    Porto Store - Rua de Santa Catarina 456
+                                                                    @break
+                                                                @case('faro')
+                                                                    Faro Store - Rua de Santo António 789
+                                                                    @break
+                                                                @case('braga')
+                                                                    Braga Store - Avenida Central 101
+                                                                    @break
+                                                                @default
+                                                                    {{$orderItems->first()->store_location}}
+                                                            @endswitch
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="mt-2">Phone: {{$orderItems->first()->phone}}</div>
                                         </div>
                                         <div class="text-end">
                                             <small class="text-muted">Payment method:</small>

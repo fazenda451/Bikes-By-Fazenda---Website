@@ -20,7 +20,11 @@ class Order extends Model
         'status',
         'payment_status',
         'order_number',
-        'is_motorcycle'
+        'is_motorcycle',
+        'delivery_method',
+        'store_location',
+        'points_used',
+        'size'
     ];
 
     public function user()

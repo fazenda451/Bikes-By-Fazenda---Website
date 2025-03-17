@@ -836,6 +836,10 @@
       .cart-items-count {
         font-size: 0.8rem;
       }
+
+      .delivery-options {
+        flex-direction: column;
+      }
     }
 
     /* Estilos para carrinho vazio */
@@ -885,6 +889,57 @@
 
     .btn-continue-shopping i {
       margin-right: 0.5rem;
+    }
+
+    /* Delivery Options Styles */
+    .delivery-options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .delivery-option {
+      flex: 1;
+    }
+
+    .delivery-radio {
+      display: none;
+    }
+
+    .delivery-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .delivery-label i {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      color: #6c757d;
+      transition: all 0.3s;
+    }
+
+    .delivery-label span {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .delivery-radio:checked + .delivery-label {
+      border-color: #9935dc;
+      background-color: #f9f5ff;
+      box-shadow: 0 4px 8px rgba(153, 53, 220, 0.15);
+    }
+
+    .delivery-radio:checked + .delivery-label i {
+      color: #9935dc;
+      transform: scale(1.1);
     }
   </style>
 
@@ -1151,19 +1206,56 @@
                   <input type="text" name="name" value="{{Auth::user()->name}}" class="form-control" required>
                 </div>
 
+                <!-- Delivery Options -->
                 <div class="form-group">
-                  <label class="form-label">Delivery Address</label>
-                  <textarea name="address" class="form-control" required>{{Auth::user()->address}}</textarea>
+                  <label class="form-label">Delivery Method</label>
+                  <div class="delivery-options">
+                    <div class="delivery-option">
+                      <input type="radio" class="delivery-radio" name="delivery_method" id="delivery-home" value="home" checked>
+                      <label for="delivery-home" class="delivery-label">
+                        <i class="fas fa-home"></i>
+                        <span>Home Delivery</span>
+                      </label>
+                    </div>
+                    <div class="delivery-option">
+                      <input type="radio" class="delivery-radio" name="delivery_method" id="delivery-store" value="store">
+                      <label for="delivery-store" class="delivery-label">
+                        <i class="fas fa-store"></i>
+                        <span>Store Pickup</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="form-row">
-                  <div class="form-col">
-                    <label class="form-label">City</label>
-                    <input type="text" name="city" value="{{Auth::user()->city}}" class="form-control" required>
+                <!-- Store Selection (hidden by default) -->
+                <div class="form-group" id="store-selection" style="display: none;">
+                  <label class="form-label">Select Store Location</label>
+                  <select name="store_location" class="form-control">
+                    <option value="">Select a store...</option>
+                    <option value="lisbon">Lisbon Store - Av. da Liberdade 123</option>
+                    <option value="porto">Porto Store - Rua de Santa Catarina 456</option>
+                    <option value="faro">Faro Store - Rua de Santo António 789</option>
+                    <option value="braga">Braga Store - Avenida Central 101</option>
+                  </select>
+                  <small class="text-muted">You can pick up your order at the selected store during business hours (Mon-Sat: 10AM-7PM)</small>
+                </div>
+
+                <!-- Home Delivery Address (shown by default) -->
+                <div id="home-delivery-fields">
+                  <div class="form-group">
+                    <label class="form-label">Delivery Address</label>
+                    <textarea name="address" class="form-control" required>{{Auth::user()->address}}</textarea>
                   </div>
-                  <div class="form-col">
-                    <label class="form-label">Postal Code</label>
-                    <input type="text" name="zip_code" value="{{Auth::user()->zip_code}}" class="form-control" required>
+
+                  <div class="form-row">
+                    <div class="form-col">
+                      <label class="form-label">City</label>
+                      <input type="text" name="city" value="{{Auth::user()->city}}" class="form-control" required>
+                    </div>
+                    <div class="form-col">
+                      <label class="form-label">Postal Code</label>
+                      <input type="text" name="zip_code" value="{{Auth::user()->zip_code}}" class="form-control" required>
+                    </div>
                   </div>
                 </div>
 
@@ -1429,6 +1521,51 @@
         checkoutButton.addEventListener('click', function() {
           loadingOverlay.classList.add('active');
         });
+      }
+
+      // Delivery method toggle
+      const homeDeliveryRadio = document.getElementById('delivery-home');
+      const storeDeliveryRadio = document.getElementById('delivery-store');
+      const homeDeliveryFields = document.getElementById('home-delivery-fields');
+      const storeSelection = document.getElementById('store-selection');
+      
+      if (homeDeliveryRadio && storeDeliveryRadio) {
+        // Set initial state
+        toggleDeliveryFields();
+        
+        // Add event listeners
+        homeDeliveryRadio.addEventListener('change', toggleDeliveryFields);
+        storeDeliveryRadio.addEventListener('change', toggleDeliveryFields);
+        
+        function toggleDeliveryFields() {
+          if (homeDeliveryRadio.checked) {
+            homeDeliveryFields.style.display = 'block';
+            storeSelection.style.display = 'none';
+            
+            // Make address fields required
+            const addressFields = homeDeliveryFields.querySelectorAll('input, textarea');
+            addressFields.forEach(field => {
+              field.required = true;
+            });
+            
+            // Make store selection not required
+            const storeField = storeSelection.querySelector('select');
+            if (storeField) storeField.required = false;
+          } else {
+            homeDeliveryFields.style.display = 'none';
+            storeSelection.style.display = 'block';
+            
+            // Make address fields not required
+            const addressFields = homeDeliveryFields.querySelectorAll('input, textarea');
+            addressFields.forEach(field => {
+              field.required = false;
+            });
+            
+            // Make store selection required
+            const storeField = storeSelection.querySelector('select');
+            if (storeField) storeField.required = true;
+          }
+        }
       }
     });
   </script>

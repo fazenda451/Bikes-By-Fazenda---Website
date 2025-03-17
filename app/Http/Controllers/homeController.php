@@ -307,10 +307,16 @@ class homeController extends Controller
         $cart = Cart::where('user_id', $userid)->get();
         $usePoints = $request->has('use_points');
         $user = Auth::user();
+        
+        // Captura o método de entrega e localização da loja
+        $deliveryMethod = $request->delivery_method;
+        $storeLocation = $deliveryMethod === 'store' ? $request->store_location : null;
 
         // Log para debug
         Log::info('Dados do formulário:', $request->all());
         Log::info('Checkbox use_points: ' . ($usePoints ? 'marcado' : 'não marcado'));
+        Log::info('Método de entrega: ' . $deliveryMethod);
+        Log::info('Localização da loja (se aplicável): ' . $storeLocation);
         
         // Verifica se há estoque suficiente para todos os produtos (não motos)
         foreach ($cart as $item) {
@@ -396,6 +402,10 @@ class homeController extends Controller
             $order->rec_address = $address;
             $order->phone = $phone;
             $order->user_id = $userid;
+            
+            // Salva o método de entrega e localização da loja
+            $order->delivery_method = $deliveryMethod;
+            $order->store_location = $storeLocation;
             
             // Salva a informação de pontos usados apenas no primeiro item do pedido
             if ($pointsUsed > 0 && $cart->first()->id == $item->id) {
