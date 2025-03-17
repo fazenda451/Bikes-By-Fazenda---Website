@@ -59,11 +59,7 @@
     margin-bottom: 15px;
 }
 
-h2.h5 {
-    font-size: 20px;
-    margin: 15px 0;
-    padding: 0 15px;
-}
+
 
 .col-md-3, .col-md-6 {
     padding: 8px;
