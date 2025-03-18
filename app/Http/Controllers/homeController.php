@@ -719,27 +719,111 @@ class homeController extends Controller
 
     }
 
-    public function stripePost(Request $request,$value)
-
+    public function stripePost(Request $request, $value)
     {
-
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    
-
-        Stripe\Charge::create ([
-
+        try {
+            if(!Auth::check()) {
+                return redirect('login');
+            }
+            
+            $user = Auth::user();
+            $userid = $user->id;
+            $cart = Cart::where('user_id', $userid)->get();
+            
+            // Verificar se o carrinho está vazio
+            if($cart->isEmpty()) {
+                toastr()->timeOut(10000)->closebutton()->addError('Seu carrinho está vazio!');
+                return redirect('/');
+            }
+            
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            
+            // Processar o pagamento
+            Stripe\Charge::create([
                 "amount" => $value * 100,
-
                 "currency" => "eur",
-
                 "source" => $request->stripeToken,
-
-                "description" => "Test payment from complete." 
-
-        ]);      
-          return back();
-
+                "description" => "Pagamento na Bikes By Fazenda" 
+            ]);
+            
+            // Gerar número de pedido único
+            $orderNumber = 'ORD-' . time() . '-' . $userid;
+            
+            // Salvar os itens do pedido
+            foreach ($cart as $item) {
+                $order = new Order;
+                $order->order_number = $orderNumber;
+                $order->name = $user->name;
+                $order->rec_address = $user->address ?? 'Endereço não fornecido';
+                $order->phone = $user->phone ?? 'Telefone não fornecido';
+                $order->user_id = $userid;
+                $order->payment_status = 'Pago';
+                $order->status = 'Em Processamento';
+                
+                // Método de entrega padrão quando a compra é feita pelo Stripe
+                $order->delivery_method = 'delivery';
+                
+                if ($item->is_motorcycle) {
+                    $order->motorcycle_id = $item->motorcycle_id;
+                    $order->is_motorcycle = true;
+                } else {
+                    $order->product_id = $item->product_id;
+                    $order->quantity = $item->quantity;
+                    $order->size = $item->size;
+                    
+                    // Atualizar o estoque do produto
+                    $product = Product::find($item->product_id);
+                    if ($product) {
+                        $product->Quantity -= $item->quantity;
+                        $product->save();
+                    }
+                }
+                
+                $order->save();
+            }
+            
+            // Adicionar pontos ao usuário (10€ = 5 pontos)
+            $pointsEarned = floor(($value / 10) * 5);
+            if ($pointsEarned > 0) {
+                User::where('id', $user->id)->increment('Points', $pointsEarned);
+            }
+            
+            // Buscar os pedidos criados para enviar por email
+            $orderItems = Order::where('order_number', $orderNumber)
+                ->with(['product', 'motorcycle', 'motorcycle.photos'])
+                ->get();
+                
+            // Enviar email com a fatura
+            try {
+                Mail::to($user->email)->send(new OrderInvoice(
+                    $orderNumber, 
+                    $orderItems, 
+                    $user->name, 
+                    [
+                        'discount' => 0,
+                        'points_used' => 0,
+                        'total_before_discount' => $value,
+                        'total_after_discount' => $value
+                    ]
+                ));
+            } catch (\Exception $e) {
+                // Log do erro, mas não interrompe o fluxo
+                Log::error('Erro ao enviar email: ' . $e->getMessage());
+            }
+            
+            // Limpar o carrinho de compras
+            Cart::where('user_id', $userid)->delete();
+            
+            // Adicionar mensagem flash e redirecionar
+            flash()->addSuccess('Pagamento realizado com sucesso! Obrigado pela sua compra. Enviamos a fatura para seu email.');
+            
+            return redirect('/');
+        } catch (\Exception $e) {
+            // Em caso de erro, retornar com mensagem de erro
+            flash()->addError('Erro no processamento do pagamento: ' . $e->getMessage());
+            
+            return back();
+        }
     }
 
     public function add_cart_with_size(Request $request, $id)

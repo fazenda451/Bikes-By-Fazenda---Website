@@ -148,6 +148,9 @@
   <!-- Contact -->
   @include('home.contact')
 
+  <!-- flasher notification container -->
+  @flasher_render
+
   <!-- Footer -->
   @include('home.footer')
 
