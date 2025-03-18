@@ -979,5 +979,9 @@
       }
     });
   </script>
+  
+  <!-- PHPFlasher para notificações -->
+  @flasher_render
+  
 </body>
 </html>

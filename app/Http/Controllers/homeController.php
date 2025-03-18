@@ -23,10 +23,12 @@ use Stripe;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
- 
+
 use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Log;
+
+use Flasher\Toastr\Prime\ToastrFactory;
 
 use App\Mail\OrderInvoice;
  
@@ -735,9 +737,9 @@ class homeController extends Controller
                 toastr()->timeOut(10000)->closebutton()->addError('Seu carrinho está vazio!');
                 return redirect('/');
             }
-            
+
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-            
+
             // Processar o pagamento
             Stripe\Charge::create([
                 "amount" => $value * 100,
@@ -814,13 +816,13 @@ class homeController extends Controller
             // Limpar o carrinho de compras
             Cart::where('user_id', $userid)->delete();
             
-            // Adicionar mensagem flash e redirecionar
-            flash()->addSuccess('Pagamento realizado com sucesso! Obrigado pela sua compra. Enviamos a fatura para seu email.');
+            // Adicionar mensagem toastr e redirecionar
+            toastr()->timeOut(10000)->closebutton()->addSuccess('Pagamento realizado com sucesso! Obrigado pela sua compra. Enviamos a fatura para seu email.');
             
             return redirect('/');
         } catch (\Exception $e) {
             // Em caso de erro, retornar com mensagem de erro
-            flash()->addError('Erro no processamento do pagamento: ' . $e->getMessage());
+            toastr()->timeOut(10000)->closebutton()->addError('Erro no processamento do pagamento: ' . $e->getMessage());
             
             return back();
         }

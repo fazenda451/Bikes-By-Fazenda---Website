@@ -200,44 +200,44 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Finalizar Pagamento</h3>
-            </div>
-            
+                            </div>
+
             <div class="amount">
                 €{{ number_format($value, 2, ',', '.') }}
-            </div>
-            
+                        </div>
+
             <div class="card-body">
                 <div class="payment-info">
                     <i class="fas fa-lock"></i>
                     <span>Este é um pagamento seguro. Seus dados estão protegidos.</span>
-                </div>
-                
+                            </div>
+
                 @if (Session::has('success'))
                     <div class="alert alert-success">
                         <p>{{ Session::get('success') }}</p>
-                    </div>
+                        </div>
                 @endif
                 
                 <div class="error-message">
                     <i class="fas fa-exclamation-circle"></i>
                     <span id="error-text">Por favor, corrija os erros e tente novamente.</span>
-                </div>
-                
+                            </div>
+
                 <form id="payment-form" action="{{ route('stripe.post', $value) }}" method="post">
                     @csrf
                     
                     <div class="mb-3">
                         <label class="form-label">Nome no Cartão</label>
                         <input id="cardholder-name" class="form-control" type="text" placeholder="Nome completo conforme exibido no cartão" required>
-                    </div>
-                    
+                            </div>
+
                     <div class="mb-3">
                         <label class="form-label">Detalhes do Cartão</label>
                         <div id="card-element" class="card-element">
                             <!-- Os elementos do cartão Stripe serão inseridos aqui -->
                         </div>
-                    </div>
-                    
+                            </div>
+
                     <input type="hidden" id="stripeToken" name="stripeToken">
                     
                     <button id="card-button" class="btn btn-pay w-100" type="submit">
@@ -249,14 +249,14 @@
                         <i class="fab fa-cc-mastercard mx-1"></i>
                         <i class="fab fa-cc-amex mx-1"></i>
                         <i class="fab fa-cc-discover mx-1"></i>
-                    </div>
-                </form>
-            </div>
+                        </div>
+                    </form>
+            </div>        
         </div>
     </div>
     
     <script>
-        $(function() {
+$(function() {
             // Criar uma instância do Stripe usando sua chave pública
             const stripe = Stripe('{{ env('STRIPE_KEY') }}');
             
@@ -305,7 +305,7 @@
                 if (error) {
                     $('#error-text').text(error.message);
                     displayError.show();
-                } else {
+        } else {
                     displayError.hide();
                 }
             });
@@ -360,6 +360,10 @@
                 }
             });
         });
-    </script>
+</script>
+
+<!-- PHPFlasher para notificações -->
+@flasher_render
+
 </body>
 </html>
