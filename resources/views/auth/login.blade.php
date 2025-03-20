@@ -455,16 +455,10 @@
               </div>
               
               <div class="social-login">
-                <div class="social-login-title">Or sign in with</div>
+                <div class="social-login-title">Ou entre com</div>
                 <div class="social-buttons">
-                  <a href="#" class="social-button facebook">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="social-button google">
+                  <a href="{{ route('auth.google') }}" class="social-button google">
                     <i class="fab fa-google"></i>
-                  </a>
-                  <a href="#" class="social-button twitter">
-                    <i class="fab fa-twitter"></i>
                   </a>
                 </div>
               </div>
