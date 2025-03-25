@@ -374,7 +374,7 @@
                             </span>
                           @else
                             <span class="delivery-badge delivery-store">
-                              <i class="fa fa-store"></i> Shop: {{ $firstItem->store_location }}
+                              <i class="fa fa-store"></i> Shop
                             </span>
                           @endif
                         </td>
