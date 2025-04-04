@@ -173,18 +173,20 @@
 
         /* Estilos para os elementos do Stripe */
         .StripeElement {
-            background-color: #fff;
+            box-sizing: border-box;
+            height: 40px;
+            padding: 10px 12px;
             border: 1px solid #ced4da;
             border-radius: 5px;
-            padding: 12px;
-            width: 100%;
-            box-sizing: border-box;
-            transition: all 0.3s;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
         }
 
         .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
         }
 
         .StripeElement--invalid {
@@ -193,6 +195,13 @@
 
         .StripeElement--webkit-autofill {
             background-color: #fefde5 !important;
+        }
+
+        #card-errors {
+            color: #dc3545;
+            text-align: left;
+            font-size: 14px;
+            margin-top: 10px;
         }
         
         .payment-trust-badges {
@@ -351,8 +360,9 @@
                             <div class="mb-3">
                                 <label class="form-label">Detalhes do Cartão</label>
                                 <div id="card-element" class="card-element">
-                                    <!-- Os elementos do cartão Stripe serão inseridos aqui -->
+                                    <!-- O elemento do cartão será inserido aqui via JavaScript -->
                                 </div>
+                                <div id="card-errors" class="invalid-feedback" role="alert"></div>
                             </div>
     
                             <input type="hidden" id="stripeToken" name="stripeToken">
@@ -379,23 +389,31 @@
     
     <script>
     $(function() {
-        // Criar uma instância do Stripe usando sua chave pública
+        // Inicializa o Stripe com sua chave pública
         const stripe = Stripe('{{ env('STRIPE_KEY') }}');
-        
-        // Criar uma instância de elementos do Stripe
         const elements = stripe.elements({
             locale: 'pt',
+            appearance: {
+                theme: 'stripe',
+                variables: {
+                    colorPrimary: '#9935dc',
+                    colorBackground: '#ffffff',
+                    colorText: '#424770',
+                    colorDanger: '#dc3545',
+                    fontFamily: 'system-ui, sans-serif',
+                    spacingUnit: '4px',
+                    borderRadius: '4px',
+                }
+            }
         });
-        
-        // Criar o elemento do cartão e montá-lo no DOM
-        const cardElement = elements.create('card', {
+
+        // Cria o elemento do cartão
+        const card = elements.create('card', {
             hidePostalCode: true,
             style: {
                 base: {
-                    color: '#333',
-                    fontWeight: '400',
                     fontSize: '16px',
-                    fontSmoothing: 'antialiased',
+                    color: '#424770',
                     '::placeholder': {
                         color: '#aab7c4'
                     }
@@ -406,69 +424,60 @@
                 }
             }
         });
-        
-        cardElement.mount('#card-element');
-        
-        // Lidar com mudanças no elemento do cartão
-        cardElement.on('change', ({error}) => {
-            const displayError = $('.error-message');
-            if (error) {
-                $('#error-text').text(error.message);
-                displayError.show();
+
+        // Monta o elemento do cartão
+        card.mount('#card-element');
+
+        // Manipula erros de validação em tempo real
+        card.addEventListener('change', function(event) {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
             } else {
-                displayError.hide();
+                displayError.textContent = '';
             }
         });
-        
-        // Manipular o envio do formulário
+
+        // Manipula o envio do formulário
         const form = document.getElementById('payment-form');
         const cardButton = document.getElementById('card-button');
-        const errorElement = $('.error-message');
         const loadingOverlay = document.querySelector('.loading-overlay');
-        
-        form.addEventListener('submit', async (event) => {
+
+        form.addEventListener('submit', async function(event) {
             event.preventDefault();
             
+            // Desabilita o botão e mostra loading
             cardButton.disabled = true;
-            cardButton.textContent = 'Processando...';
+            cardButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processando...';
             loadingOverlay.classList.add('active');
-            
-            // Validar campos
-            const cardholderName = document.getElementById('cardholder-name').value;
-            if (!cardholderName) {
-                errorElement.show();
-                $('#error-text').text('Por favor, informe o nome no cartão');
-                cardButton.disabled = false;
-                cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pagar Agora';
-                loadingOverlay.classList.remove('active');
-                return;
-            }
-            
+
             try {
-                // Criar um token de cartão
-                const {token, error} = await stripe.createToken(cardElement, {
+                // Obtém o nome do titular do cartão
+                const cardholderName = document.getElementById('cardholder-name').value;
+                
+                // Cria o token do cartão
+                const {token, error} = await stripe.createToken(card, {
                     name: cardholderName
                 });
-                
+
                 if (error) {
-                    // Exibir erro
-                    errorElement.show();
-                    $('#error-text').text(error.message);
+                    const errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = error.message;
                     cardButton.disabled = false;
                     cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pagar Agora';
                     loadingOverlay.classList.remove('active');
                     return;
                 }
-                
-                // Se chegou aqui, significa que temos um token
+
+                // Adiciona o token ao formulário
                 document.getElementById('stripeToken').value = token.id;
-                
-                // Enviar o formulário
+
+                // Envia o formulário
                 form.submit();
             } catch (e) {
-                console.error(e);
-                errorElement.show();
-                $('#error-text').text('Ocorreu um erro ao processar o pagamento. Por favor, tente novamente.');
+                console.error('Erro:', e);
+                const errorElement = document.getElementById('card-errors');
+                errorElement.textContent = 'Ocorreu um erro ao processar o pagamento. Por favor, tente novamente.';
                 cardButton.disabled = false;
                 cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pagar Agora';
                 loadingOverlay.classList.remove('active');
