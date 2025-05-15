@@ -789,9 +789,8 @@ public function update_suspensions(Request $request, $id)
 
         return view('admin.add_motorcycle', compact(
             'categories', 
-            
+
             'brands', 
-            
             
             'license_types', 
             
@@ -1043,7 +1042,6 @@ public function update_suspensions(Request $request, $id)
             'ground_clearance', 
             'weight', 
             'fuel_tank_capacity',
-           
             'oil_tank_capacity'
         ])->toArray());
 
