@@ -349,7 +349,7 @@ Route::post('update_suspensions/{id}', [AdminController::class, 'update_suspensi
 
     Route::post('edit_motorcycle/{id}', [AdminController::class, 'edit_motorcycle'])
         ->middleware(['auth', 'admin'])
-        ->name('update_motorcycle'); // Adicione o nome da rota
+        ->name('update_motorcycle');
 
     Route::get('motorcycle_search', [AdminController::class, 'motorcycle_search'])
         ->middleware(['auth', 'admin']);

@@ -824,25 +824,37 @@
         </div>
         @endif
 
-        @if($motorcycles->count() > 0)
-          <div class="motorcycle-grid">
-            @foreach($motorcycles as $motorcycle)
-              <div class="motorcycle-card">
-                @if($motorcycle->created_at->diffInDays(now()) < 30)
-                  <div class="motorcycle-badge">New</div>
-                @endif
-                
-                <div class="motorcycle-image">
-                  @if($motorcycle->photos && $motorcycle->photos->isNotEmpty())
-                    <img src="{{ asset('motorcycles/' . $motorcycle->photos->first()->image) }}" alt="{{ $motorcycle->model }}">
-                  @else
-                    <img src="{{ asset('images/no-image.jpg') }}" alt="No image available">
-                  @endif
-                  
-                  @if($motorcycle->licenseType)
-                    <div class="license-badge">{{ $motorcycle->licenseType->name }}</div>
-                  @endif
-                </div>
+{{-- Verifica se existe pelo menos uma moto na coleção $motorcycles --}}
+@if($motorcycles->count() > 0)
+  <div class="motorcycle-grid"> {{-- Container para o grid das motos --}}
+    
+    {{-- Percorre cada moto da coleção --}}
+    @foreach($motorcycles as $motorcycle)
+      <div class="motorcycle-card"> {{-- Cartão individual de cada moto --}}
+        
+        {{-- Verifica se a moto foi criada há menos de 30 dias para exibir o selo "New" --}}
+        @if($motorcycle->created_at->diffInDays(now()) < 30)
+          <div class="motorcycle-badge">New</div> {{-- Selo de novidade --}}
+        @endif
+        
+        <div class="motorcycle-image"> {{-- Secção da imagem da moto --}}
+          
+          {{-- Verifica se a moto tem fotos e se a coleção não está vazia --}}
+          @if($motorcycle->photos && $motorcycle->photos->isNotEmpty())
+            {{-- Mostra a primeira imagem da moto --}}
+            <img src="{{ asset('motorcycles/' . $motorcycle->photos->first()->image) }}" alt="{{ $motorcycle->model }}">
+          @else
+            {{-- Se não tiver imagens, mostra uma imagem padrão --}}
+            <img src="{{ asset('images/no-image.jpg') }}" alt="No image available">
+          @endif
+          
+          {{-- Se a moto tiver um tipo de carta associado, mostra um selo com o nome da carta --}}
+          @if($motorcycle->licenseType)
+            <div class="license-badge">{{ $motorcycle->licenseType->name }}</div>
+          @endif
+          
+        </div> {{-- Fim da secção de imagem --}}
+
                 
                 <div class="motorcycle-info">
                   <h3 class="motorcycle-title">{{ $motorcycle->model }}</h3>

@@ -229,35 +229,35 @@ class AdminController extends Controller
         return view('admin.update_page', compact('data', 'category'));
     }
 
+    // Método responsável por editar um produto com base no ID recebido
     public function edit_product(Request $request, $id)
     {
+        // Procura o produto pelo ID
         $data = Product::find($id);
 
+        // Atualiza os campos com os dados vindos do formulário (requisição)
         $data->title = $request->title;
+        $data->description = $request->description;
+        $data->price = $request->price;
+        $data->Quantity = $request->quantity;
+        $data->category_id = $request->category_id;
+        $data->size = $request->size;
 
-         $data->description = $request->description;
-
-         $data->price = $request->price;
-
-         $data->Quantity = $request->quantity;
-
-         $data->category_id = $request->category_id;
-
-         $data->size = $request->size;
-
+        // Verifica se foi enviada uma nova imagem
         $image = $request->image;
+        if ($image) {
+        // Cria um nome único para a imagem baseado no timestamp atual
+        $imagename = time() . '.' . $image->getClientOriginalExtension();
 
-        if($image)
-        {
-            $imagename = time().'.'. $image->getClientOriginalExtension();
+        // Move a imagem para a pasta 'products' no servidor
+        $request->image->move('products', $imagename);
 
-            $request->image->move('products',$imagename);
+        // Atualiza o nome da imagem no banco de dados
+        $data->image = $imagename;
+    }
 
-            $data->image = $imagename;
-
-        }
-
-        $data->save();
+    // Salva as alterações no banco de dados
+    $data->save();
 
         toastr()->timeOut(10000)->closebutton() ->addSuccess('Product Updated Sucessfully');
 
