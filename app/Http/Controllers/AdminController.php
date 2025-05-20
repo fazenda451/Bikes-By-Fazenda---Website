@@ -127,78 +127,78 @@ class AdminController extends Controller
 
     public function view_product(Request $request)
     {
-        $query = Product::with('category');
-        
-        Log::info('Iniciando filtros de produtos');
-        Log::info('Parâmetros da requisição: ' . json_encode($request->all()));
-        
-        // Aplicar filtro de categoria
-        if ($request->has('category') && $request->category != 'all') {
-            $query->where('category_id', $request->category);
-            Log::info('Filtro de categoria aplicado: ' . $request->category);
-        }
-        
-        // Aplicar filtro de estoque
-        if ($request->has('stock') && $request->stock != 'all') {
-            Log::info('Aplicando filtro de estoque: ' . $request->stock);
-            switch ($request->stock) {
-                case 'in-stock':
-                    $query->whereRaw('Quantity > 0');
-                    Log::info('Filtro: Em estoque (Quantity > 0)');
-                    break;
-                case 'low-stock':
-                    $query->whereRaw('Quantity > 0 AND Quantity < 10');
-                    Log::info('Filtro: Estoque baixo (0 < Quantity < 10)');
-                    break;
-                case 'out-of-stock':
-                    $query->whereRaw('Quantity <= 0');
-                    Log::info('Filtro: Sem estoque (Quantity <= 0)');
-                    break;
-            }
-        }
-        
+       $query = Product::with('category');
+
+Log::info('Starting product filters');
+Log::info('Request parameters: ' . json_encode($request->all()));
+
+// Apply category filter
+if ($request->has('category') && $request->category != 'all') {
+    $query->where('category_id', $request->category);
+    Log::info('Category filter applied: ' . $request->category);
+}
+
+// Apply stock filter
+if ($request->has('stock') && $request->stock != 'all') {
+    Log::info('Applying stock filter: ' . $request->stock);
+    switch ($request->stock) {
+        case 'in-stock':
+            $query->whereRaw('Quantity > 0');
+            Log::info('Filter: In stock (Quantity > 0)');
+            break;
+        case 'low-stock':
+            $query->whereRaw('Quantity > 0 AND Quantity < 10');
+            Log::info('Filter: Low stock (0 < Quantity < 10)');
+            break;
+        case 'out-of-stock':
+            $query->whereRaw('Quantity <= 0');
+            Log::info('Filter: Out of stock (Quantity <= 0)');
+            break;
+    }
+}
+
         // Aplicar ordenação
         if ($request->has('sort')) {
-            Log::info('Aplicando ordenação: ' . $request->sort);
-            switch ($request->sort) {
-                case 'name-asc':
-                    $query->orderBy('title', 'asc');
-                    Log::info('Ordenação: Nome (A-Z)');
-                    break;
-                case 'name-desc':
-                    $query->orderBy('title', 'desc');
-                    Log::info('Ordenação: Nome (Z-A)');
-                    break;
-                case 'price-asc':
-                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
-                    Log::info('Ordenação: Preço (Menor-Maior)');
-                    break;
-                case 'price-desc':
-                    $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
-                    Log::info('Ordenação: Preço (Maior-Menor)');
-                    break;
-                case 'stock-asc':
-                    $query->orderByRaw('Quantity asc');
-                    Log::info('Ordenação: Estoque (Menor-Maior)');
-                    break;
-                case 'stock-desc':
-                    $query->orderByRaw('Quantity desc');
-                    Log::info('Ordenação: Estoque (Maior-Menor)');
-                    break;
-                default:
-                    $query->orderBy('id', 'desc');
-                    Log::info('Ordenação padrão: ID (desc)');
-            }
-        } else {
-            // Ordenação padrão
+    Log::info('Applying sorting: ' . $request->sort);
+    switch ($request->sort) {
+        case 'name-asc':
+            $query->orderBy('title', 'asc');
+            Log::info('Sorting: Name (A-Z)');
+            break;
+        case 'name-desc':
+            $query->orderBy('title', 'desc');
+            Log::info('Sorting: Name (Z-A)');
+            break;
+        case 'price-asc':
+            $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
+            Log::info('Sorting: Price (Low to High)');
+            break;
+        case 'price-desc':
+            $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
+            Log::info('Sorting: Price (High to Low)');
+            break;
+        case 'stock-asc':
+            $query->orderByRaw('Quantity asc');
+            Log::info('Sorting: Stock (Low to High)');
+            break;
+        case 'stock-desc':
+            $query->orderByRaw('Quantity desc');
+            Log::info('Sorting: Stock (High to Low)');
+            break;
+        default:
             $query->orderBy('id', 'desc');
-            Log::info('Ordenação padrão aplicada: ID (desc)');
-        }
-        
-        // Executar a consulta e obter os resultados
-        $product = $query->paginate(4);
-        
-        return view('admin.view_product', compact('product'));
+            Log::info('Default sorting: ID (desc)');
+    }
+} else {
+    // Default sorting
+    $query->orderBy('id', 'desc');
+    Log::info('Default sorting applied: ID (desc)');
+}
+
+// Execute the query and get the results
+$product = $query->paginate(4);
+
+return view('admin.view_product', compact('product'));
     }
 
     public function delete_product($id)

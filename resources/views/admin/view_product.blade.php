@@ -395,203 +395,204 @@
     @include('admin.header')
     @include('admin.sidebar')
 
-    <div class="page-content">
-        <div class="container-fluid">
-            <div class="content-wrapper">
-                <div class="page-header">
-                    <h1 class="page-title">Gerenciamento de Produtos</h1>
-                    <div class="action-buttons">
-                        <a href="{{ url('add_product') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Adicionar Produto
-                        </a>
-                        <button class="btn btn-info" onclick="window.print()">
-                            <i class="fas fa-print"></i> Imprimir
-                        </button>
-                    </div>
+ <div class="page-content">
+    <div class="container-fluid">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Product Management</h1>
+                <div class="action-buttons">
+                    <a href="{{ url('add_product') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Product
+                    </a>
+                    <button class="btn btn-info" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
                 </div>
-               
-                <!-- Estatísticas Rápidas -->
-                <div class="stats-container">
-                    <div class="stat-card">
-                        <div class="stat-icon stat-products">
-                            <i class="fas fa-box"></i>
-                        </div>
-                        <div>
-                            <h2 class="stat-value">{{ $product->total() }}</h2>
-                            <p class="stat-label">Total de Produtos</p>
-                        </div>
+            </div>
+           
+            <!-- Quick Stats -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon stat-products">
+                        <i class="fas fa-box"></i>
                     </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon stat-categories">
-                            <i class="fas fa-tags"></i>
-                        </div>
-                        <div>
-                            <h2 class="stat-value">{{ \App\Models\Category::count() }}</h2>
-                            <p class="stat-label">Categorias</p>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon stat-stock">
-                            <i class="fas fa-warehouse"></i>
-                        </div>
-                        <div>
-                            <h2 class="stat-value">{{ $product->sum('Quantity') }}</h2>
-                            <p class="stat-label">Itens em Estoque</p>
-                        </div>
+                    <div>
+                        <h2 class="stat-value">{{ $product->total() }}</h2>
+                        <p class="stat-label">Total Products</p>
                     </div>
                 </div>
                 
-                <!-- Barra de Pesquisa -->
-                <form action="{{ url('product_search') }}" method="get">
-                    @csrf
-                    <div class="search-container">
-                        <i class="fas fa-search"></i>
-                        <input type="search" name="search" class="search-input" placeholder="Buscar produtos por nome, categoria ou descrição..." value="{{ request('search') }}">
-                        <button type="submit" class="search-button">Buscar</button>
+                <div class="stat-card">
+                    <div class="stat-icon stat-categories">
+                        <i class="fas fa-tags"></i>
                     </div>
-                </form>
-                
-                <!-- Filtros -->
-                <div class="filters-container">
-                    <div class="filter-item">
-                        <span class="filter-label">Ordenar por:</span>
-                        <select class="filter-select" id="sort-select">
-                            <option value="name-asc" {{ request('sort') == 'name-asc' ? 'selected' : '' }}>Nome (A-Z)</option>
-                            <option value="name-desc" {{ request('sort') == 'name-desc' ? 'selected' : '' }}>Nome (Z-A)</option>
-                            <option value="price-asc" {{ request('sort') == 'price-asc' ? 'selected' : '' }}>Preço (Menor-Maior)</option>
-                            <option value="price-desc" {{ request('sort') == 'price-desc' ? 'selected' : '' }}>Preço (Maior-Menor)</option>
-                            
-                        </select>
-                    </div>
-                    
-                    <div class="filter-item">
-                        <span class="filter-label">Categoria:</span>
-                        <select class="filter-select" id="category-filter">
-                            <option value="all">Todas as Categorias</option>
-                            @foreach(\App\Models\Category::all() as $category)
-                                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
-                    <div class="filter-item">
-                        <span class="filter-label">Estoque:</span>
-                        <select class="filter-select" id="stock-filter">
-                            <option value="all" {{ request('stock') == 'all' || !request('stock') ? 'selected' : '' }}>Todos</option>
-                            <option value="in-stock" {{ request('stock') == 'in-stock' ? 'selected' : '' }}>Em Estoque</option>
-                            <option value="low-stock" {{ request('stock') == 'low-stock' ? 'selected' : '' }}>Estoque Baixo (&lt; 10)</option>
-                            <option value="out-of-stock" {{ request('stock') == 'out-of-stock' ? 'selected' : '' }}>Sem Estoque</option>
-                        </select>
+                    <div>
+                        <h2 class="stat-value">{{ \App\Models\Category::count() }}</h2>
+                        <p class="stat-label">Categories</p>
                     </div>
                 </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon stat-stock">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div>
+                        <h2 class="stat-value">{{ $product->sum('Quantity') }}</h2>
+                        <p class="stat-label">Items in Stock</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <form action="{{ url('product_search') }}" method="get">
+                @csrf
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="search" name="search" class="search-input" placeholder="Search products by name, category, or description..." value="{{ request('search') }}">
+                    <button type="submit" class="search-button">Search</button>
+                </div>
+            </form>
+            
+            <!-- Filters -->
+            <div class="filters-container">
+                <div class="filter-item">
+                    <span class="filter-label">Sort by:</span>
+                    <select class="filter-select" id="sort-select">
+                        <option value="name-asc" {{ request('sort') == 'name-asc' ? 'selected' : '' }}>Name (A-Z)</option>
+                        <option value="name-desc" {{ request('sort') == 'name-desc' ? 'selected' : '' }}>Name (Z-A)</option>
+                        <option value="price-asc" {{ request('sort') == 'price-asc' ? 'selected' : '' }}>Price (Low-High)</option>
+                        <option value="price-desc" {{ request('sort') == 'price-desc' ? 'selected' : '' }}>Price (High-Low)</option>
+                    </select>
+                </div>
+                
+                <div class="filter-item">
+                    <span class="filter-label">Category:</span>
+                    <select class="filter-select" id="category-filter">
+                        <option value="all">All Categories</option>
+                        @foreach(\App\Models\Category::all() as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div class="filter-item">
+                    <span class="filter-label">Stock:</span>
+                    <select class="filter-select" id="stock-filter">
+                        <option value="all" {{ request('stock') == 'all' || !request('stock') ? 'selected' : '' }}>All</option>
+                        <option value="in-stock" {{ request('stock') == 'in-stock' ? 'selected' : '' }}>In Stock</option>
+                        <option value="low-stock" {{ request('stock') == 'low-stock' ? 'selected' : '' }}>Low Stock (&lt; 10)</option>
+                        <option value="out-of-stock" {{ request('stock') == 'out-of-stock' ? 'selected' : '' }}>Out of Stock</option>
+                    </select>
+                </div>
+            </div>
+
                 
                 <!-- Tabela de Produtos -->
                 @if($product->count() > 0)
-                <div class="table-responsive">
-                    <table class="products-table">
-                        <thead>
-                            <tr>
-                                <th>Imagem</th>
-                                <th>Produto</th>
-                                <th>Categoria</th>
-                                <th>Preço</th>
-                                <th>Estoque</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($product as $products)
-                            <tr>
-                                <td>
-                                    <img src="{{ asset('products/'.$products->image) }}" alt="{{ $products->title }}" class="product-image">
-                                </td>
-                                <td>
-                                    <div class="product-title">{{ $products->title }}</div>
-                                    <div class="product-description">{{ Str::limit($products->description, 50) }}</div>
-                                </td>
-                                <td>
-                                    <span class="product-category">
-                                        {{ $products->category ? $products->category->category_name : 'Sem categoria' }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="product-price">{{ number_format($products->price, 2) }} €</div>
-                                </td>
-                                <td class="product-quantity">
-                                    @php
-                                        $quantityClass = 'quantity-high';
-                                        if($products->Quantity <= 0) {
-                                            $quantityClass = 'quantity-low';
-                                        } elseif($products->Quantity < 10) {
-                                            $quantityClass = 'quantity-medium';
-                                        }
-                                    @endphp
-                                    <span class="quantity-badge {{ $quantityClass }}">
-                                        {{ $products->Quantity }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons-cell">
-                                        <a href="{{ url('update_product', $products->id) }}" class="btn btn-success" title="Editar">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="{{ url('delete_product', $products->id) }}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?')" title="Excluir">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                        <button class="btn btn-info" onclick="viewDetails({{ $products->id }})" title="Detalhes">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Paginação -->
-                <div class="pagination-container">
-                    {{ $product->appends(request()->query())->onEachSide(1)->links() }}
-                </div>
-                @else
-                <!-- Estado vazio -->
-                <div class="empty-state">
-                    <i class="fas fa-box-open"></i>
-                    <h3>Nenhum produto encontrado</h3>
-                    <p>Não encontramos produtos que correspondam aos seus critérios de busca.</p>
-                    @if(request('search'))
-                        <a href="{{ url('view_product') }}" class="btn btn-primary mt-3">
-                            <i class="fas fa-undo"></i> Limpar Filtros
-                        </a>
-                    @else
-                        <a href="{{ url('add_product') }}" class="btn btn-primary mt-3">
-                            <i class="fas fa-plus"></i> Adicionar Produto
-                        </a>
-                    @endif
-                </div>
-                @endif
-            </div>
-        </div>
+    <div class="table-responsive">
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($product as $products)
+                <tr>
+                    <td>
+                        <img src="{{ asset('products/'.$products->image) }}" alt="{{ $products->title }}" class="product-image">
+                    </td>
+                    <td>
+                        <div class="product-title">{{ $products->title }}</div>
+                        <div class="product-description">{{ Str::limit($products->description, 50) }}</div>
+                    </td>
+                    <td>
+                        <span class="product-category">
+                            {{ $products->category ? $products->category->category_name : 'No category' }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="product-price">{{ number_format($products->price, 2) }} €</div>
+                    </td>
+                    <td class="product-quantity">
+                        @php
+                            $quantityClass = 'quantity-high';
+                            if($products->Quantity <= 0) {
+                                $quantityClass = 'quantity-low';
+                            } elseif($products->Quantity < 10) {
+                                $quantityClass = 'quantity-medium';
+                            }
+                        @endphp
+                        <span class="quantity-badge {{ $quantityClass }}">
+                            {{ $products->Quantity }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons-cell">
+                            <a href="{{ url('update_product', $products->id) }}" class="btn btn-success" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{ url('delete_product', $products->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <button class="btn btn-info" onclick="viewDetails({{ $products->id }})" title="Details">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    <!-- Modal de Detalhes do Produto (será implementado com JavaScript) -->
-    <div class="modal fade" id="productDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detalhes do Produto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="productDetailsContent">
-                    <!-- Conteúdo será carregado via AJAX -->
-                </div>
+                <!-- Paginação -->
+                <div class="pagination-container">
+    {{ $product->appends(request()->query())->onEachSide(1)->links() }}
+</div>
+@else
+<!-- Empty state -->
+<div class="empty-state">
+    <i class="fas fa-box-open"></i>
+    <h3>No products found</h3>
+    <p>We couldn't find any products matching your search criteria.</p>
+    @if(request('search'))
+        <a href="{{ url('view_product') }}" class="btn btn-primary mt-3">
+            <i class="fas fa-undo"></i> Clear Filters
+        </a>
+    @else
+        <a href="{{ url('add_product') }}" class="btn btn-primary mt-3">
+            <i class="fas fa-plus"></i> Add Product
+        </a>
+    @endif
+</div>
+@endif
+</div>
+</div>
+</div>
+
+<!-- Product Details Modal (to be implemented with JavaScript) -->
+<div class="modal fade" id="productDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="productDetailsContent">
+                <!-- Content will be loaded via AJAX -->
             </div>
         </div>
     </div>
+</div>
+
 
     @include('admin.js')
     
