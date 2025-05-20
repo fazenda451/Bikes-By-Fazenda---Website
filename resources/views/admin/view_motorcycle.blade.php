@@ -838,9 +838,9 @@ input[type="file"]:focus {
                         </p>
                     </div>
                     <div class="card-actions">
-                        <button class="button-details" onclick="openModal({{ $motorcycle->id }})">Detalhes</button>
-                        <button class="button-details edit" onclick="openEditModal({{ $motorcycle->id }})">Editar</button>
-                        <button class="button-details delete" onclick="deleteMotorcycle({{ $motorcycle->id }})">Excluir</button>
+                        <button class="button-details" onclick="openModal({{ $motorcycle->id }})">Details</button>
+                        <button class="button-details edit" onclick="openEditModal({{ $motorcycle->id }})">Edit</button>
+                        <button class="button-details delete" onclick="deleteMotorcycle({{ $motorcycle->id }})">Delete</button>
                     </div>
                         </div>
                     @endforeach
@@ -916,45 +916,46 @@ input[type="file"]:focus {
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
-                <form id="editForm" action="{{ url('edit_motorcycle/__ID__') }}" method="POST" enctype="multipart/form-data" class="edit-form">
+                <form id="editForm" action="{{ url('edit_motorcycle/__ID__') }}" method="POST" 
+                enctype="multipart/form-data" class="edit-form">
                 @csrf
                 <input type="hidden" name="id" id="edit-id">
                 <div class="modal-left">
                         <div class="form-section">
-                            <h3 class="section-title">Imagens</h3>
+                            <h3 class="section-title">Images</h3>
                     <div class="image-gallery" id="edit-image-gallery">
-                        <!-- Images will be loaded here -->
+
                     </div>
                             <div class="form-group" style="flex: 0 0 calc(100% - 20px); margin-top: 15px;">
-                                <label class="form-label">Adicionar Novas Fotos</label>
+                                <label class="form-label">Add New Photos</label>
                                 <input type="file" name="photos[]" multiple class="form-control">
-                                <span class="form-hint">Selecione múltiplas imagens (máx. 5MB cada). Formatos aceitos: JPG, PNG, GIF.</span>
+                                <span class="form-hint">Select Multiple Images (máx. 5MB). Accepted Format: JPG, PNG, GIF.</span>
                             </div>
                         </div>
                 </div>
                 <div class="modal-right">
-                        <h3 class="section-title">Editar Motocicleta</h3>
+                        <h3 class="section-title">Edit Motorcycle</h3>
                         
                         <div class="form-section">
-                            <h4 class="section-title">Informações Básicas</h4>
+                            <h4 class="section-title">Basic Information</h4>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-label">Nome</label>
-                                    <input type="text" name="name" id="edit-name" class="form-control" placeholder="Nome da Motocicleta">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" id="edit-name" class="form-control" placeholder="Motorcycle Name">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Preço (€)</label>
+                                    <label class="form-label">Price (€)</label>
                                     <input type="number" step="0.01" name="price" id="edit-price" class="form-control" placeholder="Preço">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Quantidade</label>
+                                    <label class="form-label">Quantity</label>
                                     <input type="number" min="0" step="1" name="quantity" id="edit-quantity" class="form-control" placeholder="Quantidade">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Marca</label>
+                                    <label class="form-label">Brand</label>
                                     <select name="brand_id" class="form-control" id="edit-brand-select">
                                         <option value="">Selecione uma marca</option>
                                         @foreach($brands as $brand)
@@ -964,7 +965,7 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Categoria</label>
+                                    <label class="form-label">Category</label>
                                     <select name="Category" class="form-control" id="edit-category-select">
                                         <option value="">Selecione uma categoria</option>
                                         @foreach($categories as $category)
@@ -974,9 +975,9 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Licença</label>
+                                    <label class="form-label">License Type</label>
                                     <select name="license_type_id" class="form-control" id="edit-license-select">
-                                        <option value="">Selecione o tipo de licença</option>
+                                        <option value="">Select License Type</option>
                                         @foreach($license_types as $type)
                                             <option value="{{ $type->id }}">{{ $type->type }}</option>
                                         @endforeach
@@ -984,7 +985,7 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
-                                    <label class="form-label">Descrição</label>
+                                    <label class="form-label">Description</label>
                                     <textarea name="description" id="edit-description" class="form-control" placeholder="Descrição"></textarea>
                                 </div>
                             </div>
@@ -995,39 +996,39 @@ input[type="file"]:focus {
                             <h4 class="section-title">Motor</h4>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Motor</label>
+                                    <label class="form-label">Motor Type</label>
                                     <input type="text" name="engine_type" id="edit-engine-type" class="form-control" placeholder="Tipo de Motor">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Cilindrada (cc)</label>
+                                    <label class="form-label">Displacement (cc)</label>
                                     <input type="number" min="0" step="any" name="displacement" id="edit-displacement" class="form-control" placeholder="Cilindrada">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Diâmetro x Curso</label>
+                                    <label class="form-label">Bora x Stroke</label>
                                     <input type="text" name="bore_stroke" id="edit-bore-stroke" class="form-control" placeholder="Diâmetro x Curso">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Taxa de Compressão</label>
+                                    <label class="form-label">Compression Ratio</label>
                                     <input type="number" step="any" name="compression_ratio" id="edit-compression-ratio" class="form-control" placeholder="Taxa de Compressão">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Potência Máxima (cv)</label>
+                                    <label class="form-label">Max Power(cv)</label>
                                     <input type="number" step="any" name="max_power" id="edit-max-power" class="form-control" placeholder="Potência Máxima">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Torque Máximo (Nm)</label>
+                                    <label class="form-label">Max Torque (Nm)</label>
                                     <input type="number" step="any" name="max_torque" id="edit-max-torque" class="form-control" placeholder="Torque Máximo">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Lubrificação</label>
+                                    <label class="form-label">Lubrication System</label>
                                     <select name="lubrication_system_id" class="form-control" id="edit-lubrication-select">
-                                        <option value="">Selecione o sistema</option>
+                                        <option value="">Select System</option>
                                         @foreach($lubrication_systems as $system)
                                             <option value="{{ $system->id }}">{{ $system->system }}</option>
                                         @endforeach
@@ -1035,7 +1036,7 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Embreagem</label>
+                                    <label class="form-label">Clutch Type</label>
                                     <select name="clutch_type_id" class="form-control" id="edit-clutch-select">
                                         <option value="">Selecione o tipo</option>
                                         @foreach($clutch_types as $type)
@@ -1045,9 +1046,9 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Ignição</label>
+                                    <label class="form-label">Ignition Type</label>
                                     <select name="ignition_system_id" class="form-control" id="edit-ignition-select">
-                                        <option value="">Selecione o sistema</option>
+                                        <option value="">Select System</option>
                                         @foreach($ignition_systems as $system)
                                             <option value="{{ $system->id }}">{{ $system->system }}</option>
                                         @endforeach
@@ -1055,9 +1056,9 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Partida</label>
+                                    <label class="form-label">Starting System</label>
                                     <select name="starting_system_id" class="form-control" id="edit-starting-select">
-                                        <option value="">Selecione o sistema</option>
+                                        <option value="">Select System</option>
                                         @foreach($starting_systems as $system)
                                             <option value="{{ $system->id }}">{{ $system->system }}</option>
                                         @endforeach
@@ -1065,9 +1066,9 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Transmissão</label>
+                                    <label class="form-label">Transmission System</label>
                                     <select name="transmission_system_id" class="form-control" id="edit-transmission-select">
-                                        <option value="">Selecione o sistema</option>
+                                        <option value="">Select System</option>
                                         @foreach($transmission_systems as $system)
                                             <option value="{{ $system->id }}">{{ $system->type }}</option>
                                         @endforeach
@@ -1075,22 +1076,22 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Transmissão Final</label>
+                                    <label class="form-label">Final Drive</label>
                                     <input type="text" name="final_drive" id="edit-drive" class="form-control" placeholder="Transmissão Final">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Consumo de Combustível (L/100km)</label>
+                                    <label class="form-label">Fuel Consumption (L/100km)</label>
                                     <input type="number" step="any" name="fuel_consumption" id="edit-fuel-consumption" class="form-control" placeholder="Consumo de Combustível">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Emissões de CO2 (g/km)</label>
+                                    <label class="form-label">CO2 Emissions (g/km)</label>
                                     <input type="number" step="any" name="cos2_emissions" id="edit-co2" class="form-control" placeholder="Emissões de CO2">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Sistema de Combustível</label>
+                                    <label class="form-label">Fuel System</label>
                                     <input type="text" name="fuel_system" id="edit-fuel-system" class="form-control" placeholder="Sistema de Combustível">
                                 </div>
                             </div>
@@ -1098,15 +1099,15 @@ input[type="file"]:focus {
 
                     <!-- Chassi Section -->
                         <div class="form-section">
-                            <h4 class="section-title">Chassi</h4>
+                            <h4 class="section-title">Frame</h4>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-label">Tipo de Chassi</label>
+                                    <label class="form-label">Frame Type</label>
                                     <input type="text" name="frame" id="edit-frame" class="form-control" placeholder="Tipo de Chassi">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Ângulo de Caster (graus)</label>
+                                    <label class="form-label">Rake Angle (graus)</label>
                                     <input type="number" step="any" name="rake_angle" id="edit-rake" class="form-control" placeholder="Ângulo de Caster">
                                 </div>
                                 
@@ -1116,7 +1117,7 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Suspensão Dianteira</label>
+                                    <label class="form-label">Front Suspension</label>
                                     <select name="front_suspension_id" class="form-control" id="edit-front-suspension-select">
                                         <option value="">Selecione o tipo</option>
                                         @foreach($suspensions as $suspension)
@@ -1126,9 +1127,9 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Suspensão Traseira</label>
+                                    <label class="form-label"></label>
                                     <select name="rear_suspension_id" class="form-control" id="edit-rear-suspension-select">
-                                        <option value="">Selecione o tipo</option>
+                                        <option value="">Select Type</option>
                                         @foreach($suspensions as $suspension)
                                             <option value="{{ $suspension->id }}">{{ $suspension->type }}</option>
                                         @endforeach
@@ -1136,32 +1137,32 @@ input[type="file"]:focus {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Curso Dianteiro (mm)</label>
+                                    <label class="form-label">Front Travel (mm)</label>
                                     <input type="number" step="any" name="front_travel" id="edit-front-travel" class="form-control" placeholder="Curso Dianteiro">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Curso Traseiro (mm)</label>
+                                    <label class="form-label">Rear Travel (mm)</label>
                                     <input type="number" step="any" name="rear_travel" id="edit-rear-travel" class="form-control" placeholder="Curso Traseiro">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Freio Dianteiro</label>
+                                    <label class="form-label">Front Brake</label>
                                     <input type="text" name="front_brake" id="edit-front-brake" class="form-control" placeholder="Freio Dianteiro">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Freio Traseiro</label>
+                                    <label class="form-label">Rear Brake</label>
                                     <input type="text" name="rear_brake" id="edit-rear-brake" class="form-control" placeholder="Freio Traseiro">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Pneu Dianteiro</label>
+                                    <label class="form-label">Front Tire</label>
                                     <input type="text" name="front_tire" id="edit-front-tire" class="form-control" placeholder="Pneu Dianteiro">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Pneu Traseiro</label>
+                                    <label class="form-label">Rear Tire</label>
                                     <input type="text" name="rear_tire" id="edit-rear-tire" class="form-control" placeholder="Pneu Traseiro">
                                 </div>
                             </div>
@@ -1169,57 +1170,57 @@ input[type="file"]:focus {
 
                     <!-- Dimensões Section -->
                         <div class="form-section">
-                            <h4 class="section-title">Dimensões</h4>
+                            <h4 class="section-title">Dimensions</h4>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-label">Comprimento Total (mm)</label>
+                                    <label class="form-label">Total Length (mm)</label>
                                     <input type="number" step="any" name="total_length" id="edit-total-length" class="form-control" placeholder="Comprimento Total">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Largura Total (mm)</label>
+                                    <label class="form-label">Total Width (mm)</label>
                                     <input type="number" step="any" name="total_width" id="edit-total-width" class="form-control" placeholder="Largura Total">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Altura Total (mm)</label>
+                                    <label class="form-label">Total Height (mm)</label>
                                     <input type="number" step="any" name="total_height" id="edit-total-height" class="form-control" placeholder="Altura Total">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Altura do Assento (mm)</label>
+                                    <label class="form-label">Seat Height (mm)</label>
                                     <input type="number" step="any" name="seat_height" id="edit-seat-height" class="form-control" placeholder="Altura do Assento">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Distância Entre-Eixos (mm)</label>
+                                    <label class="form-label">Wheelbase (mm)</label>
                                     <input type="number" step="any" name="wheelbase" id="edit-wheelbase" class="form-control" placeholder="Distância Entre-Eixos">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Distância ao Solo (mm)</label>
+                                    <label class="form-label">Ground Clearance (mm)</label>
                                     <input type="number" step="any" name="ground_clearance" id="edit-ground-clearance" class="form-control" placeholder="Distância ao Solo">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Peso (kg)</label>
+                                    <label class="form-label">Weight (kg)</label>
                                     <input type="number" step="any" name="weight" id="edit-weight" class="form-control" placeholder="Peso">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Capacidade do Tanque (L)</label>
+                                    <label class="form-label">Fuel Tank Capacity (L)</label>
                                     <input type="number" step="any" name="fuel_tank_capacity" id="edit-fuel-tank-capacity" class="form-control" placeholder="Capacidade do Tanque">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-label">Capacidade de Óleo (L)</label>
+                                    <label class="form-label">Oil Tank Capacity (L)</label>
                                     <input type="number" step="any" name="oil_tank_capacity" id="edit-oil-tank-capacity" class="form-control" placeholder="Capacidade de Óleo">
                                 </div>
                             </div>
                         </div>
 
                         <div class="btn-container">
-                            <button class="button-details" type="submit">Salvar Alterações</button>
+                            <button class="button-details" type="submit">Save</button>
                             <button class="button-details" type="button" onclick="closeEditModal()">Cancelar</button>
                         </div>
                 </div>
