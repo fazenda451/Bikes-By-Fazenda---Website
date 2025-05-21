@@ -238,7 +238,7 @@
           </div>
         </div>
         <!-- Sidebar Navidation Menus-->
-        <span class="heading">Principal</span>
+        <span class="heading">Main</span>
         <ul class="list-unstyled">
                 <li><a href="{{url('admin/dashboard')}}"> <i class="fa-solid fa-home"></i>Home </a></li>
                 <li><a href="{{url('view_category')}}"> <i class="fa-solid fa-list"></i>Category </a></li>
@@ -269,7 +269,7 @@
               </li>
         </ul>
         
-        <span class="heading">Produtos</span>
+        <span class="heading">Products</span>
         <ul class="list-unstyled">
               <li><a href="#MotorcyclesdropdownDropdown" aria-expanded="false" data-toggle="collapse"> 
                 <i class="fa-solid fa-motorcycle"></i>Motorcycles </a>
@@ -288,7 +288,7 @@
               </li>
         </ul>
         
-        <span class="heading">Vendas</span>
+        <span class="heading">Sales</span>
         <ul class="list-unstyled">
                 <li>
                   <a href="{{url('view_orders')}}"> <i class="fa-solid fa-cart-shopping"></i>Orders</a>
@@ -323,7 +323,7 @@
       if (currentLocation.includes(item.getAttribute('href'))) {
         item.parentElement.classList.add('active');
         
-        // Se for um submenu, expande o menu pai
+        // Se for um submenu, expande o menu
         const parentCollapse = item.closest('.collapse');
         if (parentCollapse) {
           parentCollapse.classList.add('show');

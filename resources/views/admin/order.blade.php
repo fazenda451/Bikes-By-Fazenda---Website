@@ -296,7 +296,7 @@
     <div class="page-content">
       <div class="page-header">
         <div class="container-fluid">
-          <h2 class="h5 no-margin-bottom">Gerenciamento de Pedidos</h2>
+          <h2 class="h5 no-margin-bottom">Order Management</h2>
         </div>
       </div>
       <section class="no-padding-top no-padding-bottom">
@@ -304,15 +304,15 @@
           <div class="row">
             <div class="col-12">
               <div class="search-container">
-                <input type="text" id="orderSearch" class="search-input" placeholder="Pesquisar pedido (número, cliente, etc.)">
+                <input type="text" id="orderSearch" class="search-input" placeholder="Search for order (number, customer, etc.)">
                 
                 <div class="filter-container">
                   <span class="filter-label">Status:</span>
                   <select id="statusFilter" class="filter-select">
-                    <option value="all">Todos</option>
-                    <option value="in progress">Em Processamento</option>
-                    <option value="On the way">Em Trânsito</option>
-                    <option value="Delivered">Entregue</option>
+                    <option value="all">All</option>
+                    <option value="in progress">In Progress</option>
+                    <option value="On the way">On The Way</option>
+                    <option value="Delivered">Delivered</option>
                   </select>
                 </div>
               </div>
@@ -356,11 +356,6 @@
                         ];
                         $mainStatus = $orderItems->pluck('status')->contains('in progress') ? 'in progress' : 
                                       ($orderItems->pluck('status')->contains('On the way') ? 'On the way' : 'Delivered');
-                        $statusText = [
-                          'in progress' => 'Em Processamento',
-                          'On the way' => 'Em Trânsito',
-                          'Delivered' => 'Entregue'
-                        ];
                       @endphp
                       <tr class="order-row" data-order-number="{{ $orderNumber }}" data-status="{{ $mainStatus }}" data-client="{{ $firstItem->name }}" data-date="{{ $firstItem->created_at }}">
                         <td>{{ $orderNumber }}</td>
@@ -426,17 +421,12 @@
             'On the way' => 'status-on-the-way',
             'Delivered' => 'status-delivered'
           ];
-          $statusText = [
-            'in progress' => 'Em Processamento',
-            'On the way' => 'Em Trânsito',
-            'Delivered' => 'Entregue'
-          ];
         @endphp
         <div class="modal fade" id="orderModal-{{ $orderNumber }}" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel-{{ $orderNumber }}" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="orderModalLabel-{{ $orderNumber }}">Detalhes do Pedido #{{ $orderNumber }}</h5>
+                <h5 class="modal-title" id="orderModalLabel-{{ $orderNumber }}">Order Details #{{ $orderNumber }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -499,12 +489,12 @@
                   <table class="product-table">
                     <thead>
                       <tr>
-                        <th>Produto</th>
-                        <th>Preço</th>
-                        <th>Qtd</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>quantity</th>
                         <th>Total</th>
                         <th>Status</th>
-                        <th>Imagem</th>
+                        <th>Image</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -516,7 +506,7 @@
                             @else
                               {{ $item->product->title }}
                               @if($item->size)
-                              <br><small class="text-muted">Tamanho: {{ $item->size }}</small>
+                              <br><small class="text-muted">Size: {{ $item->size }}</small>
                               @endif
                             @endif
                           </td>
@@ -565,24 +555,24 @@
                 </div>
 
                 <div class="order-summary">
-                  Total do Pedido: {{ $orderTotal }}€
+                  Total: {{ $orderTotal }}€
                 </div>
 
                 <div class="status-actions">
-                  <div class="status-actions-title">Atualizar status de todos os itens:</div>
+                  <div class="status-actions-title">Update status of all items:</div>
                   <a href="{{ url('update_all_status', ['order_number' => $orderNumber, 'status' => 'On the way']) }}" class="btn btn-info">
-                    <i class="fa fa-truck"></i> Marcar Todos Em Trânsito
+                    <i class="fa fa-truck"></i> Mark All as On the way
                   </a>
                   <a href="{{ url('update_all_status', ['order_number' => $orderNumber, 'status' => 'Delivered']) }}" class="btn btn-success">
-                    <i class="fa fa-check"></i> Marcar Todos Entregues
+                    <i class="fa fa-check"></i> Mark all as delivered
                   </a>
                 </div>
               </div>
               <div class="modal-footer">
                 <a href="{{ url('print_pdf', $orderNumber) }}" class="btn btn-secondary">
-                  <i class="fa fa-file-pdf-o"></i> Imprimir PDF
+                  <i class="fa fa-file-pdf-o"></i> Print PDF
                 </a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>

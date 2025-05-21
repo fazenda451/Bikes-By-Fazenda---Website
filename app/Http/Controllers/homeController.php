@@ -211,15 +211,16 @@ class homeController extends Controller
         }
 
         // Se não for uma moto, procura um produto
-        $product = Product::find($id);
+       $product = Product::find($id);
+
         if (!$product) {
-            toastr()->timeOut(10000)->closebutton()->addError('Produto não encontrado');
+            toastr()->timeOut(10000)->closebutton()->addError('Product not found');
             return redirect()->back();
         }
 
         if ($product->Quantity <= 0) {
-            toastr()->timeOut(10000)->closebutton()->addError('Desculpe, este produto está fora de estoque');
-            return redirect()->back();
+            toastr()->timeOut(10000)->closebutton()->addError('Sorry, this product is out of stock');
+        return redirect()->back();
         }
 
         // Verifica se o produto já está no carrinho
@@ -227,24 +228,25 @@ class homeController extends Controller
                           ->where('product_id', $id)
                           ->first();
 
-        if ($existingCart) {
-            // Se já existe, verifica se pode incrementar a quantidade
-            if ($existingCart->quantity < $product->Quantity) {
-                $existingCart->quantity += 1;
-                $existingCart->save();
-                toastr()->timeOut(10000)->closebutton()->addSuccess('Produto adicionado ao carrinho com sucesso');
-            } else {
-                toastr()->timeOut(10000)->closebutton()->addWarning('Quantidade máxima disponível em estoque atingida');
-            }
+         if ($existingCart) {
+         // Se já existe, verifica se pode incrementar a quantidade
+        if ($existingCart->quantity < $product->Quantity) {
+            $existingCart->quantity += 1;
+            $existingCart->save();
+            toastr()->timeOut(10000)->closeButton()->addSuccess('Product successfully added to the cart');
         } else {
-            // Se não existe, cria novo item
-        $data = new Cart;
-            $data->user_id = $user_id;
-            $data->product_id = $id;
-            $data->quantity = 1;
-            $data->save();
-            toastr()->timeOut(10000)->closebutton()->addSuccess('Produto adicionado ao carrinho com sucesso');
+            toastr()->timeOut(10000)->closeButton()->addWarning('Maximum available stock quantity reached');
         }
+    } else {
+             // Se não existe, cria novo item
+             $data = new Cart;
+             $data->user_id = $user_id;
+             $data->product_id = $id;
+             $data->quantity = 1;
+             $data->save();
+             toastr()->timeOut(10000)->closeButton()->addSuccess('Product successfully added to the cart');
+            }
+
 
         return redirect()->back();
     }
@@ -840,14 +842,15 @@ class homeController extends Controller
         // Busca o produto
         $product = Product::find($id);
         if (!$product) {
-            toastr()->timeOut(10000)->closebutton()->addError('Produto não encontrado');
+            toastr()->timeOut(10000)->closebutton()->addError('Product not found');
             return redirect()->back();
         }
-        
+
         if ($product->Quantity <= 0) {
-            toastr()->timeOut(10000)->closebutton()->addError('Desculpe, este produto está fora de estoque');
-            return redirect()->back();
+            toastr()->timeOut(10000)->closebutton()->addError('Sorry, this product is out of stock');
+        return redirect()->back();
         }
+
         
         // Obtém a quantidade solicitada (padrão: 1)
         $requestedQuantity = $request->quantity ?? 1;
@@ -897,7 +900,7 @@ class homeController extends Controller
         if ($cart) {
             $cart->size = $request->size;
             $cart->save();
-            toastr()->timeOut(10000)->closebutton()->addSuccess('Tamanho atualizado com sucesso');
+            toastr()->timeOut(10000)->closebutton()->addSuccess('Size Updated Successful');
         }
         return redirect()->back();
     }
