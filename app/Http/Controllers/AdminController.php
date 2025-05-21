@@ -368,7 +368,7 @@ return view('admin.view_product', compact('product'));
             $orderNumber = $order->order_number;
             Order::where('order_number', $orderNumber)->update(['status' => 'On the way']);
             
-            toastr()->timeOut(10000)->closebutton()->addSuccess('Status dos itens atualizado para Em Trânsito');
+            toastr()->timeOut(10000)->closebutton()->addSuccess('Item status updated to In Transit');
         }
 
         return redirect('/view_orders');
@@ -383,7 +383,7 @@ return view('admin.view_product', compact('product'));
             $orderNumber = $order->order_number;
             Order::where('order_number', $orderNumber)->update(['status' => 'Delivered']);
             
-            toastr()->timeOut(10000)->closebutton()->addSuccess('Status dos itens atualizado para Entregue');
+            toastr()->timeOut(10000)->closebutton()->addSuccess('Item status updated to Delivered');
         }
 
         return redirect('/view_orders');
@@ -1302,14 +1302,8 @@ public function delete_photo($id)
         }
         
         Order::where('order_number', $order_number)->update(['status' => $status]);
-        
-        $statusText = [
-            'in progress' => 'Em Processamento',
-            'On the way' => 'Em Trânsito',
-            'Delivered' => 'Entregue'
-        ];
-        
-        toastr()->timeOut(10000)->closebutton()->addSuccess('Todos os itens do pedido #' . $order_number . ' foram atualizados para ' . ($statusText[$status] ?? $status));
+       
+        toastr()->timeOut(10000)->closebutton()->addSuccess('All items in order #' . $order_number . ' have been updated to ' . ($statusText[$status] ?? $status));
         
         return redirect()->back();
     }

@@ -316,18 +316,12 @@ class homeController extends Controller
         $deliveryMethod = $request->delivery_method;
         $storeLocation = $deliveryMethod === 'store' ? $request->store_location : null;
 
-        // Log para debug
-        Log::info('Dados do formulário:', $request->all());
-        Log::info('Checkbox use_points: ' . ($usePoints ? 'marcado' : 'não marcado'));
-        Log::info('Método de entrega: ' . $deliveryMethod);
-        Log::info('Localização da loja (se aplicável): ' . $storeLocation);
-        
         // Verifica se há estoque suficiente para todos os produtos (não motos)
         foreach ($cart as $item) {
             if (!$item->is_motorcycle && $item->product_id) {
                 $product = Product::find($item->product_id);
                 if ($product->Quantity < $item->quantity) {
-                    toastr()->timeOut(10000)->closebutton()->addError('Desculpe, não há estoque suficiente para ' . $product->title);
+                    toastr()->timeOut(10000)->closebutton()->addError('Sorry, there is not enough stock for ' . $product->title);
                     return redirect()->back();
                 }
             }
@@ -352,11 +346,6 @@ class homeController extends Controller
         if ($usePoints && $user->Points > 0) {
             // Obtém a quantidade de pontos a serem usados
             $pointsToUse = (int)$request->input('points_to_use');
-            
-            // Registra os valores para debug
-            Log::info('Pontos solicitados pelo usuário: ' . $pointsToUse);
-            Log::info('Pontos disponíveis: ' . $user->Points);
-            Log::info('Valor total do pedido: ' . $totalAmount);
             
             // Verifica se o valor é válido
             if ($pointsToUse <= 0) {
@@ -384,12 +373,6 @@ class homeController extends Controller
             
             // Limita o desconto ao valor total
             $discount = min($discount, $totalAmount);
-            
-            // Registra os valores calculados
-            $pointsUsed = $pointsToUse;
-            Log::info('Pontos a usar após ajustes: ' . $pointsToUse);
-            Log::info('Percentual de desconto: ' . $discountPercentage . '%');
-            Log::info('Valor do desconto: ' . $discount);
             
             // Atualiza os pontos do usuário
             User::where('id', $user->id)->update(['Points' => $user->Points - $pointsToUse]);
@@ -443,7 +426,7 @@ class homeController extends Controller
                 Log::info('Pontos adicionados: ' . $pointsEarned);
             }
         } else {
-            Log::info('Pontos não adicionados porque o usuário usou pontos para desconto');
+            Log::info('Points not added because user used points for discount');
         }
         
         // Busca os pedidos criados para enviar por email
@@ -481,6 +464,8 @@ class homeController extends Controller
         toastr()->timeOut(10000)->closebutton()->addSuccess($successMessage);
         return redirect()->back();
     }
+
+
 
     public function mycart()
     {
@@ -736,7 +721,7 @@ class homeController extends Controller
             
             // Verificar se o carrinho está vazio
             if($cart->isEmpty()) {
-                toastr()->timeOut(10000)->closebutton()->addError('Seu carrinho está vazio!');
+                toastr()->timeOut(10000)->closebutton()->addError('Your Cart is Empty');
                 return redirect('/');
             }
 
@@ -747,7 +732,7 @@ class homeController extends Controller
                 "amount" => $value * 100,
                 "currency" => "eur",
                 "source" => $request->stripeToken,
-                "description" => "Pagamento na Bikes By Fazenda" 
+                "description" => "Payment in Bikes By Fazenda" 
             ]);
             
             // Gerar número de pedido único

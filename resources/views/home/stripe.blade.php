@@ -300,89 +300,90 @@
         <!-- end header section -->
     </div>
 
-    <section class="payment-section">
-        <div class="container">
-            <div class="payment-container">
-                <a href="{{ url('mycart') }}" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Voltar para o carrinho
-                </a>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Finalizar Pagamento</h3>
-                    </div>
-    
-                    <div class="order-summary mx-4 mt-4">
-                        <div class="order-title">
-                            <i class="fas fa-receipt"></i> Resumo do Pedido
-                        </div>
-                        <div class="divider"></div>
-                        <div class="order-item">
-                            <span>Subtotal:</span>
-                            <span>€{{ number_format($value - ($value * 0.23), 2, ',', '.') }}</span>
-                        </div>
-                        <div class="order-item">
-                            <span>IVA (23%):</span>
-                            <span>€{{ number_format($value * 0.23, 2, ',', '.') }}</span>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="order-total">
-                            <span>Total:</span>
-                            <span>€{{ number_format($value, 2, ',', '.') }}</span>
-                        </div>
-                    </div>
-    
-                    <div class="card-body">
-                        <div class="payment-info">
-                            <i class="fas fa-lock"></i>
-                            <span>Este é um pagamento seguro. Seus dados estão protegidos.</span>
-                        </div>
-    
-                        @if (Session::has('success'))
-                            <div class="alert alert-success">
-                                <p>{{ Session::get('success') }}</p>
-                            </div>
-                        @endif
-                        
-                        <div class="error-message">
-                            <i class="fas fa-exclamation-circle"></i>
-                            <span id="error-text">Por favor, corrija os erros e tente novamente.</span>
-                        </div>
-    
-                        <form id="payment-form" action="{{ route('stripe.post', $value) }}" method="post">
-                            @csrf
-                            
-                            <div class="mb-3">
-                                <label class="form-label">Nome no Cartão</label>
-                                <input id="cardholder-name" class="form-control" type="text" placeholder="Nome completo conforme exibido no cartão" required>
-                            </div>
-    
-                            <div class="mb-3">
-                                <label class="form-label">Detalhes do Cartão</label>
-                                <div id="card-element" class="card-element">
-                                    <!-- O elemento do cartão será inserido aqui via JavaScript -->
-                                </div>
-                                <div id="card-errors" class="invalid-feedback" role="alert"></div>
-                            </div>
-    
-                            <input type="hidden" id="stripeToken" name="stripeToken">
-                            
-                            <button id="card-button" class="btn btn-pay w-100" type="submit">
-                                <i class="fas fa-lock me-2"></i> Pagar Agora
-                            </button>
-                            
-                            <div class="payment-trust-badges mt-4">
-                                <i class="fab fa-cc-visa"></i>
-                                <i class="fab fa-cc-mastercard"></i>
-                                <i class="fab fa-cc-amex"></i>
-                                <i class="fab fa-cc-discover"></i>
-                            </div>
-                        </form>
-                    </div>        
+<section class="payment-section">
+    <div class="container">
+        <div class="payment-container">
+            <a href="{{ url('mycart') }}" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Cart
+            </a>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Finish the Payment</h3>
                 </div>
+
+                <div class="order-summary mx-4 mt-4">
+                    <div class="order-title">
+                        <i class="fas fa-receipt"></i> Order Summary
+                    </div>
+                    <div class="divider"></div>
+                    <div class="order-item">
+                        <span>Subtotal:</span>
+                        <span>€{{ number_format($value - ($value * 0.23), 2, ',', '.') }}</span>
+                    </div>
+                    <div class="order-item">
+                        <span>VAT (23%):</span>
+                        <span>€{{ number_format($value * 0.23, 2, ',', '.') }}</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="order-total">
+                        <span>Total:</span>
+                        <span>€{{ number_format($value, 2, ',', '.') }}</span>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="payment-info">
+                        <i class="fas fa-lock"></i>
+                        <span>This is a secure payment. Your data is protected.</span>
+                    </div>
+
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            <p>{{ Session::get('success') }}</p>
+                        </div>
+                    @endif
+                    
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="error-text">Please correct the errors and try again.</span>
+                    </div>
+
+                    <form id="payment-form" action="{{ route('stripe.post', $value) }}" method="post">
+                        @csrf
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Name on Card</label>
+                            <input id="cardholder-name" class="form-control" type="text" placeholder="Full name as shown on card" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Card Details</label>
+                            <div id="card-element" class="card-element">
+
+                            </div>
+                            <div id="card-errors" class="invalid-feedback" role="alert"></div>
+                        </div>
+
+                        <input type="hidden" id="stripeToken" name="stripeToken">
+                        
+                        <button id="card-button" class="btn btn-pay w-100" type="submit">
+                            <i class="fas fa-lock me-2"></i> Pay Now
+                        </button>
+                        
+                        <div class="payment-trust-badges mt-4">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-amex"></i>
+                            <i class="fab fa-cc-discover"></i>
+                        </div>
+                    </form>
+                </div>        
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Footer -->
     @include('home.footer')
