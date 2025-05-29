@@ -84,25 +84,25 @@
             <div class="logo">Bikes<span>By</span>Fazenda</div>
         </div>
         
-        <h1>Olá, {{ $customerName }}!</h1>
+        <h1>Hello, {{ $customerName }}!</h1>
         
-        <p>Obrigado por comprar na BikesByFazenda. Seu pedido foi confirmado e está sendo processado.</p>
+        <p>Thank you for shopping at BikesByFazenda. Your order has been confirmed and is being processed.</p>
         
         <div class="order-details">
-            <p><strong>Número do Pedido:</strong> {{ $orderNumber }}</p>
-            <p><strong>Data:</strong> {{ now()->format('d/m/Y H:i') }}</p>
-            <p><strong>Total de Itens:</strong> {{ $orderItems->count() }}</p>
+            <p><strong>Order Number:</strong> {{ $orderNumber }}</p>
+            <p><strong>Date:</strong> {{ now()->format('d/m/Y H:i') }}</p>
+            <p><strong>Total Items:</strong> {{ $orderItems->count() }}</p>
         </div>
         
-        <p>Anexamos a fatura do seu pedido a este email. Você também pode acompanhar o status do seu pedido a qualquer momento através da sua conta.</p>
+        <p>We have attached the invoice for your order to this email. You can also track the status of your order at any time through your account.</p>
         
-        <h2>Detalhes do Pedido</h2>
+        <h2>Order Details</h2>
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <thead>
                 <tr style="background-color: #f4f4f4;">
-                    <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Produto</th>
-                    <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Quantidade</th>
-                    <th style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">Preço</th>
+                    <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Product</th>
+                    <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Quantity</th>
+                    <th style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">Price</th>
                     <th style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">Total</th>
                 </tr>
             </thead>
@@ -121,11 +121,11 @@
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">
                             @if(isset($item->is_motorcycle) && $item->is_motorcycle)
                                 {{ $item->motorcycle->name }} <br>
-                                <small style="color: #777;">Moto</small>
+                                <small style="color: #777;">Motorcycle</small>
                             @else
                                 {{ $item->product->title }}
                                 @if($item->size)
-                                <br><small style="color: #777;">Tamanho: {{ $item->size }}</small>
+                                <br><small style="color: #777;">Size: {{ $item->size }}</small>
                                 @endif
                             @endif
                         </td>
@@ -155,29 +155,29 @@
                 @if(isset($discountInfo) && $discountInfo['discount'] > 0)
                 <tr>
                     <td colspan="3" style="padding: 10px; text-align: right; color: #9935dc;">
-                        <strong>Desconto (Pontos de Fidelidade):</strong>
+                        <strong>Discount (Loyalty Points):</strong>
                         <br>
-                        <small>{{ number_format($discountInfo['points_used'], 0, ',', '.') }} pontos utilizados (1% por cada 1000 pontos, máx. 10%)</small>
+                        <small>{{ number_format($discountInfo['points_used'], 0, ',', '.') }} points used (1% for every 1000 points, max. 10%)</small>
                     </td>
                     <td style="padding: 10px; text-align: right; color: #9935dc; font-weight: bold;">
                         -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="padding: 10px; text-align: right; font-weight: bold; background-color: #f4f4f4;">Total com Desconto:</td>
+                    <td colspan="3" style="padding: 10px; text-align: right; font-weight: bold; background-color: #f4f4f4;">Total with Discount:</td>
                     <td style="padding: 10px; text-align: right; font-weight: bold; background-color: #f4f4f4;">{{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</td>
                 </tr>
                 @endif
             </tbody>
         </table>
         
-        <p>Se tiver alguma dúvida sobre seu pedido, não hesite em nos contatar.</p>
+        <p>If you have any questions about your order, feel free to contact us.</p>
         
         <div class="footer">
             <p>BikesByFazenda | Rua Alfredo Costa, Sobralinho 2615-308</p>
             <p>Tel: +351 123 456 789 | Email: bikesbyfazenda@gmail.com</p>
-            <p>© {{ date('Y') }} BikesByFazenda. Todos os direitos reservados.</p>
+            <p>© {{ date('Y') }} BikesByFazenda. All rights reserved.</p>
         </div>
     </div>
 </body>
-</html> 
+</html>

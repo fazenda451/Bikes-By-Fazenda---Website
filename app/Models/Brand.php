@@ -12,9 +12,6 @@ class Brand extends Model
     
     protected $fillable = ['brand_name'];
     
-    /**
-     * Get the name attribute (alias for brand_name).
-     */
     protected function name(): Attribute
     {
         return Attribute::make(

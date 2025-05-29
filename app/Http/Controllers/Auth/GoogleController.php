@@ -19,14 +19,14 @@ class GoogleController extends Controller
     }
 
     /**
-     * Obtém as informações do usuário do Google após o login.
+     * Obtém as informações do utilizador do Google após o login.
      */
     public function handleGoogleCallback()
     {
         try {
             $googleUser = Socialite::driver('google')->user();
             
-            // Verifica se o usuário já existe pelo google_id
+            // Verifica se o utilizador já existe pelo google_id
             $user = User::where('google_id', $googleUser->id)->first();
             
             // Se não encontrou pelo google_id, verifica pelo email

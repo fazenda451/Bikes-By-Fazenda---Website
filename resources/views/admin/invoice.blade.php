@@ -209,19 +209,19 @@
     <div class="container">
         <div class="header">
             <div class="logo">Bikes<span>By</span>Fazenda</div>
-            <div class="invoice-title">Fatura</div>
+            <div class="invoice-title">Invoice</div>
         </div>
 
         <div class="invoice-info">
             <div>
-                <h3><strong>Empresa:</strong> BikesByFazenda</h3>
-                <h3><strong>Endereço:</strong> Rua Alfredo Costa, Sobralinho 2615-308</h3>
-                <h3><strong>NIF:</strong> 269370635</h3>
+                <h3><strong>Company:</strong> BikesByFazenda</h3>
+                <h3><strong>Address:</strong> Rua Alfredo Costa, Sobralinho 2615-308</h3>
+                <h3><strong>VAT No:</strong> 269370635</h3>
                 <h3><strong>Email:</strong> info@bikesbyfazenda.pt</h3>
             </div>
             <div>
-                <h3><strong>Fatura Nº:</strong> {{ $orderNumber }}</h3>
-                <h3><strong>Data:</strong> {{ now()->format('d/m/Y') }}</h3>
+                <h3><strong>Invoice No:</strong> {{ $orderNumber }}</h3>
+                <h3><strong>Date:</strong> {{ now()->format('d/m/Y') }}</h3>
                 <h3><strong>Status:</strong> 
                     <span class="status-badge status-{{ strtolower($orderItems->first()->payment_status) }}">
                         {{ $orderItems->first()->payment_status }}
@@ -231,17 +231,17 @@
         </div>
 
         <div class="details">
-            <h3><strong>Cliente:</strong> {{ $orderItems->first()->name }}</h3>
-            <h3><strong>Endereço de Entrega:</strong> {{ $orderItems->first()->rec_address }}</h3>
-            <h3><strong>Telefone:</strong> {{ $orderItems->first()->phone }}</h3>
+            <h3><strong>Customer:</strong> {{ $orderItems->first()->name }}</h3>
+            <h3><strong>Shipping Address:</strong> {{ $orderItems->first()->rec_address }}</h3>
+            <h3><strong>Phone:</strong> {{ $orderItems->first()->phone }}</h3>
         </div>
 
         <table>
             <thead>
                 <tr>
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Preço Unitário</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -262,13 +262,13 @@
                                 @if(isset($item->is_motorcycle) && $item->is_motorcycle)
                                     <div class="product-details">
                                         {{ $item->motorcycle->name }} <br>
-                                        <small>Moto</small>
+                                        <small>Motorcycle</small>
                                     </div>
                                 @else
                                     <div class="product-details">
                                         {{ $item->product->title }}
                                         @if($item->size)
-                                        <br><small>Tamanho: {{ $item->size }}</small>
+                                        <br><small>Size: {{ $item->size }}</small>
                                         @endif
                                     </div>
                                 @endif
@@ -298,16 +298,16 @@
                 @if(isset($discountInfo) && $discountInfo['discount'] > 0)
                 <tr>
                     <td colspan="3" style="text-align: right; color: #9935dc;">
-                        <strong>Desconto (Pontos de Fidelidade):</strong>
+                        <strong>Discount (Loyalty Points):</strong>
                         <br>
-                        <small>{{ number_format($discountInfo['points_used'], 0, ',', '.') }} pontos utilizados</small>
+                        <small>{{ number_format($discountInfo['points_used'], 0, ',', '.') }} points used</small>
                     </td>
                     <td style="text-align: right; color: #9935dc; font-weight: bold;">
                         -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: right; font-weight: bold; background-color: #f4f4f4;">Total com Desconto:</td>
+                    <td colspan="3" style="text-align: right; font-weight: bold; background-color: #f4f4f4;">Total with Discount:</td>
                     <td style="text-align: right; font-weight: bold; background-color: #f4f4f4;">{{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</td>
                 </tr>
                 @endif
@@ -317,39 +317,39 @@
         <div class="total">
             @if(isset($discountInfo) && $discountInfo['discount'] > 0)
             <p>Subtotal: {{ number_format($totalPedido, 2, ',', '.') }}€</p>
-            <p style="color: #9935dc;">Desconto (Pontos de Fidelidade): -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€</p>
-            <p style="font-size: 20px;">Total a Pagar: {{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</p>
+            <p style="color: #9935dc;">Discount (Loyalty Points): -{{ number_format($discountInfo['discount'], 2, ',', '.') }}€</p>
+            <p style="font-size: 20px;">Total to Pay: {{ number_format($discountInfo['total_after_discount'], 2, ',', '.') }}€</p>
             @else
-            <p>Total a Pagar: {{ number_format($totalPedido, 2, ',', '.') }}€</p>
+            <p>Total to Pay: {{ number_format($totalPedido, 2, ',', '.') }}€</p>
             @endif
         </div>
         
         <div class="payment-info">
-            <h4>Informações de Pagamento</h4>
-            <p><strong>Método de Pagamento:</strong> <span class="payment-method">{{ $orderItems->first()->payment_method ?? 'Pagamento na Entrega' }}</span></p>
+            <h4>Payment Information</h4>
+            <p><strong>Payment Method:</strong> <span class="payment-method">{{ $orderItems->first()->payment_method ?? 'Cash on Delivery' }}</span></p>
         </div>
         
         @if(isset($discountInfo) && $discountInfo['discount'] > 0)
         <div class="payment-info" style="border-left: 3px solid #9935dc;">
-            <h4>Programa de Fidelidade</h4>
-            <p><strong>Pontos Utilizados:</strong> {{ number_format($discountInfo['points_used'], 0, ',', '.') }} pontos</p>
-            <p><strong>Desconto Aplicado:</strong> {{ number_format($discountInfo['discount'], 2, ',', '.') }}€</p>
-            <p><small>A cada 1000 pontos, você recebe 1% de desconto no valor total da compra (máximo de 10%).</small></p>
+            <h4>Loyalty Program</h4>
+            <p><strong>Points Used:</strong> {{ number_format($discountInfo['points_used'], 0, ',', '.') }} points</p>
+            <p><strong>Discount Applied:</strong> {{ number_format($discountInfo['discount'], 2, ',', '.') }}€</p>
+            <p><small>For every 1000 points, you get a 1% discount on the total purchase (up to a maximum of 10%).</small></p>
         </div>
         @endif
 
         <div class="terms">
-            <h4>Termos e Condições</h4>
-            <p>1. O pagamento deve ser realizado dentro de 30 dias a partir da data da fatura.</p>
-            <p>2. Juros de 5% serão aplicados a pagamentos atrasados.</p>
-            <p>3. Para dúvidas, entre em contato pelo telefone: +351 123 456 789.</p>
-            <p>4. Garantia de 2 anos para todos os produtos, conforme legislação em vigor.</p>
+            <h4>Terms and Conditions</h4>
+            <p>1. Payment must be made within 30 days from the invoice date.</p>
+            <p>2. A 5% interest will be applied to late payments.</p>
+            <p>3. For any questions, please contact us at +351 123 456 789.</p>
+            <p>4. All products have a 2-year warranty as per current legislation.</p>
         </div>
 
         <div class="footer">
-            <p>BikesByFazenda | Rua Alfredo Costa, Sobralinho 2615-308 | NIF: 269370635</p>
+            <p>BikesByFazenda | Rua Alfredo Costa, Sobralinho 2615-308 | VAT No: 269370635</p>
             <p>Tel: +351 123 456 789 | Email: info@bikesbyfazenda.pt | www.bikesbyfazenda.pt</p>
-            <p>Fatura gerada em {{ now()->format('d/m/Y H:i') }}</p>
+            <p>Invoice generated on {{ now()->format('d/m/Y H:i') }}</p>
         </div>
     </div>
 </body>

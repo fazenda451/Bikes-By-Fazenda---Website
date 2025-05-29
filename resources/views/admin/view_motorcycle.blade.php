@@ -814,7 +814,7 @@ input[type="file"]:focus {
 
     <div class="page-content">
         <div class="page-header">
-            <h1 class="page-title">Gerenciar Motocicletas</h1>
+            <h1 class="page-title">Manage Motorcycle</h1>
                 <div class="search-container">
                 <input type="text" id="search" placeholder="Pesquisar motocicletas por nome ou marca..." />
                 </div>

@@ -771,7 +771,7 @@ class homeController extends Controller
                 $order->save();
             }
             
-            // Adicionar pontos ao usuário (10€ = 5 pontos)
+            // Adicionar pontos ao utilizador (10€ = 5 pontos)
             $pointsEarned = floor(($value / 10) * 5);
             if ($pointsEarned > 0) {
                 User::where('id', $user->id)->increment('Points', $pointsEarned);
