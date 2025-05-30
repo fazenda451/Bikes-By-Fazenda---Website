@@ -96,8 +96,8 @@
       font-weight: 700;
       color: #333;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3)
+      letter-spacing: 3px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
     .text-purple {
