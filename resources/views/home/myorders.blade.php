@@ -248,10 +248,7 @@ body {
 }
 
 .hero_area {
-    background: #fff;
-    padding: 30px 0;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
 }
 
 /* Estilos específicos para a página de pedidos */

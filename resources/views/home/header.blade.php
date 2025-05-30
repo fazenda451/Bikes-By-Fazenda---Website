@@ -84,19 +84,20 @@
 
   <style>
     .header_section {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
     }
 
     .navbar {
-      padding: 15px 0;
+      padding: 15px 0 !important;
     }
 
     .logo-text {
-      font-size: 1.8rem;
+      font-size: 3rem;
       font-weight: 700;
       color: #333;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3)
     }
     
     .text-purple {
@@ -105,9 +106,9 @@
 
     .nav-link {
       color: #333 !important;
-      font-weight: 500;
+      font-weight: 500 !important;
       padding: 8px 15px !important;
-      transition: color 0.3s;
+      transition: color 0.3s !important;
     }
 
     .nav-link:hover, .nav-item.active .nav-link {
@@ -115,80 +116,80 @@
     }
 
     .dropdown-menu {
-      border: none;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: none !important;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
     }
 
     .dropdown-item:hover {
-      background-color: #f8f9fa;
-      color: #9935dc;
+      background-color: #f8f9fa !important;
+      color: #9935dc !important;
     }
 
     .user-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
     }
 
     .user-area .btn-link {
-      color: #333;
-      text-decoration: none;
-      padding: 5px;
+      color: #333 !important;
+      text-decoration: none !important;
+      padding: 5px !important;
     }
 
     .user-area .btn-link:hover {
-      color: #9935dc;
+      color: #9935dc !important;
     }
 
     .position-relative {
-      position: relative;
+      position: relative !important;
     }
     
     .wishlist-indicator {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background-color: #9935dc;
-      border-radius: 50%;
-      top: 0;
-      right: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      position: absolute !important;
+      width: 6px !important;
+      height: 6px !important;
+      background-color: #9935dc !important;
+      border-radius: 50% !important;
+      top: 0 !important;
+      right: 0 !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
     }
     
     .btn-link:hover .wishlist-indicator {
-      opacity: 1;
+      opacity: 1 !important;
     }
 
     /* Remover a seta padrão do dropdown-toggle */
     .dropdown-toggle::after {
-      display: none;
+      display: none !important;
     }
 
     @media (max-width: 991.98px) {
       .navbar-collapse {
-        background-color: #fff;
-        padding: 15px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 1000;
+        background-color: #fff !important;
+        padding: 15px !important;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1000 !important;
       }
 
       .user-area {
-        margin-top: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
+        margin-top: 15px !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
       }
       
       .navbar-brand {
-        max-width: 70%;
+        max-width: 70% !important;
       }
       
       .logo-text {
-        font-size: 1.5rem;
+        font-size: 3rem !important;
       }
     }
   </style>
