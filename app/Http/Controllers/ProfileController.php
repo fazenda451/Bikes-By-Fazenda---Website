@@ -39,6 +39,7 @@ class ProfileController extends Controller
             'address' => ['nullable', 'string', 'max:255'],
             'city' => ['nullable', 'string', 'max:100'],
             'zip_code' => ['nullable', 'string', 'max:20'],
+            'current_password' => ['required_with:password', 'current_password'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
 
