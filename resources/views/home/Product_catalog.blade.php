@@ -847,6 +847,14 @@
         button.style.cursor = 'not-allowed';
       });
     });
+
+    // Corrige o loading infinito ao voltar no histórico
+    window.addEventListener('pageshow', function(event) {
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.classList.remove('active');
+      }
+    });
   </script>
   
   <!-- PHPFlasher para notificações -->
