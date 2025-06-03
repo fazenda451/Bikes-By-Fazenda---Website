@@ -48,8 +48,8 @@
             <div class="col-lg-3 col-md-6">
                 <h5 class="mb-4 text-purple">Business Hours</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2">Monday - Friday: 9 AM to 7 PM</li>
-                    <li class="mb-2">Saturday: 9 AM to 1 PM</li>
+                    <li class="mb-2">Monday - Friday: 09:00 - 19:00</li>
+                    <li class="mb-2">Saturday: 	09:00 - 19:00</li>
                     <li class="mb-2">Sunday: Closed</li>
                 </ul>
             </div>
