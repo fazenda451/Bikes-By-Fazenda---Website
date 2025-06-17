@@ -13,8 +13,8 @@
 
     .product-container {
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 1rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
       padding: 30px;
       margin-bottom: 30px;
     }
@@ -22,55 +22,60 @@
     .product-image-container {
       position: relative;
       margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border-radius: 0.75rem;
+      overflow: hidden;
     }
 
     .product-image {
       width: 100%;
       height: auto;
       object-fit: contain;
-      border-radius: 4px;
+      border-radius: 0.75rem;
     }
 
     .product-title {
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: #333;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       border-bottom: 2px solid #9935dc;
       padding-bottom: 10px;
     }
 
     .product-ref {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #6c757d;
-      margin-bottom: 20px;
+      margin-top: 5px;
+      margin-bottom: 25px;
     }
 
     .product-price-container {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .product-price {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: #9935dc;
     }
 
     .product-tax {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #6c757d;
-      margin-left: 10px;
+      margin-left: 12px;
     }
 
     .product-availability {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
-      padding: 10px 15px;
+      margin-bottom: 15px;
+      padding: 12px 20px;
       background-color: #e8f5e9;
-      border-radius: 4px;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .availability-icon {
@@ -88,7 +93,8 @@
       margin-bottom: 30px;
       padding: 20px;
       background-color: #f8f9fa;
-      border-radius: 8px;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
 
     .option-title {
@@ -117,17 +123,21 @@
       font-weight: 600;
       color: #495057;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .size-option:checked + .size-label {
       background-color: #9935dc;
       border-color: #9935dc;
       color: white;
+      box-shadow: 0 4px 10px rgba(153, 53, 220, 0.3);
+      transform: translateY(-2px);
     }
 
     .size-label:hover {
       border-color: #9935dc;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .size-guide {
@@ -137,6 +147,12 @@
       font-size: 0.9rem;
       text-decoration: underline;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-guide:hover {
+      text-decoration: none;
+      color: #8024c0;
     }
 
     .quantity-selector {
@@ -155,7 +171,7 @@
       display: flex;
       align-items: center;
       border: 1px solid #dee2e6;
-      border-radius: 4px;
+      border-radius: 0.75rem;
       overflow: hidden;
     }
 
@@ -167,11 +183,12 @@
       height: 40px;
       font-size: 1.2rem;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: all 0.2s ease;
     }
 
     .quantity-btn:hover {
       background-color: #e9ecef;
+      transform: scale(1.05);
     }
 
     .quantity-input {
@@ -186,6 +203,8 @@
 
     .quantity-input:focus {
       outline: none;
+      border-color: #9935dc;
+      box-shadow: 0 0 0 0.25rem rgba(153, 53, 220, 0.25);
     }
 
     .btn-add-cart {
@@ -214,6 +233,14 @@
       text-decoration: none;
     }
 
+    .btn-add-cart[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: #cccccc;
+      box-shadow: none;
+      transform: none;
+    }
+
     .btn-wishlist {
       display: block;
       width: 100%;
@@ -221,7 +248,7 @@
       background-color: #fff;
       color: #333;
       border: 1px solid #ced4da;
-      border-radius: 4px;
+      border-radius: 0.75rem;
       font-weight: 500;
       text-align: center;
       text-decoration: none;
@@ -239,6 +266,7 @@
       color: #9935dc;
       border-color: #9935dc;
       text-decoration: none;
+      box-shadow: 0 4px 12px rgba(153, 53, 220, 0.1);
     }
 
     .btn-wishlist i {
@@ -265,7 +293,14 @@
       gap: 10px;
       padding: 15px;
       background-color: #f8f9fa;
-      border-radius: 8px;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
     .feature-icon {
@@ -295,20 +330,20 @@
       color: #333;
       margin-bottom: 20px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #dee2e6;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .product-description {
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 1.05rem;
+      line-height: 1.7;
       color: #4a4a4a;
     }
 
     .product-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 30px;
+      gap: 25px;
+      margin-top: 35px;
       padding-top: 20px;
       border-top: 1px solid #dee2e6;
     }
@@ -320,12 +355,12 @@
     }
 
     .meta-label {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #6c757d;
     }
 
     .meta-value {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: #333;
     }
@@ -385,8 +420,12 @@
     }
 
     .product-rating-innovative {
-      background: linear-gradient(135deg, #f8f9fa 60%, #e9d7fa 100%);
-      border: 1px solid #e0e0e0;
+      margin-top: 0;
+      margin-bottom: 10px;
+      background: none;
+      border: none;
+      box-shadow: none;
+      padding: 0;
     }
     .rating-circle {
       width: 80px;
@@ -458,6 +497,89 @@
     }
     .card {
       border-radius: 1.2rem !important;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .card-body {
+      padding: 1.5rem !important;
+    }
+
+    /* Estilo para o textarea do comentário */
+    .form-control:focus {
+      border-color: #9935dc;
+      box-shadow: 0 0 0 0.25rem rgba(153, 53, 220, 0.25);
+      outline: 0;
+    }
+
+    /* Estilo para as mensagens de alerta */
+    .alert {
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Estilo para o botão Enviar Avaliação */
+    .btn-purple {
+      background-color: #9935dc;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-purple:hover {
+      background-color: #8024c0;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(153, 53, 220, 0.3);
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Estilos para as seções de avaliação */
+    .product-rating-form {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais visível */
+    }
+
+    .product-rating-list {
+      margin-top: 60px;
+      margin-bottom: 60px;
+    }
+
+    /* Estilos para o Modal de Tamanhos */
+    .modal-header {
+      border-bottom: 1px solid rgba(153, 53, 220, 0.2); /* Borda inferior com cor do tema */
+      padding: 1.5rem; /* Aumentar padding */
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(153, 53, 220, 0.2); /* Borda superior com cor do tema */
+      padding: 1.5rem; /* Aumentar padding */
+    }
+
+    .btn-close {
+      transition: transform 0.2s ease; /* Transição para o hover */
+    }
+
+    .btn-close:hover {
+      transform: rotate(90deg); /* Efeito de rotação no hover */
+      opacity: 1; /* Garantir opacidade total no hover */
     }
   </style>
 
@@ -495,6 +617,33 @@
               <div class="product-tax">Impostos incluídos</div>
             </div>
             
+            <!-- Avaliação de Estrelas - Resumo movido para cima -->
+            <div class="product-rating-innovative">
+              <div class="d-flex align-items-center gap-4 flex-wrap">
+                <div class="rating-circle text-center me-4">
+                  <div class="circle-value">
+                    <span class="rating-value">{{ number_format($averageRating, 1) }}</span>
+                  </div>
+                  <div class="rating-label">Média</div>
+                </div>
+                <div class="star-group flex-grow-1">
+                  <span class="star-animated">
+                    @php $media = round($averageRating, 1); @endphp
+                    @for ($i = 1; $i <= 5; $i++)
+                      @if ($media >= $i)
+                        <i class="fas fa-star"></i>
+                      @elseif ($media >= $i - 0.5)
+                        <i class="fas fa-star-half-alt"></i>
+                      @else
+                        <i class="far fa-star"></i>
+                      @endif
+                    @endfor
+                  </span>
+                  <span class="ms-3 text-secondary">{{ $ratingsCount }} avaliações</span>
+                </div>
+              </div>
+            </div>
+
             @if($data->Quantity > 0)
               <div class="product-availability">
                 <i class="fas fa-check-circle availability-icon"></i>
@@ -506,7 +655,7 @@
                 <span class="availability-text" style="color: #c62828;">Out of stock</span>
               </div>
             @endif
-            
+
             <form action="{{ url('add_cart_with_size', $data->id) }}" method="POST">
               @csrf
               
@@ -553,59 +702,135 @@
               <i class="fas fa-heart"></i>
               Add to Wishlist
             </a>
-            
-            <div class="product-features">
-              <div class="feature-item">
-                <div class="feature-icon">
-                  <i class="fas fa-truck"></i>
-                </div>
-                <div class="feature-text">
-                  <strong>Fast Delivery</strong><br>
-                  2-4 business days
-                </div>
-              </div>
-              
-              <div class="feature-item">
-                <div class="feature-icon">
-                  <i class="fas fa-undo"></i>
-                </div>
-                <div class="feature-text">
-                  <strong>Free Returns</strong><br>
-                  Up to 30 days
-                </div>
-              </div>
-              
-              <div class="feature-item">
-                <div class="feature-icon">
-                  <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="feature-text">
-                  <strong>Quality Guarantee</strong><br>
-                  Certified products
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         
-        <div class="product-description-container">
-          <h2 class="description-title">Product Description</h2>
-          <div class="product-description">
-            {{$data->description}}
-          </div>
-          
-          <div class="product-meta">
-            <div class="meta-item">
-              <div class="meta-label">Category:</div>
-              <div class="meta-value">{{$data->category ? $data->category->category_name : 'No category'}}</div>
+        <!-- Nova estrutura de abas para Descrição, Características e Avaliações -->
+        <div class="mt-5">
+          <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Descrição</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">Características</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Avaliações</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="productTabsContent">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+              <div class="product-description-container">
+                <h2 class="description-title">Detalhes do Produto</h2>
+                <div class="product-description">
+                  {{$data->description}}
+                </div>
+                
+                <div class="product-meta">
+                  <div class="meta-item">
+                    <div class="meta-label">Categoria:</div>
+                    <div class="meta-value">{{$data->category ? $data->category->category_name : 'No category'}}</div>
+                  </div>
+                  
+                  @if($data->size)
+                  <div class="meta-item">
+                    <div class="meta-label">Tamanhos Disponíveis:</div>
+                    <div class="meta-value">{{$data->size}}</div>
+                  </div>
+                  @endif
+                </div>
+              </div>
             </div>
-            
-            @if($data->size)
-            <div class="meta-item">
-              <div class="meta-label">Available Sizes:</div>
-              <div class="meta-value">{{$data->size}}</div>
+            <div class="tab-pane fade" id="features" role="tabpanel" aria-labelledby="features-tab">
+              <div class="product-features">
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-truck"></i>
+                  </div>
+                  <div class="feature-text">
+                    <strong>Entrega Rápida</strong><br>
+                    2-4 dias úteis
+                  </div>
+                </div>
+                
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-undo"></i>
+                  </div>
+                  <div class="feature-text">
+                    <strong>Devoluções Grátis</strong><br>
+                    Até 30 dias
+                  </div>
+                </div>
+                
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <div class="feature-text">
+                    <strong>Garantia de Qualidade</strong><br>
+                    Produtos certificados
+                  </div>
+                </div>
+              </div>
             </div>
-            @endif
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+              <!-- Formulário de Avaliação -->
+              @if(Auth::check())
+                <div class="product-rating-form p-4 bg-light rounded-4 shadow-sm mb-4">
+                  <form action="{{ route('product.rating', $data->id) }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                      <label for="rating" class="form-label">Sua avaliação:</label><br>
+                      <div class="star-rating-input-animated d-flex justify-content-end">
+                        @for ($i = 5; $i >= 1; $i--)
+                          <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required style="display:none;">
+                          <label for="star{{ $i }}" title="{{ $i }} estrelas">&#9733;</label>
+                        @endfor
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <textarea name="comment" class="form-control" placeholder="Deixe um comentário (opcional)" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-purple">Enviar Avaliação</button>
+                  </form>
+                </div>
+              @endif
+
+              <!-- Lista de Avaliações -->
+              <div class="product-rating-list">
+                <h6 class="mb-3">O que os clientes dizem:</h6>
+                <div class="row g-3">
+                  @forelse($data->ratings as $rating)
+                    <div class="col-md-6 col-lg-4">
+                      <div class="card h-100 border-0 shadow-sm rounded-4">
+                        <div class="card-body d-flex align-items-center gap-3">
+                          <div class="avatar-circle">
+                            <span>{{ strtoupper(mb_substr($rating->user->name ?? 'U', 0, 1)) }}</span>
+                          </div>
+                          <div>
+                            <div class="mb-1" style="color: #FFD700; font-size:1.2rem;">
+                              @for ($i = 1; $i <= 5; $i++)
+                                @if ($rating->rating >= $i)
+                                  <i class="fas fa-star"></i>
+                                @else
+                                  <i class="far fa-star"></i>
+                                @endif
+                              @endfor
+                            </div>
+                            <strong>{{ $rating->user->name ?? 'Usuário' }}</strong>
+                            <span class="text-muted small ms-2">{{ $rating->created_at->format('d/m/Y') }}</span>
+                            <div class="mt-2">{{ $rating->comment }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  @empty
+                    <div class="col-12"><p>Seja o primeiro a avaliar este produto!</p></div>
+                  @endforelse
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -615,7 +840,7 @@
   <!-- Size Guide Modal -->
   <div class="modal fade" id="sizeGuideModal" tabindex="-1" aria-labelledby="sizeGuideModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <div class="modal-content" style="border-radius: 1rem; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);">
         <div class="modal-header">
           <h5 class="modal-title" id="sizeGuideModalLabel">Size Guide</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -679,97 +904,6 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Avaliação de Estrelas -->
-  <div class="product-rating-innovative my-5 p-4 bg-white rounded-4 shadow-lg">
-    <div class="d-flex align-items-center mb-4 gap-4 flex-wrap">
-      <div class="rating-circle text-center me-4">
-        <div class="circle-value">
-          <span class="rating-value">{{ number_format($averageRating, 1) }}</span>
-        </div>
-        <div class="rating-label">Média</div>
-      </div>
-      <div class="star-group flex-grow-1">
-        <span class="star-animated">
-          @php $media = round($averageRating, 1); @endphp
-          @for ($i = 1; $i <= 5; $i++)
-            @if ($media >= $i)
-              <i class="fas fa-star"></i>
-            @elseif ($media >= $i - 0.5)
-              <i class="fas fa-star-half-alt"></i>
-            @else
-              <i class="far fa-star"></i>
-            @endif
-          @endfor
-        </span>
-        <span class="ms-3 text-secondary">{{ $ratingsCount }} avaliações</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mensagens de sucesso/erro -->
-  @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-  @endif
-  @if(session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
-  @endif
-
-  <!-- Formulário de Avaliação -->
-  @if(Auth::check())
-    <div class="product-rating-form my-4 p-4 bg-light rounded-4 shadow-sm">
-      <form action="{{ route('product.rating', $data->id) }}" method="POST">
-        @csrf
-        <div class="mb-3">
-          <label for="rating" class="form-label">Sua avaliação:</label><br>
-          <div class="star-rating-input-animated d-flex justify-content-end">
-            @for ($i = 5; $i >= 1; $i--)
-              <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required style="display:none;">
-              <label for="star{{ $i }}" title="{{ $i }} estrelas">&#9733;</label>
-            @endfor
-          </div>
-        </div>
-        <div class="mb-3">
-          <textarea name="comment" class="form-control" placeholder="Deixe um comentário (opcional)" rows="2"></textarea>
-        </div>
-        <button type="submit" class="btn btn-purple">Enviar Avaliação</button>
-      </form>
-    </div>
-  @endif
-
-  <!-- Lista de Avaliações -->
-  <div class="product-rating-list my-5">
-    <h6 class="mb-3">O que os clientes dizem:</h6>
-    <div class="row g-3">
-      @forelse($data->ratings as $rating)
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4">
-            <div class="card-body d-flex align-items-center gap-3">
-              <div class="avatar-circle">
-                <span>{{ strtoupper(mb_substr($rating->user->name ?? 'U', 0, 1)) }}</span>
-              </div>
-              <div>
-                <div class="mb-1" style="color: #FFD700; font-size:1.2rem;">
-                  @for ($i = 1; $i <= 5; $i++)
-                    @if ($rating->rating >= $i)
-                      <i class="fas fa-star"></i>
-                    @else
-                      <i class="far fa-star"></i>
-                    @endif
-                  @endfor
-                </div>
-                <strong>{{ $rating->user->name ?? 'Usuário' }}</strong>
-                <span class="text-muted small ms-2">{{ $rating->created_at->format('d/m/Y') }}</span>
-                <div class="mt-2">{{ $rating->comment }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      @empty
-        <div class="col-12"><p>Seja o primeiro a avaliar este produto!</p></div>
-      @endforelse
     </div>
   </div>
 
