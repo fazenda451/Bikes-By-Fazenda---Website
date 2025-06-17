@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\ContactController;
+
       /////////////////////////////
      // Rotas da Página Inicial //
     /////////////////////////////
@@ -360,3 +362,5 @@ Route::post('update_suspensions/{id}', [AdminController::class, 'update_suspensi
 
     Route::get('motorcycle_details/{id}', [HomeController::class, 'motorcycle_details']);
 });
+
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');

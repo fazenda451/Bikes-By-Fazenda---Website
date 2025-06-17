@@ -2,8 +2,8 @@
 <section id="contact" class="contact-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold mb-3">Get in Touch</h2>
-            <p class="text-muted">We are here to help. Contact us!</p>
+            <h2 class="display-4 fw-bold mb-3">Entre em Contato</h2>
+            <p class="text-muted">Estamos aqui para ajudar. Entre em contato conosco!</p>
         </div>
 
         <div class="row g-4">
@@ -14,15 +14,15 @@
                         <div class="icon-wrapper mb-3">
                             <i class="fas fa-map-marker-alt fa-2x text-purple"></i>
                         </div>
-                        <h5>Our Address</h5>
-                        <p class="text-muted mb-0">Gago Coutinho Street, 2, Alverca do Ribatejo</p>
+                        <h5>Nosso Endereço</h5>
+                        <p class="text-muted mb-0">Rua Gago Coutinho, 2, Alverca do Ribatejo</p>
                     </div>
 
                     <div class="info-item mb-4">
                         <div class="icon-wrapper mb-3">
                             <i class="fas fa-phone-alt fa-2x text-purple"></i>
                         </div>
-                        <h5>Phone</h5>
+                        <h5>Telefone</h5>
                         <p class="text-muted mb-0">+351 219 587 530</p>
                     </div>
 
@@ -39,35 +39,60 @@
             <!-- Contact Form -->
             <div class="col-lg-8">
                 <div class="contact-form bg-white rounded-4 p-4 shadow-sm">
-                    <form action="#" method="POST">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    <form action="{{ route('contact.send') }}" method="POST">
+                        @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
-                                    <label for="name">Your Name</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Seu Nome" value="{{ old('name') }}" required>
+                                    <label for="name">Seu Nome</label>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email" required>
-                                    <label for="email">Your Email</label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Seu Email" value="{{ old('email') }}" required>
+                                    <label for="email">Seu Email</label>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
+                                    <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Assunto" value="{{ old('subject') }}" required>
+                                    <label for="subject">Assunto</label>
+                                    @error('subject')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="message" placeholder="Your Message" style="height: 150px" required></textarea>
-                                    <label for="message">Your Message</label>
+                                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" placeholder="Sua Mensagem" style="height: 150px" required>{{ old('message') }}</textarea>
+                                    <label for="message">Sua Mensagem</label>
+                                    @error('message')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-purple btn-lg px-5">
-                                    Send Message
+                                    Enviar Mensagem
                                     <i class="fas fa-paper-plane ms-2"></i>
                                 </button>
                             </div>
