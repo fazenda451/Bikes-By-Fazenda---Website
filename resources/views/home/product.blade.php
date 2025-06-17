@@ -30,11 +30,22 @@
                 @endif
               </div>
               <div class="product-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
+                @php
+                  $media = $products->ratings->avg('rating');
+                  $media = round($media, 1);
+                @endphp
+                <span style="color: #FFD700; font-size: 1.1rem;">
+                  @for ($i = 1; $i <= 5; $i++)
+                    @if ($media >= $i)
+                      <i class="fas fa-star"></i>
+                    @elseif ($media >= $i - 0.5)
+                      <i class="fas fa-star-half-alt"></i>
+                    @else
+                      <i class="far fa-star"></i>
+                    @endif
+                  @endfor
+                </span>
+                <span class="text-secondary" style="font-size:0.9rem;">({{ $media }})</span>
               </div>
             </div>
           </div>

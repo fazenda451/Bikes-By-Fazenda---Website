@@ -16,4 +16,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Relacionamento: avaliações do produto
+     */
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
 }

@@ -371,6 +371,94 @@
       height: 600px;
       object-fit: contain;
     }
+
+    .star-rating-input label {
+      transition: transform 0.2s;
+    }
+    .star-rating-input label:hover,
+    .star-rating-input label:hover ~ label {
+      transform: scale(1.2);
+      color: #ffb700 !important;
+    }
+    .star-rating-input input:checked ~ label {
+      color: #9935dc !important;
+    }
+
+    .product-rating-innovative {
+      background: linear-gradient(135deg, #f8f9fa 60%, #e9d7fa 100%);
+      border: 1px solid #e0e0e0;
+    }
+    .rating-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #9935dc 60%, #ffb700 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(153,53,220,0.12);
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .circle-value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .rating-label {
+      font-size: 0.9rem;
+      color: #fff;
+      opacity: 0.8;
+    }
+    .star-group .fa-star, .star-group .fa-star-half-alt, .star-group .fa-star {
+      font-size: 2.2rem;
+      transition: color 0.2s;
+      color: #FFD700;
+      filter: drop-shadow(0 1px 2px #e9d7fa);
+    }
+    .star-group .fa-star-half-alt {
+      color: #ffb700;
+    }
+    .star-group .fa-star:not(:last-child) {
+      margin-right: 2px;
+    }
+    .star-rating-input-animated {
+      display: inline-flex;
+      flex-direction: row-reverse;
+    }
+    .star-rating-input-animated label {
+      font-size: 2.3rem;
+      color: #e0e0e0;
+      cursor: pointer;
+      transition: transform 0.2s, color 0.2s;
+      filter: drop-shadow(0 1px 2px #e9d7fa);
+    }
+    .star-rating-input-animated label:hover,
+    .star-rating-input-animated label:hover ~ label {
+      color: #9935dc !important;
+      transform: scale(1.2);
+    }
+    .star-rating-input-animated input:checked ~ label {
+      color: #9935dc !important;
+    }
+    .avatar-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #9935dc 60%, #ffb700 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(153,53,220,0.10);
+    }
+    .card {
+      border-radius: 1.2rem !important;
+    }
   </style>
 
 </head>
@@ -591,6 +679,97 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Avaliação de Estrelas -->
+  <div class="product-rating-innovative my-5 p-4 bg-white rounded-4 shadow-lg">
+    <div class="d-flex align-items-center mb-4 gap-4 flex-wrap">
+      <div class="rating-circle text-center me-4">
+        <div class="circle-value">
+          <span class="rating-value">{{ number_format($averageRating, 1) }}</span>
+        </div>
+        <div class="rating-label">Média</div>
+      </div>
+      <div class="star-group flex-grow-1">
+        <span class="star-animated">
+          @php $media = round($averageRating, 1); @endphp
+          @for ($i = 1; $i <= 5; $i++)
+            @if ($media >= $i)
+              <i class="fas fa-star"></i>
+            @elseif ($media >= $i - 0.5)
+              <i class="fas fa-star-half-alt"></i>
+            @else
+              <i class="far fa-star"></i>
+            @endif
+          @endfor
+        </span>
+        <span class="ms-3 text-secondary">{{ $ratingsCount }} avaliações</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensagens de sucesso/erro -->
+  @if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+  @endif
+  @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+  @endif
+
+  <!-- Formulário de Avaliação -->
+  @if(Auth::check())
+    <div class="product-rating-form my-4 p-4 bg-light rounded-4 shadow-sm">
+      <form action="{{ route('product.rating', $data->id) }}" method="POST">
+        @csrf
+        <div class="mb-3">
+          <label for="rating" class="form-label">Sua avaliação:</label><br>
+          <div class="star-rating-input-animated d-flex justify-content-end">
+            @for ($i = 5; $i >= 1; $i--)
+              <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required style="display:none;">
+              <label for="star{{ $i }}" title="{{ $i }} estrelas">&#9733;</label>
+            @endfor
+          </div>
+        </div>
+        <div class="mb-3">
+          <textarea name="comment" class="form-control" placeholder="Deixe um comentário (opcional)" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn btn-purple">Enviar Avaliação</button>
+      </form>
+    </div>
+  @endif
+
+  <!-- Lista de Avaliações -->
+  <div class="product-rating-list my-5">
+    <h6 class="mb-3">O que os clientes dizem:</h6>
+    <div class="row g-3">
+      @forelse($data->ratings as $rating)
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm rounded-4">
+            <div class="card-body d-flex align-items-center gap-3">
+              <div class="avatar-circle">
+                <span>{{ strtoupper(mb_substr($rating->user->name ?? 'U', 0, 1)) }}</span>
+              </div>
+              <div>
+                <div class="mb-1" style="color: #FFD700; font-size:1.2rem;">
+                  @for ($i = 1; $i <= 5; $i++)
+                    @if ($rating->rating >= $i)
+                      <i class="fas fa-star"></i>
+                    @else
+                      <i class="far fa-star"></i>
+                    @endif
+                  @endfor
+                </div>
+                <strong>{{ $rating->user->name ?? 'Usuário' }}</strong>
+                <span class="text-muted small ms-2">{{ $rating->created_at->format('d/m/Y') }}</span>
+                <div class="mt-2">{{ $rating->comment }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      @empty
+        <div class="col-12"><p>Seja o primeiro a avaliar este produto!</p></div>
+      @endforelse
     </div>
   </div>
 

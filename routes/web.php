@@ -364,3 +364,5 @@ Route::post('update_suspensions/{id}', [AdminController::class, 'update_suspensi
 });
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+Route::post('/product/{id}/rating', [\App\Http\Controllers\homeController::class, 'rateProduct'])->name('product.rating');

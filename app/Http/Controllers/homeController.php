@@ -117,7 +117,7 @@ class homeController extends Controller
 
     public function home()
     {
-        $product = Product::with('category')->latest()->take(8)->get();
+        $product = Product::with(['category', 'ratings'])->latest()->take(8)->get();
         $motorcycles = Motorcycle::with('brand')->latest()->take(6)->get();
         
         if(Auth::id())
@@ -153,23 +153,24 @@ class homeController extends Controller
  
     public function product_details($id)
     {
-        $data = Product::with('category')->find($id);
+        $data = Product::with('category', 'ratings.user')->find($id);
 
         if(auth::id())
         {
             $user = Auth::user();
-
             $userid = $user->id;
-    
             $count = Cart::where('user_id',$userid)->count();
         }
-
         else
         {
             $count = '';
-        }   
+        }
 
-        return view('home.product_details',compact('data','count'));
+        // Calcular média de estrelas
+        $averageRating = $data->ratings->avg('rating');
+        $ratingsCount = $data->ratings->count();
+
+        return view('home.product_details',compact('data','count','averageRating','ratingsCount'));
     }
 
     public function motorcycle_details($id)
@@ -1133,6 +1134,35 @@ class homeController extends Controller
         }
 
         return view('home.find_store', compact('count'));
+    }
+
+    public function rateProduct(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Você precisa estar logado para avaliar.');
+        }
+
+        $user = Auth::user();
+
+        // Impede que o mesmo usuário avalie o mesmo produto mais de uma vez
+        $existing = \App\Models\ProductRating::where('user_id', $user->id)->where('product_id', $id)->first();
+        if ($existing) {
+            return redirect()->back()->with('error', 'Você já avaliou este produto.');
+        }
+
+        \App\Models\ProductRating::create([
+            'user_id' => $user->id,
+            'product_id' => $id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->back()->with('success', 'Avaliação enviada com sucesso!');
     }
 
 }
