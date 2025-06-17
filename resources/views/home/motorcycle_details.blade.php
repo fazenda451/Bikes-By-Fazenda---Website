@@ -666,23 +666,25 @@
     <div class="container">
       <!-- Tabs Navigation -->
       <div class="tabs-navigation">
-        <div class="tab-item active">Overview</div>
-        <div class="tab-item">Specifications</div>
-        <div class="tab-item">Accessories</div>
+        <div class="tab-item active" data-tab="overview">Visão Geral</div>
+        <div class="tab-item" data-tab="specifications">Especificações</div>
+        <div class="tab-item" data-tab="accessories">Acessórios</div>
       </div>
 
-      <!-- Description -->
-      <div class="description animated">
-        <h2>About the {{ $data->name }}</h2>
-        <p>{{ $data->description }}</p>
+      <div class="tab-content-container">
+        <!-- Description -->
+        <div class="description animated tab-content active" id="overview">
+          <h2>Sobre a {{ $data->name }}</h2>
+          <p>{{ $data->description }}</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Specifications Section -->
-  <section class="specs-section animated">
+  <section class="specs-section animated tab-content" id="specifications">
     <div class="container">
-      <h2>Technical Specifications</h2>
+      <h2>Especificações Técnicas</h2>
       
       <div class="specs-container">
         <!-- Engine and Performance -->
@@ -940,45 +942,64 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Código para as tabs
       const tabItems = document.querySelectorAll('.tab-item');
-      
+      const tabContents = document.querySelectorAll('.tab-content');
+
       tabItems.forEach(item => {
         item.addEventListener('click', function() {
           tabItems.forEach(tab => tab.classList.remove('active'));
           this.classList.add('active');
+
+          const targetTab = this.dataset.tab;
+          tabContents.forEach(content => {
+            if (content.id === targetTab) {
+              content.classList.add('active');
+              content.style.display = 'block'; // Show the content
+            } else {
+              content.classList.remove('active');
+              content.style.display = 'none'; // Hide the content
+            }
+          });
         });
+      });
+
+      // Inicializar o primeiro conteúdo ativo
+      tabContents.forEach(content => {
+        if (!content.classList.contains('active')) {
+          content.style.display = 'none';
+        }
       });
 
       // Código para o carrossel
       const slides = document.querySelector('.carousel-slides');
       const prevBtn = document.querySelector('.carousel-arrow.prev');
       const nextBtn = document.querySelector('.carousel-arrow.next');
-      
+
       if (!slides || !prevBtn || !nextBtn) return;
-      
+
       const slideCount = slides.children.length;
       let currentSlide = 0;
-      
+
       // Função para mostrar um slide específico
       function showSlide(index) {
         if (index < 0) index = slideCount - 1;
         if (index >= slideCount) index = 0;
-        
+
         slides.style.transform = `translateX(-${index * 100}%)`;
         currentSlide = index;
       }
-      
+
       // Inicializar o primeiro slide
       showSlide(0);
-      
+
       // Event listeners para os botões de navegação
       prevBtn.addEventListener('click', () => {
         showSlide(currentSlide - 1);
       });
-      
+
       nextBtn.addEventListener('click', () => {
         showSlide(currentSlide + 1);
       });
-      
+
       // Navegação com teclado
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') {
