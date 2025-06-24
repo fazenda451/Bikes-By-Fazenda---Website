@@ -355,8 +355,14 @@ return view('admin.view_product', compact('product'));
     public function view_orders()
     {
         $data = Order::all();
+        
+        $statusText = [
+            'in progress' => 'Em Processamento',
+            'On the way' => 'A Caminho',
+            'Delivered' => 'Entregue'
+        ];
 
-        return view('admin.order', compact('data'));
+        return view('admin.order', compact('data', 'statusText'));
     }
 
     public function on_the_way($id)
@@ -1301,7 +1307,50 @@ public function delete_photo($id)
             return redirect()->back();
         }
         
+        $statusText = [
+            'in progress' => 'Em Processamento',
+            'On the way' => 'A Caminho',
+            'Delivered' => 'Entregue'
+        ];
+        
+        // Atualizar o status de todos os itens do pedido
         Order::where('order_number', $order_number)->update(['status' => $status]);
+        
+        // Buscar os itens do pedido para enviar o email
+        $orderItems = Order::where('order_number', $order_number)
+            ->with(['product', 'motorcycle', 'user'])
+            ->get();
+        
+        if ($orderItems->count() > 0) {
+            $firstItem = $orderItems->first();
+            $customerName = $firstItem->name;
+            $customerEmail = null;
+            
+            // Buscar o email do usuário através do relacionamento
+            if ($firstItem->user_id && $firstItem->user) {
+                $customerEmail = $firstItem->user->email;
+            }
+            
+            // Enviar notificação por email se houver email do cliente
+            if ($customerEmail) {
+                try {
+                    $notification = new \App\Notifications\OrderStatusUpdate(
+                        $order_number,
+                        $status,
+                        $customerName,
+                        $orderItems
+                    );
+                    
+                    // Enviar a notificação para o email do cliente
+                    \Illuminate\Support\Facades\Notification::route('mail', $customerEmail)
+                        ->notify($notification);
+                        
+                } catch (\Exception $e) {
+                    // Log do erro, mas não interromper o processo
+                    \Illuminate\Support\Facades\Log::error('Erro ao enviar email de atualização de pedido: ' . $e->getMessage());
+                }
+            }
+        }
        
         toastr()->timeOut(10000)->closebutton()->addSuccess('All items in order #' . $order_number . ' have been updated to ' . ($statusText[$status] ?? $status));
         
