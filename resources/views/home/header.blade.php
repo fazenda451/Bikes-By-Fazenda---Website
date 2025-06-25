@@ -165,41 +165,129 @@
       display: none !important;
     }
 
+    /* RESPONSIVE FIXES - Apenas corrigir bugs mobile mantendo design original */
     @media (max-width: 991.98px) {
       .navbar-collapse {
         background-color: #fff !important;
-        padding: 15px !important;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 1000 !important;
+        padding: 20px !important;
+        margin-top: 10px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid #e9ecef !important;
+      }
+
+      .navbar-nav {
+        margin-bottom: 15px !important;
       }
 
       .user-area {
-        margin-top: 15px !important;
         justify-content: center !important;
         flex-wrap: wrap !important;
+        gap: 15px !important;
+        padding-top: 15px !important;
+        border-top: 1px solid #e9ecef !important;
       }
       
-      .navbar-brand {
-        max-width: 70% !important;
+      .user-area .btn-link {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 8px 12px !important;
+        border-radius: 5px !important;
+        border: 1px solid #e9ecef !important;
+        background: #f8f9fa !important;
+        min-width: 80px !important;
+        justify-content: center !important;
+      }
+
+      .user-area .btn-link:hover {
+        border-color: #9935dc !important;
+        background: rgba(153, 53, 220, 0.1) !important;
       }
       
       .logo-text {
-        font-size: 3rem !important;
+        font-size: 2.2rem !important;
+        letter-spacing: 2px !important;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo-text {
+        font-size: 1.8rem !important;
+        letter-spacing: 1px !important;
+      }
+
+      .navbar {
+        padding: 10px 0 !important;
+      }
+
+      .navbar-collapse {
+        padding: 15px !important;
+        margin-top: 8px !important;
+      }
+
+      .user-area {
+        gap: 10px !important;
+      }
+
+      .user-area .btn-link {
+        min-width: 70px !important;
+        padding: 6px 8px !important;
+        font-size: 0.9rem !important;
+      }
+
+      .user-area .btn-link .ms-2 {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .logo-text {
+        font-size: 1.5rem !important;
+        letter-spacing: 0.5px !important;
+      }
+
+      .container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+    }
+  </style>
+
+  <style>
+    /* Fix dropdown positioning on mobile */
+    @media (max-width: 991.98px) {
+      .dropdown-menu {
+        position: static !important;
+        float: none !important;
+        box-shadow: none !important;
+        border: 1px solid #e9ecef !important;
+        border-radius: 5px !important;
+        margin-top: 5px !important;
+      }
+
+      .dropdown.show .dropdown-menu {
+        display: block !important;
       }
     }
   </style>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Inicializa os dropdowns do Bootstrap
-      var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-      var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-        return new bootstrap.Dropdown(dropdownToggleEl)
-      })
+      // Melhorar comportamento mobile do menu
+      const navbarToggler = document.querySelector('.navbar-toggler');
+      const navbarCollapse = document.querySelector('.navbar-collapse');
+      
+      // Fechar menu quando clicar em links (mobile)
+      if (window.innerWidth <= 991) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            navbarCollapse.classList.remove('show');
+            navbarToggler.classList.add('collapsed');
+            navbarToggler.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
     });
   </script>
 
