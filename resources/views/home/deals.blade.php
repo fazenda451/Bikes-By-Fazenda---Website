@@ -226,36 +226,50 @@
 
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
       margin-bottom: 40px;
     }
 
     .product-card {
-      background: #fff;
-      border-radius: 15px;
+      background: white;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
       height: 100%;
       display: flex;
       flex-direction: column;
       border: 1px solid #f0f0f0;
       position: relative;
+      cursor: pointer;
     }
 
     .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(153, 53, 220, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(153, 53, 220, 0.15);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #9935dc;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 1;
     }
 
     .product-image {
-      height: 250px;
+      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background-color: #f8f9fa;
+      padding: 15px;
+      background-color: #fafafa;
       position: relative;
       overflow: hidden;
     }
@@ -268,59 +282,107 @@
     }
 
     .product-card:hover .product-image img {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
     .product-info {
-      padding: 20px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       height: 100%;
     }
 
+    .product-category {
+      color: #9935dc;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     .product-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #333;
       margin-bottom: 10px;
-      height: 2.6em;
+      height: 2.5em;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      line-height: 1.25;
     }
 
-    .product-category {
+    .product-specs {
+      margin-bottom: 10px;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .spec-icon {
       color: #9935dc;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      margin-right: 8px;
+      font-size: 0.7rem;
+      width: 12px;
+    }
+
+    .size-badges-container {
+      margin-bottom: 10px;
+    }
+
+    .size-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .size-badge {
+      background: #f0f0f0;
+      color: #666;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 500;
     }
 
     .product-description {
-      font-size: 0.9rem;
-      color: #6c757d;
+      font-size: 0.85rem;
+      color: #777;
       margin-bottom: 15px;
-      height: 2.4em;
+      height: 2.5em;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      line-height: 1.3;
     }
 
-    .product-actions {
-      display: flex;
-      gap: 10px;
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
       margin-top: auto;
     }
 
-    .btn-details {
-      flex: 2;
-      padding: 12px;
+    .product-actions {
+      margin-top: auto;
+    }
+
+    .btn-cart {
+      width: 100%;
+      padding: 10px 15px;
       background-color: #9935dc;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       font-weight: 600;
       text-align: center;
       text-decoration: none;
@@ -332,33 +394,118 @@
       gap: 8px;
     }
 
-    .btn-details:hover {
+    .btn-cart:hover {
       background-color: #8024c0;
       color: white;
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(153, 53, 220, 0.4);
+      box-shadow: 0 4px 12px rgba(153, 53, 220, 0.3);
     }
 
-    .btn-cart {
-      flex: 1;
+    .btn-cart[disabled] {
+      background-color: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .btn-cart[disabled]:hover {
+      background-color: #ccc;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .pagination {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .page-item {
+      margin: 0;
+    }
+    
+    .page-item:not(:last-child) {
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .page-link {
+      display: block;
+      padding: 10px 15px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+      background-color: white;
+    }
+
+    .page-item.active .page-link {
+      background-color: #9935dc;
+      color: white;
+      border-color: #9935dc;
+    }
+
+    .page-link:hover {
+      background-color: #f8f9fa;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 0;
+      color: #6c757d;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .no-results i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #9935dc;
+    }
+    
+    .no-results h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .results-info {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .results-count {
+      font-size: 0.95rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+    
+    .mobile-filter-toggle {
+      display: none;
+      width: 100%;
       padding: 12px;
-      background-color: #28a745;
+      background-color: #9935dc;
       color: white;
       border: none;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1rem;
     }
-
-    .btn-cart:hover {
-      background-color: #218838;
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+    
+    .mobile-filter-toggle i {
+      margin-right: 8px;
     }
 
     .pagination-container {
@@ -385,27 +532,9 @@
       color: #495057;
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 1199px) {
       .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-      
-      .mobile-filter-toggle {
-        display: block;
-      }
-      
-      .filter-section {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1000;
-        background: white;
-        padding: 20px;
-        overflow-y: auto;
+        grid-template-columns: repeat(3, 1fr);
       }
       
       .catalog-title {
@@ -413,32 +542,107 @@
       }
     }
 
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
+      .mobile-filter-toggle {
+        display: block;
+      }
+      
+      .filter-section {
+        display: none;
+      }
+      
+      .filter-section.active {
+        display: block;
+      }
+      
       .product-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
+      .product-info {
+        padding: 15px;
+      }
+      
+      .product-title {
+        font-size: 1rem;
+      }
+      
+      .product-price {
+        font-size: 1.2rem;
       }
       
       .catalog-title {
         font-size: 1.8rem;
       }
       
-      .filter-buttons {
+      .catalog-subtitle {
+        font-size: 1rem;
+      }
+      
+      .catalog-header {
+        padding: 30px 0;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .product-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 12px;
+      }
+      
+      .product-actions {
         flex-direction: column;
       }
       
-      .results-info {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+      .btn-cart {
+        width: 100%;
       }
+    }
+
+    /* Estilo para o loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-image {
+      width: 600px;
+      height: 600px;
+      object-fit: contain;
     }
   </style>
 </head>
 
 <body>
-  @include('home.header')
+  <!-- Loading Overlay -->
+  <div class="loading-overlay">
+    <img src="{{ asset('images/loading.gif') }}" alt="Loading..." class="loading-image">
+  </div>
+  
+  <div class="hero_area">
+    <!-- header section starts -->
+    @include('home.header')
+    <!-- end header section -->
+  </div>
 
-  <!-- Deals Header -->
+  <!-- Catálogo Header -->
   <div class="catalog-header">
     <div class="container">
       <h1 class="catalog-title">🔥 Special Deals</h1>
@@ -446,20 +650,20 @@
     </div>
   </div>
 
-  <!-- Deals Content -->
+  <!-- Catálogo Content -->
   <div class="container py-4">
     <div class="row">
-      <!-- Mobile Filter Button -->
+      <!-- Botão de filtro para mobile -->
       <div class="col-12 d-md-none">
         <button class="mobile-filter-toggle" id="mobileFilterToggle">
           <i class="fas fa-filter"></i> Show Filters
         </button>
       </div>
       
-      <!-- Filter Column (Left) -->
+      <!-- Coluna de Filtros (Esquerda) -->
       <div class="col-lg-4 col-xl-3">
         <div class="filter-section" id="filterSection">
-          <h2 class="filter-title">Filter Deals</h2>
+          <h2 class="filter-title">Filters</h2>
           <form action="{{ route('deals') }}" method="GET" class="filter-form">
             <div class="filter-group">
               <label class="filter-label">Category</label>
@@ -512,9 +716,9 @@
         </div>
       </div>
 
-      <!-- Products Column (Right) -->
+      <!-- Coluna de Produtos (Direita) -->
       <div class="col-lg-8 col-xl-9">
-        <!-- Results Info -->
+        <!-- Resultados -->
         <div class="results-info">
           <div class="results-count">
             Showing <strong>{{ $products->count() }}</strong> of <strong>{{ $products->total() }}</strong> deals
@@ -528,10 +732,14 @@
         @if($products->count() > 0)
           <div class="product-grid">
             @foreach($products as $product)
-              <div class="product-card">
-                <div class="deals-badge">
-                  -{{ number_format($product->discount_percentage, 0) }}% OFF
-                </div>
+              <div class="product-card clickable-card" data-url="{{ url('product_details', $product->id) }}">
+                @if($product->hasDiscount())
+                  <div class="product-badge" style="background-color: #e74c3c;">-{{ number_format($product->discount_percentage, 0) }}% OFF</div>
+                @elseif($product->Quantity <= 5 && $product->Quantity > 0)
+                  <div class="product-badge">Last units</div>
+                @elseif($product->created_at->diffInDays(now()) < 30)
+                  <div class="product-badge">New</div>
+                @endif
                 
                 <div class="product-image">
                   <img src="/products/{{$product->image}}" alt="{{ $product->title }}">
@@ -540,22 +748,42 @@
                   <div class="product-category">{{ $product->category ? $product->category->category_name : 'No category' }}</div>
                   <h3 class="product-title">{{ $product->title }}</h3>
                   
+                  <div class="product-specs">
+                    <div class="spec-item">
+                      <i class="fas fa-box spec-icon"></i>
+                      <span>{{ $product->Quantity > 0 ? 'In stock: ' . $product->Quantity . ' units' : 'Out of stock' }}</span>
+                    </div>
+                  </div>
+                  
+                  @if($product->size)
+                    <div class="size-badges-container">
+                      <div class="size-badges">
+                        @foreach(explode(',', $product->size) as $size)
+                          <span class="size-badge">{{ trim($size) }}</span>
+                        @endforeach
+                      </div>
+                    </div>
+                  @endif
+                  
                   <div class="product-description">
                     {{ \Illuminate\Support\Str::limit($product->description, 100) }}
                   </div>
                   
-                  <div class="price-container">
-                    <div class="original-price">{{ number_format($product->price, 2, '.', ',') }}€</div>
-                    <div class="discounted-price">{{ number_format($product->getDiscountedPrice(), 2, '.', ',') }}€</div>
-                    <div class="discount-badge">Save {{ number_format($product->getDiscountAmount(), 2, '.', ',') }}€</div>
+                  <div class="product-price">
+                    @if($product->hasDiscount())
+                      <span style="text-decoration: line-through; color: #999; font-size: 1rem; margin-right: 10px;">{{ number_format($product->price, 2, '.', ',') }}€</span>
+                      <span style="color: #28a745; font-weight: bold;">{{ number_format($product->getDiscountedPrice(), 2, '.', ',') }}€</span>
+                      <div style="margin-top: 5px;">
+                        <span style="background: #9935dc; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">-{{ number_format($product->discount_percentage, 0) }}% OFF</span>
+                      </div>
+                    @else
+                      {{ number_format($product->price, 2, '.', ',') }}€
+                    @endif
                   </div>
                   
                   <div class="product-actions">
-                    <a href="{{ url('product_details', $product->id) }}" class="btn-details">
-                      <i class="fas fa-eye"></i> View Details
-                    </a>
-                    <a href="{{ url('add_cart', $product->id) }}" class="btn-cart" {{ $product->Quantity <= 0 ? 'disabled' : '' }}>
-                      <i class="fas fa-shopping-cart"></i>
+                    <a href="{{ url('add_cart', $product->id) }}" class="btn-cart" {{ $product->Quantity <= 0 ? 'disabled' : '' }} onclick="event.stopPropagation();">
+                      <i class="fas fa-shopping-cart"></i> Add to Cart
                     </a>
                   </div>
                 </div>
@@ -563,7 +791,7 @@
             @endforeach
           </div>
 
-          <!-- Pagination -->
+          <!-- Paginação -->
           <div class="pagination-container">
             {{ $products->appends(request()->query())->links() }}
           </div>
@@ -588,7 +816,117 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Mobile filter toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      // Adicionar classes do Bootstrap à paginação
+      const paginationLinks = document.querySelectorAll('.pagination li');
+      paginationLinks.forEach(item => {
+        item.classList.add('page-item');
+        const link = item.querySelector('a, span');
+        if (link) {
+          link.classList.add('page-link');
+        }
+      });
+      
+      // Toggle de filtros em dispositivos móveis
+      const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+      const filterSection = document.getElementById('filterSection');
+      
+      if (mobileFilterToggle && filterSection) {
+        mobileFilterToggle.addEventListener('click', function() {
+          filterSection.classList.toggle('active');
+          
+          if (filterSection.classList.contains('active')) {
+            mobileFilterToggle.innerHTML = '<i class="fas fa-times"></i> Hide Filters';
+          } else {
+            mobileFilterToggle.innerHTML = '<i class="fas fa-filter"></i> Show Filters';
+          }
+        });
+      }
+      
+      // Loading overlay
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      const filterForm = document.querySelector('.filter-form');
+      
+      if (filterForm && loadingOverlay) {
+        filterForm.addEventListener('submit', function() {
+          loadingOverlay.classList.add('active');
+        });
+      }
+      
+      // Aplicar filtros automaticamente ao mudar os selects
+      const filterSelects = document.querySelectorAll('.filter-select');
+      filterSelects.forEach(select => {
+        select.addEventListener('change', function() {
+          // Mostrar loading overlay
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+          
+          // Enviar o formulário automaticamente após um pequeno delay
+          setTimeout(() => {
+            this.closest('form').submit();
+          }, 300);
+        });
+      });
+      
+      // Ativar loading overlay para os links de paginação
+      const paginationItems = document.querySelectorAll('.pagination .page-link');
+      paginationItems.forEach(link => {
+        link.addEventListener('click', function() {
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+        });
+      });
+      
+      // Ativar loading overlay para os links de produtos
+      const productLinks = document.querySelectorAll('.product-card a');
+      productLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+          }
+        });
+      });
+
+      // Tornar cards de produtos clicáveis
+      const clickableCards = document.querySelectorAll('.clickable-card');
+      clickableCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // Verificar se o clique não foi num botão ou link
+          if (!e.target.closest('a, button')) {
+            const url = this.getAttribute('data-url');
+            if (url) {
+              if (loadingOverlay) {
+                loadingOverlay.classList.add('active');
+              }
+              window.location.href = url;
+            }
+          }
+        });
+      });
+      
+      // Disable cart buttons for out-of-stock products
+      const cartButtons = document.querySelectorAll('.btn-cart[disabled]');
+      cartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('This product is out of stock.');
+        });
+        button.style.opacity = '0.6';
+        button.style.cursor = 'not-allowed';
+      });
+    });
+
+    // Corrige o loading infinito ao voltar no histórico
+    window.addEventListener('pageshow', function(event) {
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.classList.remove('active');
+      }
+    });
+
+    // Mobile filter toggle - fallback
     document.getElementById('mobileFilterToggle')?.addEventListener('click', function() {
       const filterSection = document.getElementById('filterSection');
       if (filterSection.style.display === 'block') {
@@ -614,5 +952,12 @@
       }
     });
   </script>
+  
+    <!-- PHPFlasher para notificações -->
+  @flasher_render
+  
+  <!-- Toastr Assets -->
+  @include('home.toastr_assets')
+
 </body>
 </html>
