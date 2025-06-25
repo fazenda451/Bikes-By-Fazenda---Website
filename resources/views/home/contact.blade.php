@@ -2,8 +2,8 @@
 <section id="contact" class="contact-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold mb-3">Entre em Contato</h2>
-            <p class="text-muted">Estamos aqui para ajudar. Entre em contato conosco!</p>
+            <h2 class="display-4 fw-bold mb-3">Contact Us</h2>
+            <p class="text-muted">We are here to help. Contact us!</p>
         </div>
 
         <div class="row g-4">
@@ -14,7 +14,7 @@
                         <div class="icon-wrapper mb-3">
                             <i class="fas fa-map-marker-alt fa-2x text-purple"></i>
                         </div>
-                        <h5>Nosso Endereço</h5>
+                        <h5>Our Address</h5>
                         <p class="text-muted mb-0">Rua Gago Coutinho, 2, Alverca do Ribatejo</p>
                     </div>
 
@@ -22,7 +22,7 @@
                         <div class="icon-wrapper mb-3">
                             <i class="fas fa-phone-alt fa-2x text-purple"></i>
                         </div>
-                        <h5>Telefone</h5>
+                        <h5>Phone</h5>
                         <p class="text-muted mb-0">+351 219 587 530</p>
                     </div>
 
@@ -30,7 +30,7 @@
                         <div class="icon-wrapper mb-3">
                             <i class="fas fa-envelope fa-2x text-purple"></i>
                         </div>
-                        <h5>Email</h5>
+                        <h5>E-mail</h5>
                         <p class="text-muted mb-0">bikebyfazenda@gmail.com</p>
                     </div>
                 </div>
@@ -56,8 +56,8 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Seu Nome" value="{{ old('name') }}" required>
-                                    <label for="name">Seu Nome</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Your Name" value="{{ old('name') }}" required>
+                                    <label for="name">Your Name</label>
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -65,8 +65,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Seu Email" value="{{ old('email') }}" required>
-                                    <label for="email">Seu Email</label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Your Email" value="{{ old('email') }}" required>
+                                    <label for="email">Your Email</label>
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -74,8 +74,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Assunto" value="{{ old('subject') }}" required>
-                                    <label for="subject">Assunto</label>
+                                    <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Subject" value="{{ old('subject') }}" required>
+                                    <label for="subject">Subject</label>
                                     @error('subject')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -83,8 +83,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" placeholder="Sua Mensagem" style="height: 150px" required>{{ old('message') }}</textarea>
-                                    <label for="message">Sua Mensagem</label>
+                                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" placeholder="Your Message" style="height: 150px" required>{{ old('message') }}</textarea>
+                                    <label for="message">Your Message</label>
                                     @error('message')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

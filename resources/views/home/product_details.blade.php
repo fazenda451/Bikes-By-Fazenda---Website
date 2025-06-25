@@ -614,7 +614,7 @@
             
             <div class="product-price-container">
               <div class="product-price">{{$data->price}}€</div>
-              <div class="product-tax">Impostos incluídos</div>
+              <div class="product-tax">Taxes included</div>
             </div>
             
             <!-- Avaliação de Estrelas - Resumo movido para cima -->
@@ -624,7 +624,7 @@
                   <div class="circle-value">
                     <span class="rating-value">{{ number_format($averageRating, 1) }}</span>
                   </div>
-                  <div class="rating-label">Média</div>
+                  <div class="rating-label">Average</div>
                 </div>
                 <div class="star-group flex-grow-1">
                   <span class="star-animated">
@@ -639,7 +639,7 @@
                       @endif
                     @endfor
                   </span>
-                  <span class="ms-3 text-secondary">{{ $ratingsCount }} avaliações</span>
+                  <span class="ms-3 text-secondary">{{ $ratingsCount }} ratings</span>
                 </div>
               </div>
             </div>
@@ -705,23 +705,23 @@
           </div>
         </div>
         
-        <!-- Nova estrutura de abas para Descrição, Características e Avaliações -->
+        <!-- New tab structure for Description, Features and Reviews -->
         <div class="mt-5">
           <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Descrição</button>
+              <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">Características</button>
+              <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">Features</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Avaliações</button>
+              <button class="nav-link" id="reviews-tab"  data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
             </li>
           </ul>
           <div class="tab-content" id="productTabsContent">
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
               <div class="product-description-container">
-                <h2 class="description-title">Detalhes do Produto</h2>
+                <h2 class="description-title">Product Details</h2>
                 <div class="product-description">
                   {{$data->description}}
                 </div>
@@ -734,7 +734,7 @@
                   
                   @if($data->size)
                   <div class="meta-item">
-                    <div class="meta-label">Tamanhos Disponíveis:</div>
+                    <div class="meta-label">Available Sizes:</div>
                     <div class="meta-value">{{$data->size}}</div>
                   </div>
                   @endif
@@ -748,8 +748,8 @@
                     <i class="fas fa-truck"></i>
                   </div>
                   <div class="feature-text">
-                    <strong>Entrega Rápida</strong><br>
-                    2-4 dias úteis
+                    <strong>Fast Delivery</strong><br>
+                    2-4 business days
                   </div>
                 </div>
                 
@@ -758,8 +758,8 @@
                     <i class="fas fa-undo"></i>
                   </div>
                   <div class="feature-text">
-                    <strong>Devoluções Grátis</strong><br>
-                    Até 30 dias
+                    <strong>Free Returns</strong><br>
+                    Up to 30 days
                   </div>
                 </div>
                 
@@ -768,8 +768,8 @@
                     <i class="fas fa-shield-alt"></i>
                   </div>
                   <div class="feature-text">
-                    <strong>Garantia de Qualidade</strong><br>
-                    Produtos certificados
+                    <strong>Quality Guarantee</strong><br>
+                    Certified Products
                   </div>
                 </div>
               </div>
@@ -781,7 +781,7 @@
                   <form action="{{ route('product.rating', $data->id) }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                      <label for="rating" class="form-label">Sua avaliação:</label><br>
+                      <label for="rating" class="form-label">Your rating:</label><br>
                       <div class="star-rating-input-animated d-flex justify-content-end">
                         @for ($i = 5; $i >= 1; $i--)
                           <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required style="display:none;">
@@ -792,14 +792,14 @@
                     <div class="mb-3">
                                                       <textarea name="comment" class="form-control" placeholder="Leave a comment (optional)" rows="2"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-purple">Enviar Avaliação</button>
+                    <button type="submit" class="btn btn-purple">Submit Rating</button>
                   </form>
                 </div>
               @endif
 
               <!-- Lista de Avaliações -->
               <div class="product-rating-list">
-                <h6 class="mb-3">O que os clientes dizem:</h6>
+                <h6 class="mb-3">What customers say:</h6>
                 <div class="row g-3">
                   @forelse($data->ratings as $rating)
                     <div class="col-md-6 col-lg-4">
@@ -826,7 +826,7 @@
                       </div>
                     </div>
                   @empty
-                    <div class="col-12"><p>Seja o primeiro a avaliar este produto!</p></div>
+                    <div class="col-12"><p>Be the first to rate this product!</p></div>
                   @endforelse
                 </div>
               </div>

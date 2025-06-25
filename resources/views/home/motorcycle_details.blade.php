@@ -597,7 +597,7 @@
     <div class="banner-content">
       <h1>{{ $data->name }}</h1>
       <p>{{ Str::limit($data->description, 150) }}</p>
-      <div class="price-tag">A partir de: {{ number_format($data->price, 2, ',', '.') }}€</div>
+      <div class="price-tag">From: {{ number_format($data->price, 2, ',', '.') }}€</div>
     </div>
   </div>
 
@@ -636,7 +636,7 @@
       <div class="product-info">
         <h2 class="product-title">{{ $data->name }}</h2>
         <p class="product-description">{{ Str::limit($data->description, 150) }}</p>
-        <div class="product-price">A partir de: {{ number_format($data->price, 2, ',', '.') }}€</div>
+        <div class="product-price">From: {{ number_format($data->price, 2, ',', '.') }}€</div>
         
         <a href="{{url('add_cart', $data->id)}}" class="add-to-cart-btn">
           <i class="fas fa-shopping-cart"></i> Add to Cart
@@ -666,15 +666,15 @@
     <div class="container">
       <!-- Tabs Navigation -->
       <div class="tabs-navigation">
-        <div class="tab-item active" data-tab="overview">Visão Geral</div>
-        <div class="tab-item" data-tab="specifications">Especificações</div>
-        <div class="tab-item" data-tab="accessories">Acessórios</div>
+        <div class="tab-item active" data-tab="overview">Overview</div>
+        <div class="tab-item" data-tab="specifications">Specifications</div>
+        <div class="tab-item" data-tab="accessories">Accessories</div>
       </div>
 
       <div class="tab-content-container">
         <!-- Description -->
         <div class="description animated tab-content active" id="overview">
-          <h2>Sobre a {{ $data->name }}</h2>
+          <h2>About the {{ $data->name }}</h2>
           <p>{{ $data->description }}</p>
         </div>
       </div>
@@ -684,7 +684,7 @@
   <!-- Specifications Section -->
   <section class="specs-section animated tab-content" id="specifications">
     <div class="container">
-      <h2>Especificações Técnicas</h2>
+      <h2>Technical Specifications</h2>
       
       <div class="specs-container">
         <!-- Engine and Performance -->

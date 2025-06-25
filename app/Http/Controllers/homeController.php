@@ -988,8 +988,8 @@ class homeController extends Controller
     {
         if (Auth::id()) {
             Wishlist::where('id', $id)->delete();
-            session()->flash('success', 'Item removed from wishlist!');
-            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Item removed from wishlist!');
+            session()->flash('success', 'Item removed from wishlist successfully!');
+            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Item removed from wishlist successfully!');
         } else {
             return redirect('login');
         }
