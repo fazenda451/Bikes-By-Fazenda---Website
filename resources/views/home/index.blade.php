@@ -151,6 +151,9 @@
   <!-- flasher notification container -->
   @flasher_render
 
+  <!-- Toastr Assets -->
+  @include('home.toastr_assets')
+
   <!-- Footer -->
   @include('home.footer')
 

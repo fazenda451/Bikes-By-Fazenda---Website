@@ -1045,6 +1045,9 @@
   <!-- PHPFlasher para notificações -->
   @flasher_render
   
+  <!-- Toastr Assets -->
+  @include('home.toastr_assets')
+  
   <script>
     // Corrige o loading infinito ao voltar no histórico
     window.addEventListener('pageshow', function(event) {

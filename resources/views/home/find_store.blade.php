@@ -209,4 +209,8 @@
     display: block;
 }
 </style>
+
+<!-- Toastr Assets -->
+@include('home.toastr_assets')
+
 @endsection

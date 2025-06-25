@@ -857,8 +857,11 @@
     });
   </script>
   
-  <!-- PHPFlasher para notificações -->
+    <!-- PHPFlasher para notificações -->
   @flasher_render
   
+  <!-- Toastr Assets -->
+  @include('home.toastr_assets')
+
 </body>
 </html>

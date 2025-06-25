@@ -242,4 +242,8 @@ body {
     color: #9935dc !important;
 }
 </style>
+
+<!-- Toastr Assets -->
+@include('home.toastr_assets')
+
 @endsection 

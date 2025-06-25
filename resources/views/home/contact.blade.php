@@ -201,4 +201,7 @@
 }
 </style>
 
+<!-- Toastr Assets -->
+@include('home.toastr_assets')
+
   <br><br><br>
