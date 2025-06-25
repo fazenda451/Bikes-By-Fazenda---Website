@@ -57,7 +57,12 @@
 
         <!-- Copyright -->
         <div class="border-top border-secondary mt-4 pt-4 text-center">
-            <p class="mb-0">&copy; {{ date('Y') }} Bikes By Fazenda. All rights reserved.</p>
+            <p class="mb-2">&copy; {{ date('Y') }} Bikes By Fazenda. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#" onclick="manageCookies(); return false;" class="text-white text-decoration-none me-3">Cookie Preferences</a>
+                <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-white text-decoration-none">Terms of Service</a>
+            </div>
         </div>
     </div>
 </footer>
@@ -104,6 +109,19 @@
 .footer p, .footer ul li {
     font-size: 0.95rem;
     color: #f8f9fa;
+}
+
+.footer-links {
+    font-size: 0.85rem;
+    margin-top: 8px;
+}
+
+.footer-links a {
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #9935dc !important;
 }
 </style>
 
