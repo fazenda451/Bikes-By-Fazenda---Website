@@ -270,7 +270,7 @@ return view('admin.view_product', compact('product'));
         $query = Product::with('category');
         
         Log::info('Iniciando busca de produtos');
-        Log::info('Parâmetros da requisição: ' . json_encode($request->all()));
+                    Log::info('Request parameters: ' . json_encode($request->all()));
         
         // Aplicar busca
         $query->where(function($q) use ($search) {
@@ -309,40 +309,40 @@ return view('admin.view_product', compact('product'));
         
         // Aplicar ordenação
         if ($request->has('sort')) {
-            Log::info('Aplicando ordenação na busca: ' . $request->sort);
+            Log::info('Applying search sorting: ' . $request->sort);
             switch ($request->sort) {
                 case 'name-asc':
                     $query->orderBy('title', 'asc');
-                    Log::info('Ordenação de busca: Nome (A-Z)');
+                    Log::info('Search sorting: Name (A-Z)');
                     break;
                 case 'name-desc':
                     $query->orderBy('title', 'desc');
-                    Log::info('Ordenação de busca: Nome (Z-A)');
+                    Log::info('Search sorting: Name (Z-A)');
                     break;
                 case 'price-asc':
                     $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) asc');
-                    Log::info('Ordenação de busca: Preço (Menor-Maior)');
+                    Log::info('Search sorting: Price (Low-High)');
                     break;
                 case 'price-desc':
                     $query->orderByRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) desc');
-                    Log::info('Ordenação de busca: Preço (Maior-Menor)');
+                    Log::info('Search sorting: Price (High-Low)');
                     break;
                 case 'stock-asc':
                     $query->orderByRaw('Quantity asc');
-                    Log::info('Ordenação de busca: Estoque (Menor-Maior)');
+                    Log::info('Search sorting: Stock (Low-High)');
                     break;
                 case 'stock-desc':
                     $query->orderByRaw('Quantity desc');
-                    Log::info('Ordenação de busca: Estoque (Maior-Menor)');
+                    Log::info('Search sorting: Stock (High-Low)');
                     break;
                 default:
                     $query->orderBy('id', 'desc');
-                    Log::info('Ordenação padrão de busca: ID (desc)');
+                    Log::info('Default search sorting: ID (desc)');
             }
         } else {
             // Ordenação padrão
             $query->orderBy('id', 'desc');
-            Log::info('Ordenação padrão de busca aplicada: ID (desc)');
+            Log::info('Default search sorting applied: ID (desc)');
         }
         
         // Executar a consulta e obter os resultados
@@ -925,14 +925,14 @@ public function update_suspensions(Request $request, $id)
         $messages = [
             'new_brand.required_if' => 'Por favor, digite o nome da nova marca.',
             'new_category.required_if' => 'Por favor, digite o nome da nova categoria.',
-            'new_license_type.required_if' => 'Por favor, digite o novo tipo de licença.',
-            'new_lubrication_system.required_if' => 'Por favor, digite o novo sistema de lubrificação.',
+            'new_license_type.required_if' => 'Please enter the new license type.',
+            'new_lubrication_system.required_if' => 'Please enter the new lubrication system.',
             'new_clutch_type.required_if' => 'Por favor, digite o novo tipo de embreagem.',
-            'new_ignition_system.required_if' => 'Por favor, digite o novo sistema de ignição.',
+            'new_ignition_system.required_if' => 'Please enter the new ignition system.',
             'new_starting_system.required_if' => 'Por favor, digite o novo sistema de partida.',
-            'new_transmission_system.required_if' => 'Por favor, digite o novo sistema de transmissão.',
-            'new_front_suspension.required_if' => 'Por favor, digite o novo tipo de suspensão dianteira.',
-            'new_rear_suspension.required_if' => 'Por favor, digite o novo tipo de suspensão traseira.'
+            'new_transmission_system.required_if' => 'Please enter the new transmission system.',
+            'new_front_suspension.required_if' => 'Please enter the new front suspension type.',
+            'new_rear_suspension.required_if' => 'Please enter the new rear suspension type.'
         ];
 
         $validator = Validator::make($request->all(), $validator->getRules(), $messages);
@@ -1064,7 +1064,7 @@ public function update_suspensions(Request $request, $id)
                         'image' => $imagename
                     ]);
                 } else {
-                    return redirect()->back()->with('error', 'Uma das imagens não é válida.')->withInput();
+                    return redirect()->back()->with('error', 'One of the images is not valid.')->withInput();
                 }
             }
         }
@@ -1222,7 +1222,7 @@ public function update_suspensions(Request $request, $id)
 
         if (!$motorcycle) {
             if ($request->ajax()) {
-                return response()->json(['success' => false, 'message' => 'Motocicleta não encontrada.']);
+                return response()->json(['success' => false, 'message' => 'Motorcycle not found.']);
             }
             toastr()->timeOut(10000)->closeButton()->addError('Motorcycle Not Found');
             return redirect()->back();
@@ -1262,7 +1262,7 @@ public function delete_photo($id)
     $photo = Photo::find($id);
 
     if (!$photo) {
-        return response()->json(['success' => false, 'message' => 'Foto não encontrada.']);
+        return response()->json(['success' => false, 'message' => 'Photo not found.']);
     }
 
     // Remove o arquivo da pasta
@@ -1347,7 +1347,7 @@ public function delete_photo($id)
                         
                 } catch (\Exception $e) {
                     // Log do erro, mas não interromper o processo
-                    \Illuminate\Support\Facades\Log::error('Erro ao enviar email de atualização de pedido: ' . $e->getMessage());
+                    \Illuminate\Support\Facades\Log::error('Error sending order update email: ' . $e->getMessage());
                 }
             }
         }

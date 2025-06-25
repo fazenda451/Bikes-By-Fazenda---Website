@@ -1335,9 +1335,9 @@
       const maxDiscountPoints = Math.min(Math.floor(maxPercentage) * pointsNeededForOnePercent, {{ $userPoints ?? 0 }});
       
       console.log('Cart total:', totalValue);
-      console.log('Valor máximo de desconto (10%):', maxDiscountValue);
-      console.log('Pontos máximos permitidos:', maxDiscountPoints);
-      console.log('Pontos do usuário:', {{ $userPoints ?? 0 }});
+                  console.log('Maximum discount value (10%):', maxDiscountValue);
+            console.log('Maximum allowed points:', maxDiscountPoints);
+            console.log('User points:', {{ $userPoints ?? 0 }});
       
       if (usePointsCheckbox) {
         usePointsCheckbox.addEventListener('change', function() {
@@ -1407,7 +1407,7 @@
             updateTotal();
             
             // Log para debug
-            console.log('Botão máximo clicado, valor definido para:', maxDiscountPoints);
+            console.log('Maximum button clicked, value set to:', maxDiscountPoints);
             console.log('Valor do campo oculto:', pointsHidden.value);
           });
         }
@@ -1427,11 +1427,11 @@
           if (usePointsCheckbox.checked) {
             // Garante que o campo oculto tenha o valor correto
             pointsHidden.value = pointsInput.value;
-            console.log('Formulário enviado com pontos:', pointsHidden.value);
+            console.log('Form submitted with points:', pointsHidden.value);
           } else {
             // Limpa o campo oculto
             pointsHidden.value = '';
-            console.log('Formulário enviado sem pontos');
+            console.log('Form submitted without points');
           }
         });
       }

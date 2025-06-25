@@ -25,7 +25,7 @@ $(document).ready(function() {
         "hideMethod": "fadeOut"
     };
     
-    console.log('🎉 Toastr carregado e configurado!');
+    console.log('🎉 Toastr loaded and configured!');
     
     // Sistema de notificações via URL parameters (funciona sempre)
     const urlParams = new URLSearchParams(window.location.search);
@@ -35,7 +35,7 @@ $(document).ready(function() {
         const type = urlParams.get('type') || 'info';
         const message = decodeURIComponent(urlParams.get('notification'));
         
-        console.log('📢 Notificação da URL:', type, message);
+        console.log('📢 URL notification:', type, message);
         
         if (toastr[type]) {
             toastr[type](message);
@@ -107,7 +107,7 @@ $(document).ready(function() {
     
     // Interceptar formulários para adicionar notificações
     $('form').on('submit', function() {
-        console.log('📝 Formulário enviado');
+        console.log('📝 Form submitted');
     });
     
     // Interceptar links para adicionar loading
@@ -119,12 +119,12 @@ $(document).ready(function() {
             return;
         }
         
-        console.log('🔗 Link clicado:', href);
+        console.log('🔗 Link clicked:', href);
     });
     
     // Função global para mostrar notificações
     window.showToastr = function(type, message) {
-        console.log('🌍 Notificação global:', type, message);
+        console.log('🌍 Global notification:', type, message);
         
         if (toastr[type]) {
             toastr[type](message);
@@ -136,12 +136,12 @@ $(document).ready(function() {
     // Função para salvar notificação no localStorage
     window.saveNotification = function(type, message) {
         localStorage.setItem('toastr_' + type, message);
-        console.log('💾 Notificação salva no localStorage:', type, message);
+        console.log('💾 Notification saved to localStorage:', type, message);
     };
     
     // Interceptar o Flasher se existir
     if (typeof flasher !== 'undefined') {
-        console.log('🔥 Flasher detectado, interceptando...');
+        console.log('🔥 Flasher detected, intercepting...');
         
         const originalRender = flasher.render;
         if (originalRender) {
@@ -154,7 +154,7 @@ $(document).ready(function() {
                         const message = envelope.message || '';
                         const title = envelope.title || '';
                         
-                        console.log('🔥 Exibindo via Toastr:', type, message, title);
+                        console.log('🔥 Displaying via Toastr:', type, message, title);
                         
                         if (toastr[type]) {
                             toastr[type](message, title);
@@ -168,7 +168,7 @@ $(document).ready(function() {
                 try {
                     return originalRender.call(this, data);
                 } catch (e) {
-                    console.log('⚠️ Erro no Flasher original (ignorado):', e);
+                    console.log('⚠️ Error in original Flasher (ignored):', e);
                 }
             };
         }
@@ -176,33 +176,33 @@ $(document).ready(function() {
     
     // Teste automático para verificar se funciona
     setTimeout(function() {
-        console.log('🧪 Teste automático do sistema...');
+        console.log('🧪 Automatic system test...');
         
         // Verificar se há mensagens de session
         const hasSessionMessage = @if(session()->has('success') || session()->has('error') || session()->has('warning') || session()->has('info')) true @else false @endif;
         
         if (!hasSessionMessage) {
-            console.log('ℹ️ Nenhuma notificação de session encontrada');
+            console.log('ℹ️ No session notifications found');
         }
         
         // Verificar se o Toastr está funcionando
         if (typeof toastr !== 'undefined' && toastr.success) {
-            console.log('✅ Sistema Toastr está funcionando corretamente!');
+            console.log('✅ Toastr system is working correctly!');
         } else {
-            console.error('❌ Erro: Toastr não está funcionando!');
+            console.error('❌ Error: Toastr is not working!');
         }
     }, 1000);
 });
 
 // Função para testar notificações (pode ser chamada no console)
 function testarNotificacoes() {
-    console.log('🧪 Testando todas as notificações...');
+    console.log('🧪 Testing all notifications...');
     
-    setTimeout(() => toastr.success('✅ Sucesso - Sistema funcionando!'), 100);
-    setTimeout(() => toastr.error('❌ Erro - Teste de erro'), 800);
-    setTimeout(() => toastr.warning('⚠️ Aviso - Teste de aviso'), 1500);
-    setTimeout(() => toastr.info('ℹ️ Info - Teste de informação'), 2200);
+    setTimeout(() => toastr.success('✅ Success - System working!'), 100);
+    setTimeout(() => toastr.error('❌ Error - Error test'), 800);
+    setTimeout(() => toastr.warning('⚠️ Warning - Warning test'), 1500);
+    setTimeout(() => toastr.info('ℹ️ Info - Information test'), 2200);
     
-    console.log('🎉 Teste completo! Verifique as notificações.');
+    console.log('🎉 Test complete! Check the notifications.');
 }
 </script> 

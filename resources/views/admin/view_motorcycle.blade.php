@@ -946,7 +946,7 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Price (€)</label>
-                                    <input type="number" step="0.01" name="price" id="edit-price" class="form-control" placeholder="Preço">
+                                    <input type="number" step="0.01" name="price" id="edit-price" class="form-control" placeholder="Price">
                                 </div>
                                 
                                 <div class="form-group">
@@ -986,7 +986,7 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group" style="flex: 0 0 calc(100% - 20px);">
                                     <label class="form-label">Description</label>
-                                    <textarea name="description" id="edit-description" class="form-control" placeholder="Descrição"></textarea>
+                                    <textarea name="description" id="edit-description" class="form-control" placeholder="Description"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -1007,22 +1007,22 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Bora x Stroke</label>
-                                    <input type="text" name="bore_stroke" id="edit-bore-stroke" class="form-control" placeholder="Diâmetro x Curso">
+                                    <input type="text" name="bore_stroke" id="edit-bore-stroke" class="form-control" placeholder="Bore x Stroke">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Compression Ratio</label>
-                                    <input type="number" step="any" name="compression_ratio" id="edit-compression-ratio" class="form-control" placeholder="Taxa de Compressão">
+                                    <input type="number" step="any" name="compression_ratio" id="edit-compression-ratio" class="form-control" placeholder="Compression Ratio">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Max Power(cv)</label>
-                                    <input type="number" step="any" name="max_power" id="edit-max-power" class="form-control" placeholder="Potência Máxima">
+                                    <input type="number" step="any" name="max_power" id="edit-max-power" class="form-control" placeholder="Maximum Power">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Max Torque (Nm)</label>
-                                    <input type="number" step="any" name="max_torque" id="edit-max-torque" class="form-control" placeholder="Torque Máximo">
+                                    <input type="number" step="any" name="max_torque" id="edit-max-torque" class="form-control" placeholder="Maximum Torque">
                                 </div>
                                 
                                 <div class="form-group">
@@ -1077,22 +1077,22 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Final Drive</label>
-                                    <input type="text" name="final_drive" id="edit-drive" class="form-control" placeholder="Transmissão Final">
+                                    <input type="text" name="final_drive" id="edit-drive" class="form-control" placeholder="Final Drive">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Fuel Consumption (L/100km)</label>
-                                    <input type="number" step="any" name="fuel_consumption" id="edit-fuel-consumption" class="form-control" placeholder="Consumo de Combustível">
+                                    <input type="number" step="any" name="fuel_consumption" id="edit-fuel-consumption" class="form-control" placeholder="Fuel Consumption">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">CO2 Emissions (g/km)</label>
-                                    <input type="number" step="any" name="cos2_emissions" id="edit-co2" class="form-control" placeholder="Emissões de CO2">
+                                    <input type="number" step="any" name="cos2_emissions" id="edit-co2" class="form-control" placeholder="CO2 Emissions">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Fuel System</label>
-                                    <input type="text" name="fuel_system" id="edit-fuel-system" class="form-control" placeholder="Sistema de Combustível">
+                                    <input type="text" name="fuel_system" id="edit-fuel-system" class="form-control" placeholder="Fuel System">
                                 </div>
                             </div>
                         </div>
@@ -1108,7 +1108,7 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Rake Angle (graus)</label>
-                                    <input type="number" step="any" name="rake_angle" id="edit-rake" class="form-control" placeholder="Ângulo de Caster">
+                                    <input type="number" step="any" name="rake_angle" id="edit-rake" class="form-control" placeholder="Rake Angle">
                                 </div>
                                 
                                 <div class="form-group">
@@ -1194,12 +1194,12 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Wheelbase (mm)</label>
-                                    <input type="number" step="any" name="wheelbase" id="edit-wheelbase" class="form-control" placeholder="Distância Entre-Eixos">
+                                    <input type="number" step="any" name="wheelbase" id="edit-wheelbase" class="form-control" placeholder="Wheelbase">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="form-label">Ground Clearance (mm)</label>
-                                    <input type="number" step="any" name="ground_clearance" id="edit-ground-clearance" class="form-control" placeholder="Distância ao Solo">
+                                    <input type="number" step="any" name="ground_clearance" id="edit-ground-clearance" class="form-control" placeholder="Ground Clearance">
                                 </div>
                                 
                                 <div class="form-group">
@@ -1214,7 +1214,7 @@ input[type="file"]:focus {
                                 
                                 <div class="form-group">
                                     <label class="form-label">Oil Tank Capacity (L)</label>
-                                    <input type="number" step="any" name="oil_tank_capacity" id="edit-oil-tank-capacity" class="form-control" placeholder="Capacidade de Óleo">
+                                    <input type="number" step="any" name="oil_tank_capacity" id="edit-oil-tank-capacity" class="form-control" placeholder="Oil Capacity">
                                 </div>
                             </div>
                         </div>
@@ -1476,7 +1476,7 @@ function openEditModal(id) {
                     
                     gallery.appendChild(currentImagesSection);
                 } else {
-                    gallery.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">Nenhuma imagem disponível</p>';
+                    gallery.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">No images available</p>';
                 }
 
                 // Mostra o modal
@@ -1530,7 +1530,7 @@ function openEditModal(id) {
                         
                         // Mostra mensagem de sucesso
                         const message = document.createElement('div');
-                        message.textContent = 'Imagem excluída com sucesso!';
+                        message.textContent = 'Image deleted successfully!';
                         message.style.backgroundColor = '#4CAF50';
                         message.style.color = 'white';
                         message.style.padding = '10px';

@@ -120,8 +120,6 @@ class homeController extends Controller
         $product = Product::with(['category', 'ratings'])->latest()->take(8)->get();
         $motorcycles = Motorcycle::with('brand')->latest()->take(6)->get();
         
-        // Teste temporário de notificação
-        session()->flash('success', 'Sistema de notificações funcionando! Teste realizado com sucesso.');
         
         if(Auth::id())
         {
@@ -219,13 +217,13 @@ class homeController extends Controller
 
         if (!$product) {
             // Sistema múltiplo de notificações
-            session()->flash('error', 'Produto não encontrado');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Produto não encontrado');
+            session()->flash('error', 'Product not found');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Product not found');
         }
 
         if ($product->Quantity <= 0) {
-            session()->flash('error', 'Desculpe, este produto está fora de stock');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Desculpe, este produto está fora de stock');
+            session()->flash('error', 'Sorry, this product is out of stock');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Sorry, this product is out of stock');
         }
 
         // Verifica se o produto já está no carrinho
@@ -241,8 +239,8 @@ class homeController extends Controller
             session()->flash('success', 'Product added to cart successfully');
             return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Product added to cart successfully');
         } else {
-            session()->flash('warning', 'Quantidade máxima disponível em stock atingida');
-            return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Quantidade máxima disponível em stock atingida');
+            session()->flash('warning', 'Maximum available stock quantity reached');
+            return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Maximum available stock quantity reached');
         }
     } else {
              // Se não existe, cria novo item
@@ -265,18 +263,18 @@ class homeController extends Controller
             
             if ($requestedQuantity > $product->Quantity) {
                 $cart->quantity = $product->Quantity;
-                session()->flash('warning', 'Quantidade ajustada para o máximo disponível em stock');
+                session()->flash('warning', 'Quantity adjusted to maximum available in stock');
                 $cart->save();
-                return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Quantidade ajustada para o máximo disponível em stock');
+                return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Quantity adjusted to maximum available in stock');
             } else {
                 $cart->quantity = $requestedQuantity;
-                session()->flash('success', 'Quantidade atualizada com sucesso');
+                session()->flash('success', 'Quantity updated successfully');
                 $cart->save();
-                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Quantidade atualizada com sucesso');
+                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Quantity updated successfully');
             }
             
         }
-        return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Tamanho atualizado com sucesso');
+        return redirect()->back();
     }
 
     public function add_motorcycle_cart($id)
@@ -293,8 +291,8 @@ class homeController extends Controller
                           ->first();
 
         if ($existingCart) {
-            session()->flash('warning', 'Esta moto já está no seu carrinho');
-            return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Esta moto já está no seu carrinho');
+            session()->flash('warning', 'This motorcycle is already in your cart');
+            return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'This motorcycle is already in your cart');
         } else {
             // Se não existe, cria novo item
             $data = new Cart;
@@ -304,8 +302,8 @@ class homeController extends Controller
             $data->quantity = 1; // Motos sempre terão quantidade 1
             $data->is_motorcycle = true; // Flag para identificar que é uma moto
         $data->save();
-            session()->flash('success', 'Moto adicionada ao carrinho com sucesso');
-            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Moto adicionada ao carrinho com sucesso');
+            session()->flash('success', 'Motorcycle added to cart successfully');
+            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Motorcycle added to cart successfully');
         }
     }
 
@@ -328,8 +326,8 @@ class homeController extends Controller
             if (!$item->is_motorcycle && $item->product_id) {
                 $product = Product::find($item->product_id);
                 if ($product->Quantity < $item->quantity) {
-                    session()->flash('error', 'Desculpe, não há stock suficiente para ' . $product->title);
-                    return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Desculpe, não há stock suficiente para ' . $product->title);
+                    session()->flash('error', 'Sorry, there is not enough stock for ' . $product->title);
+                    return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Sorry, there is not enough stock for ' . $product->title);
                 }
             }
         }
@@ -462,11 +460,11 @@ class homeController extends Controller
 
         Cart::where('user_id', $userid)->delete();
 
-        $successMessage = 'Pedido realizado com sucesso!';
+        $successMessage = 'Order placed successfully!';
         if ($pointsUsed > 0) {
-            $successMessage .= ' Você usou ' . $pointsUsed . ' pontos para obter ' . number_format($discount, 2) . '€ de desconto.';
+            $successMessage .= ' You used ' . $pointsUsed . ' points to get ' . number_format($discount, 2) . '€ discount.';
         }
-        $successMessage .= ' Enviamos a fatura para seu email.';
+        $successMessage .= ' We sent the invoice to your email.';
         
         session()->flash('success', $successMessage);
         return redirect()->back()->with('notification_type', 'success')->with('notification_message', $successMessage);
@@ -496,8 +494,8 @@ class homeController extends Controller
         
         $data-> delete();
 
-        session()->flash('success', 'Produto removido do carrinho com sucesso');
-        return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Produto removido do carrinho com sucesso');
+        session()->flash('success', 'Product removed from cart successfully');
+        return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Product removed from cart successfully');
     }
 
     public function myorders()
@@ -515,8 +513,8 @@ class homeController extends Controller
 
             return view('home.myorders', compact('count', 'orders'));
         } catch (\Exception $e) {
-            session()->flash('error', 'Erro ao carregar os pedidos. Por favor, tente novamente.');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Erro ao carregar os pedidos. Por favor, tente novamente.');
+            session()->flash('error', 'Error loading orders. Please try again.');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Error loading orders. Please try again.');
         }
     }
 
@@ -727,7 +725,7 @@ class homeController extends Controller
             
             // Verificar se o carrinho está vazio
             if($cart->isEmpty()) {
-                session()->flash('error', 'O seu carrinho está vazio');
+                session()->flash('error', 'Your cart is empty');
                 return redirect('/');
             }
 
@@ -749,8 +747,8 @@ class homeController extends Controller
                 $order = new Order;
                 $order->order_number = $orderNumber;
                 $order->name = $user->name;
-                $order->rec_address = $user->address ?? 'Endereço não fornecido';
-                $order->phone = $user->phone ?? 'Telefone não fornecido';
+                            $order->rec_address = $user->address ?? 'Address not provided';
+            $order->phone = $user->phone ?? 'Phone not provided';
                 $order->user_id = $userid;
                 $order->payment_status = 'Pago';
                 $order->status = 'Em Processamento';
@@ -810,14 +808,14 @@ class homeController extends Controller
             Cart::where('user_id', $userid)->delete();
             
             // Adicionar mensagem e redirecionar
-            session()->flash('success', 'Pagamento realizado com sucesso! Obrigado pela sua compra. Enviamos a fatura para seu email.');
+            session()->flash('success', 'Payment completed successfully! Thank you for your purchase. We sent the invoice to your email.');
             
-            return redirect('/')->with('notification_type', 'success')->with('notification_message', 'Pagamento realizado com sucesso! Obrigado pela sua compra. Enviamos a fatura para seu email.');
+            return redirect('/')->with('notification_type', 'success')->with('notification_message', 'Payment completed successfully! Thank you for your purchase. We sent the invoice to your email.');
         } catch (\Exception $e) {
             // Em caso de erro, retornar com mensagem de erro
-            session()->flash('error', 'Erro no processamento do pagamento: ' . $e->getMessage());
+            session()->flash('error', 'Payment processing error: ' . $e->getMessage());
             
-            return back()->with('notification_type', 'error')->with('notification_message', 'Erro no processamento do pagamento: ' . $e->getMessage());
+            return back()->with('notification_type', 'error')->with('notification_message', 'Payment processing error: ' . $e->getMessage());
         }
     }
 
@@ -833,13 +831,13 @@ class homeController extends Controller
         // Busca o produto
         $product = Product::find($id);
         if (!$product) {
-            session()->flash('error', 'Produto não encontrado');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Produto não encontrado');
+            session()->flash('error', 'Product not found');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Product not found');
         }
 
         if ($product->Quantity <= 0) {
-            session()->flash('error', 'Desculpe, este produto está fora de stock');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Desculpe, este produto está fora de stock');
+            session()->flash('error', 'Sorry, this product is out of stock');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Sorry, this product is out of stock');
         }
 
         
@@ -848,7 +846,7 @@ class homeController extends Controller
         
         // Verifica se a quantidade solicitada é válida
         if ($requestedQuantity > $product->Quantity) {
-            session()->flash('warning', 'Quantidade solicitada excede o stock disponível');
+            session()->flash('warning', 'Requested quantity exceeds available stock');
             $requestedQuantity = $product->Quantity;
         }
         
@@ -865,13 +863,13 @@ class homeController extends Controller
             if ($newQuantity <= $product->Quantity) {
                 $existingCart->quantity = $newQuantity;
                 $existingCart->save();
-                session()->flash('success', 'Produto adicionado ao carrinho com sucesso');
-                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Produto adicionado ao carrinho com sucesso');
+                session()->flash('success', 'Product added to cart successfully');
+                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Product added to cart successfully');
             } else {
                 $existingCart->quantity = $product->Quantity;
                 $existingCart->save();
-                session()->flash('warning', 'Quantidade máxima disponível em stock atingida');
-                return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Quantidade máxima disponível em stock atingida');
+                session()->flash('warning', 'Maximum available stock quantity reached');
+                return redirect()->back()->with('notification_type', 'warning')->with('notification_message', 'Maximum available stock quantity reached');
             }
         } else {
             // Se não existe, cria novo item
@@ -881,8 +879,8 @@ class homeController extends Controller
             $cart->quantity = $requestedQuantity;
             $cart->size = $request->size;
             $cart->save();
-            session()->flash('success', 'Produto adicionado ao carrinho com sucesso');
-            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Produto adicionado ao carrinho com sucesso');
+            session()->flash('success', 'Product added to cart successfully');
+            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Product added to cart successfully');
         }
     }
 
@@ -892,10 +890,10 @@ class homeController extends Controller
         if ($cart) {
             $cart->size = $request->size;
             $cart->save();
-            session()->flash('success', 'Tamanho atualizado com sucesso');
-            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Tamanho atualizado com sucesso');
+            session()->flash('success', 'Size updated successfully');
+            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Size updated successfully');
         }
-        return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Tamanho atualizado com sucesso');
+        return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Size update error');
     }
 
     // Método para adicionar produto à lista de desejos
@@ -917,11 +915,11 @@ class homeController extends Controller
                     'is_motorcycle' => 0
                 ]);
                 
-                session()->flash('success', 'Produto adicionado à lista de desejos!');
-                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Produto adicionado à lista de desejos!');
+                session()->flash('success', 'Product added to wishlist!');
+                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Product added to wishlist!');
             } else {
-                session()->flash('info', 'Este produto já está na sua lista de desejos!');
-                return redirect()->back()->with('notification_type', 'info')->with('notification_message', 'Este produto já está na sua lista de desejos!');
+                session()->flash('info', 'This product is already in your wishlist!');
+                return redirect()->back()->with('notification_type', 'info')->with('notification_message', 'This product is already in your wishlist!');
             }
         } else {
             return redirect('login');
@@ -947,11 +945,11 @@ class homeController extends Controller
                     'is_motorcycle' => 1
                 ]);
                 
-                session()->flash('success', 'Moto adicionada à lista de desejos!');
-                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Moto adicionada à lista de desejos!');
+                session()->flash('success', 'Motorcycle added to wishlist!');
+                return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Motorcycle added to wishlist!');
             } else {
-                session()->flash('info', 'Esta moto já está na sua lista de desejos!');
-                return redirect()->back()->with('notification_type', 'info')->with('notification_message', 'Esta moto já está na sua lista de desejos!');
+                session()->flash('info', 'This motorcycle is already in your wishlist!');
+                return redirect()->back()->with('notification_type', 'info')->with('notification_message', 'This motorcycle is already in your wishlist!');
             }
         } else {
             return redirect('login');
@@ -990,8 +988,8 @@ class homeController extends Controller
     {
         if (Auth::id()) {
             Wishlist::where('id', $id)->delete();
-            session()->flash('success', 'Item removido da lista de desejos!');
-            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Item removido da lista de desejos!');
+            session()->flash('success', 'Item removed from wishlist!');
+            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Item removed from wishlist!');
         } else {
             return redirect('login');
         }
@@ -1048,8 +1046,8 @@ class homeController extends Controller
             // Remover item da lista de desejos
             $wishlist_item->delete();
             
-            session()->flash('success', 'Item movido para o carrinho!');
-            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Item movido para o carrinho!');
+            session()->flash('success', 'Item moved to cart!');
+            return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Item moved to cart!');
         } else {
             return redirect('login');
         }
@@ -1157,8 +1155,8 @@ class homeController extends Controller
         ]);
 
         if (!Auth::check()) {
-            session()->flash('error', 'Você precisa estar logado para avaliar.');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Você precisa estar logado para avaliar.');
+            session()->flash('error', 'You need to be logged in to rate.');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'You need to be logged in to rate.');
         }
 
         $user = Auth::user();
@@ -1166,8 +1164,8 @@ class homeController extends Controller
         // Impede que o mesmo usuário avalie o mesmo produto mais de uma vez
         $existing = \App\Models\ProductRating::where('user_id', $user->id)->where('product_id', $id)->first();
         if ($existing) {
-            session()->flash('error', 'Você já avaliou este produto.');
-            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'Você já avaliou este produto.');
+            session()->flash('error', 'You have already rated this product.');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'You have already rated this product.');
         }
 
         \App\Models\ProductRating::create([
@@ -1177,8 +1175,8 @@ class homeController extends Controller
             'comment' => $request->comment,
         ]);
 
-        session()->flash('success', 'Avaliação enviada com sucesso!');
-        return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Avaliação enviada com sucesso!');
+        session()->flash('success', 'Rating submitted successfully!');
+        return redirect()->back()->with('notification_type', 'success')->with('notification_message', 'Rating submitted successfully!');
     }
 
 }

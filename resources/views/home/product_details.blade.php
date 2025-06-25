@@ -679,7 +679,7 @@
                     </span>
                   </div>
                 @else
-                  <input type="hidden" name="size" value="Único">
+                                                      <input type="hidden" name="size" value="One Size">
                 @endif
                 
                 <div class="option-title mt-4">Quantity:</div>
@@ -790,7 +790,7 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <textarea name="comment" class="form-control" placeholder="Deixe um comentário (opcional)" rows="2"></textarea>
+                                                      <textarea name="comment" class="form-control" placeholder="Leave a comment (optional)" rows="2"></textarea>
                     </div>
                     <button type="submit" class="btn btn-purple">Enviar Avaliação</button>
                   </form>
@@ -818,7 +818,7 @@
                                 @endif
                               @endfor
                             </div>
-                            <strong>{{ $rating->user->name ?? 'Usuário' }}</strong>
+                                                            <strong>{{ $rating->user->name ?? 'User' }}</strong>
                             <span class="text-muted small ms-2">{{ $rating->created_at->format('d/m/Y') }}</span>
                             <div class="mt-2">{{ $rating->comment }}</div>
                           </div>
