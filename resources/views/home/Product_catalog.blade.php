@@ -687,7 +687,9 @@
           <div class="product-grid">
             @foreach($products as $product)
               <div class="product-card">
-                @if($product->Quantity <= 5 && $product->Quantity > 0)
+                @if($product->hasDiscount())
+                  <div class="product-badge" style="background-color: #e74c3c;">-{{ number_format($product->discount_percentage, 0) }}% OFF</div>
+                @elseif($product->Quantity <= 5 && $product->Quantity > 0)
                   <div class="product-badge">Last units</div>
                 @elseif($product->created_at->diffInDays(now()) < 30)
                   <div class="product-badge">New</div>
@@ -722,7 +724,15 @@
                   </div>
                   
                   <div class="product-price">
-                    {{ number_format($product->price, 2, '.', ',') }}€
+                    @if($product->hasDiscount())
+                      <span style="text-decoration: line-through; color: #999; font-size: 1rem; margin-right: 10px;">{{ number_format($product->price, 2, '.', ',') }}€</span>
+                      <span style="color: #28a745; font-weight: bold;">{{ number_format($product->getDiscountedPrice(), 2, '.', ',') }}€</span>
+                      <div style="margin-top: 5px;">
+                        <span style="background: #9935dc; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">-{{ number_format($product->discount_percentage, 0) }}% OFF</span>
+                      </div>
+                    @else
+                      {{ number_format($product->price, 2, '.', ',') }}€
+                    @endif
                   </div>
                   
                   <div class="product-actions">

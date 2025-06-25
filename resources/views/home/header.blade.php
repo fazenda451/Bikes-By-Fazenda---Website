@@ -24,10 +24,9 @@
             <a class="nav-link" href="{{url('/product-catalog')}}">Equipment</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Accessories</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Promotions</a>
+            <a class="nav-link" href="{{url('/deals')}}">
+              <span style="color: #e74c3c; font-weight: 700;">🔥 Deals</span>
+            </a>
           </li>
         </ul>
 

@@ -15,18 +15,20 @@
                   <span>View Details</span>
                 </div>
               </div>
-              @if($products->discount_price)
+              @if($products->hasDiscount())
                 <div class="product-tag">
-                  <span>SALE</span>
+                  <span>-{{number_format($products->discount_percentage, 0)}}% OFF</span>
                 </div>
               @endif
             </div>
             <div class="product-info">
               <h3 class="product-title">{{$products->title}}</h3>
               <div class="product-price">
-                <span class="price">€{{$products->price}}</span>
-                @if($products->discount_price)
-                  <span class="original-price">€{{$products->discount_price}}</span>
+                @if($products->hasDiscount())
+                  <span class="original-price">€{{number_format($products->price, 2)}}</span>
+                  <span class="price">€{{number_format($products->getDiscountedPrice(), 2)}}</span>
+                @else
+                  <span class="price">€{{number_format($products->price, 2)}}</span>
                 @endif
               </div>
               <div class="product-rating">

@@ -252,7 +252,11 @@
                         if(isset($item->is_motorcycle) && $item->is_motorcycle) {
                             $itemTotal = $item->motorcycle->price;
                         } else {
-                            $itemTotal = $item->product->price * $item->quantity;
+                            if($item->product->hasDiscount()) {
+                                $itemTotal = $item->product->getDiscountedPrice() * $item->quantity;
+                            } else {
+                                $itemTotal = $item->product->price * $item->quantity;
+                            }
                         }
                         $totalPedido += $itemTotal;
                     @endphp
@@ -267,6 +271,9 @@
                                 @else
                                     <div class="product-details">
                                         {{ $item->product->title }}
+                                        @if($item->product->hasDiscount())
+                                            <br><small style="color: #e74c3c; font-weight: bold;">PROMOTION -{{ number_format($item->product->discount_percentage, 0) }}%</small>
+                                        @endif
                                         @if($item->size)
                                         <br><small>Size: {{ $item->size }}</small>
                                         @endif
@@ -285,7 +292,12 @@
                             @if(isset($item->is_motorcycle) && $item->is_motorcycle)
                                 {{ number_format($item->motorcycle->price, 2, ',', '.') }}€
                             @else
-                                {{ number_format($item->product->price, 2, ',', '.') }}€
+                                @if($item->product->hasDiscount())
+                                    <span style="text-decoration: line-through; color: #999;">{{ number_format($item->product->price, 2, ',', '.') }}€</span><br>
+                                    <span style="color: #28a745; font-weight: bold;">{{ number_format($item->product->getDiscountedPrice(), 2, ',', '.') }}€</span>
+                                @else
+                                    {{ number_format($item->product->price, 2, ',', '.') }}€
+                                @endif
                             @endif
                         </td>
                         <td>{{ number_format($itemTotal, 2, ',', '.') }}€</td>

@@ -25,6 +25,8 @@ Route::get('/motorcycle-catalog', [HomeController::class, 'motorcycleCatalog'])
 Route::get('/product-catalog', [HomeController::class, 'productCatalog'])
     ->name('product.catalog');
 
+Route::get('/deals', [HomeController::class, 'deals'])->name('deals');
+
       ///////////////////////////////////////
      // Rotas de Autenticação e DashBoard //
     ///////////////////////////////////////

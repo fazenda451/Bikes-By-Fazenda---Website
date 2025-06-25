@@ -480,7 +480,15 @@
                                 @if(isset($item->is_motorcycle) && $item->is_motorcycle)
                                     {{ number_format($item->motorcycle->price, 2, ',', '.') }}€
                                 @else
-                                    {{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€
+                                    @if($item->product->hasDiscount())
+                                        <span style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 5px;">{{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€</span>
+                                        <span style="color: #28a745; font-weight: bold;">{{ number_format($item->product->getDiscountedPrice() * $item->quantity, 2, ',', '.') }}€</span>
+                                        <div style="margin-top: 3px;">
+                                            <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem;">PROMOTION -{{ number_format($item->product->discount_percentage, 0) }}%</span>
+                                        </div>
+                                    @else
+                                        {{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€
+                                    @endif
                                 @endif
                             </div>
                         </div>

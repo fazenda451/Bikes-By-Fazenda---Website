@@ -345,7 +345,11 @@
                           if(isset($item->is_motorcycle) && $item->is_motorcycle) {
                             return $item->motorcycle->price;
                           } else {
-                            return $item->product->price * $item->quantity;
+                            if($item->product->hasDiscount()) {
+                                return $item->product->getDiscountedPrice() * $item->quantity;
+                            } else {
+                                return $item->product->price * $item->quantity;
+                            }
                           }
                         });
                         $orderDate = date('d/m/Y H:i', strtotime($firstItem->created_at));
@@ -412,7 +416,11 @@
             if(isset($item->is_motorcycle) && $item->is_motorcycle) {
               return $item->motorcycle->price;
             } else {
-              return $item->product->price * $item->quantity;
+              if($item->product->hasDiscount()) {
+                return $item->product->getDiscountedPrice() * $item->quantity;
+              } else {
+                return $item->product->price * $item->quantity;
+              }
             }
           });
           $orderDate = date('d/m/Y H:i', strtotime($firstItem->created_at));
@@ -514,7 +522,15 @@
                             @if(isset($item->is_motorcycle) && $item->is_motorcycle)
                               {{ $item->motorcycle->price }}€
                             @else
-                              {{ $item->product->price }}€
+                              @if($item->product->hasDiscount())
+                                <span style="text-decoration: line-through; color: #999;">{{ $item->product->price }}€</span><br>
+                                <span style="color: #28a745; font-weight: bold;">{{ number_format($item->product->getDiscountedPrice(), 2) }}€</span>
+                                <div style="margin-top: 3px;">
+                                  <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem;">-{{ number_format($item->product->discount_percentage, 0) }}%</span>
+                                </div>
+                              @else
+                                {{ $item->product->price }}€
+                              @endif
                             @endif
                           </td>
                           <td>
@@ -524,11 +540,16 @@
                               {{ $item->quantity }}
                             @endif
                     </td>
-                    <td>
+                                            <td>
                             @if(isset($item->is_motorcycle) && $item->is_motorcycle)
                               {{ $item->motorcycle->price }}€
                         @else
-                              {{ $item->product->price * $item->quantity }}€
+                              @if($item->product->hasDiscount())
+                                <span style="text-decoration: line-through; color: #999;">{{ $item->product->price * $item->quantity }}€</span><br>
+                                <span style="color: #28a745; font-weight: bold;">{{ number_format($item->product->getDiscountedPrice() * $item->quantity, 2) }}€</span>
+                              @else
+                                {{ $item->product->price * $item->quantity }}€
+                              @endif
                         @endif
                     </td>
                     <td>

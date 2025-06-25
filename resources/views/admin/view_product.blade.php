@@ -517,7 +517,15 @@
                         </span>
                     </td>
                     <td>
-                        <div class="product-price">{{ number_format($products->price, 2) }} €</div>
+                        <div class="product-price">
+                            @if($products->hasDiscount())
+                                <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">{{ number_format($products->price, 2) }}€</span><br>
+                                <span style="color: #28a745; font-weight: bold;">{{ number_format($products->getDiscountedPrice(), 2) }}€</span>
+                                <small style="color: #9935dc; display: block;">-{{ $products->discount_percentage }}%</small>
+                            @else
+                                {{ number_format($products->price, 2) }}€
+                            @endif
+                        </div>
                     </td>
                     <td class="product-quantity">
                         @php

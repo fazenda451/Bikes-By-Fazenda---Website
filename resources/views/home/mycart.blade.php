@@ -1021,9 +1021,19 @@
                       </td>
                       <td>
                         @if($item->is_motorcycle)
-                          <span class="price-value">{{$item->motorcycle->price}}€</span>
+                          <span class="price-value">{{number_format($item->motorcycle->price, 2)}}€</span>
                         @else
-                          <span class="price-value">{{$item->product->price}}€</span>
+                          @if($item->product->hasDiscount())
+                            <div>
+                              <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">{{number_format($item->product->price, 2)}}€</span>
+                              <span class="price-value" style="color: #28a745;">{{number_format($item->product->getDiscountedPrice(), 2)}}€</span>
+                              <div style="margin-top: 3px;">
+                                <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem;">-{{ number_format($item->product->discount_percentage, 0) }}%</span>
+                              </div>
+                            </div>
+                          @else
+                            <span class="price-value">{{number_format($item->product->price, 2)}}€</span>
+                          @endif
                         @endif
                       </td>
                       <td>
@@ -1065,13 +1075,22 @@
                       </td>
                       <td>
                         @if($item->is_motorcycle)
-                          <span class="total-value">{{$item->motorcycle->price}}€</span>
+                          <span class="total-value">{{number_format($item->motorcycle->price, 2)}}€</span>
                           <?php $total += $item->motorcycle->price; ?>
                           <?php $originalTotal += $item->motorcycle->price; ?>
                         @else
-                          <span class="total-value">{{$item->product->price * $item->quantity}}€</span>
-                          <?php $total += $item->product->price * $item->quantity; ?>
-                          <?php $originalTotal += $item->product->price * $item->quantity; ?>
+                          @if($item->product->hasDiscount())
+                            <div>
+                              <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">{{number_format($item->product->price * $item->quantity, 2)}}€</span>
+                              <span class="total-value" style="color: #28a745;">{{number_format($item->product->getDiscountedPrice() * $item->quantity, 2)}}€</span>
+                            </div>
+                            <?php $total += $item->product->getDiscountedPrice() * $item->quantity; ?>
+                            <?php $originalTotal += $item->product->price * $item->quantity; ?>
+                          @else
+                            <span class="total-value">{{number_format($item->product->price * $item->quantity, 2)}}€</span>
+                            <?php $total += $item->product->price * $item->quantity; ?>
+                            <?php $originalTotal += $item->product->price * $item->quantity; ?>
+                          @endif
                         @endif
                       </td>
                       <td>

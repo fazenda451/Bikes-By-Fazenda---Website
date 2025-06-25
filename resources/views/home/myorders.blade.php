@@ -89,7 +89,11 @@
                                                     if(isset($item->is_motorcycle) && $item->is_motorcycle) {
                                                         return $item->motorcycle->price;
                                                     } else {
-                                                        return $item->product->price * $item->quantity;
+                                                        if($item->product->hasDiscount()) {
+                                                            return $item->product->getDiscountedPrice() * $item->quantity;
+                                                        } else {
+                                                            return $item->product->price * $item->quantity;
+                                                        }
                                                     }
                                                 });
                                             @endphp
@@ -122,7 +126,17 @@
                                                     @if($item->size)
                                                         <small class="text-muted">Size: {{$item->size}}</small>
                                                     @endif
-                                                    <div class="product-price mt-1">{{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€</div>
+                                                    <div class="product-price mt-1">
+                                                        @if($item->product->hasDiscount())
+                                                            <span style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 5px;">{{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€</span>
+                                                            <span style="color: #28a745; font-weight: bold;">{{ number_format($item->product->getDiscountedPrice() * $item->quantity, 2, ',', '.') }}€</span>
+                                                            <div style="margin-top: 3px;">
+                                                                <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem;">-{{ number_format($item->product->discount_percentage, 0) }}% OFF</span>
+                                                            </div>
+                                                        @else
+                                                            {{ number_format($item->product->price * $item->quantity, 2, ',', '.') }}€
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             @endif
                                         </div>

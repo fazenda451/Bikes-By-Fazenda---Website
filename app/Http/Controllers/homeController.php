@@ -712,6 +712,81 @@ class homeController extends Controller
 
     }
 
+    public function deals(Request $request)
+    {
+        // Get only products with discounts
+        $query = Product::with('category')->withDiscount();
+        
+        // Apply category filter if provided
+        if ($request->has('category') && $request->category) {
+            $query->where('category_id', $request->category);
+        }
+        
+        // Apply price range filters
+        if ($request->has('min_price') && $request->min_price) {
+            $query->whereRaw('(price - (price * (discount_percentage / 100))) >= ?', [$request->min_price]);
+        }
+        
+        if ($request->has('max_price') && $request->max_price) {
+            $query->whereRaw('(price - (price * (discount_percentage / 100))) <= ?', [$request->max_price]);
+        }
+        
+        // Apply search filter
+        if ($request->has('search') && $request->search) {
+            $search = strtolower($request->search);
+            $query->where(function($q) use ($search) {
+                $q->whereRaw('LOWER(title) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
+            });
+        }
+        
+        // Apply sorting
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'discount_desc':
+                    $query->orderBy('discount_percentage', 'desc');
+                    break;
+                case 'discount_asc':
+                    $query->orderBy('discount_percentage', 'asc');
+                    break;
+                case 'price_asc':
+                    $query->orderByRaw('(price - (price * (discount_percentage / 100))) asc');
+                    break;
+                case 'price_desc':
+                    $query->orderByRaw('(price - (price * (discount_percentage / 100))) desc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('title', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('title', 'desc');
+                    break;
+                default:
+                    $query->orderBy('discount_percentage', 'desc');
+            }
+        } else {
+            $query->orderBy('discount_percentage', 'desc');
+        }
+        
+        // Paginate results
+        $products = $query->paginate(12);
+        
+        // Get categories that have products with discounts
+        $categories = \App\Models\Category::whereHas('products', function($q) {
+            $q->where('discount_percentage', '>', 0);
+        })->get();
+        
+        // Check if user is logged in for cart count
+        if (Auth::id()) {
+            $user_id = Auth::user()->id;
+            $count = Cart::where('user_id', $user_id)->count();
+        } else {
+            $count = '';
+        }
+        
+        return view('home.deals', compact('products', 'categories', 'count'));
+    }
+
     public function stripePost(Request $request, $value)
     {
         try {

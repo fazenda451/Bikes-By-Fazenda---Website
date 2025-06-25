@@ -215,6 +215,12 @@
                                 </div>
                                 
                                 <div class="form-group">
+                                    <label class="form-label">Discount (%)</label>
+                                    <input type="number" name="discount_percentage" class="form-control" min="0" max="100" step="0.01" placeholder="e.g., 10, 25, 50">
+                                    <span class="form-hint">Leave empty for no discount (0-100%)</span>
+                                </div>
+                                
+                                <div class="form-group">
                                     <label class="form-label">Quantity</label>
                                     <input type="number" name="qty" class="form-control" required>
                                 </div>

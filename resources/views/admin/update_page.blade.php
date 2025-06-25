@@ -352,6 +352,12 @@
                     <input type="number" step="0.01" name="price" value="{{$data->price}}" class="form-control" required>
                 </div>
                 
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-percent"></i> Discount (%)</label>
+                    <input type="number" step="0.01" name="discount_percentage" value="{{$data->discount_percentage}}" class="form-control" min="0" max="100" placeholder="e.g., 10, 25, 50">
+                    <span class="form-hint">Leave empty for no discount (0-100%)</span>
+                </div>
+                
                 <div class="form-group category-group">
                     <label class="form-label"><i class="fas fa-layer-group"></i> Category *</label>
                     <select name="category_id" class="form-control" required>

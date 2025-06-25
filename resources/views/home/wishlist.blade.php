@@ -495,9 +495,12 @@
                       <h3 class="wishlist-name">{{ $item->product->title }}</h3>
                       <div class="wishlist-brand">{{ $item->product->category->category_name }}</div>
                       <div class="wishlist-price">
-                        @if($item->product->discount_price)
+                        @if($item->product->hasDiscount())
                           <span style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 0.5rem;">{{ number_format($item->product->price, 2, ',', '.') }}€</span>
-                          {{ number_format($item->product->discount_price, 2, ',', '.') }}€
+                          {{ number_format($item->product->getDiscountedPrice(), 2, ',', '.') }}€
+                          <div style="margin-top: 5px;">
+                            <span style="background: #9935dc; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">-{{ number_format($item->product->discount_percentage, 0) }}% OFF</span>
+                          </div>
                         @else
                           {{ number_format($item->product->price, 2, ',', '.') }}€
                         @endif

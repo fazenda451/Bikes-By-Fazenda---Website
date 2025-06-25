@@ -613,7 +613,16 @@
             <div class="product-ref">Ref: PROD-{{$data->id}}</div>
             
             <div class="product-price-container">
-              <div class="product-price">{{$data->price}}€</div>
+              @if($data->hasDiscount())
+                <div style="margin-bottom: 10px;">
+                  <span style="text-decoration: line-through; color: #999; font-size: 1.2rem; margin-right: 15px;">{{number_format($data->price, 2)}}€</span>
+                  <span style="background: #e74c3c; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9rem; font-weight: 600;">-{{ number_format($data->discount_percentage, 0) }}% OFF</span>
+                </div>
+                <div class="product-price" style="color: #28a745;">{{number_format($data->getDiscountedPrice(), 2)}}€</div>
+                <div style="color: #28a745; font-size: 1rem; margin-top: 5px;">You save {{ number_format($data->getDiscountAmount(), 2) }}€</div>
+              @else
+                <div class="product-price">{{number_format($data->price, 2)}}€</div>
+              @endif
               <div class="product-tax">Taxes included</div>
             </div>
             

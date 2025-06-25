@@ -9,6 +9,17 @@ class Product extends Model
 {
     use HasFactory;
     
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'price',
+        'discount_percentage',
+        'category_id',
+        'Quantity',
+        'size'
+    ];
+    
     /**
      * Get the category that owns the product.
      */
@@ -23,5 +34,43 @@ class Product extends Model
     public function ratings()
     {
         return $this->hasMany(ProductRating::class);
+    }
+    
+    /**
+     * Check if product has a discount
+     */
+    public function hasDiscount()
+    {
+        return $this->discount_percentage > 0;
+    }
+    
+    /**
+     * Get the discounted price
+     */
+    public function getDiscountedPrice()
+    {
+        if ($this->hasDiscount()) {
+            return $this->price - ($this->price * ($this->discount_percentage / 100));
+        }
+        return $this->price;
+    }
+    
+    /**
+     * Get the discount amount
+     */
+    public function getDiscountAmount()
+    {
+        if ($this->hasDiscount()) {
+            return $this->price * ($this->discount_percentage / 100);
+        }
+        return 0;
+    }
+    
+    /**
+     * Scope for products with discounts
+     */
+    public function scopeWithDiscount($query)
+    {
+        return $query->where('discount_percentage', '>', 0);
     }
 }

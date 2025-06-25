@@ -99,6 +99,8 @@ class AdminController extends Controller
 
         $data->price = $request->price;
 
+        $data->discount_percentage = $request->discount_percentage ?? 0;
+
         $data->Quantity = $request->qty;
 
         $data->category_id = $request->category_id;
@@ -239,6 +241,7 @@ return view('admin.view_product', compact('product'));
     $data->title = $request->title;
     $data->description = $request->description;
     $data->price = $request->price;
+    $data->discount_percentage = $request->discount_percentage ?? 0;
     $data->Quantity = $request->quantity;
     $data->category_id = $request->category_id;
     $data->size = $request->size;
