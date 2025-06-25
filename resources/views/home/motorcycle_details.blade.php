@@ -417,6 +417,8 @@
       text-decoration: none;
       margin-bottom: 20px;
       transition: background-color 0.3s, transform 0.2s;
+      width: 100%;
+      text-align: center;
     }
 
     .add-to-cart-btn:hover {
