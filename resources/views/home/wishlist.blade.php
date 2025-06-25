@@ -371,6 +371,345 @@
       height: 600px;
       object-fit: contain;
     }
+
+    /* Responsividade Mobile Completa */
+    @media (max-width: 768px) {
+      .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      .py-5 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      /* Menu lateral responsivo */
+      .profile-sidebar {
+        margin-bottom: 1.5rem;
+      }
+
+      .profile-header {
+        padding: 15px 0;
+      }
+
+      .profile-avatar i {
+        font-size: 2.5rem !important;
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+      }
+
+      .list-group-item {
+        padding: 10px 15px;
+        margin-bottom: 3px;
+        font-size: 0.9rem;
+        justify-content: center;
+      }
+
+      .list-group-item i {
+        margin-right: 0.5rem !important;
+      }
+
+      /* Conteúdo principal */
+      .card-body {
+        padding: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+        margin: 2rem 0 1rem;
+        text-align: center;
+      }
+
+      .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Items da wishlist - cards responsivos */
+      .wishlist-item {
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+      }
+
+      .wishlist-image {
+        width: 100%;
+        height: 200px;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .wishlist-info {
+        padding: 1.25rem;
+      }
+
+      .wishlist-name {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-bottom: 0.75rem;
+      }
+
+      .wishlist-brand {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .wishlist-price {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .wishlist-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .btn-action {
+        flex: 1;
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        border-radius: 8px;
+      }
+
+      /* Estado vazio */
+      .wishlist-empty {
+        padding: 2.5rem 1rem;
+        margin: 1rem 0;
+      }
+
+      .wishlist-empty i {
+        font-size: 2rem;
+      }
+
+      .wishlist-empty h3 {
+        font-size: 1.3rem;
+      }
+
+      .wishlist-empty p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .explore-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .explore-buttons .btn {
+        width: 100%;
+        max-width: 250px;
+      }
+
+      /* Ajustes para alerts */
+      .alert {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Badge de licença */
+      .license-badge {
+        top: 8px;
+        left: 8px;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+      }
+
+      /* Loading ajustado */
+      .loading-image {
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+      }
+
+      .py-5 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+      }
+
+      .card {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .card-body {
+        padding: 0.75rem;
+      }
+
+      .profile-header {
+        padding: 10px 0;
+      }
+
+      .profile-avatar i {
+        font-size: 2rem !important;
+      }
+
+      .card-title {
+        font-size: 1rem;
+      }
+
+      .list-group-item {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+        margin: 1.5rem 0 0.75rem;
+      }
+
+      .wishlist-item {
+        margin-bottom: 1rem;
+        border-radius: 8px;
+      }
+
+      .wishlist-image {
+        height: 150px;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .wishlist-info {
+        padding: 1rem;
+      }
+
+      .wishlist-name {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .wishlist-brand {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .wishlist-price {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .btn-action {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+      }
+
+      .wishlist-empty {
+        padding: 2rem 0.75rem;
+      }
+
+      .wishlist-empty i {
+        font-size: 1.8rem;
+      }
+
+      .wishlist-empty h3 {
+        font-size: 1.2rem;
+      }
+
+      .wishlist-empty p {
+        font-size: 0.85rem;
+      }
+
+      .explore-buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .alert {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+      }
+
+      .license-badge {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.3rem;
+      }
+    }
+
+    /* Melhorias para interações touch */
+    @media (hover: none) {
+      .wishlist-item:hover {
+        transform: none;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .wishlist-item:hover .wishlist-image img {
+        transform: none;
+      }
+
+      .btn-action:hover {
+        transform: none;
+      }
+
+      .list-group-item:hover {
+        transform: none;
+      }
+    }
+
+    /* Ajustes para densidade de pixels alta */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+      .loading-image {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    /* Orientação landscape para tablets */
+    @media (max-width: 1024px) and (orientation: landscape) {
+      .wishlist-item {
+        flex-direction: row;
+      }
+
+      .wishlist-image {
+        width: 250px;
+        height: 180px;
+        border-radius: 8px 0 0 8px;
+      }
+
+      .wishlist-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .btn-action {
+        flex: 1 1 auto;
+        min-width: 120px;
+      }
+    }
+
+    /* Ajustes para telas muito pequenas */
+    @media (max-width: 320px) {
+      .wishlist-name {
+        font-size: 0.95rem;
+      }
+
+      .wishlist-price {
+        font-size: 1rem;
+      }
+
+      .btn-action {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+      }
+
+      .wishlist-empty h3 {
+        font-size: 1.1rem;
+      }
+    }
   </style>
 </head>
 

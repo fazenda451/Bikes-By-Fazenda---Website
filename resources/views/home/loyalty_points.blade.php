@@ -125,6 +125,28 @@
                 </tbody>
               </table>
             </div>
+            
+            <!-- Cards Mobile para Histórico -->
+            <div class="mobile-history-container">
+              @foreach($pointsHistory as $history)
+                <div class="history-card">
+                  <div class="history-card-header">
+                    <div class="history-card-order">{{ $history['order_number'] }}</div>
+                    <div class="history-card-date">{{ date('d/m/Y H:i', strtotime($history['date'])) }}</div>
+                  </div>
+                  <div class="history-card-body">
+                    <div class="history-card-value">{{ number_format($history['total'], 2, ',', '.') }}€</div>
+                    <div class="history-card-points">
+                      @if($history['type'] == 'earned')
+                        <span class="badge bg-success">+{{ $history['points'] }}</span>
+                      @else
+                        <span class="badge bg-danger">-{{ $history['points'] }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            </div>
           @else
             <div class="empty-history">
               <i class="fas fa-history"></i>
@@ -370,6 +392,423 @@
 
   .text-danger {
     color: #9935dc !important;
+}
+
+/* Responsividade Mobile Completa */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .py-5 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  /* Menu lateral responsivo */
+  .profile-sidebar {
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-header {
+    padding: 15px 0;
+  }
+
+  .profile-avatar i {
+    font-size: 2.5rem !important;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .list-group-item {
+    padding: 10px 15px;
+    margin-bottom: 3px;
+    font-size: 0.9rem;
+    justify-content: center;
+  }
+
+  .list-group-item i {
+    margin-right: 0.5rem !important;
+  }
+
+  /* Cards de conteúdo */
+  .card {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .card-body {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  /* Header dos cards */
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: center !important;
+    text-align: center;
+    margin-bottom: 2rem !important;
+  }
+
+  .card-title {
+    margin-bottom: 0.5rem !important;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Points Summary Mobile */
+  .points-summary {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .points-summary .row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .points-card {
+    text-align: center;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .points-card-icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
+
+  .points-card-value {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .points-card-label {
+    font-size: 1.1rem;
+  }
+
+  .points-info {
+    padding: 1.5rem;
+    margin-bottom: 0;
+    border-left: none;
+    border-top: 4px solid #9935dc;
+    text-align: center;
+  }
+
+  .points-info-title {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .points-info-list {
+    text-align: left;
+  }
+
+  .points-info-list li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .points-info-list li i {
+    margin-top: 0.25rem;
+  }
+
+  /* History Title */
+  .history-title {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Points Legend Mobile */
+  .points-legend {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .legend-item {
+    justify-content: center;
+  }
+
+  /* Tabela Mobile - Converter para Cards */
+  .table-responsive {
+    display: none;
+  }
+
+  /* Cards de histórico para mobile */
+  .mobile-history-container {
+    display: block;
+  }
+
+  .history-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #9935dc;
+    transition: all 0.3s ease;
+  }
+
+  .history-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .history-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .history-card-order {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+  }
+
+  .history-card-date {
+    color: #666;
+    font-size: 0.85rem;
+  }
+
+  .history-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .history-card-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .history-card-points .badge {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Empty History Mobile */
+  .empty-history {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .empty-history i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .empty-history p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  .py-5 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .card {
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .card-body {
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .profile-header {
+    padding: 10px 0;
+  }
+
+  .profile-avatar i {
+    font-size: 2rem !important;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .list-group-item {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .points-summary {
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .points-card {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .points-card-icon {
+    font-size: 2.5rem;
+  }
+
+  .points-card-value {
+    font-size: 2.5rem;
+  }
+
+  .points-card-label {
+    font-size: 1rem;
+  }
+
+  .points-info {
+    padding: 1rem;
+  }
+
+  .points-info-title {
+    font-size: 1rem;
+  }
+
+  .points-info-list li {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .history-title {
+    font-size: 1rem;
+  }
+
+  .history-card {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .history-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .history-card-order {
+    font-size: 0.9rem;
+  }
+
+  .history-card-date {
+    font-size: 0.8rem;
+  }
+
+  .history-card-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .history-card-value {
+    font-size: 1rem;
+  }
+
+  .history-card-points .badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .empty-history {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .empty-history i {
+    font-size: 2rem;
+  }
+
+  .empty-history p {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Cards mobile para histórico - inicialmente escondido */
+.mobile-history-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-history-container {
+    display: block;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .history-card:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary:hover {
+    transform: none;
+    background-color: #9935dc;
+  }
+
+  .list-group-item:hover {
+    transform: none;
+    background-color: #f8f9fa;
+    color: #555;
+  }
+
+  .list-group-item.active:hover {
+    background-color: #9935dc;
+    color: white;
+  }
+}
+
+/* Melhorias para orientação landscape em tablets */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .points-summary .row {
+    flex-direction: row;
+  }
+
+  .points-card,
+  .points-info {
+    margin-bottom: 0;
+  }
+}
+
+/* Acessibilidade melhorada */
+@media (prefers-reduced-motion: reduce) {
+  .history-card,
+  .history-card:hover,
+  .btn-primary,
+  .list-group-item {
+    transition: none;
+    transform: none;
+  }
 }
 </style>
 

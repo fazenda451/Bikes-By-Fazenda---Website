@@ -241,6 +241,295 @@ body {
 .text-danger {
     color: #9935dc !important;
 }
+
+/* Responsividade Mobile Completa */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .py-5 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    /* Menu lateral responsivo */
+    .profile-sidebar {
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-header {
+        padding: 15px 0;
+    }
+
+    .profile-avatar i {
+        font-size: 2.5rem !important;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .list-group-item {
+        padding: 10px 15px;
+        margin-bottom: 3px;
+        font-size: 0.9rem;
+        justify-content: center;
+    }
+
+    .list-group-item i {
+        margin-right: 0.5rem !important;
+    }
+
+    /* Cards de conteúdo */
+    .card {
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+    }
+
+    .card-body {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    /* Formulários responsivos */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .col-md-6,
+    .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    /* Header dos cards */
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        align-items: center !important;
+        text-align: center;
+        margin-bottom: 2rem !important;
+    }
+
+    .card-title {
+        margin-bottom: 0.5rem !important;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Melhorias para campos de formulário */
+    .mb-3 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Validação de erros */
+    .text-danger {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    /* Ajustes para botões */
+    .d-flex.justify-content-end {
+        justify-content: center !important;
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+    }
+
+    .py-5 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .card {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+        border-radius: 8px;
+    }
+
+    .profile-header {
+        padding: 10px 0;
+    }
+
+    .profile-avatar i {
+        font-size: 2rem !important;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .list-group-item {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .form-control {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .form-label {
+        font-size: 0.85rem;
+    }
+
+    .btn-primary {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .col-md-6,
+    .col-md-12 {
+        margin-bottom: 1rem;
+    }
+
+    .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .text-danger {
+        font-size: 0.8rem;
+    }
+}
+
+/* Melhorias para focus e acessibilidade */
+@media (max-width: 768px) {
+    .form-control:focus {
+        border-color: #9935dc;
+        box-shadow: 0 0 0 3px rgba(153, 53, 220, 0.15);
+        outline: none;
+    }
+
+    /* Estados de hover para touch devices */
+    .btn-primary:active {
+        transform: scale(0.98);
+    }
+
+    .list-group-item:active {
+        background-color: #9935dc;
+        color: white;
+    }
+}
+
+/* Ajustes para orientação landscape em tablets */
+@media (max-width: 1024px) and (orientation: landscape) {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Melhorias para devices com touch */
+@media (hover: none) {
+    .list-group-item:hover {
+        transform: none;
+        background-color: #f8f9fa;
+        color: #555;
+    }
+
+    .list-group-item.active:hover {
+        background-color: #9935dc;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        transform: none;
+        background-color: #9935dc;
+    }
+}
+
+/* Ajustes específicos para iPhones */
+@media only screen and (max-width: 414px) {
+    .form-control {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    input[type="date"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: white;
+    }
+}
+
+/* Melhorias para formulários em mobile */
+@media (max-width: 768px) {
+    /* Espaçamento entre seções */
+    .card:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    /* Melhor espaçamento para labels */
+    .form-label {
+        display: block;
+        margin-bottom: 0.75rem;
+        color: #333;
+    }
+
+    /* Inputs mais touch-friendly */
+    .form-control {
+        min-height: 48px;
+        line-height: 1.5;
+    }
+
+    /* Botões mais touch-friendly */
+    .btn {
+        min-height: 48px;
+        touch-action: manipulation;
+    }
+
+    /* Espaçamento melhorado */
+    .mb-4 {
+        margin-bottom: 2rem !important;
+    }
+}
 </style>
 
 <!-- Toastr Assets -->

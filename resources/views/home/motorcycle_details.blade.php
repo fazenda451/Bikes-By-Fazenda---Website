@@ -571,6 +571,480 @@
       height: 600px;
       object-fit: contain;
     }
+
+    /* Responsividade Mobile Completa */
+    @media (max-width: 768px) {
+      /* Container mobile */
+      .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      /* Banner mobile otimizado */
+      .motorcycle-banner {
+        height: 50vh;
+        margin-bottom: 2rem;
+      }
+
+      .banner-content {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        text-align: center;
+      }
+
+      .banner-content h1 {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .banner-content p {
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+
+      .price-tag {
+        font-size: 1.25rem;
+        padding: 8px 16px;
+        margin-top: 15px;
+      }
+
+      .license-badge {
+        top: 15px;
+        left: 15px;
+        font-size: 0.875rem;
+        padding: 6px 12px;
+      }
+
+      /* Carrossel mobile */
+      .product-carousel {
+        flex-direction: column;
+        margin-bottom: 2rem;
+      }
+
+      .product-image-main,
+      .product-info {
+        width: 100%;
+      }
+
+      .product-info {
+        padding: 1.5rem 0 0 0;
+      }
+
+      .carousel-slide {
+        height: 300px;
+      }
+
+      .product-title {
+        font-size: 1.75rem;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .product-description {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .product-price {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Botões mobile */
+      .add-to-cart-btn,
+      .wishlist-btn {
+        margin-bottom: 1rem;
+        padding: 15px 25px;
+        font-size: 1rem;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .add-to-cart-btn {
+        background: linear-gradient(135deg, #9935dc 0%, #7b2ab0 100%);
+        box-shadow: 0 4px 15px rgba(153, 53, 220, 0.4);
+      }
+
+      .wishlist-btn {
+        border: 2px solid #9935dc;
+        color: #9935dc;
+        font-weight: 600;
+      }
+
+      .wishlist-btn:hover {
+        background-color: #9935dc;
+        color: white;
+      }
+
+      /* Color options mobile */
+      .color-options {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .color-title {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+
+      .color-selector {
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+      }
+
+      /* Notification mobile */
+      .notification-btn {
+        text-align: center;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      /* Content Section mobile */
+      .content-section {
+        padding: 3rem 0;
+      }
+
+      /* Tabs Navigation mobile */
+      .tabs-navigation {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px;
+        margin-bottom: 2rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tab-item {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 1rem;
+        margin-right: 15px;
+        border-radius: 8px;
+        white-space: nowrap;
+        min-width: 120px;
+        text-align: center;
+      }
+
+      .tab-item.active {
+        background-color: rgba(153, 53, 220, 0.1);
+        border-radius: 8px;
+      }
+
+      /* Description mobile */
+      .description h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .description p {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: justify;
+        padding: 0 0.5rem;
+      }
+
+      /* Specifications mobile */
+      .specs-section {
+        padding: 2rem 0;
+      }
+
+      .specs-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .specs-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .specs-group {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+      }
+
+      .specs-group h3 {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        color: #9935dc;
+      }
+
+      .specs-item {
+        padding: 1rem 0;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .specs-item:last-child {
+        border-bottom: none;
+      }
+
+      .specs-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #666;
+        flex: 1;
+      }
+
+      .specs-value {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+        text-align: right;
+        flex: 1;
+      }
+
+      /* Action buttons mobile */
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+        margin: 2rem 0;
+        padding: 0 1rem;
+      }
+
+      .btn {
+        padding: 15px 25px;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #9935dc 0%, #7b2ab0 100%);
+        box-shadow: 0 4px 15px rgba(153, 53, 220, 0.4);
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+      }
+    }
+
+    @media (max-width: 576px) {
+      /* Ajustes para telas muito pequenas */
+      .container {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+      }
+
+      .motorcycle-banner {
+        height: 40vh;
+        margin-bottom: 1.5rem;
+      }
+
+      .banner-content {
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+
+      .banner-content h1 {
+        font-size: 1.5rem;
+      }
+
+      .banner-content p {
+        font-size: 0.9rem;
+      }
+
+      .price-tag {
+        font-size: 1.1rem;
+        padding: 6px 12px;
+      }
+
+      .license-badge {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+      }
+
+      .carousel-slide {
+        height: 250px;
+      }
+
+      .product-title {
+        font-size: 1.5rem;
+      }
+
+      .product-price {
+        font-size: 1.25rem;
+      }
+
+      .add-to-cart-btn,
+      .wishlist-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+
+      .tab-item {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        min-width: 100px;
+      }
+
+      .description h2,
+      .specs-section h2 {
+        font-size: 1.25rem;
+      }
+
+      .description p {
+        font-size: 0.9rem;
+        padding: 0 0.25rem;
+      }
+
+      .specs-group {
+        padding: 1rem;
+      }
+
+      .specs-group h3 {
+        font-size: 1rem;
+      }
+
+      .specs-item {
+        padding: 0.75rem 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .specs-label,
+      .specs-value {
+        font-size: 0.85rem;
+        text-align: left;
+      }
+
+      .specs-value {
+        font-weight: 700;
+        color: #9935dc;
+      }
+
+      .action-buttons {
+        margin: 1.5rem 0;
+        padding: 0 0.5rem;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Melhorias para orientação landscape em tablets */
+    @media (max-width: 1024px) and (orientation: landscape) {
+      .motorcycle-banner {
+        height: 60vh;
+      }
+
+      .product-carousel {
+        flex-direction: row;
+      }
+
+      .product-image-main {
+        width: 60%;
+      }
+
+      .product-info {
+        width: 40%;
+        padding: 0 0 0 2rem;
+      }
+
+      .specs-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) {
+      .add-to-cart-btn:hover,
+      .wishlist-btn:hover,
+      .btn:hover {
+        transform: none;
+        box-shadow: inherit;
+      }
+
+      .tab-item:hover {
+        background-color: transparent;
+      }
+
+      .tab-item.active:hover {
+        background-color: rgba(153, 53, 220, 0.1);
+      }
+    }
+
+    /* Melhorias para devices com densidade de pixels alta */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .motorcycle-banner img,
+      .carousel-slide img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* Acessibilidade melhorada */
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-slides,
+      .add-to-cart-btn:hover,
+      .wishlist-btn:hover,
+      .btn:hover,
+      .tab-item {
+        transition: none;
+        transform: none;
+      }
+    }
+
+    /* Carrossel navigation mobile melhorado */
+    @media (max-width: 768px) {
+      .carousel-nav {
+        bottom: 20px;
+        top: auto;
+        transform: none;
+      }
+
+      .carousel-arrow {
+        width: 50px;
+        height: 50px;
+        background: rgba(153, 53, 220, 0.8);
+        font-size: 1.25rem;
+      }
+
+      .carousel-arrow:hover {
+        background: rgba(153, 53, 220, 1);
+      }
+
+      .carousel-arrow.prev {
+        margin-left: 20px;
+      }
+
+      .carousel-arrow.next {
+        margin-right: 20px;
+      }
+    }
+
+    /* Melhorias de loading para mobile */
+    @media (max-width: 768px) {
+      .loading-image {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .loading-image {
+        width: 200px;
+        height: 200px;
+      }
+    }
   </style>
 </head>
 

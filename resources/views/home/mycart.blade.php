@@ -941,6 +941,360 @@
       color: #9935dc;
       transform: scale(1.1);
     }
+
+    /* Cards responsivos para mobile */
+    .cart-item-card {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .cart-item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .cart-item-header {
+      background: linear-gradient(135deg, #9935dc, #7b2cbf);
+      color: white;
+      padding: 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cart-item-body {
+      padding: 1.5rem;
+    }
+
+    .cart-item-image {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item-title {
+      font-weight: 600;
+      color: #333;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .cart-item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .cart-item-detail {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      padding: 0.75rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #9935dc;
+    }
+
+    .cart-item-detail-label {
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .cart-item-detail-value {
+      color: #333;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .mobile-quantity-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .mobile-quantity-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .mobile-size-selector {
+      width: 100%;
+    }
+
+    .mobile-size-selector select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: white;
+      font-size: 1rem;
+    }
+
+    /* Media Queries para Mobile */
+    @media (max-width: 768px) {
+      .cart-section {
+        padding: 1.5rem 0;
+      }
+
+      .cart-container, .cart-summary, .checkout-form {
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+
+      .cart-title, .order-summary-title {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      /* Esconder tabela em mobile */
+      .cart-table {
+        display: none;
+      }
+
+      /* Mostrar cards em mobile */
+      .cart-item-card {
+        display: block;
+      }
+
+      .my-cart-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .delivery-options {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .delivery-label {
+        padding: 1rem;
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      .delivery-label i {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+        margin-right: 1rem;
+      }
+
+      .summary-item {
+        font-size: 0.95rem;
+      }
+
+      .summary-item.total {
+        font-size: 1.2rem;
+      }
+
+      .payment-options {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .btn-payment {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form-col {
+        width: 100%;
+      }
+
+      .loyalty-points {
+        text-align: center;
+      }
+
+      .points-selector .input-group {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .points-selector .input-group > * {
+        width: 100% !important;
+      }
+
+      .empty-cart {
+        padding: 2rem 1rem;
+      }
+
+      .empty-cart-icon {
+        font-size: 3rem;
+      }
+
+      .empty-cart-title {
+        font-size: 1.5rem;
+      }
+
+      .empty-cart-message {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .cart-section {
+        padding: 1rem 0;
+      }
+
+      .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      .cart-container, .cart-summary, .checkout-form {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .cart-title, .order-summary-title {
+        font-size: 1.1rem;
+      }
+
+      .cart-item-body {
+        padding: 1rem;
+      }
+
+      .cart-item-image {
+        width: 80px;
+        height: 80px;
+      }
+
+      .cart-item-title {
+        font-size: 1rem;
+      }
+
+      .cart-item-detail {
+        padding: 0.5rem;
+      }
+
+      .quantity-stepper {
+        transform: scale(0.9);
+      }
+
+      .summary-item {
+        font-size: 0.9rem;
+      }
+
+      .shipping-info {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+
+      .loyalty-points {
+        padding: 0.75rem;
+      }
+    }
+
+    /* Estilos para formulários responsivos */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: #9935dc;
+      box-shadow: 0 0 0 3px rgba(153, 53, 220, 0.1);
+      outline: none;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .form-col {
+      flex: 1;
+    }
+
+    .payment-options {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-payment {
+      flex: 1;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-cash {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+    }
+
+    .btn-cash:hover {
+      background: linear-gradient(135deg, #218838, #1aa085);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    .btn-card {
+      background: linear-gradient(135deg, #9935dc, #7b2cbf);
+      color: white;
+    }
+
+    .btn-card:hover {
+      background: linear-gradient(135deg, #8024c0, #6a1eab);
+      transform: translateY(-2px);
+      color: white;
+    }
   </style>
 
 </head>
@@ -974,6 +1328,8 @@
                 @endif
               </div>
               @if(count($cart) > 0)
+              
+              <!-- Tabela para Desktop -->
               <table class="cart-table">
                 <thead>
                   <tr>
@@ -1102,6 +1458,157 @@
                   @endforeach
                 </tbody>
               </table>
+
+              <!-- Cards para Mobile -->
+              <?php $total = 0; ?>
+              <?php $originalTotal = 0; ?>
+              @foreach ($cart as $item)
+                <div class="cart-item-card">
+                  <div class="cart-item-header">
+                    <i class="fas fa-shopping-cart"></i> Cart Item #{{$loop->iteration}}
+                  </div>
+                  <div class="cart-item-body">
+                    <div class="d-flex align-items-start gap-3">
+                      @if($item->is_motorcycle)
+                        <img src="{{ $item->motorcycle->photos->first() ? asset('motorcycles/' . $item->motorcycle->photos->first()->image) : asset('images/no-image.jpg') }}" alt="{{$item->motorcycle->name}}" class="cart-item-image">
+                        <div class="flex-grow-1">
+                          <div class="cart-item-title">{{$item->motorcycle->name}}</div>
+                          <div class="item-meta">
+                            <span class="item-meta-item">
+                              <i class="fas fa-motorcycle"></i>Motocicleta
+                            </span>
+                          </div>
+                        </div>
+                      @else
+                        <img src="/products/{{$item->product->image}}" alt="{{$item->product->title}}" class="cart-item-image">
+                        <div class="flex-grow-1">
+                          <div class="cart-item-title">{{$item->product->title}}</div>
+                          <div class="item-meta">
+                            <span class="item-meta-item">
+                              <i class="fas fa-box"></i>{{$item->product->Quantity}} unid. disponíveis
+                            </span>
+                            @if($item->size)
+                            <span class="item-meta-item">
+                              <i class="fas fa-ruler"></i>Tamanho: {{$item->size}}
+                            </span>
+                            @endif
+                          </div>
+                        </div>
+                      @endif
+                    </div>
+
+                    <div class="cart-item-details">
+                      <!-- Preço -->
+                      <div class="cart-item-detail">
+                        <div>
+                          <div class="cart-item-detail-label">Preço Unitário</div>
+                          <div class="cart-item-detail-value">
+                            @if($item->is_motorcycle)
+                              <span class="price-value">{{number_format($item->motorcycle->price, 2)}}€</span>
+                            @else
+                              @if($item->product->hasDiscount())
+                                <div>
+                                  <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">{{number_format($item->product->price, 2)}}€</span>
+                                  <span class="price-value" style="color: #28a745; font-weight: bold;">{{number_format($item->product->getDiscountedPrice(), 2)}}€</span>
+                                  <div style="margin-top: 3px;">
+                                    <span style="background: #e74c3c; color: white; padding: 3px 8px; border-radius: 8px; font-size: 0.75rem;">-{{ number_format($item->product->discount_percentage, 0) }}% OFF</span>
+                                  </div>
+                                </div>
+                              @else
+                                <span class="price-value">{{number_format($item->product->price, 2)}}€</span>
+                              @endif
+                            @endif
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Quantidade e Controles -->
+                      @if(!$item->is_motorcycle)
+                      <div class="cart-item-detail">
+                        <div class="mobile-quantity-controls">
+                          <div class="cart-item-detail-label">Quantidade</div>
+                          <form action="{{ url('update_quantity') }}" method="POST" class="auto-update-form" id="mobile-quantity-form-{{$item->id}}">
+                            @csrf
+                            <input type="hidden" name="cart_id" value="{{$item->id}}">
+                            <div class="mobile-quantity-stepper">
+                              <button type="button" onclick="decreaseQuantity(this)" class="quantity-btn-minus" style="width: 40px; height: 40px;">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                              <input type="number" name="quantity" value="{{$item->quantity}}" min="1" max="{{$item->product->Quantity}}" class="quantity-input" style="width: 80px; text-align: center; font-size: 1.1rem;" onchange="autoSubmitForm('mobile-quantity-form-{{$item->id}}')">
+                              <button type="button" onclick="increaseQuantity(this)" class="quantity-btn-plus" style="width: 40px; height: 40px;">
+                                <i class="fas fa-plus"></i>
+                              </button>
+                            </div>
+                          </form>
+
+                          @if($item->size)
+                          <form action="{{ url('update_size') }}" method="POST" class="auto-update-form" id="mobile-size-form-{{$item->id}}">
+                            @csrf
+                            <input type="hidden" name="cart_id" value="{{$item->id}}">
+                            <div class="mobile-size-selector">
+                              <div class="cart-item-detail-label">Tamanho</div>
+                              <select name="size" onchange="autoSubmitForm('mobile-size-form-{{$item->id}}')">
+                                @if($item->product->size)
+                                  @foreach(explode(',', $item->product->size) as $size)
+                                    <option value="{{ trim($size) }}" {{ $item->size == trim($size) ? 'selected' : '' }}>{{ trim($size) }}</option>
+                                  @endforeach
+                                @else
+                                  <option value="{{ $item->size }}" selected>{{ $item->size }}</option>
+                                @endif
+                              </select>
+                            </div>
+                          </form>
+                          @endif
+                        </div>
+                      </div>
+                      @else
+                      <div class="cart-item-detail">
+                        <div>
+                          <div class="cart-item-detail-label">Quantidade</div>
+                          <div class="cart-item-detail-value">
+                            <span class="badge bg-secondary" style="font-size: 1rem; padding: 0.5rem 1rem;">1 unidade</span>
+                          </div>
+                        </div>
+                      </div>
+                      @endif
+
+                      <!-- Total -->
+                      <div class="cart-item-detail" style="background: #f0f7ff; border-left-color: #0d6efd;">
+                        <div>
+                          <div class="cart-item-detail-label">Total do Item</div>
+                          <div class="cart-item-detail-value">
+                            @if($item->is_motorcycle)
+                              <span class="total-value" style="font-size: 1.2rem;">{{number_format($item->motorcycle->price, 2)}}€</span>
+                              <?php $total += $item->motorcycle->price; ?>
+                              <?php $originalTotal += $item->motorcycle->price; ?>
+                            @else
+                              @if($item->product->hasDiscount())
+                                <div>
+                                  <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">{{number_format($item->product->price * $item->quantity, 2)}}€</span>
+                                  <span class="total-value" style="color: #28a745; font-size: 1.2rem; font-weight: bold;">{{number_format($item->product->getDiscountedPrice() * $item->quantity, 2)}}€</span>
+                                </div>
+                                <?php $total += $item->product->getDiscountedPrice() * $item->quantity; ?>
+                                <?php $originalTotal += $item->product->price * $item->quantity; ?>
+                              @else
+                                <span class="total-value" style="font-size: 1.2rem;">{{number_format($item->product->price * $item->quantity, 2)}}€</span>
+                                <?php $total += $item->product->price * $item->quantity; ?>
+                                <?php $originalTotal += $item->product->price * $item->quantity; ?>
+                              @endif
+                            @endif
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cart-item-actions">
+                      <a href="{{url('delete_cart', $item->id)}}" class="remove-btn" style="position: relative; right: auto; top: auto;">
+                        <i class="fas fa-trash"></i> Remover
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+
               @else
               <div class="empty-cart">
                 <div class="empty-cart-icon">

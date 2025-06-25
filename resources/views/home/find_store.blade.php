@@ -208,6 +208,342 @@
     font-size: 1.5rem;
     display: block;
 }
+
+/* Responsividade Mobile Completa */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    /* Hero Section Mobile */
+    .text-center.mb-5 {
+        margin-bottom: 2rem !important;
+    }
+
+    .display-4 {
+        font-size: 2rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
+    /* Layout Mobile - Stack Vertical */
+    .row {
+        flex-direction: column-reverse;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Lista de Lojas Mobile */
+    .stores-list {
+        max-height: none !important;
+        overflow-y: visible !important;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .stores-list h3 {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .store-item {
+        text-align: center;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .store-item:hover {
+        background-color: #e9ecef;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .store-item h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #9935dc;
+    }
+
+    .store-item p {
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .store-item i {
+        width: 20px;
+        text-align: center;
+    }
+
+    /* Informações e Serviços Mobile */
+    .bg-white.rounded-3.shadow-sm {
+        padding: 1rem;
+    }
+
+    .store-photo h3,
+    .services-section h3,
+    .hours-section h3,
+    .info-section h3 {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Imagem da loja mobile */
+    .store-photo img {
+        height: 200px !important;
+        border-radius: 8px;
+    }
+
+    /* Serviços Mobile */
+    .services-section .row {
+        flex-direction: column;
+    }
+
+    .services-section .col-md-6 {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .service-item {
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .service-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .service-item i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-item h4 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .service-item p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    /* Horários Mobile */
+    .table-responsive {
+        margin: 0 -1rem;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .table td,
+    .table th {
+        padding: 0.75rem;
+        text-align: center;
+    }
+
+    /* Alert Mobile */
+    .alert {
+        padding: 1rem;
+        font-size: 0.9rem;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    .alert i {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Seções com melhor espaçamento */
+    .store-photo,
+    .services-section,
+    .hours-section,
+    .info-section {
+        margin-bottom: 2rem;
+    }
+
+    .services-section .row {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .py-5 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    .display-4 {
+        font-size: 1.75rem;
+    }
+
+    .lead {
+        font-size: 0.95rem;
+    }
+
+    .stores-list,
+    .bg-white.rounded-3.shadow-sm {
+        padding: 0.75rem;
+    }
+
+    .store-item {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .store-item h4 {
+        font-size: 1rem;
+    }
+
+    .store-item p {
+        font-size: 0.85rem;
+    }
+
+    .store-photo img {
+        height: 150px !important;
+    }
+
+    .service-item {
+        padding: 1rem;
+    }
+
+    .service-item i {
+        font-size: 1.75rem;
+    }
+
+    .service-item h4 {
+        font-size: 0.9rem;
+    }
+
+    .service-item p {
+        font-size: 0.8rem;
+    }
+
+    .table {
+        font-size: 0.85rem;
+    }
+
+    .table td,
+    .table th {
+        padding: 0.5rem;
+    }
+
+    .alert {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .alert i {
+        font-size: 1.25rem;
+    }
+}
+
+/* Melhorias para orientação landscape em tablets */
+@media (max-width: 1024px) and (orientation: landscape) {
+    .row {
+        flex-direction: row;
+    }
+
+    .stores-list {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .store-photo img {
+        height: 250px !important;
+    }
+
+    .services-section .row {
+        flex-direction: row;
+    }
+
+    .services-section .col-md-6 {
+        width: 50%;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .store-item:hover,
+    .service-item:hover {
+        transform: none;
+        background-color: #f8f9fa;
+        box-shadow: none;
+    }
+
+    .btn-primary:hover,
+    .btn-outline-primary:hover {
+        transform: none;
+    }
+}
+
+/* Melhorias para devices com telas muito pequenas */
+@media (max-width: 320px) {
+    .display-4 {
+        font-size: 1.5rem;
+    }
+
+    .store-item {
+        padding: 0.75rem;
+    }
+
+    .service-item {
+        padding: 0.75rem;
+    }
+
+    .service-item i {
+        font-size: 1.5rem;
+    }
+}
+
+/* Loading states para mobile */
+@media (max-width: 768px) {
+    .store-item,
+    .service-item {
+        -webkit-tap-highlight-color: rgba(153, 53, 220, 0.1);
+        touch-action: manipulation;
+    }
+}
+
+/* Acessibilidade melhorada */
+@media (prefers-reduced-motion: reduce) {
+    .store-item,
+    .service-item,
+    .store-item:hover,
+    .service-item:hover {
+        transition: none;
+        transform: none;
+    }
+}
 </style>
 
 <!-- Toastr Assets -->

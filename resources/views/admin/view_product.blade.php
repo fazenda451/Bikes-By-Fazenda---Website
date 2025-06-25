@@ -388,6 +388,387 @@
                 width: 100%;
             }
         }
+
+        /* Responsividade Mobile Completa */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .page-title {
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                flex: 1;
+                min-width: 120px;
+                margin: 0.25rem;
+            }
+
+            /* Stats Cards Responsivos */
+            .stats-container {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .stat-card {
+                width: 100%;
+                min-width: auto;
+                padding: 15px;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                margin-right: 12px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+
+            .stat-label {
+                font-size: 13px;
+            }
+
+            /* Search e Filters Responsivos */
+            .search-container {
+                padding: 10px;
+                margin: 15px 0;
+            }
+
+            .search-input {
+                font-size: 14px;
+                padding: 8px 5px;
+            }
+
+            .search-button {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .filters-container {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .filter-item {
+                width: 100%;
+                padding: 8px 12px;
+            }
+
+            .filter-label {
+                font-size: 13px;
+                margin-right: 8px;
+            }
+
+            .filter-select {
+                padding: 4px 8px;
+                font-size: 13px;
+                flex-grow: 1;
+            }
+
+            /* Esconder tabela e mostrar cards em mobile */
+            .products-table {
+                display: none;
+            }
+
+            /* Cards de produtos para mobile */
+            .products-mobile-container {
+                display: block;
+            }
+
+            .product-card {
+                background-color: #343a40;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+                border: 1px solid #3d4148;
+                transition: all 0.3s;
+            }
+
+            .product-card:hover {
+                background-color: #3d4148;
+                transform: translateY(-2px);
+            }
+
+            .product-card-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+                gap: 15px;
+            }
+
+            .product-card-image {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 6px;
+                border: 1px solid #3d4148;
+                flex-shrink: 0;
+            }
+
+            .product-card-info {
+                flex-grow: 1;
+            }
+
+            .product-card-title {
+                font-weight: 500;
+                color: white;
+                font-size: 16px;
+                margin-bottom: 5px;
+                line-height: 1.3;
+            }
+
+            .product-card-description {
+                color: #adb5bd;
+                font-size: 13px;
+                margin-bottom: 8px;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .product-card-category {
+                background-color: #2d3035;
+                padding: 3px 8px;
+                border-radius: 15px;
+                font-size: 11px;
+                display: inline-block;
+                color: #adb5bd;
+            }
+
+            .product-card-details {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            .product-card-detail {
+                text-align: center;
+            }
+
+            .product-card-detail-label {
+                color: #adb5bd;
+                font-size: 12px;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .product-card-detail-value {
+                color: white;
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            .product-card-price {
+                font-weight: 600;
+                color: #9935dc;
+                font-size: 16px;
+            }
+
+            .product-card-quantity {
+                padding: 4px 8px;
+                border-radius: 15px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .product-card-actions {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .product-card-actions .btn {
+                flex: 1;
+                min-width: auto;
+                font-size: 12px;
+                padding: 6px 10px;
+                margin: 0;
+            }
+
+            /* Pagination Responsiva */
+            .pagination-container {
+                margin-top: 20px;
+            }
+
+            .pagination {
+                gap: 3px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .page-link {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            /* Empty State */
+            .empty-state {
+                padding: 30px 15px;
+            }
+
+            .empty-state i {
+                font-size: 40px;
+            }
+
+            .empty-state h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .content-wrapper {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+
+            .page-title {
+                font-size: 18px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 12px;
+                min-width: 100px;
+            }
+
+            .stat-card {
+                padding: 12px;
+            }
+
+            .stat-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+                margin-right: 10px;
+            }
+
+            .stat-value {
+                font-size: 18px;
+            }
+
+            .product-card {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            .product-card-header {
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+
+            .product-card-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .product-card-title {
+                font-size: 14px;
+            }
+
+            .product-card-description {
+                font-size: 12px;
+            }
+
+            .product-card-details {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+
+            .product-card-actions {
+                gap: 5px;
+            }
+
+            .product-card-actions .btn {
+                font-size: 11px;
+                padding: 5px 8px;
+            }
+
+            .search-container {
+                padding: 8px;
+                margin: 10px 0;
+            }
+
+            .filters-container {
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .filter-item {
+                padding: 6px 10px;
+            }
+        }
+
+        /* Cards de produtos para mobile (inicialmente escondido) */
+        .products-mobile-container {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .products-mobile-container {
+                display: block;
+            }
+        }
+
+        /* Ajustes para orientação landscape em tablets */
+        @media (max-width: 1024px) and (orientation: landscape) {
+            .stats-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .stat-card {
+                flex: 1;
+                min-width: calc(50% - 10px);
+            }
+
+            .filters-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .filter-item {
+                flex: 1;
+                min-width: 200px;
+            }
+        }
+
+        /* Melhorias para touch devices */
+        @media (hover: none) {
+            .product-card:hover {
+                transform: none;
+                background-color: #343a40;
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+        }
     </style>
 </head>
 
@@ -557,6 +938,70 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <!-- Cards de Produtos para Mobile -->
+    <div class="products-mobile-container">
+        @foreach($product as $products)
+            <div class="product-card">
+                <div class="product-card-header">
+                    <img src="{{ asset('products/'.$products->image) }}" alt="{{ $products->title }}" class="product-card-image">
+                    <div class="product-card-info">
+                        <div class="product-card-title">{{ $products->title }}</div>
+                        <div class="product-card-description">{{ Str::limit($products->description, 60) }}</div>
+                        <span class="product-card-category">
+                            {{ $products->category ? $products->category->category_name : 'No category' }}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="product-card-details">
+                    <div class="product-card-detail">
+                        <div class="product-card-detail-label">Price</div>
+                        <div class="product-card-detail-value">
+                            @if($products->hasDiscount())
+                                <div style="text-align: center;">
+                                    <span style="text-decoration: line-through; color: #999; font-size: 0.8rem; display: block;">{{ number_format($products->price, 2) }}€</span>
+                                    <span class="product-card-price">{{ number_format($products->getDiscountedPrice(), 2) }}€</span>
+                                    <small style="color: #9935dc; display: block; font-size: 0.7rem; margin-top: 2px;">-{{ $products->discount_percentage }}% OFF</small>
+                                </div>
+                            @else
+                                <span class="product-card-price">{{ number_format($products->price, 2) }}€</span>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="product-card-detail">
+                        <div class="product-card-detail-label">Stock</div>
+                        <div class="product-card-detail-value">
+                            @php
+                                $quantityClass = 'quantity-high';
+                                if($products->Quantity <= 0) {
+                                    $quantityClass = 'quantity-low';
+                                } elseif($products->Quantity < 10) {
+                                    $quantityClass = 'quantity-medium';
+                                }
+                            @endphp
+                            <span class="product-card-quantity {{ $quantityClass }}">
+                                {{ $products->Quantity }} units
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card-actions">
+                    <a href="{{ url('update_product', $products->id) }}" class="btn btn-success" title="Edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{{ url('delete_product', $products->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')" title="Delete">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                    <button class="btn btn-info" onclick="viewDetails({{ $products->id }})" title="Details">
+                        <i class="fas fa-eye"></i> Details
+                    </button>
+                </div>
+            </div>
+        @endforeach
     </div>
 
                 <!-- Paginação -->
