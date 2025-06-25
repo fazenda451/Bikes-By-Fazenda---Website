@@ -191,6 +191,15 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(153, 53, 220, 0.15);
     }
+
+    .clickable-card {
+      cursor: pointer;
+    }
+
+    .clickable-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(153, 53, 220, 0.2);
+    }
     
     .motorcycle-badge {
       position: absolute;
@@ -319,7 +328,7 @@
     }
 
     .btn-wishlist {
-      flex: 1;
+      width: 100%;
       padding: 10px;
       background-color: #f8f9fa;
       color: #333;
@@ -330,6 +339,8 @@
       justify-content: center;
       transition: all 0.3s ease;
       font-size: 0.9rem;
+      text-decoration: none;
+      gap: 8px;
     }
 
     .btn-wishlist:hover {
@@ -830,7 +841,7 @@
     
     {{-- Percorre cada moto da coleção --}}
     @foreach($motorcycles as $motorcycle)
-      <div class="motorcycle-card"> {{-- Cartão individual de cada moto --}}
+      <div class="motorcycle-card clickable-card" data-url="{{ url('motorcycle_details', $motorcycle->id) }}"> {{-- Cartão individual de cada moto --}}
         
         {{-- Verifica se a moto foi criada há menos de 30 dias para exibir o selo "New" --}}
         @if($motorcycle->created_at->diffInDays(now()) < 30)
@@ -884,11 +895,8 @@
                   </div>
                   
                   <div class="motorcycle-actions">
-                    <a href="{{ url('motorcycle_details', $motorcycle->id) }}" class="btn-details">
-                      <i class="fas fa-eye"></i> View Details
-                    </a>
-                    <a href="{{ route('add.motorcycle.to.wishlist', $motorcycle->id) }}" class="btn-wishlist">
-                      <i class="fas fa-heart"></i>
+                    <a href="{{ route('add.motorcycle.to.wishlist', $motorcycle->id) }}" class="btn-wishlist" onclick="event.stopPropagation();">
+                      <i class="fas fa-heart"></i> Add to Wishlist
                     </a>
                   </div>
                 </div>
@@ -989,6 +997,23 @@
           loadingOverlay.classList.add('active');
         });
       }
+
+      // Tornar cards de motocicletas clicáveis
+      const clickableCards = document.querySelectorAll('.clickable-card');
+      clickableCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // Verificar se o clique não foi num botão ou link
+          if (!e.target.closest('a, button')) {
+            const url = this.getAttribute('data-url');
+            if (url) {
+              if (loadingOverlay) {
+                loadingOverlay.classList.add('active');
+              }
+              window.location.href = url;
+            }
+          }
+        });
+      });
     });
 
     // Corrige o loading infinito ao voltar no histórico

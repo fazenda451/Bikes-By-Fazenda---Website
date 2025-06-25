@@ -6,108 +6,225 @@
   @include('home.css')
 
   <style type="text/css">
+    /* Reset and Base */
     .product-details {
-      padding: 60px 0;
-      background-color: #f8f9fa;
+      background-color: #ffffff;
+      padding: 40px 0;
+      min-height: 100vh;
     }
 
     .product-container {
-      background: white;
-      border-radius: 1rem;
-      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
-      padding: 30px;
-      margin-bottom: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 0;
     }
 
+    /* Product Header */
+    .product-header {
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+    }
+
+    .product-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .product-ref {
+      font-size: 0.875rem;
+      color: #757575;
+      margin-bottom: 0;
+    }
+
+    /* Product Image */
     .product-image-container {
       position: relative;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border-radius: 0.75rem;
-      overflow: hidden;
+      background: #f7f7f7;
+      border-radius: 8px;
+      padding: 40px;
+      margin-bottom: 0;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .product-image {
       width: 100%;
       height: auto;
+      max-height: 420px;
       object-fit: contain;
-      border-radius: 0.75rem;
     }
 
-    .product-title {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 10px;
-      border-bottom: 2px solid #9935dc;
-      padding-bottom: 10px;
+    /* Pricing Section */
+    .pricing-section {
+      margin-bottom: 24px;
     }
 
-    .product-ref {
-      font-size: 0.95rem;
-      color: #6c757d;
-      margin-top: 5px;
-      margin-bottom: 25px;
+    .price-main {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 4px;
     }
 
-    .product-price-container {
-      display: flex;
+    .price-discount {
+      background: #ff4444;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      display: inline-flex;
       align-items: center;
-      margin-bottom: 25px;
-    }
-
-    .product-price {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #9935dc;
-    }
-
-    .product-tax {
-      font-size: 0.95rem;
-      color: #6c757d;
-      margin-left: 12px;
-    }
-
-    .product-availability {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-      padding: 12px 20px;
-      background-color: #e8f5e9;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-
-    .availability-icon {
-      color: #4caf50;
-      margin-right: 10px;
-      font-size: 1.2rem;
-    }
-
-    .availability-text {
-      color: #2e7d32;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 0.875rem;
       font-weight: 600;
     }
 
+    .price-discount .discount-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .price-original {
+      color: #757575;
+      text-decoration: line-through;
+      font-size: 1.125rem;
+      margin-right: 12px;
+    }
+
+    .price-current {
+      color: #111;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .price-save {
+      color: #16a34a;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .price-tax {
+      color: #757575;
+      font-size: 0.875rem;
+      margin-top: 8px;
+    }
+
+    /* Rating Section */
+    .rating-section {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .rating-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .rating-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #9935dc 0%, #8024c0 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(153, 53, 220, 0.3);
+    }
+
+    .rating-value {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .rating-label {
+      font-size: 0.625rem;
+      opacity: 0.8;
+    }
+
+    .rating-stars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .rating-stars i {
+      color: #ffc107;
+      font-size: 1.125rem;
+    }
+
+    .rating-count {
+      color: #757575;
+      font-size: 0.875rem;
+      margin-left: 8px;
+    }
+
+    /* Availability Section */
+    .availability-section {
+      margin-bottom: 24px;
+    }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #f0fdf4;
+      border: 1px solid #22c55e;
+      border-radius: 6px;
+      color: #15803d;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .availability-badge.out-of-stock {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #7f1d1d;
+    }
+
+    /* Product Options */
     .product-options {
-      margin-bottom: 30px;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 1rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 32px;
     }
 
-    .option-title {
+    .option-group {
+      margin-bottom: 24px;
+    }
+
+    .option-label {
+      font-size: 0.875rem;
       font-weight: 600;
-      color: #333;
-      margin-bottom: 15px;
+      color: #111;
+      margin-bottom: 12px;
+      display: block;
     }
 
+    /* Size Options */
     .size-options {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .size-option {
@@ -115,278 +232,394 @@
     }
 
     .size-label {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: white;
-      border: 2px solid #dee2e6;
-      border-radius: 4px;
-      font-weight: 600;
-      color: #495057;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .size-option:checked + .size-label {
-      background-color: #9935dc;
-      border-color: #9935dc;
-      color: white;
-      box-shadow: 0 4px 10px rgba(153, 53, 220, 0.3);
-      transform: translateY(-2px);
-    }
-
-    .size-label:hover {
-      border-color: #9935dc;
-      transform: translateY(-2px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .size-guide {
-      display: inline-block;
-      margin-left: 15px;
-      color: #9935dc;
-      font-size: 0.9rem;
-      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+      padding: 0 12px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      color: #111;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .size-guide:hover {
-      text-decoration: none;
-      color: #8024c0;
+    .size-option:checked + .size-label {
+      background: #9935dc;
+      border-color: #9935dc;
+      color: white;
+    }
+
+    .size-label:hover {
+      border-color: #9935dc;
+    }
+
+    .size-guide-link {
+      color: #757575;
+      font-size: 0.875rem;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .size-guide-link:hover {
+      color: #111;
+    }
+
+    /* Quantity Selector */
+    .quantity-group {
+      margin-bottom: 32px;
     }
 
     .quantity-selector {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .quantity-label {
-      margin-right: 15px;
-      font-weight: 600;
-      color: #495057;
-    }
-
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      border: 1px solid #dee2e6;
-      border-radius: 0.75rem;
-      overflow: hidden;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      width: fit-content;
+      background: white;
     }
 
     .quantity-btn {
-      background-color: #f8f9fa;
+      background: none;
       border: none;
-      color: #495057;
-      width: 40px;
-      height: 40px;
-      font-size: 1.2rem;
+      color: #757575;
+      width: 44px;
+      height: 44px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: color 0.2s ease;
     }
 
     .quantity-btn:hover {
-      background-color: #e9ecef;
-      transform: scale(1.05);
+      color: #9935dc;
+    }
+
+    .quantity-btn:disabled {
+      color: #d1d5db;
+      cursor: not-allowed;
     }
 
     .quantity-input {
       width: 60px;
-      height: 40px;
+      height: 44px;
       border: none;
-      border-left: 1px solid #dee2e6;
-      border-right: 1px solid #dee2e6;
+      border-left: 1px solid #e5e5e5;
+      border-right: 1px solid #e5e5e5;
       text-align: center;
-      font-weight: 600;
+      font-weight: 500;
+      color: #111;
     }
 
     .quantity-input:focus {
       outline: none;
-      border-color: #9935dc;
-      box-shadow: 0 0 0 0.25rem rgba(153, 53, 220, 0.25);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .btn-add-cart {
       width: 100%;
-      background-color: #9935dc;
+      background: #9935dc;
       color: white;
-      padding: 15px 30px;
-      border-radius: 4px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
+      padding: 16px 24px;
       border: none;
-      display: inline-flex;
+      border-radius: 6px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-size: 1.1rem;
+      gap: 8px;
+      text-transform: none;
+      letter-spacing: 0;
+      box-shadow: 0 4px 15px rgba(153, 53, 220, 0.3);
     }
 
     .btn-add-cart:hover {
-      background-color: #8024c0;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(153, 53, 220, 0.3);
-      color: white;
+      background: #8024c0;
       text-decoration: none;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(153, 53, 220, 0.4);
     }
 
-    .btn-add-cart[disabled] {
-      opacity: 0.6;
+    .btn-add-cart:disabled {
+      background: #e5e7eb;
+      color: #9ca3af;
       cursor: not-allowed;
-      background-color: #cccccc;
-      box-shadow: none;
-      transform: none;
     }
 
     .btn-wishlist {
-      display: block;
       width: 100%;
-      padding: 12px 20px;
-      background-color: #fff;
-      color: #333;
-      border: 1px solid #ced4da;
-      border-radius: 0.75rem;
+      background: white;
+      color: #111;
+      padding: 16px 24px;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      font-size: 0.9375rem;
       font-weight: 500;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      display: inline-flex;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-size: 1rem;
-      margin-top: 10px;
+      gap: 8px;
+      text-decoration: none;
     }
 
     .btn-wishlist:hover {
-      background-color: #f8f9fa;
-      color: #9935dc;
+      background: #f9fafb;
       border-color: #9935dc;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(153, 53, 220, 0.1);
-    }
-
-    .btn-wishlist i {
       color: #9935dc;
-      transition: transform 0.3s ease;
-    }
-    
-    .btn-wishlist:hover i {
-      transform: scale(1.2);
     }
 
+    /* Product Features */
     .product-features {
-      margin-top: 30px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
     }
 
     .feature-item {
-      flex: 1 1 calc(33.333% - 15px);
-      min-width: 200px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 15px;
-      background-color: #f8f9fa;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-    }
-
-    .feature-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      gap: 16px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px solid #f3f4f6;
     }
 
     .feature-icon {
       width: 40px;
       height: 40px;
-      background-color: rgba(153, 53, 220, 0.1);
+      background: #9935dc;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #9935dc;
-      font-size: 1.2rem;
+      color: white;
+      font-size: 1.125rem;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(153, 53, 220, 0.3);
     }
 
     .feature-text {
-      font-size: 0.9rem;
-      color: #6c757d;
+      color: #111;
+      font-size: 0.875rem;
+      line-height: 1.5;
     }
 
-    .product-description-container {
-      margin-top: 30px;
+    .feature-text strong {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Product Tabs */
+    .product-tabs {
+      margin-top: 48px;
+      border-top: 1px solid #e5e5e5;
+      padding-top: 48px;
+    }
+
+    .nav-tabs {
+      border: none;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 32px;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #757575;
+      font-weight: 500;
+      padding: 12px 0;
+      margin-right: 40px;
+      background: none;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tabs .nav-link:hover {
+      border-color: #9935dc;
+      color: #9935dc;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: #9935dc;
+      border-color: #9935dc;
+    }
+
+    .tab-content {
+      color: #111;
+      line-height: 1.6;
     }
 
     .description-title {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 16px;
     }
 
     .product-description {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #4a4a4a;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: #374151;
     }
 
     .product-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 25px;
-      margin-top: 35px;
-      padding-top: 20px;
-      border-top: 1px solid #dee2e6;
+      gap: 32px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e5e5;
     }
 
     .meta-item {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .meta-label {
-      font-size: 0.95rem;
-      color: #6c757d;
+      font-size: 0.75rem;
+      color: #757575;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
     }
 
     .meta-value {
-      font-size: 0.95rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #111;
+    }
+
+    /* Reviews Section */
+    .product-rating-form {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .star-rating-input-animated {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    .star-rating-input-animated input {
+      display: none;
+    }
+
+    .star-rating-input-animated label {
+      font-size: 1.5rem;
+      color: #d1d5db;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .star-rating-input-animated label:hover,
+    .star-rating-input-animated label:hover ~ label {
+      color: #fbbf24;
+    }
+
+    .star-rating-input-animated input:checked ~ label {
+      color: #fbbf24;
+    }
+
+    .avatar-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #9935dc 0%, #8024c0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.875rem;
       font-weight: 600;
-      color: #333;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(153, 53, 220, 0.2);
     }
 
-    @media (max-width: 768px) {
-      .product-title {
-        font-size: 1.5rem;
-      }
-
-      .product-price {
-        font-size: 1.5rem;
-      }
-
-      .feature-item {
-        flex: 1 1 100%;
-      }
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: white;
     }
 
-    /* Estilo para o loading */
+    .card-body {
+      padding: 16px;
+    }
+
+    /* Form Elements */
+    .form-control {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-control:focus {
+      border-color: #9935dc;
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+
+    .btn-purple {
+      background: #9935dc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(153, 53, 220, 0.3);
+    }
+
+    .btn-purple:hover {
+      background: #8024c0;
+      color: white;
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(153, 53, 220, 0.4);
+    }
+
+    /* Loading Overlay */
     .loading-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.7);
+      background-color: rgba(255, 255, 255, 0.8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -402,184 +635,197 @@
     }
     
     .loading-image {
-      width: 600px;
-      height: 600px;
+      width: 100px;
+      height: 100px;
       object-fit: contain;
     }
 
-    .star-rating-input label {
-      transition: transform 0.2s;
-    }
-    .star-rating-input label:hover,
-    .star-rating-input label:hover ~ label {
-      transform: scale(1.2);
-      color: #ffb700 !important;
-    }
-    .star-rating-input input:checked ~ label {
-      color: #9935dc !important;
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .product-container {
+        padding: 0 16px;
+      }
+
+      .product-title {
+        font-size: 1.5rem;
+      }
+
+      .rating-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .price-main, .price-current {
+        font-size: 1.25rem;
+      }
+
+      .product-image-container {
+        min-height: 300px;
+        padding: 20px;
+      }
+
+      .product-image {
+        max-height: 260px;
+      }
+
+      .size-options {
+        gap: 6px;
+      }
+
+      .size-label {
+        min-width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+      }
+
+      .nav-tabs .nav-link {
+        margin-right: 24px;
+        font-size: 0.875rem;
+      }
+
+      .product-features {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .feature-item {
+        padding: 16px;
+      }
     }
 
-    .product-rating-innovative {
-      margin-top: 0;
-      margin-bottom: 10px;
-      background: none;
-      border: none;
-      box-shadow: none;
-      padding: 0;
+    @media (max-width: 480px) {
+      .product-container {
+        padding: 0 12px;
+      }
+
+      .product-header {
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+      }
+
+      .product-title {
+        font-size: 1.375rem;
+      }
+
+      .pricing-section, .rating-section, .availability-section {
+        margin-bottom: 20px;
+      }
+
+      .nav-tabs .nav-link {
+        margin-right: 16px;
+        padding: 8px 0;
+      }
     }
-    .rating-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #9935dc 60%, #ffb700 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 16px rgba(153,53,220,0.12);
-      color: #fff;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-    .circle-value {
-      font-size: 2.1rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .rating-label {
-      font-size: 0.9rem;
-      color: #fff;
-      opacity: 0.8;
-    }
-    .star-group .fa-star, .star-group .fa-star-half-alt, .star-group .fa-star {
-      font-size: 2.2rem;
-      transition: color 0.2s;
-      color: #FFD700;
-      filter: drop-shadow(0 1px 2px #e9d7fa);
-    }
-    .star-group .fa-star-half-alt {
-      color: #ffb700;
-    }
-    .star-group .fa-star:not(:last-child) {
-      margin-right: 2px;
-    }
-    .star-rating-input-animated {
-      display: inline-flex;
-      flex-direction: row-reverse;
-    }
-    .star-rating-input-animated label {
-      font-size: 2.3rem;
-      color: #e0e0e0;
-      cursor: pointer;
-      transition: transform 0.2s, color 0.2s;
-      filter: drop-shadow(0 1px 2px #e9d7fa);
-    }
-    .star-rating-input-animated label:hover,
-    .star-rating-input-animated label:hover ~ label {
-      color: #9935dc !important;
-      transform: scale(1.2);
-    }
-    .star-rating-input-animated input:checked ~ label {
-      color: #9935dc !important;
-    }
-    .avatar-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #9935dc 60%, #ffb700 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.3rem;
-      font-weight: bold;
-      box-shadow: 0 2px 8px rgba(153,53,220,0.10);
-    }
-    .card {
-      border-radius: 1.2rem !important;
-      transition: all 0.3s ease;
     }
 
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
-    }
-
-    .card-body {
-      padding: 1.5rem !important;
-    }
-
-    /* Estilo para o textarea do comentário */
-    .form-control:focus {
-      border-color: #9935dc;
-      box-shadow: 0 0 0 0.25rem rgba(153, 53, 220, 0.25);
-      outline: 0;
-    }
-
-    /* Estilo para as mensagens de alerta */
+    /* Alert Styles */
     .alert {
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 16px;
+      margin-bottom: 24px;
+      font-size: 0.875rem;
     }
 
-    /* Estilo para o botão Enviar Avaliação */
-    .btn-purple {
-      background-color: #9935dc;
-      color: white;
-      padding: 10px 25px;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.95rem;
+    .alert-success {
+      background-color: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #166534;
     }
 
-    .btn-purple:hover {
-      background-color: #8024c0;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(153, 53, 220, 0.3);
-      color: white;
-      text-decoration: none;
+    .alert-dismissible .btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1rem;
+      background: transparent;
+      border: 0;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: inherit;
+      opacity: 0.5;
     }
 
-    /* Estilos para as seções de avaliação */
-    .product-rating-form {
-      margin-top: 40px;
-      margin-bottom: 40px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais visível */
+    .alert-dismissible .btn-close:hover {
+      opacity: 1;
     }
 
-    .product-rating-list {
-      margin-top: 60px;
-      margin-bottom: 60px;
-    }
-
-    /* Estilos para o Modal de Tamanhos */
+    /* Modal Styles */
     .modal-header {
-      border-bottom: 1px solid rgba(153, 53, 220, 0.2); /* Borda inferior com cor do tema */
-      padding: 1.5rem; /* Aumentar padding */
+      border-bottom: 1px solid #e5e7eb;
+      padding: 24px;
     }
 
     .modal-footer {
-      border-top: 1px solid rgba(153, 53, 220, 0.2); /* Borda superior com cor do tema */
-      padding: 1.5rem; /* Aumentar padding */
+      border-top: 1px solid #e5e7eb;
+      padding: 24px;
+    }
+
+    .modal-content {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .modal-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #111;
     }
 
     .btn-close {
-      transition: transform 0.2s ease; /* Transição para o hover */
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      line-height: 1;
+      color: #9ca3af;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
     }
 
     .btn-close:hover {
-      transform: rotate(90deg); /* Efeito de rotação no hover */
-      opacity: 1; /* Garantir opacidade total no hover */
+      opacity: 0.75;
+    }
+
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+
+    .table th,
+    .table td {
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    .table th {
+      background-color: #f9fafb;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    .btn-secondary {
+      background: #6b7280;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #4b5563;
+      color: white;
+      text-decoration: none;
     }
   </style>
 
@@ -609,34 +855,39 @@
           </div>
 
           <div class="col-md-6">
-            <h1 class="product-title">{{$data->title}}</h1>
-            <div class="product-ref">Ref: PROD-{{$data->id}}</div>
-            
-            <div class="product-price-container">
-              @if($data->hasDiscount())
-                <div style="margin-bottom: 10px;">
-                  <span style="text-decoration: line-through; color: #999; font-size: 1.2rem; margin-right: 15px;">{{number_format($data->price, 2)}}€</span>
-                  <span style="background: #e74c3c; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9rem; font-weight: 600;">-{{ number_format($data->discount_percentage, 0) }}% OFF</span>
-                </div>
-                <div class="product-price" style="color: #28a745;">{{number_format($data->getDiscountedPrice(), 2)}}€</div>
-                <div style="color: #28a745; font-size: 1rem; margin-top: 5px;">You save {{ number_format($data->getDiscountAmount(), 2) }}€</div>
-              @else
-                <div class="product-price">{{number_format($data->price, 2)}}€</div>
-              @endif
-              <div class="product-tax">Taxes included</div>
+            <div class="product-header">
+              <h1 class="product-title">{{$data->title}}</h1>
+              <div class="product-ref">Ref: PROD-{{$data->id}}</div>
             </div>
             
-            <!-- Avaliação de Estrelas - Resumo movido para cima -->
-            <div class="product-rating-innovative">
-              <div class="d-flex align-items-center gap-4 flex-wrap">
-                <div class="rating-circle text-center me-4">
-                  <div class="circle-value">
-                    <span class="rating-value">{{ number_format($averageRating, 1) }}</span>
+            <!-- Pricing Section -->
+            <div class="pricing-section">
+              @if($data->hasDiscount())
+                <div class="price-discount">
+                  <div class="discount-icon">
+                    <i class="fas fa-bolt"></i>
                   </div>
+                  <span>{{ number_format($data->discount_percentage, 0) }}% OFF</span>
+                </div>
+                
+                <div class="price-original">{{number_format($data->price, 2)}}€</div>
+                <div class="price-current">{{number_format($data->getDiscountedPrice(), 2)}}€</div>
+                <div class="price-save">You save {{ number_format($data->getDiscountAmount(), 2) }}€</div>
+              @else
+                <div class="price-main">{{number_format($data->price, 2)}}€</div>
+              @endif
+              <div class="price-tax">Taxes included</div>
+            </div>
+            
+            <!-- Rating Section -->
+            <div class="rating-section">
+              <div class="rating-container">
+                <div class="rating-circle">
+                  <div class="rating-value">{{ number_format($averageRating, 1) }}</div>
                   <div class="rating-label">Average</div>
                 </div>
-                <div class="star-group flex-grow-1">
-                  <span class="star-animated">
+                <div>
+                  <div class="rating-stars">
                     @php $media = round($averageRating, 1); @endphp
                     @for ($i = 1; $i <= 5; $i++)
                       @if ($media >= $i)
@@ -647,53 +898,56 @@
                         <i class="far fa-star"></i>
                       @endif
                     @endfor
-                  </span>
-                  <span class="ms-3 text-secondary">{{ $ratingsCount }} ratings</span>
+                    <span class="rating-count">{{ $ratingsCount }} ratings</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            @if($data->Quantity > 0)
-              <div class="product-availability">
-                <i class="fas fa-check-circle availability-icon"></i>
-                <span class="availability-text">In stock - {{$data->Quantity}} units available</span>
-              </div>
-            @else
-              <div class="product-availability" style="background-color: #ffebee;">
-                <i class="fas fa-times-circle availability-icon" style="color: #f44336;"></i>
-                <span class="availability-text" style="color: #c62828;">Out of stock</span>
-              </div>
-            @endif
+            <!-- Availability Section -->
+            <div class="availability-section">
+              @if($data->Quantity > 0)
+                <div class="availability-badge">
+                  <i class="fas fa-check-circle"></i>
+                  <span>In stock - {{$data->Quantity}} units available</span>
+                </div>
+              @else
+                <div class="availability-badge out-of-stock">
+                  <i class="fas fa-times-circle"></i>
+                  <span>Out of stock</span>
+                </div>
+              @endif
+            </div>
 
             <form action="{{ url('add_cart_with_size', $data->id) }}" method="POST">
               @csrf
               
               <div class="product-options">
                 @if($data->size)
-                  <div class="option-title">Select Size:</div>
-                  <div class="size-options">
-                    @php
-                      $availableSizes = explode(',', $data->size);
-                    @endphp
+                  <div class="option-group">
+                    <label class="option-label">Size</label>
+                    <div class="size-options">
+                      @php
+                        $availableSizes = explode(',', $data->size);
+                      @endphp
+                      
+                      @foreach($availableSizes as $index => $size)
+                        <input type="radio" name="size" id="size-{{$index}}" value="{{ trim($size) }}" class="size-option" {{ $index === 0 ? 'checked' : '' }}>
+                        <label for="size-{{$index}}" class="size-label">{{ trim($size) }}</label>
+                      @endforeach
+                    </div>
                     
-                    @foreach($availableSizes as $index => $size)
-                      <input type="radio" name="size" id="size-{{$index}}" value="{{ trim($size) }}" class="size-option" {{ $index === 0 ? 'checked' : '' }}>
-                      <label for="size-{{$index}}" class="size-label">{{ trim($size) }}</label>
-                    @endforeach
-                  </div>
-                  
-                  <div class="text-end">
-                    <span class="size-guide" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">
-                      <i class="fas fa-ruler"></i> Size Guide
+                    <span class="size-guide-link" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">
+                      Size Guide
                     </span>
                   </div>
                 @else
-                                                      <input type="hidden" name="size" value="One Size">
+                  <input type="hidden" name="size" value="One Size">
                 @endif
                 
-                <div class="option-title mt-4">Quantity:</div>
-                <div class="quantity-selector">
-                  <div class="quantity-controls">
+                <div class="quantity-group">
+                  <label class="option-label">Quantity</label>
+                  <div class="quantity-selector">
                     <button type="button" class="quantity-btn" onclick="decrementQuantity()">-</button>
                     <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{$data->Quantity}}" class="quantity-input">
                     <button type="button" class="quantity-btn" onclick="incrementQuantity()">+</button>
@@ -701,55 +955,68 @@
                 </div>
               </div>
               
-              <button type="submit" class="btn-add-cart" {{ $data->Quantity <= 0 ? 'disabled' : '' }}>
-                <i class="fas fa-shopping-cart"></i>
-                Add to Cart
-              </button>
+              <div class="action-buttons">
+                <button type="submit" class="btn-add-cart" {{ $data->Quantity <= 0 ? 'disabled' : '' }}>
+                  <i class="fas fa-shopping-cart"></i>
+                  Add to Cart
+                </button>
+              </div>
             </form>
             
-            <a href="{{ route('add.to.wishlist', $data->id) }}" class="btn-wishlist mt-3">
-              <i class="fas fa-heart"></i>
-              Add to Wishlist
-            </a>
+            <div class="action-buttons">
+              <a href="{{ route('add.to.wishlist', $data->id) }}" class="btn-wishlist">
+                <i class="fas fa-heart"></i>
+                Add to Wishlist
+              </a>
+            </div>
           </div>
         </div>
         
-        <!-- New tab structure for Description, Features and Reviews -->
-        <div class="mt-5">
-          <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+        <!-- Product Information Tabs -->
+        <div class="product-tabs">
+          <ul class="nav nav-tabs" id="productTabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+              <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">
+                <i class="fas fa-info-circle"></i>
+                Description
+              </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">Features</button>
+              <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">
+                <i class="fas fa-star"></i>
+                Features
+              </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="reviews-tab"  data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+              <button class="nav-link" id="reviews-tab"  data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
+                <i class="fas fa-comments"></i>
+                Reviews
+              </button>
             </li>
           </ul>
+          
           <div class="tab-content" id="productTabsContent">
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-              <div class="product-description-container">
-                <h2 class="description-title">Product Details</h2>
-                <div class="product-description">
-                  {{$data->description}}
+              <h2 class="description-title">Product Details</h2>
+              <div class="product-description">
+                {{$data->description}}
+              </div>
+              
+              <div class="product-meta">
+                <div class="meta-item">
+                  <div class="meta-label">Category</div>
+                  <div class="meta-value">{{$data->category ? $data->category->category_name : 'No category'}}</div>
                 </div>
                 
-                <div class="product-meta">
-                  <div class="meta-item">
-                    <div class="meta-label">Categoria:</div>
-                    <div class="meta-value">{{$data->category ? $data->category->category_name : 'No category'}}</div>
-                  </div>
-                  
-                  @if($data->size)
-                  <div class="meta-item">
-                    <div class="meta-label">Available Sizes:</div>
-                    <div class="meta-value">{{$data->size}}</div>
-                  </div>
-                  @endif
+                @if($data->size)
+                <div class="meta-item">
+                  <div class="meta-label">Available Sizes</div>
+                  <div class="meta-value">{{$data->size}}</div>
                 </div>
+                @endif
               </div>
             </div>
+            
             <div class="tab-pane fade" id="features" role="tabpanel" aria-labelledby="features-tab">
               <div class="product-features">
                 <div class="feature-item">
@@ -757,7 +1024,7 @@
                     <i class="fas fa-truck"></i>
                   </div>
                   <div class="feature-text">
-                    <strong>Fast Delivery</strong><br>
+                    <strong>Fast Delivery</strong>
                     2-4 business days
                   </div>
                 </div>
@@ -767,7 +1034,7 @@
                     <i class="fas fa-undo"></i>
                   </div>
                   <div class="feature-text">
-                    <strong>Free Returns</strong><br>
+                    <strong>Free Returns</strong>
                     Up to 30 days
                   </div>
                 </div>
@@ -777,7 +1044,7 @@
                     <i class="fas fa-shield-alt"></i>
                   </div>
                   <div class="feature-text">
-                    <strong>Quality Guarantee</strong><br>
+                    <strong>Quality Guarantee</strong>
                     Certified Products
                   </div>
                 </div>

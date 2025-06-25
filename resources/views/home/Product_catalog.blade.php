@@ -209,6 +209,15 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(153, 53, 220, 0.15);
     }
+
+    .clickable-card {
+      cursor: pointer;
+    }
+
+    .clickable-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(153, 53, 220, 0.2);
+    }
     
     .product-badge {
       position: absolute;
@@ -366,7 +375,7 @@
     }
 
     .btn-cart {
-      flex: 1;
+      width: 100%;
       padding: 10px;
       background-color: #f8f9fa;
       color: #333;
@@ -377,6 +386,8 @@
       justify-content: center;
       transition: all 0.3s ease;
       font-size: 0.9rem;
+      text-decoration: none;
+      gap: 8px;
     }
 
     .btn-cart:hover {
@@ -549,7 +560,7 @@
         flex-direction: column;
       }
       
-      .btn-details, .btn-cart {
+      .btn-cart {
         width: 100%;
       }
     }
@@ -686,7 +697,7 @@
         @if($products->count() > 0)
           <div class="product-grid">
             @foreach($products as $product)
-              <div class="product-card">
+              <div class="product-card clickable-card" data-url="{{ url('product_details', $product->id) }}">
                 @if($product->hasDiscount())
                   <div class="product-badge" style="background-color: #e74c3c;">-{{ number_format($product->discount_percentage, 0) }}% OFF</div>
                 @elseif($product->Quantity <= 5 && $product->Quantity > 0)
@@ -736,11 +747,8 @@
                   </div>
                   
                   <div class="product-actions">
-                    <a href="{{ url('product_details', $product->id) }}" class="btn-details">
-                      <i class="fas fa-eye"></i> View Details
-                    </a>
-                    <a href="{{ url('add_cart', $product->id) }}" class="btn-cart" {{ $product->Quantity <= 0 ? 'disabled' : '' }}>
-                      <i class="fas fa-shopping-cart"></i>
+                    <a href="{{ url('add_cart', $product->id) }}" class="btn-cart" {{ $product->Quantity <= 0 ? 'disabled' : '' }} onclick="event.stopPropagation();">
+                      <i class="fas fa-shopping-cart"></i> Add to Cart
                     </a>
                   </div>
                 </div>
@@ -842,6 +850,23 @@
         link.addEventListener('click', function() {
           if (loadingOverlay) {
             loadingOverlay.classList.add('active');
+          }
+        });
+      });
+
+      // Tornar cards de produtos clicáveis
+      const clickableCards = document.querySelectorAll('.clickable-card');
+      clickableCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // Verificar se o clique não foi num botão ou link
+          if (!e.target.closest('a, button')) {
+            const url = this.getAttribute('data-url');
+            if (url) {
+              if (loadingOverlay) {
+                loadingOverlay.classList.add('active');
+              }
+              window.location.href = url;
+            }
           }
         });
       });
