@@ -1,0 +1,161 @@
+# ===================================
+# DEPENDÊNCIAS E PACOTES
+# ===================================
+
+# Dependências do PHP/Composer
+/vendor/
+composer.phar
+
+# Dependências do Node.js/NPM
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# ===================================
+# ARQUIVOS DE CONFIGURAÇÃO SENSÍVEIS
+# ===================================
+
+# Arquivo de ambiente (contém senhas, chaves API, etc.)
+.env
+.env.backup
+.env.production
+
+# ===================================
+# CACHE E ARQUIVOS TEMPORÁRIOS
+# ===================================
+
+# Cache do Laravel
+/bootstrap/cache/
+/storage/app/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/testing/
+/storage/framework/views/
+/storage/logs/
+
+# Cache do Composer
+.composer-cache
+
+# ===================================
+# ARQUIVOS DE BANCO DE DADOS
+# ===================================
+
+# Arquivos MySQL
+*.frm
+*.ibd
+*.opt
+db.opt
+
+# SQLite
+*.sqlite
+*.sqlite3
+database.sqlite
+
+# ===================================
+# ARQUIVOS DE BUILD E COMPILAÇÃO
+# ===================================
+
+# Arquivos compilados CSS/JS
+/public/hot
+/public/storage
+# /public/build - COMENTADO: manter arquivos compilados para facilitar deploy
+# /public/mix-manifest.json - COMENTADO: usando Vite, não Mix
+
+# ===================================
+# ARQUIVOS DE DESENVOLVIMENTO
+# ===================================
+
+# PhpStorm/IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# NetBeans
+nbproject/
+
+
+# ===================================
+# LOGS E DEBUGGING
+# ===================================
+
+# Logs gerais
+*.log
+logs/
+
+# Debug bars
+debugbar/
+
+# ===================================
+# ARQUIVOS DE BACKUP E TEMPORÁRIOS
+# ===================================
+
+# Backups
+*.bak
+*.backup
+*.orig
+*.tmp
+*.temp
+
+# Patches
+*.patch
+*.diff
+
+# ===================================
+# FERRAMENTAS ESPECÍFICAS
+# ===================================
+
+# Ngrok (túnel HTTP)
+/ngrok*/
+ngrok.exe
+ngrok
+
+# Homestead
+Homestead.json
+Homestead.yaml
+
+# Docker
+docker-compose.override.yml
+
+# Vagrant
+.vagrant
+Vagrantfile.local
+
+# ===================================
+# UPLOADS E MEDIA
+# ===================================
+
+# /public/uploads/
+# /storage/app/public/
+
+# ===================================
+# TESTES
+# ===================================
+
+# Coverage reports
+/coverage/
+clover.xml
+.phpunit.result.cache
+
+# ===================================
+# OUTROS ARQUIVOS ESPECÍFICOS
+# ===================================
+
+# Chaves SSH
+*.pem
+*.key
+!public.key
+
+# Arquivos de auditoria
+audit.json
+
+# Mix/Webpack (não usado - projeto usa Vite)
+# mix-manifest.json
