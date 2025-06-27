@@ -36,7 +36,7 @@ O sistema permite o registo detalhado de Motas com informações técnicas como:
 - **Suspensão**: Dianteira e traseira com especificações
 - **Características**: Dimensões, peso, capacidade do depósito
 - **Requisitos**: Tipo de carta de condução necessária
-- **Galeria**: Múltiplas fotografias por motociclo
+- **Galeria**: Múltiplas fotografias para Motas
 
 ### Tecnologias Utilizadas
 - **Backend**: Laravel 11 (PHP 8.2+)
