@@ -378,6 +378,72 @@
       text-decoration: underline;
     }
     
+    /* Password toggle button styles */
+    .input-group {
+      position: relative;
+    }
+    
+    .input-group-text {
+      background-color: #f8f9fa;
+      border: 2px solid #e1e1e1;
+      border-right: none;
+      color: #9935dc;
+      font-size: 16px;
+      padding: 12px 15px;
+      border-radius: 8px 0 0 8px;
+    }
+    
+    .input-group .form-control {
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .input-group .form-control:focus {
+      border-left: none;
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      border: 2px solid #e1e1e1;
+      border-left: none;
+      background-color: #f8f9fa;
+      color: #9935dc;
+      border-radius: 0 8px 8px 0;
+      padding: 0 15px;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .toggle-password:hover {
+      background-color: #9935dc;
+      color: white;
+      border-color: #9935dc;
+    }
+    
+    .toggle-password:focus {
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+    
+    /* Password strength bar styles */
+    .password-strength-bar {
+      height: 5px;
+      background-color: #e1e1e1;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    
+    .strength-meter {
+      height: 100%;
+      width: 0;
+      transition: all 0.3s ease;
+      border-radius: 3px;
+    }
+    
     @media (max-width: 991px) {
       .register-container {
         max-width: 90%;
@@ -579,6 +645,9 @@
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password" />
+                    <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                      <i class="fas fa-eye"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -618,6 +687,21 @@
   
   <script>
     $(document).ready(function() {
+      // Password toggle functionality
+      $('.toggle-password').on('click', function() {
+        const button = $(this);
+        const input = button.closest('.input-group').find('input');
+        const icon = button.find('i');
+        
+        if (input.attr('type') === 'password') {
+          input.attr('type', 'text');
+          icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+          input.attr('type', 'password');
+          icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      });
+
       // Password strength simulation
       const passwordInput = document.getElementById('password');
       const strengthMeter = document.getElementById('strength-meter');
@@ -628,7 +712,7 @@
         let strength = 0;
         let width = '0%';
         let color = '#dc3545';
-        let strengthText = '';
+        let strengthTextValue = '';
         
         if (password.length > 0) {
           // Length check
@@ -644,33 +728,33 @@
           if (strength === 1) {
             width = '20%';
             color = '#dc3545';
-            strengthText = 'Password strength: Very weak';
+            strengthTextValue = 'Password strength: Very weak';
           } 
           else if (strength === 2) {
             width = '40%';
             color = '#ffc107';
-            strengthText = 'Password strength: Weak';
+            strengthTextValue = 'Password strength: Weak';
           }
           else if (strength === 3) {
             width = '60%';
             color = '#fd7e14';
-            strengthText = 'Password strength: Medium';
+            strengthTextValue = 'Password strength: Medium';
           }
           else if (strength === 4) {
             width = '80%';
             color = '#20c997';
-            strengthText = 'Password strength: Strong';
+            strengthTextValue = 'Password strength: Strong';
           }
           else if (strength >= 5) {
             width = '100%';
             color = '#198754';
-            strengthText = 'Password strength: Very strong';
+            strengthTextValue = 'Password strength: Very strong';
           }
         }
         
         strengthMeter.style.width = width;
         strengthMeter.style.backgroundColor = color;
-        strengthText.textContent = strengthText;
+        strengthText.textContent = strengthTextValue;
       });
     });
   </script>

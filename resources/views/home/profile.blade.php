@@ -121,8 +121,14 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="current_password" class="form-label">Current Password</label>
-                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                       id="current_password" name="current_password" required>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                           id="current_password" name="current_password" required>
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                                 @error('current_password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -132,8 +138,14 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="password" class="form-label">New Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                       id="password" name="password" required minlength="8">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                           id="password" name="password" required minlength="8">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -141,8 +153,14 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                                <input type="password" class="form-control" 
-                                       id="password_confirmation" name="password_confirmation" required minlength="8">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control" 
+                                           id="password_confirmation" name="password_confirmation" required minlength="8">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                                 <div class="form-text">Please confirm your new password.</div>
                             </div>
                         </div>
@@ -535,6 +553,56 @@ body {
         margin-bottom: 2rem !important;
     }
 }
+
+/* Password toggle button styles */
+.input-group {
+    position: relative;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-right: none;
+    color: #9935dc;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 10px 0 0 10px;
+}
+
+.input-group .form-control {
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.input-group .form-control:focus {
+    border-left: none;
+    box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border: 1px solid #dee2e6;
+    border-left: none;
+    background-color: #f8f9fa;
+    color: #9935dc;
+    border-radius: 0 10px 10px 0;
+    padding: 0 15px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.toggle-password:hover {
+    background-color: #9935dc;
+    color: white;
+    border-color: #9935dc;
+}
+
+.toggle-password:focus {
+    box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+}
 </style>
 
 <script>
@@ -565,6 +633,21 @@ function testarNotificacoes() {
 <script>
 // Validação do formulário de password
 $(document).ready(function() {
+    // Password toggle functionality
+    $('.toggle-password').on('click', function() {
+        const button = $(this);
+        const input = button.closest('.input-group').find('input');
+        const icon = button.find('i');
+        
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            input.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+
     $('#passwordForm').on('submit', function(e) {
         var password = $('#password').val();
         var passwordConfirmation = $('#password_confirmation').val();

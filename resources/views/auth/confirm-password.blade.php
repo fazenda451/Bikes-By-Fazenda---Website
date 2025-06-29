@@ -212,6 +212,56 @@
       font-weight: 500;
     }
     
+    /* Password toggle button styles */
+    .input-group {
+      position: relative;
+    }
+    
+    .input-group-text {
+      background-color: #f8f9fa;
+      border: 2px solid #e1e1e1;
+      border-right: none;
+      color: #9935dc;
+      font-size: 16px;
+      padding: 12px 15px;
+      border-radius: 8px 0 0 8px;
+    }
+    
+    .input-group .form-control {
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .input-group .form-control:focus {
+      border-left: none;
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      border: 2px solid #e1e1e1;
+      border-left: none;
+      background-color: #f8f9fa;
+      color: #9935dc;
+      border-radius: 0 8px 8px 0;
+      padding: 0 15px;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .toggle-password:hover {
+      background-color: #9935dc;
+      color: white;
+      border-color: #9935dc;
+    }
+    
+    .toggle-password:focus {
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+    
     @media (max-width: 991px) {
       .confirm-container {
         max-width: 90%;
@@ -283,8 +333,13 @@
               <!-- Password -->
               <div class="form-group">
                 <label for="password" class="form-label">Password</label>
-                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Enter your current password" />
-                <i class="fas fa-lock input-icon"></i>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                  <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Enter your current password" />
+                  <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
                 @error('password')
                   <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -309,5 +364,24 @@
   <script src="{{asset('js/bootstrap.js')}}"></script>
   <!-- custom js -->
   <script src="{{asset('js/custom.js')}}"></script>
+  
+  <script>
+    $(document).ready(function() {
+      // Password toggle functionality
+      $('.toggle-password').on('click', function() {
+        const button = $(this);
+        const input = button.closest('.input-group').find('input');
+        const icon = button.find('i');
+        
+        if (input.attr('type') === 'password') {
+          input.attr('type', 'text');
+          icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+          input.attr('type', 'password');
+          icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
