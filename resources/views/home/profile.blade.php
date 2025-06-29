@@ -537,9 +537,6 @@ body {
 }
 </style>
 
-<!-- Toastr Assets -->
-@include('home.toastr_assets')
-
 <script>
 // Auto-hide alerts after 5 seconds
 setTimeout(function() {
