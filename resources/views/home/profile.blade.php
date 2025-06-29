@@ -114,16 +114,17 @@
                         <h5 class="card-title fw-bold mb-0">Change Password</h5>
                     </div>
 
-                    <form method="POST" action="{{ route('profile.update') }}">
+                    <form method="POST" action="{{ route('profile.update') }}" id="passwordForm">
                         @csrf
                         @method('PUT')
 
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="current_password" class="form-label">Current Password</label>
-                                <input type="password" class="form-control" id="current_password" name="current_password" required>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                       id="current_password" name="current_password" required>
                                 @error('current_password')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -131,19 +132,23 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="password" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                       id="password" name="password" required minlength="8">
                                 @error('password')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="form-text">Password must be at least 8 characters long.</div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                <input type="password" class="form-control" 
+                                       id="password_confirmation" name="password_confirmation" required minlength="8">
+                                <div class="form-text">Please confirm your new password.</div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="passwordSubmitBtn">
                                 <i class="fas fa-key me-2"></i>Change Password
                             </button>
                         </div>
@@ -534,5 +539,122 @@ body {
 
 <!-- Toastr Assets -->
 @include('home.toastr_assets')
+
+<script>
+// Auto-hide alerts after 5 seconds
+setTimeout(function() {
+    $('.alert').fadeOut('slow', function() {
+        $(this).remove();
+    });
+}, 5000);
+</script>
+
+<script>
+// Função para testar notificações (pode ser chamada no console)
+function testarNotificacoes() {
+    console.log('🧪 Testing all notifications...');
+    
+    if (typeof toastr !== 'undefined') {
+        toastr.success('Test success notification!');
+        setTimeout(() => toastr.error('Test error notification!'), 1000);
+        setTimeout(() => toastr.warning('Test warning notification!'), 2000);
+        setTimeout(() => toastr.info('Test info notification!'), 3000);
+    } else {
+        console.error('Toastr not available!');
+    }
+}
+</script>
+
+<script>
+// Validação do formulário de password
+$(document).ready(function() {
+    $('#passwordForm').on('submit', function(e) {
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var currentPassword = $('#current_password').val();
+        
+        // Limpar erros anteriores
+        $('.is-invalid').removeClass('is-invalid');
+        $('.invalid-feedback').remove();
+        
+        var hasErrors = false;
+        
+        // Validar password atual
+        if (!currentPassword) {
+            $('#current_password').addClass('is-invalid');
+            $('#current_password').after('<div class="invalid-feedback">Current password is required.</div>');
+            hasErrors = true;
+        }
+        
+        // Validar nova password
+        if (!password) {
+            $('#password').addClass('is-invalid');
+            $('#password').after('<div class="invalid-feedback">New password is required.</div>');
+            hasErrors = true;
+        } else if (password.length < 8) {
+            $('#password').addClass('is-invalid');
+            $('#password').after('<div class="invalid-feedback">Password must be at least 8 characters long.</div>');
+            hasErrors = true;
+        }
+        
+        // Validar confirmação de password
+        if (!passwordConfirmation) {
+            $('#password_confirmation').addClass('is-invalid');
+            $('#password_confirmation').after('<div class="invalid-feedback">Password confirmation is required.</div>');
+            hasErrors = true;
+        } else if (password !== passwordConfirmation) {
+            $('#password_confirmation').addClass('is-invalid');
+            $('#password_confirmation').after('<div class="invalid-feedback">Passwords do not match.</div>');
+            hasErrors = true;
+        }
+        
+        if (hasErrors) {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Mostrar loading state
+        $('#passwordSubmitBtn').prop('disabled', true);
+        $('#passwordSubmitBtn').html('<i class="fas fa-spinner fa-spin me-2"></i>Changing Password...');
+    });
+    
+    // Validar confirmação de password em tempo real
+    $('#password_confirmation').on('input', function() {
+        var password = $('#password').val();
+        var passwordConfirmation = $(this).val();
+        
+        if (passwordConfirmation && password !== passwordConfirmation) {
+            $(this).addClass('is-invalid');
+            if (!$(this).next('.invalid-feedback').length) {
+                $(this).after('<div class="invalid-feedback">Passwords do not match.</div>');
+            }
+        } else {
+            $(this).removeClass('is-invalid');
+            $(this).next('.invalid-feedback').remove();
+        }
+    });
+    
+    // Validar password em tempo real
+    $('#password').on('input', function() {
+        var password = $(this).val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        
+        if (password && password.length < 8) {
+            $(this).addClass('is-invalid');
+            if (!$(this).next('.invalid-feedback').length) {
+                $(this).after('<div class="invalid-feedback">Password must be at least 8 characters long.</div>');
+            }
+        } else {
+            $(this).removeClass('is-invalid');
+            $(this).next('.invalid-feedback').remove();
+        }
+        
+        // Revalidar confirmação se existir
+        if (passwordConfirmation) {
+            $('#password_confirmation').trigger('input');
+        }
+    });
+});
+</script>
 
 @endsection 

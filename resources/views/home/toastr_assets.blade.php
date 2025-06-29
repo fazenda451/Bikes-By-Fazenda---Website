@@ -48,7 +48,7 @@ $(document).ready(function() {
         window.history.replaceState({}, document.title, newUrl);
     }
     
-    // Sistema de notificações via session (Laravel)
+    // Sistema de notificações via session (Laravel) - APENAS TOASTR
     @if(session()->has('success'))
         var successMessage = {!! json_encode(session('success')) !!};
         console.log('✅ Session success:', successMessage);
@@ -73,7 +73,7 @@ $(document).ready(function() {
         toastr.info(infoMessage);
     @endif
     
-    // Sistema de notificações via with() do Laravel
+    // Sistema de notificações via with() do Laravel - APENAS TOASTR
     @if(session()->has('notification_type') && session()->has('notification_message'))
         var notificationType = {!! json_encode(session('notification_type')) !!};
         var notificationMessage = {!! json_encode(session('notification_message')) !!};
@@ -108,6 +108,13 @@ $(document).ready(function() {
     // Interceptar formulários para adicionar notificações
     $('form').on('submit', function() {
         console.log('📝 Form submitted');
+        
+        // Adicionar loading state
+        var submitBtn = $(this).find('button[type="submit"]');
+        if (submitBtn.length > 0) {
+            submitBtn.prop('disabled', true);
+            submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>Processing...');
+        }
     });
     
     // Interceptar links para adicionar loading
@@ -192,17 +199,26 @@ $(document).ready(function() {
             console.error('❌ Error: Toastr is not working!');
         }
     }, 1000);
+    
+    // Auto-hide alerts after 5 seconds
+    setTimeout(function() {
+        $('.alert').fadeOut('slow', function() {
+            $(this).remove();
+        });
+    }, 5000);
 });
 
 // Função para testar notificações (pode ser chamada no console)
 function testarNotificacoes() {
     console.log('🧪 Testing all notifications...');
     
-    setTimeout(() => toastr.success('✅ Success - System working!'), 100);
-    setTimeout(() => toastr.error('❌ Error - Error test'), 800);
-    setTimeout(() => toastr.warning('⚠️ Warning - Warning test'), 1500);
-    setTimeout(() => toastr.info('ℹ️ Info - Information test'), 2200);
-    
-    console.log('🎉 Test complete! Check the notifications.');
+    if (typeof toastr !== 'undefined') {
+        toastr.success('Test success notification!');
+        setTimeout(() => toastr.error('Test error notification!'), 1000);
+        setTimeout(() => toastr.warning('Test warning notification!'), 2000);
+        setTimeout(() => toastr.info('Test info notification!'), 3000);
+    } else {
+        console.error('Toastr not available!');
+    }
 }
 </script> 

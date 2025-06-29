@@ -29,16 +29,16 @@
                             <i class="fas fa-award me-2"></i> <span class="nav-text">Loyalty Points</span>
                         </a>
                         <a href="{{url('wishlist')}}" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-heart me-2"></i> <span class="nav-text">Lista de Desejos</span>
+                            <i class="fas fa-heart me-2"></i> <span class="nav-text">Wishlist</span>
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
                             <i class="fas fa-map-marker-alt me-2"></i> <span class="nav-text">Addresses</span>
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-credit-card me-2"></i> <span class="nav-text">Cartões</span>
+                            <i class="fas fa-credit-card me-2"></i> <span class="nav-text">Cards</span>
                         </a>
                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <i class="fas fa-cog me-2"></i> <span class="nav-text">Configurações</span>
+                            <i class="fas fa-cog me-2"></i> <span class="nav-text">Settings</span>
                         </a>
                     </div>
                 </div>

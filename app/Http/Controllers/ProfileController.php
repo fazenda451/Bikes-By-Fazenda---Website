@@ -31,35 +31,70 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'birth_date' => ['nullable', 'date'],
-            'address' => ['nullable', 'string', 'max:255'],
-            'city' => ['nullable', 'string', 'max:100'],
-            'zip_code' => ['nullable', 'string', 'max:20'],
-            'current_password' => ['required_with:password', 'current_password'],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-        ]);
+        try {
+            // Verificar se é uma alteração de password ou de informações pessoais
+            $isPasswordChange = $request->has('password') && !empty($request->password);
+            
+            if ($isPasswordChange) {
+                // Validação específica para alteração de password
+                $validated = $request->validate([
+                    'current_password' => ['required', 'current_password'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ]);
 
-        $user->fill([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'] ?? $user->phone,
-            'birth_date' => $validated['birth_date'] ?? $user->birth_date,
-            'address' => $validated['address'] ?? $user->address,
-            'city' => $validated['city'] ?? $user->city,
-            'zip_code' => $validated['zip_code'] ?? $user->zip_code,
-        ]);
+                // Atualizar apenas a password
+                $user->password = Hash::make($validated['password']);
+                $user->save();
 
-        if (!empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
+                return redirect()->route('profile')
+                    ->with('success', 'Password changed successfully!')
+                    ->with('notification_type', 'success')
+                    ->with('notification_message', 'Your password has been changed successfully!');
+
+            } else {
+                // Validação para informações pessoais
+                $validated = $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+                    'phone' => ['nullable', 'string', 'max:20'],
+                    'birth_date' => ['nullable', 'date'],
+                    'address' => ['nullable', 'string', 'max:255'],
+                    'city' => ['nullable', 'string', 'max:100'],
+                    'zip_code' => ['nullable', 'string', 'max:20'],
+                ]);
+
+                $user->fill([
+                    'name' => $validated['name'],
+                    'email' => $validated['email'],
+                    'phone' => $validated['phone'] ?? $user->phone,
+                    'birth_date' => $validated['birth_date'] ?? $user->birth_date,
+                    'address' => $validated['address'] ?? $user->address,
+                    'city' => $validated['city'] ?? $user->city,
+                    'zip_code' => $validated['zip_code'] ?? $user->zip_code,
+                ]);
+
+                $user->save();
+
+                return redirect()->route('profile')
+                    ->with('success', 'Profile updated successfully!')
+                    ->with('notification_type', 'success')
+                    ->with('notification_message', 'Your profile has been updated successfully!');
+            }
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput()
+                ->with('error', 'Please correct the errors below.')
+                ->with('notification_type', 'error')
+                ->with('notification_message', 'Please correct the errors below.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'An error occurred while updating your profile.')
+                ->with('notification_type', 'error')
+                ->with('notification_message', 'An error occurred while updating your profile.');
         }
-
-        $user->save();
-
-        return redirect()->route('profile')->with('success', 'Perfil atualizado com sucesso!');
     }
 
     /**
