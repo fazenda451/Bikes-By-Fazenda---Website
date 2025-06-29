@@ -50,6 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'phone' => 'encrypted',
+            'address' => 'encrypted',
+            'zip_code' => 'encrypted',
         ];
     }
 
@@ -59,5 +62,33 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * Procurar utilizador por telefone encriptado
+     */
+    public static function findByPhone($phone)
+    {
+        return static::all()->filter(function ($user) use ($phone) {
+            return $user->phone === $phone;
+        })->first();
+    }
+
+    /**
+     * Procurar utilizadores por cidade
+     */
+    public static function findByCity($city)
+    {
+        return static::whereNotNull('address')->get()->filter(function ($user) use ($city) {
+            return stripos($user->address, $city) !== false;
+        });
+    }
+
+    /**
+     * Verificar se o utilizador tem dados sensíveis completos
+     */
+    public function hasSensitiveData()
+    {
+        return !empty($this->phone) || !empty($this->address) || !empty($this->zip_code);
     }
 }

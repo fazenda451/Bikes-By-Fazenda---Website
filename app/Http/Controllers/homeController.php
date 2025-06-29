@@ -309,13 +309,14 @@ class homeController extends Controller
 
     public function comfirm_order(Request $request)
     {
+        $user = Auth::user();
         $name = $request->name;
         $address = $request->address;
-        $phone = $request->phone;
-        $userid = Auth::user()->id;
+        // Usar sempre os dados desencriptados do utilizador, não do formulário
+        $phone = $user->phone ?? $request->phone;
+        $userid = $user->id;
         $cart = Cart::where('user_id', $userid)->get();
         $usePoints = $request->has('use_points');
-        $user = Auth::user();
         
         // Captura o método de entrega e localização da loja
         $deliveryMethod = $request->delivery_method;

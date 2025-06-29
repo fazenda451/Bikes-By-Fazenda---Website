@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | User Data Encryption
+    |--------------------------------------------------------------------------
+    |
+    | Determina se os dados sensíveis dos utilizadores devem ser encriptados.
+    | Ativa apenas depois de migrar dados existentes.
+    |
+    */
+
+    'encrypt_user_data' => env('ENCRYPT_USER_DATA', false),
+
 ];

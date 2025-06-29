@@ -1770,24 +1770,24 @@
                 <div id="home-delivery-fields">
                   <div class="form-group">
                     <label class="form-label">Delivery Address</label>
-                    <textarea name="address" class="form-control" required>{{Auth::user()->address}}</textarea>
+                    <textarea name="address" class="form-control" required>{{Auth::user()->address ?? ''}}</textarea>
                   </div>
 
                   <div class="form-row">
                     <div class="form-col">
                       <label class="form-label">City</label>
-                      <input type="text" name="city" value="{{Auth::user()->city}}" class="form-control" required>
+                      <input type="text" name="city" value="{{Auth::user()->city ?? ''}}" class="form-control" required>
                     </div>
                     <div class="form-col">
                       <label class="form-label">Postal Code</label>
-                      <input type="text" name="zip_code" value="{{Auth::user()->zip_code}}" class="form-control" required>
+                      <input type="text" name="zip_code" value="{{Auth::user()->zip_code ?? ''}}" class="form-control" required>
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">Phone</label>
-                  <input type="text" name="phone" value="{{Auth::user()->phone}}" class="form-control" required>
+                  <input type="text" name="phone" value="{{Auth::user()->phone ?? ''}}" class="form-control" required>
                 </div>
 
                 <div class="payment-options">
