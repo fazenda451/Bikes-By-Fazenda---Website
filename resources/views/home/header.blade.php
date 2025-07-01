@@ -30,6 +30,10 @@
           </li>
         </ul>
 
+
+
+
+        
         <!-- Área do usuário -->
         <div class="user-area">
           <a href="{{url('/find-store')}}" class="btn btn-link">
