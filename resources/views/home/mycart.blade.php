@@ -1673,7 +1673,7 @@
                 </div>
 
                 <div class="form-check use-points-check mt-3 mb-3">
-                  <input class="form-check-input" type="checkbox" id="use-points" name="use_points" form="checkout-form">
+                  <input class="form-check-input" type="checkbox" id="use-points" name="use_points">
                   <label class="form-check-label" for="use-points">
                     Use points for discount
                   </label>
@@ -1682,7 +1682,7 @@
                 <div class="points-selector mt-2" id="points-selector" style="display: none;">
                   <label class="form-label">Number of points to use:</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" id="points-input" min="1000" max="{{ $userPoints }}" step="1000" value="1000">
+                    <input type="number" class="form-control" id="points-input" min="1000" max="{{ $userPoints }}" step="1000" value="10000">
                     <span class="input-group-text">points</span>
                     <button type="button" class="btn btn-outline-primary" id="max-points-btn">Maximum</button>
                   </div>
@@ -1690,7 +1690,7 @@
                   
                   <div class="points-preview mt-2">
                     <div class="alert alert-info">
-                      <span id="points-preview-text">Using 1000 points, you will receive a 1% discount ({{ number_format($total * 0.01, 2) }}€)</span>
+                      <span id="points-preview-text">Using 10000 points, you will receive a 10% discount ({{ number_format($total * 0.10, 2) }}€)</span>
                     </div>
                   </div>
                   
@@ -1720,12 +1720,14 @@
               </div>
             </div>
 
-            <!-- Dados do destinatário -->
+                          <!-- Dados do destinatário -->
             <div class="checkout-form">
               <form action="{{url('comfirm_order')}}" method="POST" id="checkout-form">
                 @csrf
                 <!-- Campo oculto para os pontos -->
                 <input type="hidden" id="points_to_use_hidden" name="points_to_use" value="">
+                <!-- Campo oculto para uso de pontos -->
+                <input type="hidden" id="use_points_hidden_form" name="use_points" value="">
                 
                 <div class="form-group">
                   <label class="form-label">Recipient Name</label>
@@ -1799,6 +1801,8 @@
                     <i class="fas fa-credit-card"></i>
                     Checkout
                   </a>
+                  <!-- Campos ocultos para passar informação dos pontos -->
+                  <input type="hidden" name="use_points" id="use_points_hidden" value="">
                 </div>
               </form>
             </div>
@@ -1874,7 +1878,7 @@
           // Garante que o input de pontos tenha um valor válido
           if (this.checked) {
             if (!pointsInput.value || pointsInput.value < 1000) {
-              pointsInput.value = 1000;
+              pointsInput.value = Math.min(10000, maxDiscountPoints);
             }
             // Atualiza o campo oculto
             pointsHidden.value = pointsInput.value;
@@ -1895,7 +1899,13 @@
         if (pointsInput) {
           // Define o valor máximo baseado no menor entre os pontos do usuário e o máximo permitido
           pointsInput.max = maxDiscountPoints;
-          pointsInput.value = Math.min(1000, maxDiscountPoints);
+          
+          // Só define o valor se o checkbox estiver marcado
+          if (usePointsCheckbox && usePointsCheckbox.checked) {
+            pointsInput.value = Math.min(10000, maxDiscountPoints);
+          } else {
+            pointsInput.value = ''; // Limpa o valor se o checkbox não estiver marcado
+          }
           
           pointsInput.addEventListener('change', function() {
             // Garante que o valor seja múltiplo de 1000
@@ -1944,13 +1954,31 @@
         pointsSelector.style.display = 'none';
         loyaltyInfo.style.display = 'block';
         pointsHidden.value = '';
+        
+        // Limpa o input de pontos quando o checkbox não está marcado
+        if (pointsInput) {
+          pointsInput.value = '';
+        }
+        
+        // Garante que os campos ocultos estejam limpos na inicialização
+        const usePointsHidden = document.getElementById('use_points_hidden');
+        const usePointsHiddenForm = document.getElementById('use_points_hidden_form');
+        
+        if (usePointsHidden) usePointsHidden.value = '';
+        if (usePointsHiddenForm) usePointsHiddenForm.value = '';
+        
+        console.log('Initialization - clearing all points fields');
       }
       
       // Adiciona um evento ao formulário para garantir que os pontos sejam enviados corretamente
       const checkoutForm = document.getElementById('checkout-form');
       if (checkoutForm) {
         checkoutForm.addEventListener('submit', function(e) {
-          if (usePointsCheckbox.checked) {
+          console.log('Form submit event triggered');
+          console.log('Checkbox checked:', usePointsCheckbox.checked);
+          console.log('Points input value:', pointsInput ? pointsInput.value : 'N/A');
+          
+          if (usePointsCheckbox && usePointsCheckbox.checked) {
             // Garante que o campo oculto tenha o valor correto
             pointsHidden.value = pointsInput.value;
             console.log('Form submitted with points:', pointsHidden.value);
@@ -1959,8 +1987,50 @@
             pointsHidden.value = '';
             console.log('Form submitted without points');
           }
+          
+          // Log final dos campos ocultos
+          console.log('Final points_to_use_hidden value:', pointsHidden.value);
+          console.log('Final use_points_hidden_form value:', document.getElementById('use_points_hidden_form').value);
         });
       }
+      
+      // Função para atualizar campos ocultos do Stripe
+      function updateStripeHiddenFields() {
+        const usePointsHidden = document.getElementById('use_points_hidden');
+        const usePointsHiddenForm = document.getElementById('use_points_hidden_form');
+        
+        console.log('updateStripeHiddenFields called');
+        console.log('Checkbox checked:', usePointsCheckbox ? usePointsCheckbox.checked : 'N/A');
+        console.log('Points input value:', pointsInput ? pointsInput.value : 'N/A');
+        
+        if (usePointsCheckbox && usePointsCheckbox.checked) {
+          usePointsHidden.value = '1';
+          usePointsHiddenForm.value = '1';
+          console.log('Setting points fields - use_points: 1');
+        } else {
+          usePointsHidden.value = '';
+          usePointsHiddenForm.value = '';
+          
+          // Limpa também o input de pontos quando o checkbox não está marcado
+          if (pointsInput) {
+            pointsInput.value = '';
+          }
+          
+          console.log('Clearing points fields');
+        }
+      }
+      
+      // Adicionar eventos para atualizar campos ocultos
+      if (usePointsCheckbox) {
+        usePointsCheckbox.addEventListener('change', updateStripeHiddenFields);
+      }
+      if (pointsInput) {
+        pointsInput.addEventListener('change', updateStripeHiddenFields);
+        pointsInput.addEventListener('input', updateStripeHiddenFields);
+      }
+      
+      // Chama a função na inicialização para garantir o estado correto
+      updateStripeHiddenFields();
       @endif
     });
 
@@ -1998,7 +2068,17 @@
         
         // Atualiza o link do Stripe
         if (stripeLink) {
-          stripeLink.href = "{{url('stripe', '')}}" + "/" + finalTotal.toFixed(2);
+          let stripeUrl = "{{url('stripe', '')}}" + "/" + finalTotal.toFixed(2);
+          
+          // Adiciona parâmetros de pontos se estiverem sendo usados
+          if (usePointsCheckbox && usePointsCheckbox.checked && pointsInput) {
+            const points = pointsInput.value;
+            if (points && points > 0) {
+              stripeUrl += "?use_points=1&points_to_use=" + points;
+            }
+          }
+          
+          stripeLink.href = stripeUrl;
         }
       } else if (totalElement && stripeLink) {
         totalElement.textContent = '{{ $total ?? 0 }}€';

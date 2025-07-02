@@ -232,6 +232,9 @@
                         <div id="card-errors" class="invalid-feedback" role="alert"></div>
                     </div>
                     <input type="hidden" id="stripeToken" name="stripeToken">
+                    <!-- Campos ocultos para pontos -->
+                    <input type="hidden" name="use_points" value="{{ request('use_points', '') }}">
+                    <input type="hidden" name="points_to_use" value="{{ request('points_to_use', '') }}">
                     <button id="card-button" class="btn btn-pay w-100" type="submit">
                         <i class="fas fa-lock me-2"></i> Pay Now
                     </button>

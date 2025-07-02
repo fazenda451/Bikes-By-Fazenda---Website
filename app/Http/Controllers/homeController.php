@@ -316,7 +316,15 @@ class homeController extends Controller
         $phone = $user->phone ?? $request->phone;
         $userid = $user->id;
         $cart = Cart::where('user_id', $userid)->get();
-        $usePoints = $request->has('use_points');
+        $usePoints = $request->input('use_points') === '1';
+        
+        // Logs detalhados para debug
+        Log::info('=== DEBUG PONTOS COMFIRM_ORDER - INÍCIO ===');
+        Log::info('Request all data: ' . json_encode($request->all()));
+        Log::info('use_points exists: ' . ($request->input('use_points') === '1' ? 'true' : 'false'));
+        Log::info('use_points value: ' . $request->input('use_points', 'NULL'));
+        Log::info('points_to_use value: ' . $request->input('points_to_use', 'NULL'));
+        Log::info('$usePoints: ' . ($usePoints ? 'true' : 'false'));
         
         // Captura o método de entrega e localização da loja
         $deliveryMethod = $request->delivery_method;
@@ -349,9 +357,14 @@ class homeController extends Controller
         // Aplica desconto de pontos se solicitado
         $discount = 0;
         $pointsUsed = 0;
+        $pointsToUse = 0;
         if ($usePoints && $user->Points > 0) {
+            Log::info('=== PROCESSANDO PONTOS ===');
+            Log::info('usePoints: true, user->Points: ' . $user->Points);
+            
             // Obtém a quantidade de pontos a serem usados
             $pointsToUse = (int)$request->input('points_to_use');
+            Log::info('pointsToUse original: ' . $pointsToUse);
             
             // Verifica se o valor é válido
             if ($pointsToUse <= 0) {
@@ -380,8 +393,17 @@ class homeController extends Controller
             // Limita o desconto ao valor total
             $discount = min($discount, $totalAmount);
             
+            // Define os pontos usados
+            $pointsUsed = $pointsToUse;
+            
             // Atualiza os pontos do usuário
-            User::where('id', $user->id)->update(['Points' => $user->Points - $pointsToUse]);
+            User::where('id', $user->id)->update(['Points' => $user->Points - $pointsUsed]);
+            Log::info('=== PONTOS PROCESSADOS ===');
+            Log::info('pointsUsed final: ' . $pointsUsed);
+            Log::info('Pontos do usuário após dedução: ' . ($user->Points - $pointsUsed));
+        } else {
+            Log::info('=== NÃO PROCESSANDO PONTOS ===');
+            Log::info('usePoints: ' . ($usePoints ? 'true' : 'false') . ', user->Points: ' . $user->Points);
         }
         
         // Valor final após desconto
@@ -425,14 +447,16 @@ class homeController extends Controller
         }
         
         // Adiciona pontos ao usuário (10€ = 5 pontos) apenas se não usou pontos para desconto
-        if ($pointsUsed == 0) {
+        Log::info('Debug - pointsUsed: ' . $pointsUsed . ', usePoints: ' . ($usePoints ? 'true' : 'false') . ', totalAmount: ' . $totalAmount);
+        
+        if ($pointsUsed > 0) {
+            Log::info('Points not added because user used points for discount');
+        } else {
             $pointsEarned = floor(($totalAmount / 10) * 5);
             if ($pointsEarned > 0) {
                 User::where('id', $user->id)->increment('Points', $pointsEarned);
                 Log::info('Pontos adicionados: ' . $pointsEarned);
             }
-        } else {
-            Log::info('Points not added because user used points for discount');
         }
         
         // Busca os pedidos criados para enviar por email
@@ -805,11 +829,68 @@ class homeController extends Controller
                 return redirect('/');
             }
 
+                    // Verificar se o utilizador está a usar pontos para desconto
+        $usePoints = $request->input('use_points') === '1';
+        $pointsUsed = 0;
+        $discount = 0;
+        $totalAmount = 0;
+        
+        // Logs detalhados para debug
+        Log::info('=== DEBUG PONTOS - INÍCIO ===');
+        Log::info('Request all data: ' . json_encode($request->all()));
+        Log::info('use_points exists: ' . ($request->input('use_points') === '1' ? 'true' : 'false'));
+        Log::info('use_points value: ' . $request->input('use_points', 'NULL'));
+        Log::info('points_to_use value: ' . $request->input('points_to_use', 'NULL'));
+        Log::info('$usePoints: ' . ($usePoints ? 'true' : 'false'));
+            
+            // Calcular o valor total original do carrinho
+            foreach ($cart as $item) {
+                if ($item->is_motorcycle) {
+                    $motorcycle = Motorcycle::find($item->motorcycle_id);
+                    if ($motorcycle) {
+                        $totalAmount += $motorcycle->price * $item->quantity;
+                    }
+                } else {
+                    $product = Product::find($item->product_id);
+                    if ($product) {
+                        $totalAmount += $product->price * $item->quantity;
+                    }
+                }
+            }
+            
+            // Processar pontos se estiverem a ser usados
+            if ($usePoints && $user->Points > 0) {
+                $pointsToUse = (int)$request->input('points_to_use', 0);
+                
+                if ($pointsToUse <= 0) {
+                    $pointsToUse = 1000; // Valor mínimo
+                }
+                
+                // Verificar se o utilizador tem pontos suficientes
+                if ($pointsToUse > $user->Points) {
+                    $pointsToUse = $user->Points;
+                }
+                
+                // Calcular desconto (1% por cada 1000 pontos, máximo 10%)
+                $discountPercentage = floor($pointsToUse / 1000);
+                if ($discountPercentage > 10) {
+                    $discountPercentage = 10;
+                    $pointsToUse = $discountPercentage * 1000;
+                }
+                
+                $discount = $totalAmount * ($discountPercentage / 100);
+                $pointsUsed = $pointsToUse;
+                
+                // Deduzir pontos do utilizador
+                User::where('id', $user->id)->update(['Points' => $user->Points - $pointsUsed]);
+            }
+
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-            // Processar o pagamento
+            // Processar o pagamento com o valor final (após desconto)
+            $finalAmount = $value;
             Stripe\Charge::create([
-                "amount" => $value * 100,
+                "amount" => $finalAmount * 100,
                 "currency" => "eur",
                 "source" => $request->stripeToken,
                 "description" => "Payment in Bikes By Fazenda" 
@@ -823,14 +904,21 @@ class homeController extends Controller
                 $order = new Order;
                 $order->order_number = $orderNumber;
                 $order->name = $user->name;
-                            $order->rec_address = $user->address ?? 'Address not provided';
-            $order->phone = $user->phone ?? 'Phone not provided';
+                $order->rec_address = $user->address ?? 'Address not provided';
+                $order->phone = $user->phone ?? 'Phone not provided';
                 $order->user_id = $userid;
                 $order->payment_status = 'Pago';
                 $order->status = 'Em Processamento';
                 
                 // Método de entrega padrão quando a compra é feita pelo Stripe
                 $order->delivery_method = 'delivery';
+                
+                // Adicionar informação sobre pontos usados
+                if ($pointsUsed > 0 && $cart->first()->id == $item->id) {
+                    $order->points_used = $pointsUsed;
+                } else {
+                    $order->points_used = 0; // Garante que os outros itens tenham 0 pontos usados
+                }
                 
                 if ($item->is_motorcycle) {
                     $order->motorcycle_id = $item->motorcycle_id;
@@ -851,10 +939,15 @@ class homeController extends Controller
                 $order->save();
             }
             
-            // Adicionar pontos ao utilizador (10€ = 5 pontos)
-            $pointsEarned = floor(($value / 10) * 5);
-            if ($pointsEarned > 0) {
-                User::where('id', $user->id)->increment('Points', $pointsEarned);
+            // Adicionar pontos ao utilizador (10€ = 5 pontos) apenas se não usou pontos para desconto
+            if ($pointsUsed > 0) {
+                Log::info('Points not added because user used points for discount');
+            } else {
+                $pointsEarned = floor(($totalAmount / 10) * 5);
+                if ($pointsEarned > 0) {
+                    User::where('id', $user->id)->increment('Points', $pointsEarned);
+                    Log::info('Pontos adicionados: ' . $pointsEarned);
+                }
             }
             
             // Buscar os pedidos criados para enviar por email
@@ -869,10 +962,10 @@ class homeController extends Controller
                     $orderItems, 
                     $user->name, 
                     [
-                        'discount' => 0,
-                        'points_used' => 0,
-                        'total_before_discount' => $value,
-                        'total_after_discount' => $value
+                        'discount' => $discount,
+                        'points_used' => $pointsUsed,
+                        'total_before_discount' => $totalAmount,
+                        'total_after_discount' => $finalAmount
                     ]
                 ));
             } catch (\Exception $e) {
@@ -884,9 +977,14 @@ class homeController extends Controller
             Cart::where('user_id', $userid)->delete();
             
             // Adicionar mensagem e redirecionar
-            session()->flash('success', 'Payment completed successfully! Thank you for your purchase. We sent the invoice to your email.');
+            $successMessage = 'Payment completed successfully! Thank you for your purchase.';
+            if ($pointsUsed > 0) {
+                $successMessage .= ' You used ' . $pointsUsed . ' points to get ' . number_format($discount, 2) . '€ discount.';
+            }
+            $successMessage .= ' We sent the invoice to your email.';
             
-            return redirect('/')->with('notification_type', 'success')->with('notification_message', 'Payment completed successfully! Thank you for your purchase. We sent the invoice to your email.');
+            session()->flash('success', $successMessage);
+            return redirect('/')->with('notification_type', 'success')->with('notification_message', $successMessage);
         } catch (\Exception $e) {
             // Em caso de erro, retornar com mensagem de erro
             session()->flash('error', 'Payment processing error: ' . $e->getMessage());
@@ -1181,18 +1279,20 @@ class homeController extends Controller
                     ];
                 }
                 
-                // Calcula os pontos ganhos (10€ = 5 pontos)
-                $pointsEarned = floor(($orderTotal / 10) * 5);
-                
-                // Adiciona entrada para pontos ganhos
-                if ($pointsEarned > 0) {
-                    $pointsHistory[] = [
-                        'order_number' => $order->order_number,
-                        'date' => $order->created_at,
-                        'total' => $orderTotal,
-                        'points' => $pointsEarned,
-                        'type' => 'earned'
-                    ];
+                // Calcula os pontos ganhos (10€ = 5 pontos) apenas se não usou pontos para desconto
+                if ($firstItem->points_used == 0) {
+                    $pointsEarned = floor(($orderTotal / 10) * 5);
+                    
+                    // Adiciona entrada para pontos ganhos
+                    if ($pointsEarned > 0) {
+                        $pointsHistory[] = [
+                            'order_number' => $order->order_number,
+                            'date' => $order->created_at,
+                            'total' => $orderTotal,
+                            'points' => $pointsEarned,
+                            'type' => 'earned'
+                        ];
+                    }
                 }
             }
             
