@@ -313,12 +313,42 @@
     
     .alert-success {
       background-color: rgba(40, 167, 69, 0.1);
-      border-color: rgba(40, 167, 69, 0.2);
+      border: 1px solid rgba(40, 167, 69, 0.2);
       color: #28a745;
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 25px;
       font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: shake 0.5s ease-in-out;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .alert-danger:hover {
+      background-color: rgba(220, 53, 69, 0.15);
+      transform: translateY(-1px);
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
     }
     
     .error-message {
@@ -326,6 +356,44 @@
       font-size: 13px;
       margin-top: 5px;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      background-color: rgba(220, 53, 69, 0.05);
+    }
+    
+    .form-control.is-invalid:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .input-group.is-invalid .input-group-text {
+      border-color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.05);
+      color: #dc3545;
+    }
+    
+    .input-group.is-invalid .toggle-password {
+      border-color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.05);
+      color: #dc3545;
+    }
+    
+    .invalid-feedback {
+      display: block;
+      width: 100%;
+      margin-top: 5px;
+      font-size: 13px;
+      color: #dc3545;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     
     /* Password toggle button styles */
@@ -421,6 +489,17 @@
       .social-login-title:after {
         width: 25%;
       }
+      
+      .alert-danger,
+      .alert-success {
+        font-size: 14px;
+        padding: 12px;
+      }
+      
+      .alert-danger i,
+      .alert-success i {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -446,7 +525,24 @@
     <!-- Session Status -->
             @if (session('status'))
               <div class="alert-success animate__animated animate__fadeIn">
+                <i class="fas fa-check-circle"></i>
                 {{ session('status') }}
+              </div>
+            @endif
+            
+    <!-- Error Alert -->
+            @if ($errors->any())
+              <div class="alert-danger animate__animated animate__fadeIn">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                  @if($errors->has('email') && $errors->first('email') === 'These credentials do not match our records.')
+                    <strong>Invalid credentials!</strong> The email or password you entered is incorrect.
+                  @elseif($errors->has('email') && str_contains($errors->first('email'), 'throttle'))
+                    <strong>Too many attempts!</strong> Please wait a few minutes before trying again.
+                  @else
+                    <strong>Login failed!</strong> Please check your credentials and try again.
+                  @endif
+                </div>
               </div>
             @endif
             
@@ -456,12 +552,13 @@
         <!-- Email Address -->
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <div class="input-group">
+                <div class="input-group @error('email') is-invalid @enderror">
                   <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                   <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Your email address" />
                 </div>
                 @error('email')
                   <span class="invalid-feedback" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
                     <strong>{{ $message }}</strong>
                   </span>
                 @enderror
@@ -470,7 +567,7 @@
         <!-- Password -->
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <div class="input-group">
+                <div class="input-group @error('password') is-invalid @enderror">
                   <span class="input-group-text"><i class="fas fa-lock"></i></span>
                   <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Your password" />
                   <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
@@ -479,6 +576,7 @@
                 </div>
                 @error('password')
                   <span class="invalid-feedback" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
                     <strong>{{ $message }}</strong>
                   </span>
                 @enderror
@@ -549,6 +647,28 @@
           input.attr('type', 'password');
           icon.removeClass('fa-eye-slash').addClass('fa-eye');
         }
+      });
+      
+      // Remove error styling when user starts typing
+      $('.form-control').on('input', function() {
+        const input = $(this);
+        const inputGroup = input.closest('.input-group');
+        
+        if (input.hasClass('is-invalid')) {
+          input.removeClass('is-invalid');
+          inputGroup.removeClass('is-invalid');
+          input.siblings('.invalid-feedback').fadeOut(300);
+        }
+      });
+      
+      // Auto-hide error alerts after 5 seconds
+      setTimeout(function() {
+        $('.alert-danger').fadeOut(500);
+      }, 5000);
+      
+      // Add click to dismiss functionality for error alerts
+      $('.alert-danger').on('click', function() {
+        $(this).fadeOut(300);
       });
     });
   </script>

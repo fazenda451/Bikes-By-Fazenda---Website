@@ -246,6 +246,84 @@
       font-size: 13px;
       margin-top: 5px;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .alert-success {
+      background-color: rgba(40, 167, 69, 0.1);
+      border: 1px solid rgba(40, 167, 69, 0.2);
+      color: #28a745;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: shake 0.5s ease-in-out;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .alert-danger:hover {
+      background-color: rgba(220, 53, 69, 0.15);
+      transform: translateY(-1px);
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    .form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      background-color: rgba(220, 53, 69, 0.05);
+    }
+    
+    .form-control.is-invalid:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .input-group.is-invalid .input-group-text {
+      border-color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.05);
+      color: #dc3545;
+    }
+    
+    .input-group.is-invalid .toggle-password {
+      border-color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.05);
+      color: #dc3545;
+    }
+    
+    .invalid-feedback {
+      display: block;
+      width: 100%;
+      margin-top: 5px;
+      font-size: 13px;
+      color: #dc3545;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     
     .form-steps {
@@ -499,6 +577,17 @@
       .form-step:not(:last-child):after {
         display: none;
       }
+      
+      .alert-danger,
+      .alert-success {
+        font-size: 14px;
+        padding: 12px;
+      }
+      
+      .alert-danger i,
+      .alert-success i {
+        font-size: 16px;
+      }
     }
     
     /* Tooltip styles */
@@ -637,6 +726,40 @@
         <div class="register-form">
           <h2 class="register-title animate__animated animate__fadeInDown">Create Account</h2>
           
+    <!-- Session Status -->
+          @if (session('status'))
+            <div class="alert-success animate__animated animate__fadeIn">
+              <i class="fas fa-check-circle"></i>
+              {{ session('status') }}
+            </div>
+          @endif
+          
+    <!-- Error Alert -->
+          @if ($errors->any())
+            <div class="alert-danger animate__animated animate__fadeIn">
+              <i class="fas fa-exclamation-triangle"></i>
+              <div>
+                @if($errors->has('email') && $errors->first('email') === 'The email has already been taken.')
+                  <strong>Email already exists!</strong> This email address is already registered. Please use a different email or try logging in.
+                @elseif($errors->has('password') && str_contains($errors->first('password'), 'confirmation'))
+                  <strong>Password mismatch!</strong> The password confirmation does not match your password.
+                @elseif($errors->has('password') && str_contains($errors->first('password'), 'required'))
+                  <strong>Password required!</strong> Please enter a strong password for your account.
+                @elseif($errors->has('name') && str_contains($errors->first('name'), 'required'))
+                  <strong>Name required!</strong> Please enter your full name.
+                @elseif($errors->has('phone') && str_contains($errors->first('phone'), 'required'))
+                  <strong>Phone required!</strong> Please enter your phone number.
+                @elseif($errors->has('address') && str_contains($errors->first('address'), 'required'))
+                  <strong>Address required!</strong> Please enter your complete address.
+                @elseif($errors->has('terms') && str_contains($errors->first('terms'), 'accepted'))
+                  <strong>Terms required!</strong> You must accept the terms and conditions to create an account.
+                @else
+                  <strong>Registration failed!</strong> Please check the form and correct the errors below.
+                @endif
+              </div>
+            </div>
+          @endif
+          
           <div class="form-steps animate__animated animate__fadeIn animate__delay-1s">
             <div class="form-step active">
               <div class="step-number">1</div>
@@ -668,10 +791,13 @@
                       </div>
                     </div>
                   </div>
-                  <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Your full name" />
+                  <input id="name" class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Your full name" />
                   <i class="fas fa-user input-icon"></i>
                   @error('name')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error-message">
+                      <i class="fas fa-exclamation-circle"></i>
+                      {{ $message }}
+                    </div>
                   @enderror
                 </div>
       </div>
@@ -688,10 +814,13 @@
                       </div>
                     </div>
                   </div>
-                  <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="Your email address" />
+                  <input id="email" class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="Your email address" />
                   <i class="fas fa-envelope input-icon"></i>
                   @error('email')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error-message">
+                      <i class="fas fa-exclamation-circle"></i>
+                      {{ $message }}
+                    </div>
                   @enderror
                 </div>
               </div>
@@ -710,10 +839,13 @@
                       </div>
                     </div>
                   </div>
-                  <input id="phone" class="form-control" type="text" name="phone" value="{{ old('phone') }}" required autocomplete="tel" placeholder="(00) 00000-0000" />
+                  <input id="phone" class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{ old('phone') }}" required autocomplete="tel" placeholder="(00) 00000-0000" />
                   <i class="fas fa-phone input-icon"></i>
                   @error('phone')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error-message">
+                      <i class="fas fa-exclamation-circle"></i>
+                      {{ $message }}
+                    </div>
                   @enderror
                 </div>
       </div>
@@ -730,10 +862,13 @@
                       </div>
                     </div>
                   </div>
-                  <input id="address" class="form-control" type="text" name="address" value="{{ old('address') }}" required autocomplete="street-address" placeholder="Street, number, neighborhood" />
+                  <input id="address" class="form-control @error('address') is-invalid @enderror" type="text" name="address" value="{{ old('address') }}" required autocomplete="street-address" placeholder="Street, number, neighborhood" />
                   <i class="fas fa-map-marker-alt input-icon"></i>
                   @error('address')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error-message">
+                      <i class="fas fa-exclamation-circle"></i>
+                      {{ $message }}
+                    </div>
                   @enderror
                 </div>
               </div>
@@ -752,7 +887,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="input-group">
+                  <div class="input-group @error('password') is-invalid @enderror">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Create a strong password" />
                     <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
@@ -761,6 +896,7 @@
                   </div>
                   @error('password')
                     <span class="invalid-feedback" role="alert">
+                      <i class="fas fa-exclamation-circle"></i>
                       <strong>{{ $message }}</strong>
                     </span>
                   @enderror
@@ -799,7 +935,7 @@
             
             <div class="terms-check">
               <div style="display: flex; align-items: flex-start;">
-                <input type="checkbox" id="terms" name="terms" class="terms-check-input" required>
+                <input type="checkbox" id="terms" name="terms" class="terms-check-input @error('terms') is-invalid @enderror" required>
                 <div style="flex: 1; display: flex; align-items: flex-start;">
                   <label for="terms" class="terms-check-label">
                     I have read and agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of Bikes By Fazenda.
@@ -810,6 +946,12 @@
                   </div>
                 </div>
               </div>
+              @error('terms')
+                <div class="error-message" style="margin-top: 10px;">
+                  <i class="fas fa-exclamation-circle"></i>
+                  {{ $message }}
+                </div>
+              @enderror
       </div>
 
             <button type="submit" class="register-btn">
@@ -931,6 +1073,30 @@
         strengthMeter.style.width = width;
         strengthMeter.style.backgroundColor = color;
         strengthText.textContent = strengthTextValue;
+      });
+      
+      // Remove error styling when user starts typing
+      $('.form-control').on('input', function() {
+        const input = $(this);
+        const inputGroup = input.closest('.input-group');
+        
+        if (input.hasClass('is-invalid')) {
+          input.removeClass('is-invalid');
+          if (inputGroup.length) {
+            inputGroup.removeClass('is-invalid');
+          }
+          input.siblings('.invalid-feedback, .error-message').fadeOut(300);
+        }
+      });
+      
+      // Auto-hide error alerts after 5 seconds
+      setTimeout(function() {
+        $('.alert-danger').fadeOut(500);
+      }, 5000);
+      
+      // Add click to dismiss functionality for error alerts
+      $('.alert-danger').on('click', function() {
+        $(this).fadeOut(300);
       });
     });
   </script>

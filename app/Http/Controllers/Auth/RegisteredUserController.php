@@ -34,8 +34,10 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-ZÀ-ÿ\s]+$/'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['nullable', 'string', 'regex:/^[0-9+\-\s()]+$/', 'max:20'],
-            'address' => ['nullable', 'string', 'max:1000'],
+            'password_confirmation' => ['required', 'string'],
+            'phone' => ['required', 'string', 'regex:/^[0-9+\-\s()]+$/', 'max:20'],
+            'address' => ['required', 'string', 'max:1000'],
+            'terms' => ['required', 'accepted'],
         ]);
 
         try {
