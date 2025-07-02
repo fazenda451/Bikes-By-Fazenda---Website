@@ -1004,7 +1004,6 @@ class homeController extends Controller
             }
             $successMessage .= ' We sent the invoice to your email.';
             
-            session()->flash('success', $successMessage);
             return redirect('/')->with('notification_type', 'success')->with('notification_message', $successMessage);
         } catch (\Exception $e) {
             // Log detalhado do erro

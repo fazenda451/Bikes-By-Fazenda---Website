@@ -40,14 +40,25 @@
             <div class="col-lg-8">
                 <div class="contact-form bg-white rounded-4 p-4 shadow-sm">
                     @if(session('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success animate__animated animate__fadeIn">
+                            <i class="fas fa-check-circle"></i>
                             {{ session('success') }}
                         </div>
                     @endif
 
                     @if(session('error'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger animate__animated animate__fadeIn">
+                            <i class="fas fa-exclamation-triangle"></i>
                             {{ session('error') }}
+                        </div>
+                    @endif
+                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger animate__animated animate__fadeIn">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>Form submission failed!</strong> Please check the form and correct the errors below.
+                            </div>
                         </div>
                     @endif
 
@@ -163,6 +174,57 @@
     box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
 }
 
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 1px solid rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    animation: shake 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.alert-danger:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    transform: translateY(-1px);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.invalid-feedback {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #dc3545;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.invalid-feedback::before {
+    content: "⚠️";
+    font-size: 14px;
+}
+
 .form-floating > label {
     padding: 0.75rem;
 }
@@ -198,8 +260,55 @@
     .map-container {
         padding-bottom: 75%; /* Ajuste para telas menores */
     }
+    
+    .alert {
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    .alert i {
+        font-size: 16px;
+    }
+    }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove error styling when user starts typing
+    document.querySelectorAll('.form-control').forEach(function(input) {
+        input.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                this.classList.remove('is-invalid');
+                const feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            }
+        });
+    });
+    
+    // Auto-hide error alerts after 5 seconds
+    setTimeout(function() {
+        document.querySelectorAll('.alert-danger').forEach(function(alert) {
+            alert.style.opacity = '0';
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 500);
+        });
+    }, 5000);
+    
+    // Add click to dismiss functionality for error alerts
+    document.querySelectorAll('.alert-danger').forEach(function(alert) {
+        alert.addEventListener('click', function() {
+            this.style.opacity = '0';
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 300);
+        });
+    });
+});
+</script>
 
 <!-- Toastr Assets -->
 @include('home.toastr_assets')

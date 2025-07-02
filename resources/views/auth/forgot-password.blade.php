@@ -198,6 +198,67 @@
       transform: translateY(0);
     }
     
+    .alert-success {
+      background-color: rgba(40, 167, 69, 0.1);
+      border: 1px solid rgba(40, 167, 69, 0.2);
+      color: #28a745;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: shake 0.5s ease-in-out;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .alert-danger:hover {
+      background-color: rgba(220, 53, 69, 0.15);
+      transform: translateY(-1px);
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    .form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      background-color: rgba(220, 53, 69, 0.05);
+    }
+    
+    .form-control.is-invalid:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .invalid-feedback {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: #dc3545;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+    
     .login-link {
       text-align: center;
       margin-top: 30px;
@@ -297,8 +358,27 @@
             
             <!-- Session Status -->
             @if (session('status'))
-              <div class="status-message animate__animated animate__fadeIn">
+              <div class="alert-success animate__animated animate__fadeIn">
+                <i class="fas fa-check-circle"></i>
                 {{ session('status') }}
+              </div>
+            @endif
+            
+            <!-- Error Alert -->
+            @if ($errors->any())
+              <div class="alert-danger animate__animated animate__fadeIn">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                  @if($errors->has('email') && str_contains($errors->first('email'), 'passwords.user'))
+                    <strong>Email not found!</strong> This email address is not registered in our system.
+                  @elseif($errors->has('email') && str_contains($errors->first('email'), 'required'))
+                    <strong>Email required!</strong> Please enter your email address.
+                  @elseif($errors->has('email') && str_contains($errors->first('email'), 'email'))
+                    <strong>Invalid email!</strong> Please enter a valid email address.
+                  @else
+                    <strong>Password reset failed!</strong> Please check your email and try again.
+                  @endif
+                </div>
               </div>
             @endif
             
@@ -308,10 +388,13 @@
               <!-- Email Address -->
               <div class="form-group">
                 <label for="email" class="form-label">Email</label>
-                <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="Digite seu email cadastrado" />
+                <input id="email" class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="Digite seu email cadastrado" />
                 <i class="fas fa-envelope input-icon"></i>
                 @error('email')
-                  <div class="error-message">{{ $message }}</div>
+                  <div class="invalid-feedback">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $message }}
+                  </div>
                 @enderror
               </div>
               
@@ -338,5 +421,29 @@
   <script src="{{asset('js/bootstrap.js')}}"></script>
   <!-- custom js -->
   <script src="{{asset('js/custom.js')}}"></script>
+  
+  <script>
+    $(document).ready(function() {
+      // Remove error styling when user starts typing
+      $('.form-control').on('input', function() {
+        const input = $(this);
+        
+        if (input.hasClass('is-invalid')) {
+          input.removeClass('is-invalid');
+          input.siblings('.invalid-feedback').fadeOut(300);
+        }
+      });
+      
+      // Auto-hide error alerts after 5 seconds
+      setTimeout(function() {
+        $('.alert-danger').fadeOut(500);
+      }, 5000);
+      
+      // Add click to dismiss functionality for error alerts
+      $('.alert-danger').on('click', function() {
+        $(this).fadeOut(300);
+      });
+    });
+  </script>
 </body>
 </html>

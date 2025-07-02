@@ -190,6 +190,129 @@
       transform: translateY(0);
     }
     
+    .alert-success {
+      background-color: rgba(40, 167, 69, 0.1);
+      border: 1px solid rgba(40, 167, 69, 0.2);
+      color: #28a745;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: shake 0.5s ease-in-out;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .alert-danger:hover {
+      background-color: rgba(220, 53, 69, 0.15);
+      transform: translateY(-1px);
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    .form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      background-color: rgba(220, 53, 69, 0.05);
+    }
+    
+    .form-control.is-invalid:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .input-group.is-invalid .input-group-text {
+      border-color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.05);
+      color: #dc3545;
+    }
+    
+    .input-group.is-invalid .toggle-password {
+      border-color: #dc3545;
+      background-color: rgba(220, 53, 69, 0.05);
+      color: #dc3545;
+    }
+    
+    .invalid-feedback {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: #dc3545;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+    
+    /* Password toggle button styles */
+    .input-group {
+      position: relative;
+    }
+    
+    .input-group-text {
+      background-color: #f8f9fa;
+      border: 2px solid #e1e1e1;
+      border-right: none;
+      color: #9935dc;
+      font-size: 16px;
+      padding: 12px 15px;
+      border-radius: 8px 0 0 8px;
+    }
+    
+    .input-group .form-control {
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .input-group .form-control:focus {
+      border-left: none;
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      border: 2px solid #e1e1e1;
+      border-left: none;
+      background-color: #f8f9fa;
+      color: #9935dc;
+      border-radius: 0 8px 8px 0;
+      padding: 0 15px;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .toggle-password:hover {
+      background-color: #9935dc;
+      color: white;
+      border-color: #9935dc;
+    }
+    
+    .toggle-password:focus {
+      box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+    }
+    
     .login-link {
       text-align: center;
       margin-top: 30px;
@@ -366,6 +489,28 @@
           <div class="reset-form">
             <h2 class="reset-title animate__animated animate__fadeInDown">New Password</h2>
             
+            <!-- Error Alert -->
+            @if ($errors->any())
+              <div class="alert-danger animate__animated animate__fadeIn">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                  @if($errors->has('password') && str_contains($errors->first('password'), 'confirmation'))
+                    <strong>Password mismatch!</strong> The password confirmation does not match your password.
+                  @elseif($errors->has('password') && str_contains($errors->first('password'), 'required'))
+                    <strong>Password required!</strong> Please enter a new password.
+                  @elseif($errors->has('password') && str_contains($errors->first('password'), 'min'))
+                    <strong>Password too short!</strong> Password must be at least 8 characters long.
+                  @elseif($errors->has('token'))
+                    <strong>Invalid token!</strong> The password reset link is invalid or has expired.
+                  @elseif($errors->has('email'))
+                    <strong>Invalid email!</strong> Please check your email address.
+                  @else
+                    <strong>Password reset failed!</strong> Please check the form and try again.
+                  @endif
+                </div>
+              </div>
+            @endif
+            
             <form method="POST" action="{{ route('password.store') }}" class="animate__animated animate__fadeIn animate__delay-1s">
         @csrf
 
@@ -385,15 +530,18 @@
         <!-- Password -->
               <div class="form-group">
                 <label for="password" class="form-label">New Password</label>
-                <div class="input-group">
+                <div class="input-group @error('password') is-invalid @enderror">
                   <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                  <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" placeholder="Digite sua nova senha" />
+                  <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="new-password" placeholder="Digite sua nova senha" />
                   <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
                     <i class="fas fa-eye"></i>
                   </button>
                 </div>
                 @error('password')
-                  <div class="error-message">{{ $message }}</div>
+                  <div class="invalid-feedback">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $message }}
+                  </div>
                 @enderror
                 
                 <div class="password-strength">
@@ -405,15 +553,18 @@
         <!-- Confirm Password -->
               <div class="form-group">
                 <label for="password_confirmation" class="form-label">Confirm Password</label>
-                <div class="input-group">
+                <div class="input-group @error('password_confirmation') is-invalid @enderror">
                   <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                  <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirme sua nova senha" />
+                  <input id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirme sua nova senha" />
                   <button type="button" class="btn btn-outline-secondary toggle-password" tabindex="-1">
                     <i class="fas fa-eye"></i>
                   </button>
                 </div>
                 @error('password_confirmation')
-                  <div class="error-message">{{ $message }}</div>
+                  <div class="invalid-feedback">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $message }}
+                  </div>
                 @enderror
         </div>
 
@@ -505,6 +656,30 @@
         
         $('.password-strength-meter').removeClass('weak medium strong very-strong').addClass(meterClass);
         $('.password-strength-text').text(strengthText);
+      });
+      
+      // Remove error styling when user starts typing
+      $('.form-control').on('input', function() {
+        const input = $(this);
+        const inputGroup = input.closest('.input-group');
+        
+        if (input.hasClass('is-invalid')) {
+          input.removeClass('is-invalid');
+          if (inputGroup.length) {
+            inputGroup.removeClass('is-invalid');
+          }
+          input.siblings('.invalid-feedback').fadeOut(300);
+        }
+      });
+      
+      // Auto-hide error alerts after 5 seconds
+      setTimeout(function() {
+        $('.alert-danger').fadeOut(500);
+      }, 5000);
+      
+      // Add click to dismiss functionality for error alerts
+      $('.alert-danger').on('click', function() {
+        $(this).fadeOut(300);
       });
     });
   </script>
