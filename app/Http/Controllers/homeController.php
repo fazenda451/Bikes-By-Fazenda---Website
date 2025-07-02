@@ -823,6 +823,15 @@ class homeController extends Controller
     public function stripePost(Request $request, $value)
     {
         try {
+            // Log para debug
+            Log::info('Stripe payment attempt', [
+                'user_ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'value' => $value,
+                'has_token' => !empty($request->stripeToken),
+                'request_data' => $request->except(['stripeToken'])
+            ]);
+            
             if(!Auth::check()) {
                 return redirect('login');
             }
@@ -998,10 +1007,27 @@ class homeController extends Controller
             session()->flash('success', $successMessage);
             return redirect('/')->with('notification_type', 'success')->with('notification_message', $successMessage);
         } catch (\Exception $e) {
-            // Em caso de erro, retornar com mensagem de erro
-            session()->flash('error', 'Payment processing error: ' . $e->getMessage());
+            // Log detalhado do erro
+            Log::error('Stripe payment error', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'user_ip' => $request->ip(),
+                'user_agent' => $request->userAgent()
+            ]);
             
-            return back()->with('notification_type', 'error')->with('notification_message', 'Payment processing error: ' . $e->getMessage());
+            // Mensagem de erro mais amigável
+            $errorMessage = 'Erro no processamento do pagamento. ';
+            if (str_contains($e->getMessage(), 'network')) {
+                $errorMessage .= 'Problema de conectividade. Verifique sua ligação à internet.';
+            } else if (str_contains($e->getMessage(), 'timeout')) {
+                $errorMessage .= 'Tempo limite excedido. Tente novamente.';
+            } else {
+                $errorMessage .= 'Por favor, tente novamente ou contacte o suporte.';
+            }
+            
+            session()->flash('error', $errorMessage);
+            return back()->with('notification_type', 'error')->with('notification_message', $errorMessage);
         }
     }
 

@@ -15,20 +15,21 @@ class SecurityHeaders
     {
         $response = $next($request);
 
-        // Headers de segurança
+        // Headers de segurança flexíveis para diferentes ambientes
         $response->headers->set('X-Content-Type-Options', 'nosniff');
-        $response->headers->set('X-Frame-Options', 'DENY');
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('X-XSS-Protection', '1; mode=block');
-        $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
+        $response->headers->set('Referrer-Policy', 'no-referrer-when-downgrade');
         $response->headers->set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
         
-        // Content Security Policy
-        $csp = "default-src 'self'; " .
-               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com; " .
-               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " .
-               "font-src 'self' https://fonts.gstatic.com; " .
-               "img-src 'self' data: https:; " .
-               "connect-src 'self' https://api.stripe.com;";
+        // Content Security Policy flexível para Stripe e diferentes ambientes
+        $csp = "default-src 'self' data: https: http:; " .
+               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com https://cdn.jsdelivr.net; " .
+               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; " .
+               "font-src 'self' https://fonts.gstatic.com data:; " .
+               "img-src 'self' data: https: http:; " .
+               "connect-src 'self' https://api.stripe.com https://js.stripe.com wss: ws:; " .
+               "frame-src 'self' https://js.stripe.com https://checkout.stripe.com;";
         
         $response->headers->set('Content-Security-Policy', $csp);
 

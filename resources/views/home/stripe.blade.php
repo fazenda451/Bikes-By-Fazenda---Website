@@ -320,6 +320,11 @@
             }
         });
 
+        // Adicionar logs para debug
+        console.log('Stripe initialized with key:', '{{ env('STRIPE_KEY') }}');
+        console.log('Current URL:', window.location.href);
+        console.log('User Agent:', navigator.userAgent);
+
         // Cria o elemento do cartão
         const card = elements.create('card', {
             hidePostalCode: true,
@@ -375,6 +380,10 @@
                     if (loadingOverlay) loadingOverlay.classList.remove('active');
                     return;
                 }
+
+                // Verificar conectividade com Stripe
+                console.log('Verificando conectividade com Stripe...');
+                
                 // Cria o token do cartão
                 const {token, error} = await stripe.createToken(card, {
                     name: cardholderName
@@ -413,7 +422,16 @@
             } catch (e) {
                 console.error('Erro:', e);
                 const errorElement = document.getElementById('card-errors');
-                errorElement.textContent = 'Ocorreu um erro ao processar o pagamento. Por favor, tente novamente.';
+                
+                // Tratamento específico para diferentes tipos de erro
+                if (e.message && e.message.includes('NetworkError')) {
+                    errorElement.textContent = 'Erro de conectividade. Verifique sua ligação à internet e tente novamente.';
+                } else if (e.message && e.message.includes('timeout')) {
+                    errorElement.textContent = 'Tempo limite excedido. Tente novamente.';
+                } else {
+                    errorElement.textContent = 'Ocorreu um erro ao processar o pagamento. Por favor, tente novamente.';
+                }
+                
                 cardButton.disabled = false;
                 cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pay Now';
                 if (loadingOverlay) loadingOverlay.classList.remove('active');
