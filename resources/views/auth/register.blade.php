@@ -500,6 +500,102 @@
         display: none;
       }
     }
+    
+    /* Tooltip styles */
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip-icon {
+      color: #9935dc;
+      margin-left: 8px;
+      cursor: help;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    
+    .tooltip-icon:hover {
+      color: #7b2ab0;
+      transform: scale(1.1);
+    }
+    
+    .tooltip-text {
+      visibility: hidden;
+      width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px 12px;
+      position: absolute;
+      z-index: 1000;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -125px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 13px;
+      line-height: 1.4;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    
+    .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+    
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    /* Mobile tooltip behavior */
+    @media (max-width: 768px) {
+      .tooltip-container:hover .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+      }
+      
+      .tooltip-text.show {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      .tooltip-icon {
+        font-size: 16px;
+        padding: 8px;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        border: 1px solid #e1e1e1;
+      }
+      
+      .tooltip-icon:active {
+        background-color: #9935dc;
+        color: white;
+      }
+    }
+    
+    /* Form label with tooltip */
+    .form-label-with-tooltip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .label-text {
+      flex: 1;
+    }
+    
+    .tooltip-wrapper {
+      flex-shrink: 0;
+    }
   </style>
 </head>
 
@@ -563,7 +659,15 @@
               <div class="form-col">
       <!-- Name -->
                 <div class="form-group">
-                  <label for="name" class="form-label">Full Name</label>
+                  <div class="form-label-with-tooltip">
+                    <span class="label-text">Full Name</span>
+                    <div class="tooltip-wrapper">
+                      <div class="tooltip-container">
+                        <i class="fas fa-question-circle tooltip-icon"></i>
+                        <span class="tooltip-text">Enter your complete name as it appears on official documents. Only letters and spaces are allowed.</span>
+                      </div>
+                    </div>
+                  </div>
                   <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Your full name" />
                   <i class="fas fa-user input-icon"></i>
                   @error('name')
@@ -575,7 +679,15 @@
               <div class="form-col">
       <!-- Email Address -->
                 <div class="form-group">
-                  <label for="email" class="form-label">Email</label>
+                  <div class="form-label-with-tooltip">
+                    <span class="label-text">Email</span>
+                    <div class="tooltip-wrapper">
+                      <div class="tooltip-container">
+                        <i class="fas fa-question-circle tooltip-icon"></i>
+                        <span class="tooltip-text">Enter a valid email address. This will be used for account verification and communications.</span>
+                      </div>
+                    </div>
+                  </div>
                   <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="Your email address" />
                   <i class="fas fa-envelope input-icon"></i>
                   @error('email')
@@ -589,7 +701,15 @@
               <div class="form-col">
       <!-- Phone -->
                 <div class="form-group">
-                  <label for="phone" class="form-label">Phone</label>
+                  <div class="form-label-with-tooltip">
+                    <span class="label-text">Phone</span>
+                    <div class="tooltip-wrapper">
+                      <div class="tooltip-container">
+                        <i class="fas fa-question-circle tooltip-icon"></i>
+                        <span class="tooltip-text">Enter your phone number with area code. Format: (00) 00000-0000. Only numbers, spaces, parentheses and hyphens allowed.</span>
+                      </div>
+                    </div>
+                  </div>
                   <input id="phone" class="form-control" type="text" name="phone" value="{{ old('phone') }}" required autocomplete="tel" placeholder="(00) 00000-0000" />
                   <i class="fas fa-phone input-icon"></i>
                   @error('phone')
@@ -601,7 +721,15 @@
               <div class="form-col">
                 <!-- Address -->
                 <div class="form-group">
-                  <label for="address" class="form-label">Address</label>
+                  <div class="form-label-with-tooltip">
+                    <span class="label-text">Address</span>
+                    <div class="tooltip-wrapper">
+                      <div class="tooltip-container">
+                        <i class="fas fa-question-circle tooltip-icon"></i>
+                        <span class="tooltip-text">Enter your complete address including street, number, and neighborhood. This will be used for delivery purposes.</span>
+                      </div>
+                    </div>
+                  </div>
                   <input id="address" class="form-control" type="text" name="address" value="{{ old('address') }}" required autocomplete="street-address" placeholder="Street, number, neighborhood" />
                   <i class="fas fa-map-marker-alt input-icon"></i>
                   @error('address')
@@ -615,7 +743,15 @@
               <div class="form-col">
       <!-- Password -->
                 <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
+                  <div class="form-label-with-tooltip">
+                    <span class="label-text">Password</span>
+                    <div class="tooltip-wrapper">
+                      <div class="tooltip-container">
+                        <i class="fas fa-question-circle tooltip-icon"></i>
+                        <span class="tooltip-text">Create a strong password with at least 8 characters, including uppercase, lowercase, numbers and special characters.</span>
+                      </div>
+                    </div>
+                  </div>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Create a strong password" />
@@ -641,7 +777,15 @@
               <div class="form-col">
       <!-- Confirm Password -->
                 <div class="mb-4">
-                  <label for="password_confirmation" class="form-label">Confirm Password</label>
+                  <div class="form-label-with-tooltip">
+                    <span class="label-text">Confirm Password</span>
+                    <div class="tooltip-wrapper">
+                      <div class="tooltip-container">
+                        <i class="fas fa-question-circle tooltip-icon"></i>
+                        <span class="tooltip-text">Re-enter your password exactly as you typed it above to confirm and avoid typos.</span>
+                      </div>
+                    </div>
+                  </div>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password" />
@@ -654,10 +798,18 @@
             </div>
             
             <div class="terms-check">
-              <input type="checkbox" id="terms" name="terms" class="terms-check-input" required>
-              <label for="terms" class="terms-check-label">
-                I have read and agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of Bikes By Fazenda.
-              </label>
+              <div style="display: flex; align-items: flex-start;">
+                <input type="checkbox" id="terms" name="terms" class="terms-check-input" required>
+                <div style="flex: 1; display: flex; align-items: flex-start;">
+                  <label for="terms" class="terms-check-label">
+                    I have read and agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of Bikes By Fazenda.
+                  </label>
+                  <div class="tooltip-container" style="margin-left: 8px; margin-top: 2px;">
+                    <i class="fas fa-question-circle tooltip-icon"></i>
+                    <span class="tooltip-text">You must accept our terms and conditions to create an account. Please read them carefully before proceeding.</span>
+                  </div>
+                </div>
+              </div>
       </div>
 
             <button type="submit" class="register-btn">
@@ -699,6 +851,30 @@
         } else {
           input.attr('type', 'password');
           icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      });
+
+      // Tooltip functionality for mobile devices
+      $('.tooltip-icon').on('click touchstart', function(e) {
+        e.preventDefault();
+        const tooltip = $(this).siblings('.tooltip-text');
+        
+        // Hide all other tooltips
+        $('.tooltip-text').not(tooltip).removeClass('show');
+        
+        // Toggle current tooltip
+        tooltip.toggleClass('show');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(function() {
+          tooltip.removeClass('show');
+        }, 5000);
+      });
+
+      // Hide tooltips when clicking outside
+      $(document).on('click', function(e) {
+        if (!$(e.target).closest('.tooltip-container').length) {
+          $('.tooltip-text').removeClass('show');
         }
       });
 
