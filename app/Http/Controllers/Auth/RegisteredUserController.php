@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -34,21 +35,31 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => ['nullable', 'string', 'regex:/^[0-9+\-\s()]+$/', 'max:20'],
-            'address' => ['nullable', 'string', 'max:500'],
+            'address' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        $user = User::create([
-            'name' => strip_tags(trim($request->name)),
-            'email' => filter_var(trim($request->email), FILTER_SANITIZE_EMAIL),
-            'phone' => $request->phone ? strip_tags(trim($request->phone)) : null,
-            'address' => $request->address ? strip_tags(trim($request->address)) : null,
-            'password' => Hash::make($request->password),
-        ]);
+        try {
+            $user = User::create([
+                'name' => strip_tags(trim($request->name)),
+                'email' => filter_var(trim($request->email), FILTER_SANITIZE_EMAIL),
+                'phone' => $request->phone ? strip_tags(trim($request->phone)) : null,
+                'address' => $request->address ? strip_tags(trim($request->address)) : null,
+                'password' => Hash::make($request->password),
+            ]);
 
-        event(new Registered($user));
+            event(new Registered($user));
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+            return redirect(route('dashboard', absolute: false));
+        } catch (\Exception $e) {
+            Log::error('Erro no registo de utilizador: ' . $e->getMessage(), [
+                'email' => $request->email,
+                'name' => $request->name,
+                'address_length' => $request->address ? strlen($request->address) : 0,
+            ]);
+            
+            return back()->withErrors(['email' => 'Ocorreu um erro durante o registo. Tente novamente.'])->withInput();
+        }
     }
 }
