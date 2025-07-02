@@ -358,8 +358,10 @@
                           'On the way' => 'status-on-the-way',
                           'Delivered' => 'status-delivered'
                         ];
-                        $mainStatus = $orderItems->pluck('status')->contains('in progress') ? 'in progress' : 
-                                      ($orderItems->pluck('status')->contains('On the way') ? 'On the way' : 'Delivered');
+                        // Lógica mais robusta para detetar o status, case-insensitive
+                        $statuses = $orderItems->pluck('status')->map(fn($s) => strtolower(trim($s)));
+                        $mainStatus = $statuses->contains('in progress') ? 'in progress' : 
+                                      ($statuses->contains('on the way') ? 'On the way' : 'Delivered');
                       @endphp
                       <tr class="order-row" data-order-number="{{ $orderNumber }}" data-status="{{ $mainStatus }}" data-client="{{ $firstItem->name }}" data-date="{{ $firstItem->created_at }}">
                         <td>{{ $orderNumber }}</td>
@@ -429,6 +431,10 @@
             'On the way' => 'status-on-the-way',
             'Delivered' => 'status-delivered'
           ];
+          // Lógica mais robusta para detetar o status, case-insensitive
+          $statuses = $orderItems->pluck('status')->map(fn($s) => strtolower(trim($s)));
+          $mainStatus = $statuses->contains('in progress') ? 'in progress' : 
+                        ($statuses->contains('on the way') ? 'On the way' : 'Delivered');
         @endphp
         <div class="modal fade" id="orderModal-{{ $orderNumber }}" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel-{{ $orderNumber }}" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">

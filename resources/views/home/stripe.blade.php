@@ -173,6 +173,18 @@
             margin-bottom: 1.1rem;
             display: none;
         }
+        .card-element, #card-element {
+            min-height: 48px;
+            width: 100%;
+            box-sizing: border-box;
+            background: #fff;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            padding: 0.9rem 1rem;
+            font-size: 1rem;
+            margin-bottom: 1.1rem;
+            color: var(--text);
+        }
         @media (max-width: 600px) {
             .payment-card {
                 max-width: 100%;
@@ -186,11 +198,42 @@
                 margin: 1.2rem 0.2rem 0 0.2rem;
                 padding: 1.1rem 0.7rem 0.7rem 0.7rem;
             }
+            #card-element {
+                padding: 0.7rem 0.5rem;
+                font-size: 1rem;
+            }
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            display: flex;
+        }
+        .loading-image {
+            width: 80px;
+            height: 80px;
         }
     </style>
 </head>
 <body>
     @include('home.header')
+    <div class="loading-overlay" style="display:none;">
+        <img src="{{ asset('images/loading.gif') }}" alt="Loading..." class="loading-image">
+    </div>
     <div class="payment-section">
         <div class="payment-card">
             <div class="payment-header">
@@ -235,6 +278,9 @@
                     <!-- Campos ocultos para pontos -->
                     <input type="hidden" name="use_points" value="{{ request('use_points', '') }}">
                     <input type="hidden" name="points_to_use" value="{{ request('points_to_use', '') }}">
+                    <!-- Novos campos ocultos para delivery_method e store_location -->
+                    <input type="hidden" name="delivery_method" value="{{ request('delivery_method', 'home') }}">
+                    <input type="hidden" name="store_location" value="{{ request('store_location', '') }}">
                     <button id="card-button" class="btn btn-pay w-100" type="submit">
                         <i class="fas fa-lock me-2"></i> Pay Now
                     </button>
@@ -316,29 +362,52 @@
             // Desabilita o botão e mostra loading
             cardButton.disabled = true;
             cardButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processando...';
-            loadingOverlay.classList.add('active');
+            if (loadingOverlay) loadingOverlay.classList.add('active');
 
             try {
                 // Obtém o nome do titular do cartão
                 const cardholderName = document.getElementById('cardholder-name').value;
-                
+                if (!cardholderName) {
+                    const errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = 'O nome no cartão é obrigatório.';
+                    cardButton.disabled = false;
+                    cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pay Now';
+                    if (loadingOverlay) loadingOverlay.classList.remove('active');
+                    return;
+                }
                 // Cria o token do cartão
                 const {token, error} = await stripe.createToken(card, {
                     name: cardholderName
                 });
-
+                console.log('Stripe token:', token);
+                console.log('Stripe error:', error);
                 if (error) {
                     const errorElement = document.getElementById('card-errors');
                     errorElement.textContent = error.message;
                     cardButton.disabled = false;
-                    cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pagar Agora';
-                    loadingOverlay.classList.remove('active');
+                    cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pay Now';
+                    if (loadingOverlay) loadingOverlay.classList.remove('active');
                     return;
                 }
-
+                if (!token) {
+                    const errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = 'Não foi possível criar o token do cartão. Tente novamente.';
+                    cardButton.disabled = false;
+                    cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pay Now';
+                    if (loadingOverlay) loadingOverlay.classList.remove('active');
+                    return;
+                }
                 // Adiciona o token ao formulário
                 document.getElementById('stripeToken').value = token.id;
-
+                // Mostra no console os dados que seriam enviados
+                console.log('Dados a enviar:', {
+                  stripeToken: document.getElementById('stripeToken').value,
+                  delivery_method: document.querySelector('input[name=delivery_method]').value,
+                  store_location: document.querySelector('input[name=store_location]').value,
+                  use_points: document.querySelector('input[name=use_points]').value,
+                  points_to_use: document.querySelector('input[name=points_to_use]').value,
+                  cardholder_name: document.getElementById('cardholder-name').value
+                });
                 // Envia o formulário
                 form.submit();
             } catch (e) {
@@ -346,8 +415,8 @@
                 const errorElement = document.getElementById('card-errors');
                 errorElement.textContent = 'Ocorreu um erro ao processar o pagamento. Por favor, tente novamente.';
                 cardButton.disabled = false;
-                cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pagar Agora';
-                loadingOverlay.classList.remove('active');
+                cardButton.innerHTML = '<i class="fas fa-lock me-2"></i> Pay Now';
+                if (loadingOverlay) loadingOverlay.classList.remove('active');
             }
         });
         
@@ -356,7 +425,7 @@
         navigationLinks.forEach(link => {
             if (!link.getAttribute('href').startsWith('#') && !link.hasAttribute('data-bs-toggle')) {
                 link.addEventListener('click', function() {
-                    loadingOverlay.classList.add('active');
+                    if (loadingOverlay) loadingOverlay.classList.add('active');
                 });
             }
         });

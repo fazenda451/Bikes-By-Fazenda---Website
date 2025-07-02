@@ -422,6 +422,10 @@ class homeController extends Controller
             $order->delivery_method = $deliveryMethod;
             $order->store_location = $storeLocation;
             
+            // Definir status e payment_status corretamente para pagamentos na entrega
+            $order->status = 'in progress';
+            $order->payment_status = 'cash on delivery';
+            
             // Salva a informação de pontos usados apenas no primeiro item do pedido
             if ($pointsUsed > 0 && $cart->first()->id == $item->id) {
                 $order->points_used = $pointsUsed;
@@ -674,12 +678,16 @@ class homeController extends Controller
             $query->where('category_id', $request->category);
         }
         
-        if ($request->has('min_price') && $request->min_price) {
-            $query->where('price', '>=', $request->min_price);
+        if (
+            $request->has('min_price') && $request->min_price !== null && $request->min_price !== ''
+        ) {
+            $query->whereRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) >= ?', [$request->min_price]);
         }
         
-        if ($request->has('max_price') && $request->max_price) {
-            $query->where('price', '<=', $request->max_price);
+        if (
+            $request->has('max_price') && $request->max_price !== null && $request->max_price !== ''
+        ) {
+            $query->whereRaw('CAST(REPLACE(REPLACE(price, ".", ""), ",", ".") AS DECIMAL(10,2)) <= ?', [$request->max_price]);
         }
         
         if ($request->has('search') && $request->search) {
@@ -908,10 +916,11 @@ class homeController extends Controller
                 $order->phone = $user->phone ?? 'Phone not provided';
                 $order->user_id = $userid;
                 $order->payment_status = 'Pago';
-                $order->status = 'Em Processamento';
+                $order->status = 'in progress';
                 
-                // Método de entrega padrão quando a compra é feita pelo Stripe
-                $order->delivery_method = 'delivery';
+                // Guardar o método de entrega e a loja escolhida
+                $deliveryMethod = $request->input('delivery_method', 'home');
+                $storeLocation = $deliveryMethod === 'store' ? $request->input('store_location', null) : null;
                 
                 // Adicionar informação sobre pontos usados
                 if ($pointsUsed > 0 && $cart->first()->id == $item->id) {
@@ -935,6 +944,9 @@ class homeController extends Controller
                         $product->save();
                     }
                 }
+                
+                $order->delivery_method = $deliveryMethod;
+                $order->store_location = $storeLocation;
                 
                 $order->save();
             }

@@ -360,9 +360,9 @@ return view('admin.view_product', compact('product'));
         $data = Order::all();
         
         $statusText = [
-            'in progress' => 'Em Processamento',
-            'On the way' => 'A Caminho',
-            'Delivered' => 'Entregue'
+            'in progress' => 'In Progress',
+            'On the way' => 'On the way',
+            'Delivered' => 'Delivered'
         ];
 
         return view('admin.order', compact('data', 'statusText'));
@@ -1311,9 +1311,9 @@ public function delete_photo($id)
         }
         
         $statusText = [
-            'in progress' => 'Em Processamento',
-            'On the way' => 'A Caminho',
-            'Delivered' => 'Entregue'
+            'in progress' => 'In Progress',
+            'On the way' => 'On the way',
+            'Delivered' => 'Delivered'
         ];
         
         // Atualizar o status de todos os itens do pedido

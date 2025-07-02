@@ -77,8 +77,10 @@
                                                 'On the way' => 'On the way',
                                                 'Delivered' => 'Delivered'
                                             ];
-                                            $mainStatus = $orderItems->pluck('status')->contains('in progress') ? 'in progress' : 
-                                                          ($orderItems->pluck('status')->contains('On the way') ? 'On the way' : 'Delivered');
+                                            // Lógica mais robusta para detetar o status, case-insensitive
+                                            $statuses = $orderItems->pluck('status')->map(fn($s) => strtolower(trim($s)));
+                                            $mainStatus = $statuses->contains('in progress') ? 'in progress' : 
+                                                          ($statuses->contains('on the way') ? 'On the way' : 'Delivered');
                                         @endphp
                                         <span class="badge {{ $statusColors[$mainStatus] ?? 'bg-secondary' }} mb-2 status-badge">
                                             {{ $statusText[$mainStatus] ?? $mainStatus }}
