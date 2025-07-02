@@ -554,6 +554,64 @@ body {
     }
 }
 
+/* Campo de input inválido */
+.form-control.is-invalid {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15) !important;
+    background-color: #fff6f6;
+}
+
+/* Mensagem de erro */
+.invalid-feedback {
+    color: #e74c3c !important;
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-weight: 500;
+}
+
+/* Ícone de erro dentro do input-group */
+.input-group .is-invalid ~ .toggle-password,
+.input-group .is-invalid ~ .input-group-text {
+    border-color: #e74c3c !important;
+    color: #e74c3c !important;
+    background: #fff6f6;
+}
+
+/* Ícone de erro (ex: fa-exclamation-circle) */
+.input-group .fa-exclamation-circle {
+    color: #e74c3c !important;
+    margin-left: 0.5em;
+    font-size: 1.1em;
+}
+
+/* Ajuste para o botão olho em erro */
+.input-group .toggle-password.is-invalid {
+    border-color: #e74c3c !important;
+    color: #e74c3c !important;
+    background: #fff6f6;
+}
+
+/* Estados de hover para campos inválidos */
+.form-control.is-invalid:focus {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.25) !important;
+}
+
+/* Melhorias para mensagens de erro em mobile */
+@media (max-width: 768px) {
+    .invalid-feedback {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background-color: #fff6f6;
+        border-radius: 5px;
+        border-left: 3px solid #e74c3c;
+    }
+}
+
 /* Password toggle button styles */
 .input-group {
     position: relative;
@@ -571,11 +629,13 @@ body {
 
 .input-group .form-control {
     border-left: none;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0;
+    border-right: none;
 }
 
 .input-group .form-control:focus {
     border-left: none;
+    border-right: none;
     box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
 }
 
@@ -602,6 +662,11 @@ body {
 
 .toggle-password:focus {
     box-shadow: 0 0 0 0.2rem rgba(153, 53, 220, 0.25);
+}
+
+/* Garantir que a mensagem de erro aparece abaixo do input-group completo */
+.input-group + .invalid-feedback {
+    margin-top: 0.25rem;
 }
 </style>
 
@@ -636,7 +701,8 @@ $(document).ready(function() {
     // Password toggle functionality
     $('.toggle-password').on('click', function() {
         const button = $(this);
-        const input = button.closest('.input-group').find('input');
+        // Seleciona o input imediatamente antes do botão dentro do input-group
+        const input = button.prevAll('input').first();
         const icon = button.find('i');
         
         if (input.attr('type') === 'password') {
@@ -702,15 +768,19 @@ $(document).ready(function() {
     $('#password_confirmation').on('input', function() {
         var password = $('#password').val();
         var passwordConfirmation = $(this).val();
+        var toggleButton = $(this).siblings('.toggle-password');
+        var inputGroup = $(this).closest('.input-group');
         
         if (passwordConfirmation && password !== passwordConfirmation) {
             $(this).addClass('is-invalid');
-            if (!$(this).next('.invalid-feedback').length) {
-                $(this).after('<div class="invalid-feedback">Passwords do not match.</div>');
+            toggleButton.addClass('is-invalid');
+            if (!inputGroup.next('.invalid-feedback').length) {
+                inputGroup.after('<div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i>Passwords do not match.</div>');
             }
         } else {
             $(this).removeClass('is-invalid');
-            $(this).next('.invalid-feedback').remove();
+            toggleButton.removeClass('is-invalid');
+            inputGroup.next('.invalid-feedback').remove();
         }
     });
     
@@ -718,15 +788,19 @@ $(document).ready(function() {
     $('#password').on('input', function() {
         var password = $(this).val();
         var passwordConfirmation = $('#password_confirmation').val();
+        var toggleButton = $(this).siblings('.toggle-password');
+        var inputGroup = $(this).closest('.input-group');
         
         if (password && password.length < 8) {
             $(this).addClass('is-invalid');
-            if (!$(this).next('.invalid-feedback').length) {
-                $(this).after('<div class="invalid-feedback">Password must be at least 8 characters long.</div>');
+            toggleButton.addClass('is-invalid');
+            if (!inputGroup.next('.invalid-feedback').length) {
+                inputGroup.after('<div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i>Password must be at least 8 characters long.</div>');
             }
         } else {
             $(this).removeClass('is-invalid');
-            $(this).next('.invalid-feedback').remove();
+            toggleButton.removeClass('is-invalid');
+            inputGroup.next('.invalid-feedback').remove();
         }
         
         // Revalidar confirmação se existir
