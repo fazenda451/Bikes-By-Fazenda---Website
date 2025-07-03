@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Animações - Bikes By Fazenda</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Animate.css Original -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    
+    <!-- Animation Fallback CSS -->
+    <link rel="stylesheet" href="css/animate-fallback.css" />
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .test-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .test-card:hover {
+            border-color: #9935dc;
+            transform: translateY(-5px);
+        }
+        
+        .test-element {
+            background: linear-gradient(135deg, #9935dc 0%, #7b2ab0 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            background: #9935dc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #7b2ab0;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .debug-info {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="animate__animated animate__fadeInDown">🔧 Teste de Animações</h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Esta página testa se as animações CSS estão funcionando corretamente no seu sistema.</p>
+        </div>
+        
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Como usar este teste:</h3>
+            <ol>
+                <li>Observe se os elementos aparecem com animações suaves</li>
+                <li>Clique nos botões para testar animações interativas</li>
+                <li>Verifique os status abaixo para diagnóstico</li>
+                <li>Se houver problemas, siga as instruções de correção</li>
+            </ol>
+        </div>
+        
+        <div class="test-grid">
+            <!-- Teste 1: Fade Animations -->
+            <div class="test-card">
+                <h3>Teste 1: Fade Animations</h3>
+                <div class="test-element animate__animated animate__fadeIn" id="fadeTest">
+                    <i class="fas fa-star"></i> FadeIn Animation
+                </div>
+                <button class="btn" onclick="testFade()">Testar FadeIn</button>
+            </div>
+            
+            <!-- Teste 2: Slide Animations -->
+            <div class="test-card">
+                <h3>Teste 2: Slide Animations</h3>
+                <div class="test-element animate__animated animate__slideInUp" id="slideTest">
+                    <i class="fas fa-arrow-up"></i> SlideInUp Animation
+                </div>
+                <button class="btn" onclick="testSlide()">Testar SlideInUp</button>
+            </div>
+            
+            <!-- Teste 3: Bounce Animations -->
+            <div class="test-card">
+                <h3>Teste 3: Bounce Animations</h3>
+                <div class="test-element animate__animated animate__bounceIn" id="bounceTest">
+                    <i class="fas fa-basketball-ball"></i> BounceIn Animation
+                </div>
+                <button class="btn" onclick="testBounce()">Testar BounceIn</button>
+            </div>
+            
+            <!-- Teste 4: Transform Animations -->
+            <div class="test-card">
+                <h3>Teste 4: Transform Animations</h3>
+                <div class="test-element animate__animated animate__pulse animate__infinite" id="transformTest">
+                    <i class="fas fa-heart"></i> Pulse Animation
+                </div>
+                <button class="btn" onclick="testTransform()">Testar Pulse</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="testAll()">🚀 Testar Todas as Animações</button>
+            <button class="btn" onclick="runDiagnostic()">🔍 Executar Diagnóstico</button>
+            <button class="btn" onclick="resetTests()">🔄 Resetar Testes</button>
+        </div>
+        
+        <div id="statusContainer">
+            <!-- Status será inserido aqui via JavaScript -->
+        </div>
+        
+        <div class="debug-info" id="debugInfo">
+            <h4>Informações de Debug:</h4>
+            <div id="debugContent">Carregando...</div>
+        </div>
+        
+        <div class="info-box">
+            <h3><i class="fas fa-lightbulb"></i> Soluções para Problemas:</h3>
+            <ul>
+                <li><strong>Animações não funcionam:</strong> Verifique se "Show animations in Windows" está ativado nas Configurações de Acessibilidade</li>
+                <li><strong>Hover funciona mas animações não:</strong> Reative aceleração de hardware no navegador</li>
+                <li><strong>Animações muito lentas:</strong> Atualize os drivers da placa gráfica</li>
+                <li><strong>CDN bloqueada:</strong> O sistema usará o fallback local automaticamente</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Animation Fallback Script -->
+    <script src="js/animation-fallback.js"></script>
+    
+    <script>
+        // Funções de teste
+        function testFade() {
+            const element = document.getElementById('fadeTest');
+            element.classList.remove('animate__fadeIn');
+            setTimeout(() => {
+                element.classList.add('animate__fadeIn');
+            }, 100);
+        }
+        
+        function testSlide() {
+            const element = document.getElementById('slideTest');
+            element.classList.remove('animate__slideInUp');
+            setTimeout(() => {
+                element.classList.add('animate__slideInUp');
+            }, 100);
+        }
+        
+        function testBounce() {
+            const element = document.getElementById('bounceTest');
+            element.classList.remove('animate__bounceIn');
+            setTimeout(() => {
+                element.classList.add('animate__bounceIn');
+            }, 100);
+        }
+        
+        function testTransform() {
+            const element = document.getElementById('transformTest');
+            element.classList.toggle('animate__infinite');
+            element.classList.toggle('animate__pulse');
+        }
+        
+        function testAll() {
+            testFade();
+            setTimeout(testSlide, 200);
+            setTimeout(testBounce, 400);
+            setTimeout(testTransform, 600);
+        }
+        
+        function resetTests() {
+            const elements = document.querySelectorAll('.test-element');
+            elements.forEach(el => {
+                el.className = 'test-element animate__animated';
+            });
+            
+            setTimeout(() => {
+                document.getElementById('fadeTest').classList.add('animate__fadeIn');
+                document.getElementById('slideTest').classList.add('animate__slideInUp');
+                document.getElementById('bounceTest').classList.add('animate__bounceIn');
+                document.getElementById('transformTest').classList.add('animate__pulse', 'animate__infinite');
+            }, 100);
+        }
+        
+        function runDiagnostic() {
+            const statusContainer = document.getElementById('statusContainer');
+            statusContainer.innerHTML = '';
+            
+            // Teste 1: CSS Animations Support
+            const cssSupport = CSS.supports('animation', 'test');
+            addStatus(cssSupport ? 'success' : 'error', 
+                     `CSS Animations Support: ${cssSupport ? 'SUPORTADO' : 'NÃO SUPORTADO'}`);
+            
+            // Teste 2: Transform Support
+            const transformSupport = CSS.supports('transform', 'translateX(1px)');
+            addStatus(transformSupport ? 'success' : 'error', 
+                     `CSS Transform Support: ${transformSupport ? 'SUPORTADO' : 'NÃO SUPORTADO'}`);
+            
+            // Teste 3: Prefers Reduced Motion
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            addStatus(reducedMotion ? 'warning' : 'success', 
+                     `Reduced Motion: ${reducedMotion ? 'ATIVADO (pode causar problemas)' : 'DESATIVADO'}`);
+            
+            // Teste 4: Hardware Acceleration
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            const hwAccel = !!gl;
+            addStatus(hwAccel ? 'success' : 'warning', 
+                     `Hardware Acceleration: ${hwAccel ? 'DISPONÍVEL' : 'INDISPONÍVEL'}`);
+            
+            // Teste 5: Animate.css Loading
+            if (window.animationFallback) {
+                const animateCSSTest = window.animationFallback.testAnimateCSS();
+                addStatus(animateCSSTest ? 'success' : 'warning', 
+                         `Animate.css: ${animateCSSTest ? 'CARREGADO' : 'USANDO FALLBACK'}`);
+            }
+        }
+        
+        function addStatus(type, message) {
+            const statusContainer = document.getElementById('statusContainer');
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'exclamation-triangle'}"></i> ${message}`;
+            statusContainer.appendChild(statusDiv);
+        }
+        
+        function updateDebugInfo() {
+            const debugContent = document.getElementById('debugContent');
+            debugContent.innerHTML = `
+                <strong>User Agent:</strong> ${navigator.userAgent}<br>
+                <strong>Platform:</strong> ${navigator.platform}<br>
+                <strong>Screen:</strong> ${screen.width}x${screen.height}<br>
+                <strong>Viewport:</strong> ${window.innerWidth}x${window.innerHeight}<br>
+                <strong>Device Pixel Ratio:</strong> ${window.devicePixelRatio}<br>
+                <strong>Cookies Enabled:</strong> ${navigator.cookieEnabled}<br>
+                <strong>Online:</strong> ${navigator.onLine}<br>
+                <strong>Animation Fallback:</strong> ${window.animationFallback ? 'CARREGADO' : 'NÃO CARREGADO'}
+            `;
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDebugInfo();
+            setTimeout(runDiagnostic, 1000);
+        });
+        
+        // Monitora mudanças na configuração de reduced motion
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-reduced-motion: reduce)').addListener(function() {
+                setTimeout(runDiagnostic, 500);
+            });
+        }
+    </script>
+</body>
+</html> 

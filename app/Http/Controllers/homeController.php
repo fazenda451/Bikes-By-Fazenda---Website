@@ -898,14 +898,27 @@ class homeController extends Controller
                 $discount = $totalAmount * ($discountPercentage / 100);
                 $pointsUsed = $pointsToUse;
                 
-                // Deduzir pontos do utilizador
-                User::where('id', $user->id)->update(['Points' => $user->Points - $pointsUsed]);
+                // NÃO deduzir pontos ainda - apenas fazer após o pagamento ter sucesso
+                Log::info('Pontos preparados para dedução: ' . $pointsUsed . ', Desconto: ' . $discount . '€');
+            }
+
+            // Calcular o valor final correto (após desconto, se aplicável)
+            $finalAmount = $totalAmount - $discount;
+            
+            // Verificar se o valor final corresponde ao valor esperado
+            if (abs($finalAmount - $value) > 0.01) {
+                Log::error('Valor final não corresponde ao valor esperado', [
+                    'valor_esperado' => $value,
+                    'valor_calculado' => $finalAmount,
+                    'valor_original' => $totalAmount,
+                    'desconto' => $discount,
+                    'pontos_usados' => $pointsUsed
+                ]);
             }
 
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
             // Processar o pagamento com o valor final (após desconto)
-            $finalAmount = $value;
             Stripe\Charge::create([
                 "amount" => $finalAmount * 100,
                 "currency" => "eur",
@@ -958,6 +971,12 @@ class homeController extends Controller
                 $order->store_location = $storeLocation;
                 
                 $order->save();
+            }
+            
+            // Deduzir pontos do utilizador APÓS o pagamento ter sucesso
+            if ($pointsUsed > 0) {
+                User::where('id', $user->id)->decrement('Points', $pointsUsed);
+                Log::info('Pontos deduzidos com sucesso: ' . $pointsUsed);
             }
             
             // Adicionar pontos ao utilizador (10€ = 5 pontos) apenas se não usou pontos para desconto

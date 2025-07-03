@@ -27,6 +27,9 @@
   
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  
+  <!-- Animation Fallback CSS -->
+  <link rel="stylesheet" href="{{asset('css/animate-fallback.css')}}" />
 
   <style>
     .login-section {
@@ -631,6 +634,9 @@
   <script src="{{asset('js/bootstrap.js')}}"></script>
   <!-- custom js -->
   <script src="{{asset('js/custom.js')}}"></script>
+  
+  <!-- Animation Fallback -->
+  <script src="{{asset('js/animation-fallback.js')}}"></script>
   
   <script>
     $(document).ready(function() {
