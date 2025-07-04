@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atualização do Pedido - BikesByFazenda</title>
+    <title>Order Update - BikesByFazenda</title>
     <style>
         * {
             margin: 0;
@@ -378,41 +378,41 @@
                 <span class="logo-icon">🚲</span>
                 BikesByFazenda
             </div>
-            <div class="header-subtitle">Atualização do Pedido</div>
+            <div class="header-subtitle">Order Update</div>
         </div>
         
         <!-- Content -->
         <div class="content">
             <div class="greeting">
-                Olá <strong>{{ $customerName }}</strong>! 👋
+                Hello <strong>{{ $customerName }}</strong>! 👋
             </div>
             
             <p style="text-align: center; color: #64748b; font-size: 16px; margin-bottom: 30px;">
-                Temos uma atualização importante sobre o seu pedido que gostaríamos de partilhar consigo.
+                We have an important update about your order that we would like to share with you.
             </p>
             
             <!-- Status Card -->
             <div class="status-card">
                 <div class="status-title">
                     <span class="icon">📦</span>
-                    Status do Pedido Atualizado
+                    Order Status Updated
                 </div>
                 <div style="margin-bottom: 20px;">
-                    <strong>Número do Pedido:</strong> #{{ $orderNumber }}
+                    <strong>Order Number:</strong> #{{ $orderNumber }}
                 </div>
                 <div style="margin-bottom: 15px;">
-                    <strong>Novo Status:</strong>
+                    <strong>New Status:</strong>
                 </div>
                 <span class="status-badge status-{{ str_replace(' ', '-', $status) }}">
                     @switch($status)
                         @case('in progress')
-                            🔄 Em Processamento
+                            🔄 In Progress
                             @break
                         @case('On the way')
-                            🚚 A Caminho
+                            🚚 On the Way
                             @break
                         @case('Delivered')
-                            ✅ Entregue
+                            ✅ Delivered
                             @break
                         @default
                             {{ $status }}
@@ -424,19 +424,19 @@
             <div class="order-details">
                 <h3>
                     <span class="icon">📋</span>
-                    Detalhes do Pedido
+                    Order Details
                 </h3>
                 <div class="detail-row">
-                    <span class="detail-label">Número do Pedido:</span>
+                    <span class="detail-label">Order Number:</span>
                     <span class="detail-value">#{{ $orderNumber }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Data da Atualização:</span>
+                    <span class="detail-label">Update Date:</span>
                     <span class="detail-value">{{ now()->format('d/m/Y H:i') }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Total de Itens:</span>
-                    <span class="detail-value">{{ $orderItems->count() }} {{ $orderItems->count() == 1 ? 'item' : 'itens' }}</span>
+                    <span class="detail-label">Total Items:</span>
+                    <span class="detail-value">{{ $orderItems->count() }} {{ $orderItems->count() == 1 ? 'item' : 'items' }}</span>
                 </div>
             </div>
             
@@ -444,7 +444,7 @@
             <div class="products-section">
                 <h3 class="products-title">
                     <span class="icon">🛍️</span>
-                    Itens do Pedido
+                    Order Items
                 </h3>
                 
                 @foreach($orderItems as $item)
@@ -459,20 +459,20 @@
                             </div>
                             <span class="product-type">
                                 @if(isset($item->is_motorcycle) && $item->is_motorcycle)
-                                    🏍️ Moto
+                                    🏍️ Motorcycle
                                 @else
-                                    🛒 Produto
+                                    🛒 Product
                                 @endif
                             </span>
                         </div>
                         <div class="product-details">
                             <div>
                                 @if(isset($item->is_motorcycle) && $item->is_motorcycle)
-                                    Quantidade: 1
+                                    Quantity: 1
                                 @else
-                                    Quantidade: {{ $item->quantity }}
+                                    Quantity: {{ $item->quantity }}
                                     @if($item->size)
-                                        | Tamanho: {{ $item->size }}
+                                        | Size: {{ $item->size }}
                                     @endif
                                 @endif
                             </div>
@@ -500,16 +500,16 @@
             <div class="status-message">
                 @switch($status)
                     @case('in progress')
-                        <p>🔄 O seu pedido está sendo processado e preparado para envio. A nossa equipa está a trabalhar para garantir que tudo esteja perfeito!</p>
+                        <p>🔄 Your order is being processed and prepared for shipping. Our team is working to ensure everything is perfect!</p>
                         @break
                     @case('On the way')
-                        <p>🚚 O seu pedido está a caminho! Em breve chegará ao seu destino. Prepare-se para receber os seus produtos!</p>
+                        <p>🚚 Your order is on its way! It will arrive at your destination soon. Get ready to receive your products!</p>
                         @break
                     @case('Delivered')
-                        <p>✅ O seu pedido foi entregue com sucesso! Esperamos que esteja satisfeito com a sua compra. Obrigado por escolher BikesByFazenda!</p>
+                        <p>✅ Your order has been successfully delivered! We hope you are satisfied with your purchase. Thank you for choosing BikesByFazenda!</p>
                         @break
                     @default
-                        <p>O status do seu pedido foi atualizado com sucesso.</p>
+                        <p>Your order status has been successfully updated.</p>
                 @endswitch
             </div>
             
@@ -517,10 +517,10 @@
             <div class="contact-section">
                 <h3 class="contact-title">
                     <span class="icon">📞</span>
-                    Precisa de Ajuda?
+                    Need Help?
                 </h3>
                 <p style="color: #64748b; margin-bottom: 25px;">
-                    Se tiver alguma dúvida sobre o seu pedido, não hesite em contactar-nos. Estamos aqui para ajudar!
+                    If you have any questions about your order, don't hesitate to contact us. We're here to help!
                 </p>
                 <div class="contact-info">
                     <div class="contact-item">
@@ -543,18 +543,18 @@
         <div class="footer">
             <div class="footer-logo">🚲 BikesByFazenda</div>
             <div class="footer-text">
-                Obrigado por escolher a BikesByFazenda para as suas necessidades de motociclos e acessórios.
+                Thank you for choosing BikesByFazenda for your motorcycle and accessory needs.
             </div>
             <div class="footer-text">
-                Este email foi enviado automaticamente. Por favor, não responda a este email.
+                This email was sent automatically. Please do not reply to this email.
             </div>
             <div class="footer-links">
                 <a href="#" class="footer-link">Website</a>
-                <a href="#" class="footer-link">Política de Privacidade</a>
-                <a href="#" class="footer-link">Termos de Serviço</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
             </div>
             <div class="footer-text" style="margin-top: 20px; font-size: 12px;">
-                &copy; {{ date('Y') }} BikesByFazenda. Todos os direitos reservados.
+                &copy; {{ date('Y') }} BikesByFazenda. All rights reserved.
             </div>
         </div>
     </div>

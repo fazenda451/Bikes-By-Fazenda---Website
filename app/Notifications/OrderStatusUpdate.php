@@ -44,12 +44,12 @@ class OrderStatusUpdate extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $statusText = [
-            'in progress' => 'Em Processamento',
-            'On the way' => 'A Caminho',
-            'Delivered' => 'Entregue'
+            'in progress' => 'In Progress',
+            'On the way' => 'On the Way',
+            'Delivered' => 'Delivered'
         ];
 
-        $subject = 'Atualização do Pedido #' . $this->orderNumber . ' - ' . ($statusText[$this->status] ?? $this->status);
+        $subject = 'Order Update #' . $this->orderNumber . ' - ' . ($statusText[$this->status] ?? $this->status);
 
         return (new MailMessage)
             ->subject($subject)
