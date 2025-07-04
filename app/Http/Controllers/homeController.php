@@ -914,11 +914,6 @@ class homeController extends Controller
                     'desconto' => $discount,
                     'pontos_usados' => $pointsUsed
                 ]);
-                
-                // Se a diferença for significativa, usar o valor calculado
-                if (abs($finalAmount - $value) > 1) {
-                    Log::warning('Usando valor calculado em vez do valor da URL devido a grande discrepância');
-                }
             }
 
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -1030,24 +1025,13 @@ class homeController extends Controller
             
             return redirect('/')->with('notification_type', 'success')->with('notification_message', $successMessage);
         } catch (\Exception $e) {
-            // Se houve erro e pontos foram deduzidos, reverter a dedução
-            if ($pointsUsed > 0) {
-                User::where('id', $user->id)->increment('Points', $pointsUsed);
-                Log::info('Pontos revertidos devido ao erro: ' . $pointsUsed);
-            }
-            
             // Log detalhado do erro
             Log::error('Stripe payment error', [
                 'error' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'user_ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'value' => $value,
-                'final_amount' => $finalAmount ?? $value,
-                'discount' => $discount ?? 0,
-                'points_used' => $pointsUsed,
-                'use_points' => $usePoints
+                'user_agent' => $request->userAgent()
             ]);
             
             // Mensagem de erro mais amigável
@@ -1056,15 +1040,8 @@ class homeController extends Controller
                 $errorMessage .= 'Problema de conectividade. Verifique sua ligação à internet.';
             } else if (str_contains($e->getMessage(), 'timeout')) {
                 $errorMessage .= 'Tempo limite excedido. Tente novamente.';
-            } else if (str_contains($e->getMessage(), 'card') || str_contains($e->getMessage(), 'decline')) {
-                $errorMessage .= 'Problema com o cartão de crédito. Verifique os dados ou tente com outro cartão.';
             } else {
                 $errorMessage .= 'Por favor, tente novamente ou contacte o suporte.';
-            }
-            
-            // Se foram usados pontos, informar que foram revertidos
-            if ($pointsUsed > 0) {
-                $errorMessage .= ' Os pontos utilizados foram revertidos.';
             }
             
             session()->flash('error', $errorMessage);
