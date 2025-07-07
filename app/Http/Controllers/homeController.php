@@ -161,17 +161,24 @@ class homeController extends Controller
             $user = Auth::user();
             $userid = $user->id;
             $count = Cart::where('user_id',$userid)->count();
+            
+            // Verificar se o usuário comprou este produto (pedido entregue)
+            $canRate = Order::where('user_id', $user->id)
+                ->where('product_id', $id)
+                ->where('status', 'Delivered')
+                ->exists();
         }
         else
         {
             $count = '';
+            $canRate = false;
         }
 
         // Calcular média de estrelas
         $averageRating = $data->ratings->avg('rating');
         $ratingsCount = $data->ratings->count();
 
-        return view('home.product_details',compact('data','count','averageRating','ratingsCount'));
+        return view('home.product_details',compact('data','count','averageRating','ratingsCount','canRate'));
     }
 
     public function motorcycle_details($id)
@@ -1392,6 +1399,17 @@ class homeController extends Controller
         }
 
         $user = Auth::user();
+
+        // Verificar se o usuário comprou este produto (pedido entregue)
+        $hasPurchased = Order::where('user_id', $user->id)
+            ->where('product_id', $id)
+            ->where('status', 'Delivered')
+            ->exists();
+
+        if (!$hasPurchased) {
+            session()->flash('error', 'You can only rate products you have purchased.');
+            return redirect()->back()->with('notification_type', 'error')->with('notification_message', 'You can only rate products you have purchased.');
+        }
 
         // Impede que o mesmo usuário avalie o mesmo produto mais de uma vez
         $existing = \App\Models\ProductRating::where('user_id', $user->id)->where('product_id', $id)->first();

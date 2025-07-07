@@ -1539,23 +1539,45 @@
             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
               <!-- Formulário de Avaliação -->
               @if(Auth::check())
-                <div class="product-rating-form p-4 bg-light rounded-4 shadow-sm mb-4">
-                  <form action="{{ route('product.rating', $data->id) }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                      <label for="rating" class="form-label">Your rating:</label><br>
-                      <div class="star-rating-input-animated d-flex justify-content-end">
-                        @for ($i = 5; $i >= 1; $i--)
-                          <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required style="display:none;">
-                          <label for="star{{ $i }}" title="{{ $i }} estrelas">&#9733;</label>
-                        @endfor
+                @if($canRate)
+                  <div class="product-rating-form p-4 bg-light rounded-4 shadow-sm mb-4">
+                    <form action="{{ route('product.rating', $data->id) }}" method="POST">
+                      @csrf
+                      <div class="mb-3">
+                        <label for="rating" class="form-label">Your rating:</label><br>
+                        <div class="star-rating-input-animated d-flex justify-content-end">
+                          @for ($i = 5; $i >= 1; $i--)
+                            <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required style="display:none;">
+                            <label for="star{{ $i }}" title="{{ $i }} estrelas">&#9733;</label>
+                          @endfor
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                                                        <textarea name="comment" class="form-control" placeholder="Leave a comment (optional)" rows="2"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-purple">Submit Rating</button>
+                    </form>
+                  </div>
+                @else
+                  <div class="alert alert-info rounded-4 shadow-sm mb-4">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-info-circle me-3" style="color: #0d6efd;"></i>
+                      <div>
+                        <h6 class="mb-1">Purchase Required to Rate</h6>
+                        <p class="mb-0">To maintain the authenticity of our reviews, only customers who have purchased and received this product can leave a rating.</p>
                       </div>
                     </div>
-                    <div class="mb-3">
-                                                      <textarea name="comment" class="form-control" placeholder="Leave a comment (optional)" rows="2"></textarea>
+                  </div>
+                @endif
+              @else
+                <div class="alert alert-warning rounded-4 shadow-sm mb-4">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-sign-in-alt me-3" style="color: #f59e0b;"></i>
+                    <div>
+                      <h6 class="mb-1">Login Required</h6>
+                      <p class="mb-0">Please <a href="{{ route('login') }}" class="text-decoration-underline">login</a> to leave a rating for this product.</p>
                     </div>
-                    <button type="submit" class="btn btn-purple">Submit Rating</button>
-                  </form>
+                  </div>
                 </div>
               @endif
 
