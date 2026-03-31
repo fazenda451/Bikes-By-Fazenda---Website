@@ -1,147 +1,180 @@
 <div align="center">
-  <h1>🏍️ Bikes By Fazenda - E-Commerce Platform</h1>
-  <p>A comprehensive motorcycle and accessories e-commerce web application built with Laravel 11.</p>
 
-  <!-- Badges -->
-  <p>
-    <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 11" />
-    <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+" />
-    <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
-    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
-    <img src="https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white" alt="Alpine.js" />
-    <img src="https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white" alt="Stripe" />
-  </p>
+<img src="https://img.shields.io/badge/STATUS-ACADEMIC%20PROJECT-blueviolet?style=for-the-badge" alt="Academic Project" />
+
+# 🏍️ Bikes By Fazenda
+
+### Full-Stack E-Commerce Platform for Motorcycle Enthusiasts
+
+A fully functional, end-to-end e-commerce web application built with **Laravel 11**, designed for browsing, purchasing, and managing motorcycles and accessories in the Portuguese market.
+
+<p>
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 11" />
+  <img src="https://img.shields.io/badge/PHP_8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+" />
+  <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white" alt="Alpine.js" />
+  <img src="https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white" alt="Stripe" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" />
+  <img src="https://img.shields.io/badge/Laravel-11.x-red?style=flat-square" />
+  <img src="https://img.shields.io/badge/PHP-8.2+-blue?style=flat-square" />
+</p>
+
 </div>
 
-<br/>
+---
 
-## 📖 About the Project
+## 📖 About
 
-**Bikes By Fazenda** is a fully functional, end-to-end e-commerce platform specifically designed for motorcycle enthusiasts in Portugal. The application provides a seamless shopping experience, allowing users to browse a deeply detailed catalog of motorcycles and related products, manage their carts, securely process payments, and track their orders.
+**Bikes By Fazenda** is an academic e-commerce project developed as a final coursework submission. The platform covers the full lifecycle of an online store — from product browsing and cart management to payment processing and order tracking — with a dedicated admin panel for back-office operations.
 
-## ✨ Key Features
+> ⚠️ This is an academic project and is not actively maintained. It was built as a learning exercise and portfolio piece.
 
-### 🛒 For Customers
-- **Extensive Catalogs:** Advanced browsing and filtering for motorcycles (with deep technical specs) and accessories.
-- **Shopping Cart & Checkout:** Seamless product and motorcycle cart additions.
-- **Secure Payments:** Full integration with the Stripe API for safe transactions.
-- **Wishlist Management:** Save favorite motorcycles and products for future purchases.
-- **Loyalty Program:** Earn and spend reward points during purchases.
-- **User Dashboard:** Comprehensive profile, order history, and point management.
-- **Authentication:** Registration, login, password reset, and rigorous email verification.
+---
 
-### 🛡️ For Administrators
-- **Comprehensive Dashboard:** Interactive reporting and analytics via Chart.js.
-- **Inventory Management:** Full CRUD capabilities for Products, Motorcycles, Categories, and Brands.
-- **Deep Motorcycle Specs:** Manage precise technical details (engine, transmission, suspension, mechanics, required licenses).
-- **Order Processing:** Track and dynamically update order/shipping statuses.
-- **Invoice & Reporting:** Automatic generation of PDF invoices and detailed sales reports.
-- **Review Moderation:** Oversee and manage customer product ratings and reviews.
-- **Notification System:** Automated email alerts and interactive UI popups powered by Toastr/Flasher.
+## ✨ Features
+
+### 🛒 Customer Side
+- **Product Catalog** — Advanced filtering and browsing for motorcycles (with deep technical specs) and accessories
+- **Shopping Cart & Checkout** — Seamless add-to-cart flow for both products and motorcycles
+- **Secure Payments** — Full Stripe API integration for safe, real-world transactions
+- **Wishlist** — Save favourite motorcycles and products for later
+- **Loyalty Points** — Earn and redeem reward points on purchases
+- **User Dashboard** — Profile management, order history, and points overview
+- **Authentication** — Registration, login, password reset, and email verification via Laravel Breeze
+
+### 🛡️ Admin Panel
+- **Dashboard & Analytics** — Interactive charts and reporting via Chart.js
+- **Inventory Management** — Full CRUD for products, motorcycles, categories, and brands
+- **Deep Motorcycle Specs** — Manage engine, transmission, suspension, mechanics, and required licence details
+- **Order Management** — Track and update order and shipping statuses in real time
+- **PDF Invoices** — Auto-generated invoices and sales reports via `barryvdh/laravel-dompdf`
+- **Review Moderation** — Approve and manage customer ratings and reviews
+- **Notification System** — Automated email alerts and UI popups via PHP Flasher / Toastr
+
+---
 
 ## 🧰 Tech Stack
 
-### Backend
-- **Framework:** Laravel 11 (PHP 8.2+)
-- **Database:** MySQL 8.0+
-- **Authentication:** Laravel Breeze
-- **PDF Generation:** barryvdh/laravel-dompdf
-- **Payment Gateway:** Stripe PHP SDK
+| Layer | Technology |
+|---|---|
+| Framework | Laravel 11 (PHP 8.2+) |
+| Database | MySQL 8.0+ |
+| Authentication | Laravel Breeze |
+| Frontend Styling | Tailwind CSS 3 |
+| Frontend Interactivity | Alpine.js + Vanilla JS |
+| Templating | Blade Templates |
+| Asset Bundling | Vite |
+| Charting | Chart.js |
+| PDF Generation | barryvdh/laravel-dompdf |
+| Payments | Stripe PHP SDK |
+| Notifications | PHP Flasher |
 
-### Frontend
-- **Templating:** Blade Templates
-- **Styling:** Tailwind CSS 3
-- **Interactivity:** Alpine.js & Vanilla JavaScript
-- **Charting:** Chart.js
-- **Notifications:** PHP Flasher
-- **Asset Bundling:** Vite
+---
 
-## 🚀 Getting Started
-
-Follow these instructions to set up the project locally.
+## 🚀 Local Setup
 
 ### Prerequisites
-Make sure you have the following installed on your machine:
-- **PHP 8.2+** (with OpenSSL, PDO, Mbstring, Tokenizer, XML, Ctype, JSON, BCMath, Fileinfo, GD extensions)
-- **Composer**
-- **Node.js (v18+) & NPM**
-- **MySQL 8.0+**
-- **Stripe Account** (for local payment processing)
 
-### Installation Guide
+- PHP 8.2+ with extensions: `OpenSSL, PDO, Mbstring, Tokenizer, XML, Ctype, JSON, BCMath, Fileinfo, GD`
+- Composer
+- Node.js v18+ & NPM
+- MySQL 8.0+
+- A [Stripe](https://stripe.com) account for payment testing
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/fazenda451/Bikes-By-Fazenda---Website.git
-   cd Bikes-By-Fazenda---Website
-   ```
+### Installation
 
-2. **Install PHP dependencies**
-   ```bash
-   composer install
-   ```
+```bash
+# 1. Clone the repository
+git clone https://github.com/fazenda451/Bikes-By-Fazenda---Website.git
+cd Bikes-By-Fazenda---Website
 
-3. **Install NPM dependencies**
-   ```bash
-   npm install
-   ```
+# 2. Install PHP dependencies
+composer install
 
-4. **Environment Setup**
-   ```bash
-   cp .env.example .env
-   ```
-   Open the `.env` file and configure your local database credentials, Stripe keys, and Mail configurations:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=bikes_fazenda
-   DB_USERNAME=root
-   DB_PASSWORD=
+# 3. Install Node dependencies
+npm install
 
-   STRIPE_KEY=your_stripe_public_key
-   STRIPE_SECRET=your_stripe_secret_key
-   ```
+# 4. Set up environment
+cp .env.example .env
+```
 
-5. **Generate Application Key**
-   ```bash
-   php artisan key:generate
-   ```
+Edit `.env` with your local credentials:
 
-6. **Run Database Migrations**
-   *(Note: This project contains over 30 complex migrations defining relational data).*
-   ```bash
-   php artisan migrate
-   ```
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=bikes_fazenda
+DB_USERNAME=root
+DB_PASSWORD=
 
-7. **Compile Frontend Assets**
-   ```bash
-   npm run build
-   ```
-   *(For development with Hot Module Replacement, you can use `npm run dev`)*
+STRIPE_KEY=your_stripe_public_key
+STRIPE_SECRET=your_stripe_secret_key
+```
 
-8. **Start the Development Server**
-   ```bash
-   php artisan serve
-   ```
-   
-   The application will be accessible at `http://localhost:8000`. You can also use the included Windows batch files (`!!!start-server.bat`) for immediate automated bootup.
+```bash
+# 5. Generate application key
+php artisan key:generate
 
-## 🔐 Security & Best Practices
-- **Data Protection:** Form inputs are strictly validated. CSRF protection is active across all endpoints.
-- **SQL Injection Prevention:** Eloquent ORM is heavily utilized to safely parameterize database queries.
-- **Authentication:** Secure password hashing (Bcrypt) and modern session handling.
-- **Environment Variables:** Sensitive keys and credentials are safely excluded via `.gitignore` to prevent exposure.
+# 6. Run migrations (30+ relational migrations)
+php artisan migrate
 
-## 🤝 Contributing
-Contributions are what make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+# 7. Build frontend assets
+npm run build
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+# 8. Start development server
+php artisan serve
+```
+
+The app will be available at **http://localhost:8000**.
+
+> 💡 Windows users can also use the included `!!!start-server.bat` for automated startup.
+
+---
+
+## 🔐 Security Highlights
+
+- **CSRF Protection** active across all form endpoints
+- **Eloquent ORM** used throughout to prevent SQL injection
+- **Bcrypt** password hashing with secure session handling
+- **Environment Variables** — sensitive keys excluded via `.gitignore`
+- **Input Validation** on all user-submitted data
+
+---
+
+## 📁 Project Structure (simplified)
+
+```
+bikes-by-fazenda/
+├── app/
+│   ├── Http/Controllers/     # Application controllers
+│   ├── Models/               # Eloquent models
+│   └── Policies/             # Authorization policies
+├── database/
+│   ├── migrations/           # 30+ schema migrations
+│   └── seeders/
+├── resources/
+│   ├── views/                # Blade templates
+│   └── js/                   # Alpine.js & frontend logic
+├── routes/
+│   ├── web.php
+│   └── api.php
+└── public/
+```
+
+---
 
 ## 📄 License
-Distributed under the MIT License. See the `LICENSE` file for more information (if included).
+
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more information.
+
 ---
+
+<div align="center">
+  <sub>Built with ❤️ as an academic project · Laravel 11 · PHP 8.2+</sub>
+</div>
