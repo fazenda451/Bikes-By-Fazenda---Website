@@ -144,12 +144,4 @@ Contributions are what make the open-source community an amazing place to learn,
 
 ## 📄 License
 Distributed under the MIT License. See the `LICENSE` file for more information (if included).
-
-## 📬 Contact & Support
-**Bikes By Fazenda**
-- 📧 Email: [website@bikesbyfazenda.pt](mailto:website@bikesbyfazenda.pt)
-- 🌐 Website: [www.bikesbyfazenda.pt](https://www.bikesbyfazenda.pt)
-- 💻 GitHub: [fazenda451/Bikes-By-Fazenda---Website](https://github.com/fazenda451/Bikes-By-Fazenda---Website)
-
 ---
-*Built with ❤️ in Portugal.*
