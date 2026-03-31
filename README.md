@@ -1,249 +1,155 @@
-# Bikes By Fazenda - Website
+<div align="center">
+  <h1>🏍️ Bikes By Fazenda - E-Commerce Platform</h1>
+  <p>A comprehensive motorcycle and accessories e-commerce web application built with Laravel 11.</p>
 
-## Sobre o Projecto
+  <!-- Badges -->
+  <p>
+    <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 11" />
+    <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+" />
+    <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
+    <img src="https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white" alt="Alpine.js" />
+    <img src="https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white" alt="Stripe" />
+  </p>
+</div>
 
-O Bikes By Fazenda é uma plataforma de comércio electrónico especializada em Motas e produtos relacionados, desenvolvida para oferecer uma experiência de compra completa para entusiastas de motos em Portugal. O website permite aos utilizadores navegar por um catálogo detalhado de Motas e produtos, adicionar artigos ao carrinho, efectuar pagamentos seguros e acompanhar as suas encomendas.
+<br/>
 
-## Funcionalidades Principais
+## 📖 About the Project
 
-### Para Clientes
-- **Catálogo de Motas**: Navegação e filtragem por diversas categorias e especificações técnicas
-- **Catálogo de Produtos**: Acessórios e peças para Motas
-- **Carrinho de Compras**: Adição de produtos e Motas, actualização de quantidades
-- **Sistema de Pagamento**: Integração com Stripe para processamento seguro de pagamentos
-- **Lista de Desejos**: Guardar produtos favoritos para compra futura
-- **Sistema de Pontos**: Programa de fidelização com pontos por compras
-- **Perfil de Utilizador**: Gestão de informações pessoais e histórico de encomendas
-- **Autenticação**: Registo, início de sessão e verificação de email
+**Bikes By Fazenda** is a fully functional, end-to-end e-commerce platform specifically designed for motorcycle enthusiasts in Portugal. The application provides a seamless shopping experience, allowing users to browse a deeply detailed catalog of motorcycles and related products, manage their carts, securely process payments, and track their orders.
 
-### Para Administradores
-- **Painel Administrativo**: Visão geral das vendas, utilizadores e produtos
-- **Gestão de Produtos**: Adição, edição e remoção de produtos com sistema de avaliações
-- **Gestão de Motas**: Registo detalhado com especificações técnicas completas
-- **Gestão de Categorias**: Organização de produtos e Motas
-- **Gestão de Marcas**: Registo e gestão de marcas
-- **Gestão de Encomendas**: Acompanhamento e actualização do estado das encomendas
-- **Relatórios e Facturas**: Geração de relatórios e facturas em PDF
-- **Sistema de Notificações**: Alertas automáticos por email
+## ✨ Key Features
 
-## Especificações Técnicas
+### 🛒 For Customers
+- **Extensive Catalogs:** Advanced browsing and filtering for motorcycles (with deep technical specs) and accessories.
+- **Shopping Cart & Checkout:** Seamless product and motorcycle cart additions.
+- **Secure Payments:** Full integration with the Stripe API for safe transactions.
+- **Wishlist Management:** Save favorite motorcycles and products for future purchases.
+- **Loyalty Program:** Earn and spend reward points during purchases.
+- **User Dashboard:** Comprehensive profile, order history, and point management.
+- **Authentication:** Registration, login, password reset, and rigorous email verification.
 
-### Motas
-O sistema permite o registo detalhado de Motas com informações técnicas como:
-- **Motor**: Tipo, cilindrada, potência, número de cilindros
-- **Transmissão**: Sistema de transmissão e embraiagem
-- **Sistemas**: Lubrificação, ignição e arranque
-- **Suspensão**: Dianteira e traseira com especificações
-- **Características**: Dimensões, peso, capacidade do depósito
-- **Requisitos**: Tipo de carta de condução necessária
-- **Galeria**: Múltiplas fotografias para Motas
+### 🛡️ For Administrators
+- **Comprehensive Dashboard:** Interactive reporting and analytics via Chart.js.
+- **Inventory Management:** Full CRUD capabilities for Products, Motorcycles, Categories, and Brands.
+- **Deep Motorcycle Specs:** Manage precise technical details (engine, transmission, suspension, mechanics, required licenses).
+- **Order Processing:** Track and dynamically update order/shipping statuses.
+- **Invoice & Reporting:** Automatic generation of PDF invoices and detailed sales reports.
+- **Review Moderation:** Oversee and manage customer product ratings and reviews.
+- **Notification System:** Automated email alerts and interactive UI popups powered by Toastr/Flasher.
 
-### Tecnologias Utilizadas
-- **Backend**: Laravel 11 (PHP 8.2+)
-- **Frontend**: Blade Templates, TailwindCSS, JavaScript
-- **Base de Dados**: MySQL
-- **Processamento de Pagamentos**: Stripe
-- **Notificações**: Flasher (Toastr), Sistema de Email
-- **Relatórios**: DomPDF
-- **Autenticação**: Laravel Breeze
-- **Upload de Ficheiros**: Sistema de gestão de imagens
+## 🧰 Tech Stack
 
-## Instalação e Configuração
+### Backend
+- **Framework:** Laravel 11 (PHP 8.2+)
+- **Database:** MySQL 8.0+
+- **Authentication:** Laravel Breeze
+- **PDF Generation:** barryvdh/laravel-dompdf
+- **Payment Gateway:** Stripe PHP SDK
 
-### Requisitos Mínimos
-- **PHP**: 8.2 ou superior
-- **Composer**: Para gestão de dependências PHP
-- **Node.js**: 18+ e NPM
-- **MySQL**: 8.0 ou superior
-- **Extensões PHP**: OpenSSL, PDO, Mbstring, Tokenizer, XML, Ctype, JSON, BCMath, Fileinfo, GD
+### Frontend
+- **Templating:** Blade Templates
+- **Styling:** Tailwind CSS 3
+- **Interactivity:** Alpine.js & Vanilla JavaScript
+- **Charting:** Chart.js
+- **Notifications:** PHP Flasher
+- **Asset Bundling:** Vite
 
-### Passos para Instalação
+## 🚀 Getting Started
 
-1. **Clonar o repositório:**
-```bash
-git clone https://github.com/fazenda451/Bikes-By-Fazenda---Website.git
-cd Bikes-By-Fazenda---Website
-```
+Follow these instructions to set up the project locally.
 
-2. **Instalar dependências PHP:**
-```bash
-composer install
-```
+### Prerequisites
+Make sure you have the following installed on your machine:
+- **PHP 8.2+** (with OpenSSL, PDO, Mbstring, Tokenizer, XML, Ctype, JSON, BCMath, Fileinfo, GD extensions)
+- **Composer**
+- **Node.js (v18+) & NPM**
+- **MySQL 8.0+**
+- **Stripe Account** (for local payment processing)
 
-3. **Instalar dependências JavaScript:**
-```bash
-npm install
-```
+### Installation Guide
 
-4. **Configurar ambiente:**
-```bash
-cp .env.example .env
-```
-
-5. **Configurar o ficheiro .env com as suas credenciais:**
-   - Base de dados (DB_DATABASE, DB_USERNAME, DB_PASSWORD)
-   - Chaves Stripe (STRIPE_KEY, STRIPE_SECRET)
-   - Configurações de email (MAIL_*)
-
-6. **Gerar chave da aplicação:**
-```bash
-php artisan key:generate
-```
-
-7. **Executar migrações:**
-```bash
-php artisan migrate
-```
-
-8. **Compilar assets (opcional):**
-```bash
-# Para desenvolvimento
-npm run dev
-
-# Para produção
-npm run build
-```
-**Nota**: Os assets já estão compilados no repositório para funcionamento imediato.
-
-9. **Iniciar servidor:**
-```bash
-php artisan serve
-```
-
-O website estará disponível em `http://localhost:8000`
-
-### Configuração de Produção
-
-Para ambientes de produção, recomenda-se:
-- Configurar um servidor web (Apache/Nginx)
-- Usar `npm run build` para assets optimizados
-- Configurar SSL/HTTPS
-- Configurar backups automáticos da base de dados
-- Usar filas para processamento de emails (`php artisan queue:work`)
-
-## Estrutura do Projecto
-
-### Modelos Principais
-- **User**: Gestão de utilizadores, autenticação e pontos de fidelização
-- **Motorcycle**: Registo detalhado de Motas com especificações técnicas
-- **Product**: Produtos, acessórios e sistema de avaliações
-- **Cart**: Carrinho de compras com suporte a produtos e Motas
-- **Order**: Encomendas, estado de entrega e facturação
-- **Wishlist**: Lista de desejos dos utilizadores
-- **Brand**: Marcas de Motas e produtos
-- **Category**: Categorias hierárquicas de produtos
-
-### Controladores Principais
-- **HomeController**: Funcionalidades do frontend (catálogos, carrinho, perfil)
-- **AdminController**: Painel administrativo completo
-- **ContactController**: Sistema de contactos
-- **ProfileController**: Gestão de perfis de utilizador
-
-## Segurança e Boas Práticas
-
-### Ficheiros Excluídos (.gitignore)
-Por motivos de segurança e performance, os seguintes ficheiros **não** estão incluídos no repositório:
-- **`.env`**: Configurações sensíveis (senhas, chaves API)
-- **`vendor/`**: Dependências PHP (geradas com `composer install`)
-- **`node_modules/`**: Dependências JavaScript (geradas com `npm install`)
-- **Ficheiros de cache e logs**: Gerados automaticamente pelo Laravel
-- **Ficheiros de base de dados**: `.frm`, `.ibd` (específicos de cada instalação)
-
-### Medidas de Segurança Implementadas
-- ✅ Protecção CSRF em todos os formulários
-- ✅ Validação e sanitização de dados de entrada
-- ✅ Autenticação segura com hash de senhas
-- ✅ Protecção contra injecção SQL (Eloquent ORM)
-- ✅ Upload seguro de ficheiros com validação
-- ✅ Middleware de autenticação e autorização
-
-## Funcionalidades Especiais
-
-### Sistema de Pontos de Fidelização
-- Acumulação de pontos por compras
-- Utilização de pontos como desconto
-- Histórico detalhado de pontos
-
-### Sistema de Avaliações
-- Avaliação de produtos por estrelas
-- Comentários de utilizadores
-- Cálculo automático de média de avaliações
-
-### Gestão de Encomendas
-- Estados personalizados de encomenda
-- Notificações automáticas por email
-- Geração de facturas em PDF
-- Métodos de entrega configuráveis
-
-## Contribuição
-
-Para contribuir com o projecto:
-
-1. Faça um fork do projecto
-2. Crie uma branch para a sua funcionalidade:
+1. **Clone the repository**
    ```bash
-   git checkout -b funcionalidade/nova-funcionalidade
+   git clone https://github.com/fazenda451/Bikes-By-Fazenda---Website.git
+   cd Bikes-By-Fazenda---Website
    ```
-3. Faça commit das suas alterações:
+
+2. **Install PHP dependencies**
    ```bash
-   git commit -m 'Adiciona nova funcionalidade'
+   composer install
    ```
-4. Faça push para a branch:
+
+3. **Install NPM dependencies**
    ```bash
-   git push origin funcionalidade/nova-funcionalidade
+   npm install
    ```
-5. Abra um Pull Request
 
-### Padrões de Código
-- Siga as convenções do Laravel
-- Use nomes descritivos para variáveis e funções
-- Comente código complexo
-- Teste as funcionalidades antes de submeter
+4. **Environment Setup**
+   ```bash
+   cp .env.example .env
+   ```
+   Open the `.env` file and configure your local database credentials, Stripe keys, and Mail configurations:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=bikes_fazenda
+   DB_USERNAME=root
+   DB_PASSWORD=
 
-## Resolução de Problemas
+   STRIPE_KEY=your_stripe_public_key
+   STRIPE_SECRET=your_stripe_secret_key
+   ```
 
-### Problemas Comuns
+5. **Generate Application Key**
+   ```bash
+   php artisan key:generate
+   ```
 
-**Erro de permissões:**
-```bash
-sudo chown -R www-data:www-data storage/
-sudo chmod -R 775 storage/
-```
+6. **Run Database Migrations**
+   *(Note: This project contains over 30 complex migrations defining relational data).*
+   ```bash
+   php artisan migrate
+   ```
 
-**Erro de chave da aplicação:**
-```bash
-php artisan key:generate
-```
+7. **Compile Frontend Assets**
+   ```bash
+   npm run build
+   ```
+   *(For development with Hot Module Replacement, you can use `npm run dev`)*
 
-**Assets não carregam:**
-```bash
-npm run build
-php artisan config:clear
-```
+8. **Start the Development Server**
+   ```bash
+   php artisan serve
+   ```
+   
+   The application will be accessible at `http://localhost:8000`. You can also use the included Windows batch files (`!!!start-server.bat`) for immediate automated bootup.
 
-**Problemas de base de dados:**
-```bash
-php artisan migrate:fresh
-php artisan config:clear
-```
+## 🔐 Security & Best Practices
+- **Data Protection:** Form inputs are strictly validated. CSRF protection is active across all endpoints.
+- **SQL Injection Prevention:** Eloquent ORM is heavily utilized to safely parameterize database queries.
+- **Authentication:** Secure password hashing (Bcrypt) and modern session handling.
+- **Environment Variables:** Sensitive keys and credentials are safely excluded via `.gitignore` to prevent exposure.
 
-## Licença
+## 🤝 Contributing
+Contributions are what make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Este projecto está licenciado sob a licença MIT - consulte o ficheiro LICENSE para mais detalhes.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Contacto e Suporte
+## 📄 License
+Distributed under the MIT License. See the `LICENSE` file for more information (if included).
 
+## 📬 Contact & Support
 **Bikes By Fazenda**
 - 📧 Email: [website@bikesbyfazenda.pt](mailto:website@bikesbyfazenda.pt)
 - 🌐 Website: [www.bikesbyfazenda.pt](https://www.bikesbyfazenda.pt)
-- 📱 GitHub: [https://github.com/fazenda451/Bikes-By-Fazenda---Website](https://github.com/fazenda451/Bikes-By-Fazenda---Website)
+- 💻 GitHub: [fazenda451/Bikes-By-Fazenda---Website](https://github.com/fazenda451/Bikes-By-Fazenda---Website)
 
 ---
-
-### Estatísticas do Projecto
-- **32 Migrações** de base de dados
-- **296 Imagens** de Motas
-- **241 Imagens** de produtos
-- **Múltiplos Modelos** com relações complexas
-- **Sistema Completo** de e-commerce
-
+*Built with ❤️ in Portugal.*
